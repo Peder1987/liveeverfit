@@ -1,0 +1,23 @@
+
+<div ng-controller="NavCtrl">
+
+
+	<div ng-if="token === null">
+
+		<div ng-include src="'navbar/loggedoutNavBar.html'"></div> 
+	   
+	</div>
+	<div ng-if="token != null">
+
+		<div ng-include src="'navbar/loggedinNavBar.html'"></div> 
+	  
+	</div>
+
+
+</div> 
+
+
+
+
+
+

@@ -1,0 +1,32 @@
+<html>
+
+<head>
+    <link rel="shortcut icon" href="common/img/favicon.ico" type="image/icon"/>
+    <link rel="stylesheet" href="common/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="common/css/style.css">
+    <title>Toolbox</title>
+</head>
+
+
+
+<body>
+
+    <div ng-controller="NavCtrl">
+      <div ng-include="templateNav.url"></div> 
+    </div> 
+
+
+    <div>
+      <div ui-view></div>        
+    </div> 
+    
+
+    <footer class="footer">
+    </footer>
+
+
+<script src="common/require/require.js" data-main="main.js"></script>
+</body>
+
+</html>
+
