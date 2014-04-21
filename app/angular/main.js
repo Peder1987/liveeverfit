@@ -33,10 +33,10 @@
 
 require.config({
 
-    baseUrl : " ",
+    baseUrl : "",
     
     paths: {
-        'angular': 'common/angular/angular',
+        'angular': 'common/angular/angular.min',
         'angularLocalStorage' :'common/angular-local-storage/angular-local-storage',
         'angularResource' :'common/angular-resource/angular-resource.min',
         'angularAMD': 'common/angularAMD/angularAMD',
