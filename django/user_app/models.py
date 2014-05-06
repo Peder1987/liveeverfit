@@ -38,6 +38,7 @@ class CustomUserManager(BaseUserManager):
         return u
 
 
+
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     """
     A fully featured User model with admin-compliant permissions that uses
@@ -45,34 +46,48 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     Email and password are required. Other fields are optional.
     """
-    id = models.AutoField(primary_key=True, db_index=True)
-    email = models.EmailField(_('email address'), max_length=50, unique=True)
-
+    email = models.EmailField(_('email address'), max_length=50, unique=True, db_index=True, )
+    #username = models.CharField(_('username'), max_length=50, blank=True)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
- 
+    #custom fields
+    TIER_CHOICES = (
+        (1, 'Tier 1'),
+        (2, 'Tier 2'),
+        (3, 'Tier 3'),
+        (4, 'Tier 4'),
+        (5, 'Tier 5'),
+        (6, 'Grandfather Trainer'),
+        (7, 'Professional'),
+    )
+    tier = models.IntegerField(_('tier'), max_length=1, blank=True, choices=TIER_CHOICES, default=1, null=True)
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
     )
     gender = models.CharField(_('gender'), max_length=1, blank=True, choices=GENDER_CHOICES)
-
+    location = models.CharField(_('location'), max_length=100, blank=True)
     twitter = models.CharField(_('twitter'), max_length=100, blank=True)
     facebook = models.CharField(_('facebook'), max_length=100, blank=True)
     instagram = models.CharField(_('instagram'), max_length=100, blank=True)
     youtube = models.CharField(_('youtube'), max_length=100, blank=True)
     linkedin = models.CharField(_('linkedin'), max_length=100, blank=True)
     plus = models.CharField(_('plus'), max_length=100, blank=True)
+    lat = models.CharField(_('latitude'), max_length=30, blank=True)
+    lng = models.CharField(_('longitude'), max_length=30, blank=True)
     url = models.CharField(_('url'), max_length=100, blank=True)
     #Image field requires the lib pillow
-    img = models.ImageField(_('image'), upload_to="users", blank=True, default='default-pic.svg')
+    img = models.ImageField(_('image'), upload_to="trainers", blank=True, default='default-profile.svg')
     bio = models.CharField(_('biography'), max_length=5000, blank=True)
-    #referred_by = models.ForeignKey('ExampleUser', null=True, related_name='user_reference', blank=True)
-    
-    #primary_address = models.OneToOneField('Address', null=True, blank=True, on_delete=models.SET_NULL, related_name='owner')
-    phone = models.CharField(_('phone'), max_length=10, blank=True, null=True, default='')
-    
+    referred_by = models.ForeignKey('Professional', null=True, related_name='user_reference', blank=True)
+    shopify_id = models.IntegerField(default=0)
+    chargify_id = models.IntegerField(default=0)
+    stripe_id = models.CharField(max_length=50, blank=True, default='')
 
+    phone = models.CharField(max_length=20, blank=True, default='')
+    connection = models.ForeignKey('Professional', null=True, related_name='user_connections', blank=True)
+
+    primary_address = models.OneToOneField('Address', null=True, blank=True, on_delete=models.SET_NULL, related_name='owner')
     is_upgraded = models.BooleanField(_('is upgraded'), default=False)
     is_staff = models.BooleanField(_('staff status'), default=False,
                                    help_text=_('Designates whether the user can log into this admin '
@@ -80,24 +95,34 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(_('active'), default=True,
                                     help_text=_('Designates whether this user should be treated as '
                                                 'active. Unselect this instead of deleting accounts.'))
-    
+    is_professional = models.BooleanField(_('is professional'), default=False)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     objects = CustomUserManager()
-    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-
-    @property
-    def username(self):
-        return getattr(self, self.USERNAME_FIELD)
 
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
 
+    def setup(self, password, referred_by):
+        self.attach_referral(referred_by)
+        self.create_primary_address()
+        errors = self.shopify_create(password)
+        self.save()
+        return errors
+
+
+    def setup_upgrade(self, password, referred_by):
+        self.attach_referral(referred_by)
+        self.create_primary_address()
+        errors = self.shopify_create(password)
+        self.is_upgraded = True
+        self.save()
+        return errors
+
     def get_absolute_url(self):
-        return "/accounts/profile/"
-        #return "/profile/view?id=%s" % urlquote(self.id)
+        return "/profile/view?id=%s" % urlquote(self.id)
 
     def get_full_name(self):
         """
@@ -114,9 +139,109 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         url = '/profile/view?id=%s' % (self.id)
         return url.strip()
 
+    def get_all_data(self):
+        return {'name': self.get_full_name(),
+                'gender': self.gender,
+                'location': self.location,
+                'lat': self.lat,
+                'lng': self.lng,
+                'url': self.get_url(),
+                'img': str(self.img),
+                'bio': self.bio,
+                'email': self.email,
+                'id': self.id,
+                'facebook': self.facebook,
+                'tier': self.tier,
+                'is_professional': self.is_professional,
+                'is_upgraded': self.is_upgraded,
+        }
+
+    def get_address(self):
+        # grabs primary address
+        return self.primary_address.to_dict()
+
     def email_user(self, subject, message, from_email=None):
-        """Sends an email to this User."""
+        """
+        Sends an email to this user.
+
+        """
         send_mail(subject, message, from_email, [self.email])
+
+
+    def attach_referral(self, reference):
+        if not self.referred_by:
+            try:
+                prof = Professional.objects.get(email=reference)
+            except:
+                prof = Professional.objects.get(email='rory@heavenly-homes.com')
+
+            self.referred_by = prof
+            self.save()
+
+    def create_primary_address(self):
+        if not self.primary_address:
+            self.primary_address = Address.objects.empty_address()
+            self.save()
+
+    def make_professional(self):
+        if not self.is_professional:
+            extended_user = Professional(lefuser_ptr=self)
+            extended_user.__dict__.update(self.__dict__)
+            extended_user.is_upgraded = True
+            extended_user.is_professional = True
+            extended_user.save()
+        else:
+            self.is_upgraded = True
+            self.save()
+
+
+    def cancel_professional(self):
+        # this function is a accepted trainer who wants to downgrade
+
+        self.is_professional = False
+        self.is_upgraded = False
+        self.save()
+            
+    def delete_professional(self):
+        # this function is called to delete a professional
+        # who was not accepted
+        # so it returns them back to the tier they were at    
+        if self.tier == 6:
+            self.tier = 1
+            self.is_upgraded = False
+
+        self.is_professional = False
+        self.save()
+    
+            
+
+    def add_to_locations(self):
+        try:
+            UniqueLocation.objects.get(location= self.location)
+        except:
+            UniqueLocation(location= self.location).save()
+
+    # SHOPIFY FUNCTIONS
+    # made them easy for insertion to a abstract base class
+    shopify_create = shopify_call.customer_create
+    shopify_get = shopify_call.customer_get
+    shopify_edit = shopify_call.customer_edit
+    shopify_delete = shopify_call.customer_delete
+    shopify_orders = shopify_call.customer_orders
+    shopify_meta = shopify_call.customer_metafield
+
+    def get_shopify_id(self):
+        return self.shopify_id
+
+    # to keep things simplistic i kept functions in chargify_calls
+    # but all these functions relate to stripe
+    stripe_subscribe = chargify_calls.subscribe
+    stripe_get_create_customer = chargify_calls.get_create_customer
+    stripe_delete_customer= chargify_calls.delete_customer
+    stripe_edit_creditcard= chargify_calls.edit_creditcard
+    stripe_update_subscription= chargify_calls.update_subscription
+    stripe_cancel_subscription= chargify_calls.cancel_subscription
+    stripe_get_creditcard = chargify_calls.get_creditcard
 
 
 
