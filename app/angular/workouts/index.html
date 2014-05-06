@@ -1,0 +1,106 @@
+<div ng-controller="workoutsCtrl">
+    <div id="workouts">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-9">
+                    <h2 id="workoutsHeader" class="ef-header">workouts \\</h2>
+
+                    <div class="row">
+                        <div class="col-xs-10">
+                            <input id="search" type="text" class="search-query form-control"
+                                   placeholder="Example: Title, tags, etc..." name="pattern" value="">
+                        </div>
+                        <button id="searchButton" type="button" class="col-xs-2 btn btn-primary">
+                            search <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+
+
+                    <div class="page-header">
+                        <h2 class="entry-title">select your level of fitness...</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-space">
+                                <button class="col-xs-12 btn toggle beginner difficulties" id='beginner'><span
+                                        class="difficulty beginner"></span> beginner
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-space">
+                                <button class="col-xs-12 btn toggle intermediate difficulties" id='intermediate'><span
+                                        class="difficulty intermediate"></span> intermediate
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-space">
+                                <button class="col-xs-12 btn toggle advanced difficulties" id='advanced'><span
+                                        class="difficulty advanced"></span> advanced
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-header">
+                        <h2 class="entry-title">popular categories: </h2>
+                    </div>
+                    <p>
+                        {% if not tags %}
+                            No categories yet.
+                        {% else %}
+                            {% for tag in tags %}
+                                <a href="#workoutsHeader" class="tag tag-blue tag-click">{{ tag }}</a>
+                            {% endfor %}
+                        {% endif %}
+                    </p>
+
+                    <div id="videosWidget">
+                            <div class="page-header">
+                                <h2 class="entry-title">popular views: </h2>
+                            </div>
+                            
+                        
+                            <div class="col-xs-12 col-sm-4">
+                                <div class="ef-workout-video">
+                                    <a href="/workouts/video/{{ object.pk }}"><img src="/media/{{ object.img }}"/></a>
+                                </div>
+                                <a href="/workouts/video/{{ object.pk }}">
+                                    <div class="workout-title">
+                                        <span class="ellipsis">{{ object.title }}</span>
+                                        <span class="difficulty {{ object.difficulty }} pull-right"></span>
+                                    </div>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    <div>
+                        <a href="/f3-foods-home/">
+                            <img src="{{ STATIC_URL }}img/F3-sidebar-ad.png" class="center-block"/>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="/fitness-professionals/">
+                            <img style="margin-top: 40px;" src="{{ STATIC_URL }}img/find-a-pro-sidebar-ad.jpg"  class="center-block"/>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="http://store.liveeverfit.com">
+                            <img style="margin-top: 40px;" src="{{ STATIC_URL }}img/shop-sidebar-ad.png"  class="center-block"/>
+                        </a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+ 

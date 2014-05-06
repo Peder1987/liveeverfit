@@ -111,10 +111,7 @@
                                                 <p>
                                                     <div ng-controller="tagCtrl">
                                                         <div ng-repeat="tag in tags.results">
-                                                          Tag is: {{tag.email}}<br/>
-                                                          ID: {{tag.id}}<br/>
-                                                          Change Code:<input type="text" ng-model="tag.name"/><button type="submit" ng-click="save(tag)">Update</button>
-                                                          <button class="tag tag-blue tag-click">tag.name</button>
+                                                          <button class="tag tag-blue tag-click">{{tag.name}}</button>
                                                         </div>
                                                         
                                                     </div>
