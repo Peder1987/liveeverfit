@@ -11,7 +11,8 @@ from taggit.managers import TaggableManager
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from django.db.models.signals import post_save
-
+from shopify_app import shopify_call
+from chargify import chargify_calls
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -122,7 +123,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 @receiver(post_save, sender=CustomUser)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
-        Token.objects.create(user=instance)
+        Token.objects.get_or_create(user=instance)
 
 
 class AddressManager(models.Manager):
@@ -189,4 +190,97 @@ class Address(models.Model):
             'zip': self.zipcode, 'default': True, 'billing_address1': self.street_line1,
             'billing_address2': self.street_line2, 'phone': self.owner.phone, 'country': self.country, 'company': self.corporation
         }
+
+
+class UniqueLocation(models.Model):
+    location = models.CharField(max_length=100)
+    counter = models.IntegerField(default=0)
+
+    #Metadata
+    def __unicode__(self):
+        return self.location
+
+    def counter_loc(self):
+        return self.counter
+
+    def location_name(self):
+        return self.location
+
+    def get_all_data(self):
+        return {
+            'name': self.location_name(),
+            'counter': self.counter_loc()
+        }
+
+
+class certification(models.Model):
+    certification_name = models.CharField(_('certification name'), max_length=100, blank=True)
+    certification_number = models.CharField(_('cetification number'), max_length=100, blank=True)
+
+    def __unicode__(self):
+        return self.certification_name
+        
+
+
+class ProfessionalManager(models.Manager):
+    def create_prof(self, user):
+        extended_user = Professional(lefuser_ptr=user)
+        extended_user.__dict__.update(user.__dict__)
+        extended_user.is_active = False
+        extended_user.save()
+        return extended_user
+
+class Professional(CustomUser):
+    PROFESSIONAL_CHOICES = (
+        ('Nutritionist', 'Nutritionist'),
+        ('Trainer', 'Trainer'),
+        ('Promoter', 'Promoter'),
+    )
+    profession = models.CharField(_('profession'), max_length=30, blank=True, choices=PROFESSIONAL_CHOICES)
+    is_accepting = models.BooleanField(_('accepting'), default=False)
+
+    queue = models.BooleanField(_("queue"), default=True)
+    objects = ProfessionalManager()
+    tags = TaggableManager(blank=True, verbose_name = 'professional')
+
+    fitness_sales_experience = models.CharField(_('fitness sales experience'), max_length=100   , blank=True)
+    education = models.CharField(_('education'), max_length=30, blank=True)
+    group_fitness_experience = models.CharField(_('group fitness experience'), max_length=100, blank=True)
+    nutritionist_experience = models.CharField(_('nutritionist experience'), max_length=100, blank=True)
+    certified_nutritionist = models.BooleanField(_('certified nutritionist'), default=False)
+    certified_group_fitness = models.BooleanField(_('certified group fitness'), default=False)
+
+    certification_name1 = models.CharField(_('certification name 1'), max_length=100, blank=True)
+    certification_number1 = models.CharField(_('cetification number 1'), max_length=100, blank=True)
+    certification_name2 = models.CharField(_('certification name 2'), max_length=100, blank=True)
+    certification_number2 = models.CharField(_('cetification number 2'), max_length=100, blank=True)
+
+    shopify_sales = shopify_call.customer_sales_to_date
+
+    certifications = models.ManyToManyField(certification, related_name='certification_user', blank=True,null=True)
+
+    #Metadata
+    def __unicode__(self):
+        return self.email
+
+    def get_all_data(self):
+        data = super(Professional, self).get_all_data()
+        data['profession'] = self.profession
+        data['specialty'] = list(self.tags.names())
+        data['specialty_list'] = ','.join(self.tags.names())
+        data['is_accepting'] = self.is_accepting
+        return data
+
+    def get_shopify_id(self):
+        return self.shopify_id
+
+    def setup_professional(self, password, referred_by):
+        self.attach_referral(referred_by)
+        self.create_primary_address()
+        errors = self.shopify_create(password)
+        self.add_to_locations()
+        self.is_upgraded = True
+        self.is_professional = True
+        self.save()
+        return errors
 

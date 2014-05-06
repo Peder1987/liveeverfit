@@ -165,6 +165,8 @@ INSTALLED_APPS = (
     'rest_framework_swagger',
     'corsheaders',
     'taggit',
+    'shopify_app',
+    'chargify',
     # 'board',
     # 'registration',
     # 'ws4redis',
@@ -261,3 +263,17 @@ WEBSOCKET_URL = '/ws/'
 
 # Set the number of seconds each message shall persited
 WS4REDIS_EXPIRE = 3600
+
+import stripe
+
+stripe.api_key = 'sk_test_NRP2Hc10fIXIHA5gL0RYaEc5'
+
+
+SHOPIFY_API_KEY = '9832a7588f0038c5adedc3cf78a63d6d'
+SHOPIFY_API_PASSWORD = 'dcf4f581af6fbebc44fba62bce63abc3'
+SHOPIFY_API_SECRET = 'bd59800006bed1e30c95a834ae4b92a1'
+SHOPIFY_STORE = "https://9832a7588f0038c5adedc3cf78a63d6d:dcf4f581af6fbebc44fba62bce63abc3@lef-store.myshopify.com/admin"
+SHOPIFY_API_SCOPE = ["write_products", "write_products", "write_customers"]
+
+CHARGIFY_SUBDOMAIN = "shopify-lef-store"
+CHARGIFY_API_KEY = "A1KbX8aEd9JgR4MEWCwX"
