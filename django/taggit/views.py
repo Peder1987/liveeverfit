@@ -6,6 +6,11 @@ from django.views.generic.list import ListView
 
 from taggit.models import TaggedItem, Tag
 
+from rest_framework import viewsets, status, filters
+from rest_framework.response import Response
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics
 
 def tagged_object_list(request, slug, queryset, **kwargs):
     if callable(queryset):
@@ -19,3 +24,11 @@ def tagged_object_list(request, slug, queryset, **kwargs):
     kwargs["extra_context"]["tag"] = tag
     return ListView.as_view(request, qs, **kwargs)
 
+
+
+
+class TagViewSet(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    model = Tag
+    
+    
