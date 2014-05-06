@@ -1,15 +1,11 @@
-<div class="jumbotron">
-
-  <h1>fitness professional \\</h1>
-  <p class="lead">
-    
-  </p>
-
-<div class="sidebar">
+<div class="row">
+  <div class="col-md-5">
+  </div>
+  <div class="col-md-7">
+    <h1>fitness professional \\</h1>
+    <div class="sidebar">
             <div class="sidebar-bg">
                 <div class="search-filters">
-
-                    <h2 class="ef-header">fitness professional \\</h2>
 
                     <div class="form" role="form">
                         <div class="row">
@@ -19,9 +15,11 @@
                                     <div class="row">
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="form-space">
-                                                <button id="Trainer" type="button" class="col-xs-12 btn toggle proffesional">
+                                                <input type="button" ng-model="my.favorite" ng-value="name" name="favorite" ng-click="filter()"/>
+                                                <button id="Trainer" ng-model="Trainers" type="button" class="col-xs-12 btn toggle proffesional" ng-model="" ng-click="filter()" >
                                                     <span class="glyphicon glyphicon-user"></span> Trainers
                                                 </button>
+                                                <div>You chose {{my.favorite}}</div>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
@@ -132,28 +130,27 @@
                 </div><!-- /.search-filters -->
 
                 <div id="trainer-results">
-                      <div ng-controller="fitness-professionalCtrl">
                           <div ng-repeat="professional in professionals.results">
                               <div class="col-sm-6 col-md-4">
                                   <div class="thumbnail">
                                     <img src="/media/"/>
                                     <div class="caption">
-                                        Email is: {{professional.email}}<br/>
-                                        ID: {{professional.id}}<br/>
+                                        {{professional.first_name}}{{professional.last_name}}<br/>
                                         Accepting Clients: {{professional.is_accepting}}<br/>
                                         Biography: {{professional.bio}}<br/>
-                                        Change Code:<input type="text" ng-model="professional.email"/><button type="submit" ng-click="save(professional)">Update</button>
                                     </div>
                                   </div>
                               </div>
                           </div>
-                          
-                      </div>
-
                 </div><!-- /.trainer-results -->
+            
             </div>
     </div><!-- /.sidebar-->
-    
-
-
+  </div>
 </div>
+
+
+
+
+
+
