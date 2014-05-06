@@ -12,6 +12,8 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 
+from taggit.serializers import TagSerializer
+
 def tagged_object_list(request, slug, queryset, **kwargs):
     if callable(queryset):
         queryset = queryset()
@@ -30,5 +32,4 @@ def tagged_object_list(request, slug, queryset, **kwargs):
 class TagViewSet(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     model = Tag
-    
-    
+    serializer = TagSerializer
