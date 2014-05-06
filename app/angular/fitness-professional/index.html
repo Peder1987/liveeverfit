@@ -5,25 +5,155 @@
     
   </p>
 
+<div class="sidebar">
+            <div class="sidebar-bg">
+                <div class="search-filters">
 
+                    <h2 class="ef-header">fitness professional \\</h2>
 
-  <h3> Controller Example 4: Get Restful</h3>
-  <div ng-controller="fitness-professionalCtrl">
-    <div ng-repeat="professional in professionals.results">
-      Title is: {{professional.email}}<br/>
-      ID: {{professional.id}}<br/>
-      Change Code:<input type="text" ng-model="professional.email"/><button type="submit" ng-click="save(professional)">Update</button>
-    </div>
-    <div>
-      <br>
-      Add New: <br/>
-      Title:<input type="text" ng-model="newProfessional.title"/>
-      Code:<input type="text" ng-model="newProfessional.code"/>
-      <button type="submit" ng-click="add()">Add</button>
-    </div>
-  </div>
+                    <div class="form" role="form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Type</label>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                            <div class="form-space">
+                                                <button id="Trainer" type="button" class="col-xs-12 btn toggle proffesional">
+                                                    <span class="glyphicon glyphicon-user"></span> Trainers
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                            <div class="form-space">
+                                                <button id="Nutritionist" type="button" class="col-xs-12 btn toggle proffesional">
+                                                    <span class="glyphicon glyphicon-tree-deciduous"></span> Nutritionists
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Location</label>
+                                    <div class="row">
+                                        <div class="col-sm-8 col-md-12 col-lg-8">
+                                            <div class="form-space">
+                                                <input id="location" type="text" class="form-control" placeholder="Example: Houston, TX" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 col-md-12 col-lg-4">
+                                            <div class="form-space">
+                                                <button id="findMe" type="button" class="col-xs-12 btn btn-primary">
+                                                    <span class="glyphicon glyphicon-map-marker"></span> Find Me
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-4 col-md-6 col-lg-4">
+                                            <div class="form-space">
+                                                <button id="M" type="button" class="col-xs-12 btn toggle gender">Male</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-4 col-md-6 col-lg-4">
+                                            <div class="form-space">
+                                                <button id="F" type="button" class="col-xs-12 btn toggle gender">Female</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Accepting Clients</label>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-space">
+                                                <select id="accepting" type="text" class="form-control">
+                                                    <option value="both"></option>
+                                                    <option value="true">Yes</option>
+                                                    <option value="false">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Specialties</label>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-space">
+                                                <input id="specialties" type="text" class="form-control" placeholder="Example: Crossfit, Nutrition" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Popular Specialties</label>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-space">
+                                                <p>
+                                                    <div ng-controller="tagCtrl">
+                                                        <div ng-repeat="tag in tags.results">
+                                                          Tag is: {{tag.email}}<br/>
+                                                          ID: {{tag.id}}<br/>
+                                                          Change Code:<input type="text" ng-model="tag.name"/><button type="submit" ng-click="save(tag)">Update</button>
+                                                          <button class="tag tag-blue tag-click">tag.name</button>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.search-filters -->
+
+                <div id="trainer-results">
+                      <div ng-controller="fitness-professionalCtrl">
+                          <div ng-repeat="professional in professionals.results">
+                              <div class="col-sm-6 col-md-4">
+                                  <div class="thumbnail">
+                                    <img src="/media/"/>
+                                    <div class="caption">
+                                        Email is: {{professional.email}}<br/>
+                                        ID: {{professional.id}}<br/>
+                                        Accepting Clients: {{professional.is_accepting}}<br/>
+                                        Biography: {{professional.bio}}<br/>
+                                        Change Code:<input type="text" ng-model="professional.email"/><button type="submit" ng-click="save(professional)">Update</button>
+                                    </div>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                      </div>
+
+                </div><!-- /.trainer-results -->
+            </div>
+    </div><!-- /.sidebar-->
+    
 
 
 </div>
-
-
