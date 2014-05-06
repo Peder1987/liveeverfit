@@ -44,6 +44,8 @@ define(['app'], function(app) {
                 $scope.checkTokenError();
             });
         }
+        
+     }]);
 
 
     return app;    
