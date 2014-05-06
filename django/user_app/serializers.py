@@ -1,8 +1,11 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+
 from rest_framework import serializers
+
 User = get_user_model()
+
 
 
 
@@ -10,9 +13,10 @@ class UserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(source='id', required=True)  
     first_name = serializers.CharField(source='first_name', required=False)
     last_name = serializers.CharField(source='last_name', required=False)
-    email = serializers.EmailField(source='email', required=False)    
+    email = serializers.EmailField(source='email', required=False)
     #auth_token = serializers.CharField(read_only=True)
-    last_login_on = serializers.DateTimeField(source='last_login',read_only=True)
+    last_login_on = serializers.DateTimeField(source='last_login',
+                                              read_only=True)
     joined_on = serializers.DateTimeField(source='date_joined', read_only=True)
 
     class Meta:
@@ -41,6 +45,3 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 
 class EndPointSerializer(serializers.Serializer):
     data = UserSerializer()
-
-
-    

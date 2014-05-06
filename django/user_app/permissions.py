@@ -1,7 +1,6 @@
 from rest_framework.permissions import IsAdminUser
 
 
-
 class IsAdminOrSelf(IsAdminUser):
     """
     Allow access to admin users or the user himself.

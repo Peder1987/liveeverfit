@@ -16,7 +16,7 @@ class TokenExpirationTest(APITestCase):
     def setUp(self):
         self.expires_days = getattr(settings, 'TOKEN_EXPIRE_DAYS', 14)
         self.User = User
-        self.user = User.objects.create_user('Bob@gmail.com', 'password')
+        self.user = User.objects.create_user('bob@gmail.com', 'password')
         self.authtoken = self.user.auth_token
         self.Authentication = ExpiringTokenAuthentication()
         self.c = APIClient()

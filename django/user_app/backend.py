@@ -2,8 +2,6 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-
-
 class CustomBackend(object):
     def authenticate(self, username=None, password=None):
         kwargs = {'email': username}

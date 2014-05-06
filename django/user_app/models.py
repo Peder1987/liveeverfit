@@ -13,7 +13,6 @@ from rest_framework.authtoken.models import Token
 from django.db.models.signals import post_save
 
 
-
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         now = timezone.now()
@@ -38,7 +37,6 @@ class CustomUserManager(BaseUserManager):
         return u
 
 
-
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     """
     A fully featured User model with admin-compliant permissions that uses
@@ -48,9 +46,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     """
     id = models.AutoField(primary_key=True, db_index=True)
     email = models.EmailField(_('email address'), max_length=50, unique=True)
+
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
-    phone = models.CharField(_('phone'), max_length=10, blank=True, null=True, default='')
  
     GENDER_CHOICES = (
         ('M', 'Male'),
@@ -65,12 +63,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     linkedin = models.CharField(_('linkedin'), max_length=100, blank=True)
     plus = models.CharField(_('plus'), max_length=100, blank=True)
     url = models.CharField(_('url'), max_length=100, blank=True)
-    
     #Image field requires the lib pillow
     img = models.ImageField(_('image'), upload_to="users", blank=True, default='default-pic.svg')
     bio = models.CharField(_('biography'), max_length=5000, blank=True)
-    # referred_by = models.ForeignKey('ExampleUser', null=True, related_name='user_reference', blank=True)
+    referred_by = models.ForeignKey('ExampleUser', null=True, related_name='user_reference', blank=True)
+    
     #primary_address = models.OneToOneField('Address', null=True, blank=True, on_delete=models.SET_NULL, related_name='owner')
+    phone = models.CharField(_('phone'), max_length=10, blank=True, null=True, default='')
     
 
     is_upgraded = models.BooleanField(_('is upgraded'), default=False)
@@ -97,10 +96,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def get_absolute_url(self):
         return "/accounts/profile/"
-
-    def get_url(self):
-        url = '/profile/view?id=%s' % (self.id)
-        return url.strip()
+        #return "/profile/view?id=%s" % urlquote(self.id)
 
     def get_full_name(self):
         """
@@ -113,9 +109,24 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         "Returns the short name for the user."
         return self.first_name
 
+    def get_url(self):
+        url = '/profile/view?id=%s' % (self.id)
+        return url.strip()
+
     def email_user(self, subject, message, from_email=None):
         """Sends an email to this User."""
         send_mail(subject, message, from_email, [self.email])
+
+    def make_ExampleUser(self):
+        if not self.is_ExampleUser:
+            extended_user = ExampleUser(CustomUser_ptr=self)
+            extended_user.__dict__.update(self.__dict__)
+            extended_user.is_upgraded = True
+            extended_user.is_ExampleUser = True
+            extended_user.save()
+        else:
+            self.is_upgraded = True
+            self.save()
 
 
 
@@ -123,6 +134,41 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+
+
+class ExampleUserManager(CustomUserManager):
+    def example_create_user(self, user):
+        extended_user = ExampleUser(CustomUser_ptr=user)
+        extended_user.__dict__.update(user.__dict__)
+        extended_user.is_active = False
+        extended_user.save()
+        return extended_user
+        
+
+class ExampleUser(CustomUser):
+    """
+    This is an example user that subclasses from CustomUser
+    """
+    ExampleUser_CHOICES = (
+        ('nutritionist', 'Nutritionist'), # first variable is what is put inside database
+        ('trainer', 'Trainer'),
+        ('promoter', 'Promoter'),
+    )
+    choices = models.CharField(_('choices'), max_length=30, blank=True, choices=ExampleUser_CHOICES)
+    is_accepting = models.BooleanField(_('accepting'), default=False)
+
+    #Metadata
+    def __unicode__(self):
+        return self.email
+
+    def get_all_data(self):
+        """
+
+        """
+        data = super(ExampleUser, self).get_all_data()
+        data['custom_data'] = self.choices
+        return data
+
 
 
 
@@ -135,11 +181,11 @@ class AddressManager(models.Manager):
     def get_primary(self):
         pass
 
-
-
 class Address(models.Model):
     """
     Standard Address Model:
+
+    
     If needing in a specific format such as street_line1 should billing_street_line1
     write a custom function to deliver your data specified
     Typically custom functions used for using a 3rd party API such as Stripe or Shopify

@@ -1,11 +1,35 @@
-<div class="jumbotron">
-  <h1>Contact Us</h1>
+<div class="container">
+	<div class="col-md-7">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+		    	<h3>Contact Us</h3>
+			</div>
+			<div class="panel-body">
+		  		<form class="form-horizontal" action="#" method="post">
+					<label for="Name">
+			        	Name:
+			        </label>
+			        <input type="text" class="form-control" name="firstName" id="Name" placeholder="Name" ng-model="user.first_name" required>
 
-  <p class="lead">
-    Bacon ipsum dolor sit amet drumstick short ribs brisket ball tip salami, short loin doner turkey strip steak chuck spare ribs. Fatback capicola tri-tip flank, doner beef ribs frankfurter pig. Boudin pastrami sirloin pork loin jerky porchetta short loin pancetta ground round. Beef venison prosciutto, pig pastrami strip steak salami pork loin. Shankle jerky tenderloin kielbasa, ribeye flank sausage biltong doner.
-    <br>
-    Kielbasa pork loin jowl shankle frankfurter, venison cow bresaola shank tenderloin brisket rump. Sirloin spare ribs pastrami salami, tenderloin frankfurter pancetta landjaeger. Pork prosciutto drumstick pancetta. Ham hock t-bone spare ribs kielbasa fatback doner meatball. Chuck cow jowl, kielbasa beef ribs salami beef. Bacon boudin drumstick meatball tenderloin short ribs flank jowl pastrami jerky doner. Turkey jowl sirloin rump beef beef ribs.
-  </p>
-  
+						<p></p>
+
+		            <label for="Email">
+			            Email:
+			        </label>
+			        <input type="email" class="form-control" name="email" id="email" placeholder="Email" ng-model="user.email" required>
+
+						<p></p>
+
+		            <label for="msg"><h7>Message:</h7></label>
+					<textarea type="text" class="form-control" name="msg" id="msg" placeholder="Write message" cols="20" rows="10" required></textarea>
+
+						<p></p>
+
+		            <button class="btn btn-default pull-right" type="submit">
+		            	Send
+		            </button>
+				</form>
+			</div>
+		</div>
+	</div>
  </div>
-

@@ -1,6 +1,8 @@
 'use strict';
 
 define(['app'], function(app) {
+
+	
         app.register.controller('registrationCtrl', ["localStorageService","$resource","$scope","rest",
     	function(localStorageService, $resource, $scope) {
 
@@ -22,6 +24,7 @@ define(['app'], function(app) {
 				$scope.authToken = AuthToken.save($scope.user, function() {
 					localStorageService.add('Authorization', 'Token ' + $scope.authToken.token);
 					localStorageService.add('rest_token', $scope.authToken.token);
+					localStorageService.add('user_id', $scope.authToken.id);
 					window.location = "/";
 				},function(error) {
 					$scope.message = error.data;

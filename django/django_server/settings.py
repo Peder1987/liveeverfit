@@ -37,7 +37,9 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }
 }
-
+NOSE_PLUGINS = [
+    'widgets.nose_plugins.SilenceSouth',
+]
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -162,8 +164,13 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'rest_framework_swagger',
     'corsheaders',
-    'websocketsredis',
-    
+    'taggit',
+    # 'board',
+    # 'registration',
+    # 'ws4redis',
+    # 'websocketsredis',
+    # 'chatserver',
+    # 'nbash',
 )
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -177,6 +184,11 @@ if TOKEN_EXPIRE:
 else:
     token_class = 'user_auth.authentication.TokenAuthentication'
 
+# In Debug mode, djangos browsable api will be activated (up for discussion)
+#  allowing developer to log in easily with email and password 
+auth_debug = ''
+if DEBUG:
+    auth_debug = 'user_auth.authentication.DebugAuthentication'    
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
@@ -193,6 +205,7 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.XMLParser',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        auth_debug,
         token_class,
     ),
     'DEFAULT_FILTER_BACKENDS': (

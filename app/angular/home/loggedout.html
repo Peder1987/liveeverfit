@@ -1,19 +1,78 @@
-<div id="cover">
-<!--<div class="container" style="margin-top: 80px;">
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="jumbotron">
-			  <h1>Under Construction</h1>
+<div class="container">
+	<div class="col-md-6">
+			<h1 class="this-is">This is a toolbox</h1>
+			<h2 class="use-it">Use it, is all you'rs</h2>
+			<i class="fa fa-cogs fa-4x fa-pos"></i>
+	</div>
+	<div class="col-md-6">
+		<div class="panel-body">
+			<h2>Join Us! it's free.</h2>
+        	<li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
+          		<form class="form-horizontal" role="form" ng-submit="submit()">
+		            <label for="inputFirstName">
+		              User Name:
+		            </label>
+		            <input type="text" class="form-control" name="firstName" id="firstName" placeholder="Pick a username" ng-model="user.first_name" required>
+		              <p></p>
+		            <label for="inputLastName">
+		              Name:
+		            </label>
+		            <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Write your name" ng-model="user.last_name" required>
+		              <p></p>
+		            <label for="inputEmail">
+		              Email:
+		            </label>
+		            <input type="email" class="form-control" name="email" id="email" placeholder="myname@domain.com" ng-model="user.email" required>
+		              <p></p>
+		            <label for="inputPassword">
+		              Password:
+		            </label>
+		            <input type="password" class="form-control" name="password" value="" id="password" placeholder="" ng-model="user.password" required>
 
-			  <p class="lead">
-			    Please checkout us out later...
+            		<hr></hr>
 
-			    Or take a look at our beta site <a href="http://beta.liveeverfit.com/">here.</a>
-			  </p>
-			  
+		            <button id="signin"type="submit" class="btn btn-default pull-right">
+		              Sign Up
+		            </button>
+          		</form>
+      	</div>
+    </div>
+</div>
+<div class="container">
+	<div class="col-md-9">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="page-header">
+						<h1>About Us</h1>
+					</div>
+						<div class="text-justify">
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. </p>
+
+							<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. </p>
+
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. </p>
+
+							<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. </p>
+						</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>-->
-</div>
-
+			<div class="col-md-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>Panel 1</h4>
+					</div>
+					<div class="panel-body">
+						<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis.</p>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>Panel 2</h4>
+					</div>
+					<div class="panel-body">
+						<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis.</p>
+					</div>
+				</div>
+			</div>
+</div> 

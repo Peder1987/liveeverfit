@@ -1,6 +1,6 @@
 {
-  "name": "LQ Angular",
-  "version": "1.0",
+  "name": "LQAngular",
+  "version": "1.0.0",
   "description": "RequireJS plugin for AngularJS",
   "keywords": [
     "angularjs",

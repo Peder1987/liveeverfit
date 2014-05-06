@@ -6,22 +6,16 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-
-    #Admin 
     url(r'^admin/', include(admin.site.urls)),
-
-    #My Apps
     url(r'^users', include('user_app.urls')),
     url(r'^accounts/', include('user_auth.urls')),
-
-    #Imported Apps
     url(r'^docs/', include('rest_framework_swagger.urls')),
 )
 
 
 if settings.DEBUG:
     urlpatterns = patterns('',
-    
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     #static
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
          {'document_root': settings.STATIC_ROOT}),

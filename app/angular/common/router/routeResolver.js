@@ -41,8 +41,8 @@ define(['angular'], function(ng) {
                 //extracts the last element of the path "app/about" -> 'about' 
                 // and assigns it a name aboutCtrl
                 getController = function(baseName){
-                    var array = baseName.split('/')
-                    var last_element = array.pop()
+                    var array = baseName.split('/'),
+                        last_element = array.pop();
                     return last_element + 'Ctrl';
                 };
 
@@ -51,7 +51,7 @@ define(['angular'], function(ng) {
                 getControllersPath: getControllersPath,
                 getPath: getPath,
                 getTemplateUrl: getTemplateUrl,
-                getController : getController,
+                getController : getController
             };
         }();
 

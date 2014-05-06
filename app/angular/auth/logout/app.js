@@ -7,6 +7,7 @@ define(['app'], function(app) {
 
         localStorageService.remove('Authorization');
         localStorageService.remove('rest_token');
+        localStorageService.remove('user_id');
         window.location = "/";
 
     }]);

@@ -1,61 +1,73 @@
-<div class="jumbotron">
-
-  <div class="row">
-    <div class="col-md-4"></div>
-
-    <div class="col-md-4">
+<div class="container">
+  <div class="col-md-7">
+    <div class="panel panel-default" ng-controller="registrationCtrl">
+      <div class="panel-heading">
         <h3>User Registration</h3>
-    </div>
-
-    <div class="col-md-4"></div>
-  </div>
-
-
-  <div class="row">
-    <div class="col-md-4"></div>
-
-    <div class="col-md-4" ng-controller="registrationCtrl">
+      </div>
+      <div class="panel-body">
         <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
-        <form class="form-horizontal" role="form" ng-submit="submit()">
-        <div class="form-group">
-          <label for="inputFirstName" class="col-sm-2 control-label">First Name</label>
-          <div class="col-sm-10">
+          <form class="form-horizontal" role="form" ng-submit="submit()">
+            <label for="inputFirstName">
+              First Name:
+            </label>
             <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" ng-model="user.first_name" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputLastName" class="col-sm-2 control-label">Last Name</label>
-          <div class="col-sm-10">
+              <p></p>
+            <label for="inputLastName">
+              Last Name:
+            </label>
             <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name" ng-model="user.last_name" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-          <div class="col-sm-10">
+              <p></p>
+            <label for="inputEmail">
+              Email:
+            </label>
             <input type="email" class="form-control" name="email" id="email" placeholder="Email" ng-model="user.email" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputPassword" class="col-sm-2 control-label">Password</label>
-          <div class="col-sm-10">
+              <p></p>
+            <label for="inputPassword">
+              Password:
+            </label>
             <input type="password" class="form-control" name="password" value="" id="password" placeholder="Password" ng-model="user.password" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputPassword" class="col-sm-2 control-label">Re-enter Password</label>
-          <div class="col-sm-10">
+              <p></p>
+            <label for="inputPassword">
+              Re-enter Password:
+            </label>
             <input type="password" class="form-control" name="password" value="" id="password" placeholder="Password" ng-model="user.password2" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button id="signin"type="submit" class="btn btn-default">Sign Up</button>
-          </div>
-        </div>
-      </form>
+
+            <hr></hr>
+
+            <button id="signin"type="submit" class="btn btn-default pull-right">
+              Sign Up
+            </button>
+          </form>
+      </div>
+    </div> 
+  </div> <!--end col-md-7-->
+  <div class="col-md-4">
+    <div class="panel panel-default" ng-controller="loginCtrl">
+      <div class="panel-heading">
+        <h3>Have an account?</h3>
+        <h4>Sign in</h4>
+      </div>
+      <div class="panel-body">
+        <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
+          <form class="form-horizontal" role="form" ng-submit="submit()">
+            <label for="email">
+              Email:
+            </label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="Email" ng-model="user.email" required>
+
+              <p></p>
+
+            <label for="password">
+              Password:
+            </label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password" ng-model="user.password"required>
+
+              <hr></hr>
+
+            <button id="signin" type="submit" class="btn btn-default pull-right">Sign In</button>
+            <a ng-class="{active:$uiRoute}" ui-sref="forgot-password">Forgot your password?</a>
+          </form>
+      </div>
     </div>
-
-    <div class="col-md-4"></div>
-  </div>
-
-</div>
+  </div> <!--end col-md-4-->
+</div> <!--end container-->

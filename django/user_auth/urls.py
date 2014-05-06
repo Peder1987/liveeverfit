@@ -15,9 +15,9 @@ else:
 
 urlpatterns = patterns('',
 
+	url(r'^register/?$', 'user_auth.views.register'),	
 	url(r'^login', login_function),
 	url(r'^logout', 'user_auth.views.logout'),
-	url(r'^register/?$', 'user_auth.views.register'),	
 	url(r'^change-password', 'user_auth.views.change_password'),
 	url(r'^forgot-password', 'user_auth.views.forgot_password'),
 	url(r'^reset-password', 'user_auth.views.reset_password'),

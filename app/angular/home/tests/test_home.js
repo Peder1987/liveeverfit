@@ -33,8 +33,5 @@ define(['app', 'angularAMD', '/base/test_app.js'], function (app, angularAMD) {
                 expect(scope.homeTemplate).toBeDefined();
             });
         });
-
-
-
     });
 });

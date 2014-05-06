@@ -38,6 +38,18 @@ def token_generator(size=5, chars=string.ascii_uppercase + string.ascii_lowercas
     return ''.join(random.choice(chars) for _ in range(size))
 
 
+
+@api_view(['GET'])
+#@authentication_classes((SessionAuthentication, BasicAuthentication))
+#@permission_classes((IsAuthenticated,))
+def example_view(request, format=None):
+    content = {
+        'user': unicode(request.user),  # django.contrib.auth.User instance.
+        'auth': unicode(request.auth),  # None
+    }
+    return Response(content)
+
+
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def register(request):
@@ -51,6 +63,7 @@ def register(request):
         )
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
+        response['id'] = user.id
         return Response(response, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
@@ -105,7 +118,7 @@ class ObtainAuthToken(APIView):
         serializer = self.serializer_class(data=request.DATA)
         if serializer.is_valid():
             token, created = Token.objects.get_or_create(user=serializer.object['user'])
-            return Response({'token': token.key})
+            return Response({'token': token.key, 'id': id})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 obtain_auth_token = ObtainAuthToken.as_view()
@@ -116,12 +129,13 @@ class ObtainExpiringAuthToken(ObtainAuthToken):
         serializer = self.serializer_class(data=request.DATA)
         if serializer.is_valid():
             token, created =  Token.objects.get_or_create(user=serializer.object['user'])
+            id = serializer.object['user'].id
             if not created:
                 # update the created time of the token to keep it valid
                 token.created = datetime.datetime.utcnow().replace(tzinfo=utc)
                 token.save()
 
-            return Response({'token': token.key})
+            return Response({'token': token.key, 'id': id})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 obtain_expiring_auth_token = ObtainExpiringAuthToken.as_view()
@@ -188,3 +202,6 @@ def reset_password(request):
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
     
+
+
+

@@ -33,10 +33,10 @@
 
 require.config({
 
-    baseUrl : "",
+    baseUrl : " ",
     
     paths: {
-        'angular': 'common/angular/angular.min',
+        'angular': 'common/angular/angular',
         'angularLocalStorage' :'common/angular-local-storage/angular-local-storage',
         'angularResource' :'common/angular-resource/angular-resource.min',
         'angularAMD': 'common/angularAMD/angularAMD',
@@ -45,7 +45,16 @@ require.config({
         'uiBootstrap' :'common/angular-bootstrap/ui-bootstrap.min',   
         'routeResolver':'common/router/routeResolver',
         'autoFillEvent': 'common/autofill-event/src/autofill-event',
-        'app' : 'app'
+        'jquery': 'common/jquery/jquery',
+        'jqueryui': 'common/jquery-ui/ui/jquery-ui',
+        'fullcalendar': 'common/fullcalendar/fullcalendar',
+        'ui.calendar': 'common/angular-ui-calendar/src/calendar',
+        'ui.bootstrap.datepicker': 'common/angular-bootstrap/datepicker/datepicker',
+        'ui.bootstrap.timepicker': 'common/angular-bootstrap/timepicker/timepicker',
+        'ui.bootstrap.modal': 'common/angular-bootstrap/modal/modal',
+        'ui.bootstrap.tabs': 'common/angular-bootstrap/tabs/tabs',
+        'app' : 'app',
+        'footer' : 'footer/app'
     },
 
      //Angular does not support AMD out of the box, put it in a shim
@@ -58,7 +67,15 @@ require.config({
             "angularResource": ['angular'],
             "uiRouter": ['angular'],
             "uiBootstrap": ['angular'],
-            "autoFillEvent": ['angular']
+            "autoFillEvent": ['angular'],
+            "jqueryui": ["jquery"],
+            "fullcalendar": ["jquery"],
+            'ui.calendar': ['angular'],
+            'ui.bootstrap.datepicker': ['angular'],
+            'ui.bootstrap.timepicker': ['angular'],
+            'ui.bootstrap.modal': ['angular'],
+            'ui.bootstrap.tabs': ['angular'],
+            'footer': ['app']
     },
 
     //Kick start application

@@ -4,7 +4,6 @@ module.exports = function (grunt) {
     'use strict';
     require('load-grunt-tasks')(grunt);
     grunt.loadNpmTasks('grunt-contrib-connect');
-    
     //Config Variables
     var configVars = {
         "www_server": "0.0.0.0",
@@ -84,17 +83,33 @@ module.exports = function (grunt) {
         watch: {
             less: {
                 files: ["angular/{,*/}*.less"],
-                tasks: "less:production"
+                tasks: "less:development"
             },
             livereload: {
                 options: {
                     livereload: true
                 },
                 files: [
-                    'angular/**/*.{html,js,css}'
+                    'angular/**/*.{html,js,css}',
+                    '!angular/common/**'
                 ]
             }
-        }
+        },
+        less: {
+            development: {
+                files: {
+                    "angular/style.css": "angular/style.less"
+                }
+            },
+            production: {
+                options: {
+                    cleancss: true,
+                },
+                files: {
+                    "angular/style.css": "angular/style.less"
+                }
+            }
+        },
     });
 
 
@@ -121,6 +136,7 @@ module.exports = function (grunt) {
     
     //Web App 
     grunt.registerTask('serve', [
+        'less:development',
         'concurrent:server',
         'connect:livereload',
         'watch'
