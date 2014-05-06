@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 
 from rest_framework import serializers
-
+from user_app.models import Professional
 User = get_user_model()
 
 
@@ -43,5 +43,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'name', 'permissions')
 
 
-class EndPointSerializer(serializers.Serializer):
-    data = UserSerializer()
+class ProfessionalSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Professional
