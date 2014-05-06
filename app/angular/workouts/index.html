@@ -46,13 +46,28 @@
                         <h2 class="entry-title">popular categories: </h2>
                     </div>
                     <p>
-                        {% if not tags %}
-                            No categories yet.
-                        {% else %}
-                            {% for tag in tags %}
-                                <a href="#workoutsHeader" class="tag tag-blue tag-click">{{ tag }}</a>
-                            {% endfor %}
-                        {% endif %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Popular Specialties</label>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-space">
+                                                <p>
+                                                    <div ng-controller="workoutTagCtrl">
+                                                        <div ng-repeat="tag in tags.results">
+                                                          <button class="tag tag-blue tag-click">{{tag.name}}</button>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </p>
 
                     <div id="videosWidget">
