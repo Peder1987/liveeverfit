@@ -8,7 +8,7 @@ from django.utils.safestring import mark_safe
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail, EmailMessage
 
-from user_app.models import CustomUser,  ExampleUser, Address
+from user_app.models import CustomUser, Address
 from user_app.forms import CustomUserChangeForm, CustomUserCreationForm
 
 

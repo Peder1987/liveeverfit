@@ -34,7 +34,7 @@ define(['angularAMD', 'uiRouter', 'uiBootstrap', 'routeResolver', 'angularResour
                 //LoggedIN
                 .state('dashboard', route.resolve('/dashboard', 'dashboard'))
                 .state('calendar', route.resolve('/calendar', 'calendar'))
-                .state('demo', route.resolve('/demo', 'demo'))
+                .state('fitness-professional', route.resolve('/fitness-professional', 'fitness-professional'))
                 .state('change-password', route.resolve('/change-password', 'auth/change-password'))
                 .state('logout', route.resolve('/logout', 'auth/logout'));
 

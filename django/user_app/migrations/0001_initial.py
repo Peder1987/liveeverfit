@@ -10,14 +10,13 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding model 'CustomUser'
         db.create_table(u'user_app_customuser', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('password', self.gf('django.db.models.fields.CharField')(max_length=128)),
             ('last_login', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
             ('is_superuser', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('email', self.gf('django.db.models.fields.EmailField')(unique=True, max_length=50, db_index=True)),
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True, db_index=True)),
+            ('email', self.gf('django.db.models.fields.EmailField')(unique=True, max_length=50)),
             ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
             ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('tier', self.gf('django.db.models.fields.CharField')(default=1, max_length=30, null=True, blank=True)),
             ('gender', self.gf('django.db.models.fields.CharField')(max_length=1, blank=True)),
             ('twitter', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
             ('facebook', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
@@ -25,12 +24,9 @@ class Migration(SchemaMigration):
             ('youtube', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
             ('linkedin', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
             ('plus', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('lat', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('lng', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
             ('url', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
             ('img', self.gf('django.db.models.fields.files.ImageField')(default='default-pic.svg', max_length=100, blank=True)),
             ('bio', self.gf('django.db.models.fields.CharField')(max_length=5000, blank=True)),
-            ('referred_by', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='user_reference', null=True, to=orm['user_app.ExampleUser'])),
             ('phone', self.gf('django.db.models.fields.CharField')(default='', max_length=10, null=True, blank=True)),
             ('is_upgraded', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('is_staff', self.gf('django.db.models.fields.BooleanField')(default=False)),
@@ -57,14 +53,6 @@ class Migration(SchemaMigration):
         ))
         db.create_unique(m2m_table_name, ['customuser_id', 'permission_id'])
 
-        # Adding model 'ExampleUser'
-        db.create_table(u'user_app_exampleuser', (
-            (u'customuser_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['user_app.CustomUser'], unique=True, primary_key=True)),
-            ('choices', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('is_accepting', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal(u'user_app', ['ExampleUser'])
-
         # Adding model 'Address'
         db.create_table(u'user_app_address', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -80,6 +68,8 @@ class Migration(SchemaMigration):
             ('state', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
             ('postal_box', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
             ('country', self.gf('django.db.models.fields.CharField')(default='US', max_length=100, blank=True)),
+            ('lat', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
+            ('lng', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
         ))
         db.send_create_signal(u'user_app', ['Address'])
 
@@ -93,9 +83,6 @@ class Migration(SchemaMigration):
 
         # Removing M2M table for field user_permissions on 'CustomUser'
         db.delete_table(db.shorten_name(u'user_app_customuser_user_permissions'))
-
-        # Deleting model 'ExampleUser'
-        db.delete_table(u'user_app_exampleuser')
 
         # Deleting model 'Address'
         db.delete_table(u'user_app_address')
@@ -131,6 +118,8 @@ class Migration(SchemaMigration):
             'firstname': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'lastname': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
+            'lat': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
+            'lng': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'postal_box': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'}),
             'state': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'street_line1': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
@@ -142,12 +131,12 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'CustomUser'},
             'bio': ('django.db.models.fields.CharField', [], {'max_length': '5000', 'blank': 'True'}),
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '50', 'db_index': 'True'}),
+            'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '50'}),
             'facebook': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'gender': ('django.db.models.fields.CharField', [], {'max_length': '1', 'blank': 'True'}),
             'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True', 'db_index': 'True'}),
             'img': ('django.db.models.fields.files.ImageField', [], {'default': "'default-pic.svg'", 'max_length': '100', 'blank': 'True'}),
             'instagram': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
@@ -156,24 +145,14 @@ class Migration(SchemaMigration):
             'is_upgraded': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'lat': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'linkedin': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'lng': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             'phone': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '10', 'null': 'True', 'blank': 'True'}),
             'plus': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'referred_by': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'user_reference'", 'null': 'True', 'to': u"orm['user_app.ExampleUser']"}),
-            'tier': ('django.db.models.fields.CharField', [], {'default': '1', 'max_length': '30', 'null': 'True', 'blank': 'True'}),
             'twitter': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'url': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
             'youtube': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
-        },
-        u'user_app.exampleuser': {
-            'Meta': {'object_name': 'ExampleUser', '_ormbases': [u'user_app.CustomUser']},
-            'choices': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            u'customuser_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['user_app.CustomUser']", 'unique': 'True', 'primary_key': 'True'}),
-            'is_accepting': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
         }
     }
 
