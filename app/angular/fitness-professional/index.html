@@ -1,25 +1,24 @@
 <div class="jumbotron">
 
-  <h1>LQ Technology Demo App</h1>
+  <h1>fitness professional \\</h1>
   <p class="lead">
-    Everything we need to kickstart AngularJS projects: A best-practice
-    demo app and the best web design libraries around.
+    
   </p>
 
 
 
   <h3> Controller Example 4: Get Restful</h3>
-  <div ng-controller="testCtrl">
-    <div ng-repeat="snippet in snippets.results">
-      Title is: {{snippet.title}}<br/>
-      ID: {{snippet.id}}<br/>
-      Change Code:<input type="text" ng-model="snippet.code"/><button type="submit" ng-click="save(snippet)">Update</button>
+  <div ng-controller="fitness-professionalCtrl">
+    <div ng-repeat="professional in professionals.results">
+      Title is: {{professional.email}}<br/>
+      ID: {{professional.id}}<br/>
+      Change Code:<input type="text" ng-model="professional.email"/><button type="submit" ng-click="save(professional)">Update</button>
     </div>
     <div>
       <br>
       Add New: <br/>
-      Title:<input type="text" ng-model="newSnippet.title"/>
-      Code:<input type="text" ng-model="newSnippet.code"/>
+      Title:<input type="text" ng-model="newProfessional.title"/>
+      Code:<input type="text" ng-model="newProfessional.code"/>
       <button type="submit" ng-click="add()">Add</button>
     </div>
   </div>

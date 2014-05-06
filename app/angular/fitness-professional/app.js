@@ -11,32 +11,25 @@
 define(['app'], function(app) {
 
 
-    app.register.controller('fitness-professionalCtrl', ['$scope', 'restricted', 
-    	function($scope) {
-            // $scope.restricted();
-    }]);
-
-
-
-    app.register.controller("testCtrl",["$scope","$resource","rest","tokenError",
+    app.register.controller("fitness-professionalCtrl",["$scope","$resource","rest","tokenError",
         function($scope,$resource,tokenError){
 
-            var snippetCollection =  $resource("http://:url/demo/snippets/",{
+            var professionalCollection =  $resource("http://:url/users/professionals/",{
                 url: $scope.restURL
             });
-            var snippetResource = $resource("http://:url/demo/snippets/:id/",{
+            var professionalResource = $resource("http://:url/users/professionals/:id/",{
                 url: $scope.restURL,
                 id:'@id'
             },{update: { method: 'PUT' }});
 
-            $scope.snippets = snippetCollection.get(function() {},$scope.checkTokenError);
+            $scope.professionals = professionalCollection.get(function() {},$scope.checkTokenError);
 
-            $scope.save = function(snippet){
-                snippetResource.update({id:snippet.id},snippet)
+            $scope.save = function(professional){
+                professionalResource.update({id:professional.id},professional)
             }
 
             $scope.add = function() {
-                snippetCollection.save($scope.newSnippet, function() {},
+                professionalCollection.save($scope.newProfessional, function() {},
                     function(error) {
                     $scope.message = error.data;
                     $scope.checkTokenError();
