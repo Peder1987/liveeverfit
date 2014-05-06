@@ -6,6 +6,8 @@ define(['app'], function(app) {
     app.register.controller("fitness-professionalCtrl",["$scope","$resource","rest","tokenError",
         function($scope,$resource,tokenError){
 
+            $scope.hello = '';
+
             var professionalCollection =  $resource("http://:url/users/professionals/",{
                 url: $scope.restURL
             });
@@ -44,7 +46,7 @@ define(['app'], function(app) {
                 $scope.checkTokenError();
             });
         }
-        
+
      }]);
 
 
