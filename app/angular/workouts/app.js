@@ -6,6 +6,12 @@ define(['app'], function (app) {
     app.register.controller('workoutsCtrl', ['$scope', 'restricted',
         function ($scope) {
             $scope.restricted();
+
+            $scope.difficulty = {
+                beginner: false,
+                intermediate: true,
+                advanced: false
+            };
         }
     ]);
 
@@ -55,9 +61,23 @@ define(['app'], function (app) {
 
         $scope.videos = videoCollection.get(function() {},$scope.checkTokenError);
 
-        $scope.save = function(professional){
-            videoResource.update({id:video.id},video)
-        }
+
+
+        $scope.toggleDifficulty = function (difficulty) {
+            $scope.                
+            console.log($scope.Female);
+            $scope.filter();
+        };
+        $scope.filter = function () {
+            console.log('Working');
+            $scope.filtering = $scope.Trainers + $scope.Nutritionists + $scope.Male + $scope.Female;
+            console.log($scope.filtering);
+            // var professionalCollection =  $resource("http://:url/users/professionals/:id/",{
+            //     url: $scope.restURL,
+            //     id:$scope.filtering
+
+            // });
+        };
 
 
 
