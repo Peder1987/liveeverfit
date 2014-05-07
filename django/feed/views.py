@@ -8,11 +8,11 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework import generics
 from django.contrib.auth import get_user_model
 User = get_user_model()
-from schedule.models import Calendar, Event
-from schedule.permissions import IsAdminOrSelf
-from schedule.serializers import CalendarSerializer, EventSerializer
-from schedule.filters import EventFilter, IsCalendarOwnerFilterBackend
-from schedule.filters import DatetimeFilterBackend, NowFilterBackend
+# from schedule.models import Calendar, Event
+# from schedule.permissions import IsAdminOrSelf
+# from schedule.serializers import CalendarSerializer, EventSerializer
+# from schedule.filters import EventFilter, IsCalendarOwnerFilterBackend
+# from schedule.filters import DatetimeFilterBackend, NowFilterBackend
 
 
 

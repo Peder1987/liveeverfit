@@ -10,13 +10,15 @@ define(['app'], function (app) {
     ]);
 
 
-    app.register.controller("workoutTagCtrl",["$scope","$resource","rest","tokenError",
+    app.register.controller("workouts.tagCtrl",["$scope","$resource","rest","tokenError",
     function($scope,$resource,tokenError){
 
-        var tagCollection =  $resource("http://:url/tags/",{
+        var tagCollection =  $resource(":protocol://:url/tags/",{
+            protocol: $scope.restProtocol,
             url: $scope.restURL
         });
-        var tagResource = $resource("http://:url/tags/:id/",{
+        var tagResource = $resource(":protocol://:url/tags/:id/",{
+            protocol: $scope.restProtocol,
             url: $scope.restURL,
             id:'@id'
         },{update: { method: 'PUT' }});
@@ -37,5 +39,28 @@ define(['app'], function (app) {
 
 
 	}]);
+
+    app.register.controller("workouts.videoCtrl",["$scope","$resource","rest","tokenError",
+    function($scope,$resource,tokenError){
+
+        var videoCollection =  $resource(":protocol://:url/workouts/video/",{
+            protocol: $scope.restProtocol,
+            url: $scope.restURL
+        });
+        var videoResource = $resource(":protocol://:url/workouts/video/:id/",{
+            protocol: $scope.restProtocol,
+            url: $scope.restURL,
+            id:'@id'
+        },{update: { method: 'PUT' }});
+
+        $scope.videos = videoCollection.get(function() {},$scope.checkTokenError);
+
+        $scope.save = function(professional){
+            videoResource.update({id:video.id},video)
+        }
+
+
+
+    }]);
 
 });

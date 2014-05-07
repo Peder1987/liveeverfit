@@ -43,6 +43,7 @@ define(['angularAMD', 'uiRouter', 'uiBootstrap', 'routeResolver', 'angularResour
     ]);
 
     app.service('rest', ['$rootScope', function ($rootScope) {
+        $rootScope.restProtocol = "http";
         $rootScope.restURL = "localhost:8000";
     }]);
 

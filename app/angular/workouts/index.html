@@ -54,7 +54,7 @@
                                         <div class="col-xs-12">
                                             <div class="form-space">
                                                 <p>
-                                                    <div ng-controller="workoutTagCtrl">
+                                                    <div ng-controller="workouts.tagCtrl">
                                                         <div ng-repeat="tag in tags.results">
                                                           <button class="tag tag-blue tag-click">{{tag.name}}</button>
                                                         </div>
@@ -74,19 +74,23 @@
                             <div class="page-header">
                                 <h2 class="entry-title">popular views: </h2>
                             </div>
+                                <div ng-controller="workouts.videoCtrl">
+                                    <div ng-repeat="video in videos.results">
+                                        <div class="col-xs-12 col-sm-4">
+                                            <div class="ef-workout-video">
+                                                <a href="/workouts/video/{{ video.id }}"><img src="http://beta.liveeverfit.com/media/{{ video.img }}"/></a>
+                                            </div>
+                                            <a href="/workouts/video/{{ video.id }}">
+                                                <div class="workout-title">
+                                                    <span class="ellipsis">{{ video.title }}</span>
+                                                    <span class="difficulty {{ video.difficulty }} pull-right"></span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             
                         
-                            <div class="col-xs-12 col-sm-4">
-                                <div class="ef-workout-video">
-                                    <a href="/workouts/video/{{ object.pk }}"><img src="/media/{{ object.img }}"/></a>
-                                </div>
-                                <a href="/workouts/video/{{ object.pk }}">
-                                    <div class="workout-title">
-                                        <span class="ellipsis">{{ object.title }}</span>
-                                        <span class="difficulty {{ object.difficulty }} pull-right"></span>
-                                    </div>
-                                </a>
-                            </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-3">

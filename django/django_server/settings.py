@@ -167,6 +167,7 @@ INSTALLED_APPS = (
     'taggit',
     'shopify_app',
     'chargify',
+    'workouts',
     # 'board',
     # 'registration',
     # 'ws4redis',

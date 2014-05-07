@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('user_auth.urls')),
     url(r'^docs/', include('rest_framework_swagger.urls')),
     url(r'^tags', include('taggit.urls')),
+    url(r'^workouts/', include('workouts.urls')),
 )
 
 
