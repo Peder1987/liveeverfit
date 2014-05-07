@@ -108,9 +108,9 @@
                                             <div class="form-space">
                                                 <p>
                                                     <div ng-controller="tagCtrl">
-                                                        <div ng-repeat="tag in tags.results">
-                                                          <button class="tag tag-blue tag-click">{{tag.name}}</button>
-                                                        </div>
+                                                        <span ng-repeat="tag in tags.results">
+                                                          <button class="btn btn-primary">{{tag.name}}</button>
+                                                        </span>
                                                         
                                                     </div>
                                                     
@@ -138,8 +138,10 @@
                               </div>
                           </div>
                 </div><!-- /.trainer-results -->
-            
+
             </div>
     </div><!-- /.sidebar-->
   </div>
 </div>
+
+
