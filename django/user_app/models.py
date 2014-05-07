@@ -14,6 +14,8 @@ from django.db.models.signals import post_save
 from shopify_app import shopify_call
 from chargify import chargify_calls
 
+
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         now = timezone.now()
@@ -112,7 +114,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         self.save()
         return errors
 
-
     def setup_upgrade(self, password, referred_by):
         self.attach_referral(referred_by)
         self.create_primary_address()
@@ -194,7 +195,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             self.is_upgraded = True
             self.save()
 
-
     def cancel_professional(self):
         # this function is a accepted trainer who wants to downgrade
 
@@ -213,8 +213,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         self.is_professional = False
         self.save()
     
-            
-
     def add_to_locations(self):
         try:
             UniqueLocation.objects.get(location= self.location)
@@ -260,11 +258,11 @@ class AddressManager(models.Manager):
     def get_primary(self):
         pass
 
+
+
 class Address(models.Model):
     """
-    Standard Address Model:
-
-    
+    Standard Address Model:    
     If needing in a specific format such as street_line1 should billing_street_line1
     write a custom function to deliver your data specified
     Typically custom functions used for using a 3rd party API such as Stripe or Shopify
@@ -317,6 +315,7 @@ class Address(models.Model):
         }
 
 
+
 class UniqueLocation(models.Model):
     location = models.CharField(max_length=100)
     counter = models.IntegerField(default=0)
@@ -346,7 +345,6 @@ class certification(models.Model):
         return self.certification_name
         
 
-
 class ProfessionalManager(models.Manager):
     def create_prof(self, user):
         extended_user = Professional(lefuser_ptr=user)
@@ -354,6 +352,7 @@ class ProfessionalManager(models.Manager):
         extended_user.is_active = False
         extended_user.save()
         return extended_user
+
 
 class Professional(CustomUser):
     PROFESSIONAL_CHOICES = (
@@ -409,3 +408,4 @@ class Professional(CustomUser):
         self.save()
         return errors
 
+        

@@ -6,13 +6,13 @@ define(['app'], function(app) {
     app.register.controller("fitness-professionalCtrl",["$scope","$resource","rest","tokenError",
         function($scope,$resource,tokenError){
 
-            $scope.Trainers = false;
-            $scope.Nutritionists = false;
-            $scope.pLocation = '';
-            $scope.Male = false;
-            $scope.Female = false;
-            $scope.pAcceptingClients = '';
-            $scope.pSpecialties = '';
+            $scope.Trainers = null;
+            $scope.Nutritionists = null;
+            $scope.ProLocation = null;
+            $scope.Male = null;
+            $scope.Female = null;
+            $scope.AcceptingClients = null;
+            $scope.Specialties = null;
 
             var professionalCollection =  $resource("http://:url/users/professionals/",{
                 url: $scope.restURL
@@ -21,43 +21,54 @@ define(['app'], function(app) {
             $scope.professionals = professionalCollection.get(function() {},$scope.checkTokenError);
 
             $scope.changeTrainers = function () {
-                if ($scope.Trainers == false){
-                    $scope.Trainers = true;
+                if ($scope.Trainers == null){
+                    $scope.Trainers = 'Trainers';
                 }
                 else{
-                    $scope.Trainers = false;
+                    $scope.Trainers = null;
                 }
+                console.log($scope.Trainers);
                 $scope.filter();
             };
             $scope.changeNutritionists = function () {
-                if ($scope.Nutritionists == false){
-                    $scope.Nutritionists = true;
+                if ($scope.Nutritionists == null){
+                    $scope.Nutritionists = 'Nutritionists';
                 }
                 else{
-                    $scope.Nutritionists = false;
+                    $scope.Nutritionists = null;
                 }
+                console.log($scope.Nutritionists);
                 $scope.filter();
             };
             $scope.changeMale = function () {
-                if ($scope.Male == false){
-                    $scope.Male = true;
+                if ($scope.Male == null){
+                    $scope.Male = 'Male';
                 }
                 else{
-                    $scope.Male = false;
+                    $scope.Male = null;
                 }
+                console.log($scope.Male);
                 $scope.filter();
             };
             $scope.changeFemale = function () {
-                if ($scope.Female == false){
-                    $scope.Female = true;
+                if ($scope.Female == null){
+                    $scope.Female = 'Female';
                 }
                 else{
-                    $scope.Female = false;
+                    $scope.Female = null;
                 }
+                console.log($scope.Female);
                 $scope.filter();
             };
             $scope.filter = function () {
                 console.log('Working');
+                $scope.filtering = $scope.Trainers + $scope.Nutritionists + $scope.Male + $scope.Female;
+                console.log($scope.filtering);
+                // var professionalCollection =  $resource("http://:url/users/professionals/:id/",{
+                //     url: $scope.restURL,
+                //     id:$scope.filtering
+
+                // });
             };
 
 
