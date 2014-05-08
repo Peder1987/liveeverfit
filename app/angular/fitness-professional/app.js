@@ -46,8 +46,6 @@ define(['app'], function(app) {
                     profession: $scope.profession,
                     gender: $scope.gender
                 };
-                console.log($scope.profession);
-                console.log($scope.gender);
                 $scope.professionals = filterProfessionalCollection.get($scope.filtering, function () {});
             };
 
