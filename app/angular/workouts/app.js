@@ -5,14 +5,10 @@ define(['app',], function (app) {
 
     app.register.controller('workoutsCtrl', ["$scope","$resource","rest","tokenError",
     function($scope,$resource,tokenError, tags){
-        $scope.difficulty = {
-                beginner: '',
-                intermediate: '',
-                advanced: ''
-        };
+        $scope.difficulty = [];
 
-        $scope.search = []
-
+        $scope.search = ''
+        //$scope.search = []
         var videoCollection =  $resource(":protocol://:url/workouts/video/",{
             protocol: $scope.restProtocol,
             url: $scope.restURL
@@ -32,25 +28,21 @@ define(['app',], function (app) {
 
 
         $scope.difficultyOnClick = function (value) {
-            if($scope.difficulty[value] == ''){
-                $scope.difficulty[value] = value;
+            if($scope.difficulty.indexOf(value) == -1){
+                    $scope.difficulty.push(value);
             }
             else{
-                $scope.difficulty[value] = ''
+                var temp = $scope.difficulty.indexOf(value);
+                $scope.difficulty.splice(temp,1);
             }
             $scope.filter();
         }
         $scope.filter = function () {
-
-            $scope.difficultyArray = [$scope.difficulty.beginner, $scope.difficulty.intermediate, $scope.difficulty.advanced]
             $scope.filtering = {
-                difficulty: $scope.difficultyArray
+                difficulty: $scope.difficulty,
             };
-            console.log($scope.difficultyArray);
-            console.log($scope.filtering);
-
+            console.log($scope.filtering)
             $scope.videos = filterVideoCollection.get($scope.filtering, function () {});
-
         };
 
         /*ANYTHING TAG RELATED, kept it in same scope in order make things less complicated*/
