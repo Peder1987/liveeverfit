@@ -42,3 +42,21 @@ class ProfessionFilterBackend(filters.BaseFilterBackend):
 
 	class Meta:
 		model = Professional
+
+
+class LocationFilterBackend(filters.BaseFilterBackend):
+
+	def filter_queryset(self, request, queryset, view):
+		if 'location' in request.QUERY_PARAMS:
+			location = request.GET.getlist('location','')
+			print location
+			try:
+				queryset = queryset.filter(location__in= location)
+				print queryset
+			except:
+				pass
+
+		return queryset
+
+	class Meta:
+		model = Professional

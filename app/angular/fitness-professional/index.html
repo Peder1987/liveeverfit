@@ -2,10 +2,10 @@
   <div class="col-md-5">
   </div>
   <div class="col-md-7">
-    <h1>fitness professional \\</h1>
     <div class="sidebar">
             <div class="sidebar-bg">
                 <div class="search-filters">
+                    <h2 class="ef-header">fitness professional \\</h2>
 
                     <div class="form" role="form">
                         <div class="row">
@@ -36,7 +36,7 @@
                                     <div class="row">
                                         <div class="col-sm-8 col-md-12 col-lg-8">
                                             <div class="form-space">
-                                                <input id="location" type="text" class="form-control" placeholder="Example: Houston, TX" autocomplete="off" />
+                                                <input id="location" type="text" class="form-control" placeholder="Example: Houston, TX" autocomplete="off" ng-model="location" ng-change="locationOnChange()" typeahead="location for location in locations" typeahead-on-select="locationOnChange()"/>
                                             </div>
                                         </div>
                                         <div class="col-sm-4 col-md-12 col-lg-4">
@@ -109,7 +109,7 @@
                                                 <p>
                                                     <div ng-controller="tagCtrl">
                                                         <span ng-repeat="tag in tags.results">
-                                                          <button class="btn btn-primary">{{tag.name}}</button>
+                                                          <button class="tag tag-blue">{{tag.name}}</button>
                                                         </span>
                                                         
                                                     </div>
@@ -124,6 +124,7 @@
                     </div>
                 </div><!-- /.search-filters -->
 
+
                 <div id="trainer-results">
                           <div ng-repeat="professional in professionals.results">
                               <div class="col-sm-6 col-md-4">
@@ -133,6 +134,7 @@
                                         {{professional.first_name}} {{professional.last_name}}<br/>
                                         {{professional.profession}}<br>
                                         {{professional.gender}}<br>
+                                        {{professional.location}}<br>
                                         Accepting Clients: {{professional.is_accepting}}<br/>
                                         Biography: {{professional.bio}}<br/>
                                     </div>

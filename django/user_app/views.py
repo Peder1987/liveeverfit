@@ -10,7 +10,7 @@ from rest_framework import generics
 from .filters import UserFilter
 from .serializers import UserSerializer, PasswordSerializer, GroupSerializer, ProfessionalSerializer
 from .permissions import IsAdminOrSelf
-from .filters import GenderFilterBackend, ProfessionFilterBackend
+from .filters import GenderFilterBackend, ProfessionFilterBackend, LocationFilterBackend
 from .models import Professional
 User = get_user_model()
 
@@ -34,7 +34,7 @@ class ProfessionalViewSet(viewsets.ModelViewSet):
     model = Professional
     permission_classes = (IsAuthenticated,)
     serializer_class = ProfessionalSerializer
-    filter_backends = (GenderFilterBackend,ProfessionFilterBackend,)
+    filter_backends = (GenderFilterBackend,ProfessionFilterBackend,LocationFilterBackend,)
 
     def get_queryset(self):
         return Professional.objects.all()

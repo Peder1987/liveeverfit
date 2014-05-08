@@ -45,13 +45,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     """
     A fully featured User model with admin-compliant permissions that uses
     a full-length email field as the username.
-
     Email and password are required. Other fields are optional.
     """
-    email = models.EmailField(_('email address'), max_length=50, unique=True, db_index=True, )
     #username = models.CharField(_('username'), max_length=50, blank=True)
+    email = models.EmailField(_('email address'), max_length=50, unique=True, db_index=True, )
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
+    
     #custom fields
     TIER_CHOICES = (
         (1, 'Tier 1'),
@@ -59,7 +59,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         (3, 'Tier 3'),
         (4, 'Tier 4'),
         (5, 'Tier 5'),
-        (6, 'Grandfather Trainer'),
+        (6, 'Grandfather Professional'),
         (7, 'Professional'),
     )
     tier = models.IntegerField(_('tier'), max_length=1, blank=True, choices=TIER_CHOICES, default=1, null=True)
@@ -69,15 +69,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     )
     gender = models.CharField(_('gender'), max_length=1, blank=True, choices=GENDER_CHOICES)
     location = models.CharField(_('location'), max_length=100, blank=True)
+    lat = models.CharField(_('latitude'), max_length=30, blank=True)
+    lng = models.CharField(_('longitude'), max_length=30, blank=True)
+
     twitter = models.CharField(_('twitter'), max_length=100, blank=True)
     facebook = models.CharField(_('facebook'), max_length=100, blank=True)
     instagram = models.CharField(_('instagram'), max_length=100, blank=True)
     youtube = models.CharField(_('youtube'), max_length=100, blank=True)
     linkedin = models.CharField(_('linkedin'), max_length=100, blank=True)
     plus = models.CharField(_('plus'), max_length=100, blank=True)
-    lat = models.CharField(_('latitude'), max_length=30, blank=True)
-    lng = models.CharField(_('longitude'), max_length=30, blank=True)
-    url = models.CharField(_('url'), max_length=100, blank=True)
+
     #Image field requires the lib pillow
     img = models.ImageField(_('image'), upload_to="trainers", blank=True, default='default-profile.svg')
     bio = models.CharField(_('biography'), max_length=5000, blank=True)
@@ -86,10 +87,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     chargify_id = models.IntegerField(default=0)
     stripe_id = models.CharField(max_length=50, blank=True, default='')
 
+    url = models.CharField(_('url'), max_length=100, blank=True)
     phone = models.CharField(max_length=20, blank=True, default='')
     connection = models.ForeignKey('Professional', null=True, related_name='user_connections', blank=True)
 
     primary_address = models.OneToOneField('Address', null=True, blank=True, on_delete=models.SET_NULL, related_name='owner')
+
+    is_professional = models.BooleanField(_('is professional'), default=False)
     is_upgraded = models.BooleanField(_('is upgraded'), default=False)
     is_staff = models.BooleanField(_('staff status'), default=False,
                                    help_text=_('Designates whether the user can log into this admin '
@@ -97,7 +101,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(_('active'), default=True,
                                     help_text=_('Designates whether this user should be treated as '
                                                 'active. Unselect this instead of deleting accounts.'))
-    is_professional = models.BooleanField(_('is professional'), default=False)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     objects = CustomUserManager()
     USERNAME_FIELD = 'email'
@@ -168,7 +171,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         """
         send_mail(subject, message, from_email, [self.email])
 
-
     def attach_referral(self, reference):
         if not self.referred_by:
             try:
@@ -197,7 +199,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def cancel_professional(self):
         # this function is a accepted trainer who wants to downgrade
-
         self.is_professional = False
         self.is_upgraded = False
         self.save()
@@ -242,7 +243,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     stripe_get_creditcard = chargify_calls.get_creditcard
 
 
-
 @receiver(post_save, sender=CustomUser)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
@@ -257,7 +257,6 @@ class AddressManager(models.Manager):
 
     def get_primary(self):
         pass
-
 
 
 class Address(models.Model):
@@ -294,7 +293,6 @@ class Address(models.Model):
 
     class Meta:
         verbose_name_plural = "Address"
-
 
     def shopify_format(self):
         """A consistant dictionary that matches shopifies

@@ -6,8 +6,12 @@ define(['app'], function(app) {
     app.register.controller("fitness-professionalCtrl",["$scope","$resource","rest","tokenError",
         function($scope,$resource,tokenError){
 
-            $scope.profession = []
-            $scope.gender = []
+            $scope.profession = [];
+            $scope.gender = [];
+            $scope.location = [];
+
+            $scope.selected = undefined;
+            $scope.locations = ['Houston,TX', 'Dallas,TX',];
 
             var professionalCollection =  $resource("http://:url/users/professionals",{
                 url: $scope.restURL
@@ -40,11 +44,17 @@ define(['app'], function(app) {
                 }
                 $scope.filter();
             }
-
+            $scope.locationOnChange = function () {
+                if($scope.location.length <= 0){
+                    $scope.location = [];
+                }
+                $scope.filter();
+            }
             $scope.filter = function () {
                 $scope.filtering = {
                     profession: $scope.profession,
-                    gender: $scope.gender
+                    gender: $scope.gender,
+                    location: $scope.location
                 };
                 $scope.professionals = filterProfessionalCollection.get($scope.filtering, function () {});
             };
