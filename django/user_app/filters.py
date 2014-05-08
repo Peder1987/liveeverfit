@@ -1,8 +1,11 @@
 import django_filters
-from rest_framework import viewsets, status, filters
-from .models import Professional
 from django.contrib.auth import get_user_model
 User = get_user_model()
+
+from rest_framework import viewsets, status, filters
+from .models import Professional
+
+
 
 class UserFilter(django_filters.FilterSet):
 
@@ -34,7 +37,6 @@ class ProfessionFilterBackend(filters.BaseFilterBackend):
 			profession = request.GET.getlist('profession','')
 			try:
 				queryset = queryset.filter(profession__in= profession)
-				print queryset
 			except:
 				pass
 
@@ -49,10 +51,8 @@ class LocationFilterBackend(filters.BaseFilterBackend):
 	def filter_queryset(self, request, queryset, view):
 		if 'location' in request.QUERY_PARAMS:
 			location = request.GET.getlist('location','')
-			print location
 			try:
 				queryset = queryset.filter(location__in= location)
-				print queryset
 			except:
 				pass
 

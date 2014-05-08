@@ -12,6 +12,7 @@ from user_app.models import CustomUser, Address, Professional, UniqueLocation
 from user_app.forms import CustomUserChangeForm, CustomUserCreationForm
 
 
+
 class CustomUserAdmin(UserAdmin):
     # The forms to add and change user instances
     # The fields to be used in displaying the User model.

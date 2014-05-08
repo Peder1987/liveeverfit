@@ -1,11 +1,14 @@
 from django.conf.urls import patterns, include, url
 from rest_framework import routers
-from .views import UserViewSet, GroupViewSet, ProfessionalViewSet
+from .views import UserViewSet, GroupViewSet, ProfessionalViewSet, LocationViewSet
+
+
 
 router = routers.SimpleRouter(trailing_slash=False)
 
 router.register(r'/professionals', ProfessionalViewSet)
 router.register(r'/groups', GroupViewSet)
+router.register(r'/location', LocationViewSet)
 
 # urlpatterns = router.urls
 
