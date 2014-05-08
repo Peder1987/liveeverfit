@@ -7,6 +7,7 @@
 
                     <div class="row">
                         <div class="col-xs-10">
+                            {{tagSelected}}
                             <tags-input ng-model="search" class="bootstrap" 
                                         placeholder="Example: Title, tags, etc..." 
                                         name="pattern" value="" display-property="name"
@@ -61,7 +62,7 @@
                                             <div class="form-space">
                                                 <p>
                                                     <div ng-repeat="tag in tags.results">
-                                                      <button class="tag tag-blue tag-click" ng-click="addTag(tag)">{{tag.name}}</button>
+                                                      <button class="tag tag-blue tag-click" ng-click="addTag(tag.name)">{{tag.name}}</button>
                                                     </div>
                                                 </p>
                                             </div>

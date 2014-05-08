@@ -9,7 +9,7 @@ from rest_framework import generics
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from workouts.models import Video, VideoComment
-from workouts.filters import DifficultyFilterBackend
+from workouts.filters import DifficultyFilterBackend, TagFilterBackend
 
 
 
@@ -17,7 +17,7 @@ from workouts.filters import DifficultyFilterBackend
 class VideoViewSet(generics.ListAPIView):
     model = Video
     permission_classes = (IsAuthenticated,)
-    filter_backends = (DifficultyFilterBackend,)
+    filter_backends = (DifficultyFilterBackend, TagFilterBackend)
     
 class VideoObjectViewSet(generics.RetrieveAPIView):
     model = Video

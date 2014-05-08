@@ -6,9 +6,9 @@ define(['app',], function (app) {
     app.register.controller('workoutsCtrl', ["$scope","$resource","rest","tokenError",
     function($scope,$resource,tokenError, tags){
         $scope.difficulty = [];
-
-        $scope.search = ''
-        //$scope.search = []
+        $scope.tagSelected = [];
+        $scope.search = '';
+        
         var videoCollection =  $resource(":protocol://:url/workouts/video/",{
             protocol: $scope.restProtocol,
             url: $scope.restURL
@@ -40,8 +40,10 @@ define(['app',], function (app) {
         $scope.filter = function () {
             $scope.filtering = {
                 difficulty: $scope.difficulty,
+                tags : $scope.tagSelected,
+
             };
-            console.log($scope.filtering)
+            //console.log($scope.filtering)
             $scope.videos = filterVideoCollection.get($scope.filtering, function () {});
         };
 
@@ -62,9 +64,15 @@ define(['app',], function (app) {
         $scope.addTag = function(tag) {
             
             // Ensures that no two tags are replicated
-            if($scope.search.indexOf(tag) == -1){
-                $scope.search.push(tag);
+            
+            if($scope.tagSelected.indexOf(tag) == -1){
+                    $scope.tagSelected.push(tag);
             }
+            else{
+                var temp = $scope.tagSelected.indexOf(tag);
+                $scope.tagSelected.splice(temp,1);
+            }
+            $scope.filter()
 
         }
 
