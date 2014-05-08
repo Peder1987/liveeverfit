@@ -15,14 +15,14 @@
                                     <div class="row">
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="form-space">
-                                                <button id="Trainer" type="button" class="col-xs-12 btn toggle proffesional"  ng-click="proOnClick( 'Trainers')">
+                                                <button id="Trainer" type="button" class="col-xs-12 btn toggle proffesional"  ng-click="professionOnClick('Trainer')">
                                                     <span class="glyphicon glyphicon-user"></span> Trainers
                                                 </button>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="form-space">
-                                                <button id="Nutritionist" type="button" class="col-xs-12 btn toggle proffesional" ng-click="proOnClick('Nutritionists')">
+                                                <button id="Nutritionist" type="button" class="col-xs-12 btn toggle proffesional" ng-click="professionOnClick('Nutritionist')">
                                                     <span class="glyphicon glyphicon-tree-deciduous"></span> Nutritionists
                                                 </button>
                                             </div>
@@ -130,7 +130,9 @@
                                   <div class="thumbnail">
                                     <img src="/media/"/>
                                     <div class="caption">
-                                        {{professional.first_name}}{{professional.last_name}}<br/>
+                                        {{professional.first_name}} {{professional.last_name}}<br/>
+                                        {{professional.profession}}<br>
+                                        {{professional.gender}}<br>
                                         Accepting Clients: {{professional.is_accepting}}<br/>
                                         Biography: {{professional.bio}}<br/>
                                     </div>

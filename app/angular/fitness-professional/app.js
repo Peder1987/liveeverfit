@@ -6,17 +6,8 @@ define(['app'], function(app) {
     app.register.controller("fitness-professionalCtrl",["$scope","$resource","rest","tokenError",
         function($scope,$resource,tokenError){
 
-            $scope.pro = {
-                Trainers: '',
-                Nutritionists: ''
-            };
-            $scope.gender = {
-                M: '',
-                F: ''
-            };
-            $scope.ProLocation = '';
-            $scope.AcceptingClients = '';
-            $scope.Specialties = '';
+            $scope.profession = []
+            $scope.gender = []
 
             var professionalCollection =  $resource("http://:url/users/professionals",{
                 url: $scope.restURL
@@ -29,37 +20,35 @@ define(['app'], function(app) {
 
             $scope.professionals = professionalCollection.get(function() {},$scope.checkTokenError);
 
-            $scope.proOnClick = function (value) {
-                if($scope.pro[value] == ''){
-                    $scope.pro[value] = value;
+            $scope.professionOnClick = function (value) {
+                if($scope.profession.indexOf(value) == -1){
+                    $scope.profession.push(value);
                 }
                 else{
-                    $scope.pro[value] = ''
+                    var temp = $scope.profession.indexOf(value);
+                    $scope.profession.splice(temp,1);
                 }
                 $scope.filter();
             }
             $scope.genderOnClick = function (value) {
-                if($scope.gender[value] == ''){
-                    $scope.gender[value] = value;
+               if($scope.gender.indexOf(value) == -1){
+                    $scope.gender.push(value);
                 }
                 else{
-                    $scope.gender[value] = ''
-                }  
-                $scope.filter(); 
+                    var temp = $scope.gender.indexOf(value);
+                    $scope.gender.splice(temp,1);
+                }
+                $scope.filter();
             }
 
             $scope.filter = function () {
-                console.log('Working');
-    
-                $scope.proGender = [$scope.gender.M,$scope.gender.F]
                 $scope.filtering = {
-                    gender: $scope.proGender
+                    profession: $scope.profession,
+                    gender: $scope.gender
                 };
+                console.log($scope.profession);
                 console.log($scope.gender);
-                console.log($scope.filtering);
-
                 $scope.professionals = filterProfessionalCollection.get($scope.filtering, function () {});
-
             };
 
 

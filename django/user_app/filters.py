@@ -16,10 +16,27 @@ class GenderFilterBackend(filters.BaseFilterBackend):
 	def filter_queryset(self, request, queryset, view):
 		if 'gender' in request.QUERY_PARAMS:
 			gender = request.GET.getlist('gender','')
-			print request.GET
-			print gender
 			try:
 				queryset = queryset.filter(gender__in= gender)
+			except:
+				pass
+
+		return queryset
+
+	class Meta:
+		model = Professional
+
+
+class ProfessionFilterBackend(filters.BaseFilterBackend):
+
+	def filter_queryset(self, request, queryset, view):
+		if 'profession' in request.QUERY_PARAMS:
+			profession = request.GET.getlist('profession','')
+			print request.GET
+			print profession
+			try:
+				queryset = queryset.filter(profession__in= profession)
+				print queryset
 			except:
 				pass
 
