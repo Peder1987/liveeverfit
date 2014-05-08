@@ -17,6 +17,7 @@ from workouts.filters import DifficultyFilterBackend
 class VideoViewSet(generics.ListAPIView):
     model = Video
     permission_classes = (IsAuthenticated,)
+    filter_backends = (DifficultyFilterBackend,)
     
 class VideoObjectViewSet(generics.RetrieveAPIView):
     model = Video
