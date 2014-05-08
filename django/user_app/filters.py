@@ -60,3 +60,25 @@ class LocationFilterBackend(filters.BaseFilterBackend):
 
 	class Meta:
 		model = Professional
+
+
+class AcceptingFilterBackend(filters.BaseFilterBackend):
+
+	def filter_queryset(self, request, queryset, view):
+		if 'accepting' in request.QUERY_PARAMS:
+			accepting = request.GET.get('accepting','')
+			if (accepting == 'True'):
+				accepting = [True]
+			elif (accepting == 'False'):
+				accepting = [False]
+			else:
+				accepting = [True, False]
+			try:
+				queryset = queryset.filter(is_accepting__in = accepting)
+			except:
+				pass
+
+		return queryset
+
+	class Meta:
+		model = Professional

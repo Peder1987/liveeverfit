@@ -51,4 +51,5 @@ class ProfessionalSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Professional
+        exclude = ('password',)
 

@@ -9,6 +9,7 @@ define(['app'], function(app) {
             $scope.profession = [];
             $scope.gender = [];
             $scope.location = [];
+            $scope.accepting = [];
 
             $scope.locations = [];
 
@@ -64,7 +65,8 @@ define(['app'], function(app) {
                 $scope.filtering = {
                     profession: $scope.profession,
                     gender: $scope.gender,
-                    location: $scope.location
+                    location: $scope.location,
+                    accepting: $scope.accepting
                 };
                 $scope.professionals = filterProfessionalCollection.get($scope.filtering, function () {});
             };
@@ -99,7 +101,6 @@ define(['app'], function(app) {
             }
         
     }]);
-
 
 
     return app;    
