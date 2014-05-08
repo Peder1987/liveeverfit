@@ -41,6 +41,7 @@ require.config({
         'angularResource' :'common/angular-resource/angular-resource.min',
         'angularAMD': 'common/angularAMD/angularAMD',
         'ngload': 'common/angularAMD/ngload',
+        'ngTagsInput' : 'common/ng-tags-input/ng-tags-input',
         'uiRouter' :'common/angular-ui-router/release/angular-ui-router.min',  
         'uiBootstrap' :'common/angular-bootstrap/ui-bootstrap.min',   
         'routeResolver':'common/router/routeResolver',
@@ -75,7 +76,8 @@ require.config({
             'ui.bootstrap.timepicker': ['angular'],
             'ui.bootstrap.modal': ['angular'],
             'ui.bootstrap.tabs': ['angular'],
-            'footer': ['app']
+            'footer': ['app'],
+            'ngTagsInput': ['angular'],
     },
 
     //Kick start application

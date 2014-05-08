@@ -1,24 +1,59 @@
 'use strict';
 
-define(['app'], function (app) {
+define(['app',], function (app) {
     
 
-    app.register.controller('workoutsCtrl', ['$scope', 'restricted',
-        function ($scope) {
-            $scope.restricted();
+    app.register.controller('workoutsCtrl', ["$scope","$resource","rest","tokenError",
+    function($scope,$resource,tokenError, tags){
+        $scope.difficulty = {
+                beginner: '',
+                intermediate: '',
+                advanced: ''
+        };
 
-            $scope.difficulty = {
-                beginner: false,
-                intermediate: true,
-                advanced: false
-            };
+        $scope.search = []
+
+        var videoCollection =  $resource(":protocol://:url/workouts/video/",{
+            protocol: $scope.restProtocol,
+            url: $scope.restURL
+        });
+        var videoResource = $resource(":protocol://:url/workouts/video/:id/",{
+            protocol: $scope.restProtocol,
+            url: $scope.restURL,
+            id:'@id'
+        },{update: { method: 'PUT' }});
+        var filterVideoCollection =  $resource(":protocol://:url/workouts/video?:filter",{
+            protocol: $scope.restProtocol,
+            filter:'@filter',
+            url: $scope.restURL
+        });
+        $scope.videos = videoCollection.get(function() {},$scope.checkTokenError);
+
+
+
+        $scope.difficultyOnClick = function (value) {
+            if($scope.difficulty[value] == ''){
+                $scope.difficulty[value] = value;
+            }
+            else{
+                $scope.difficulty[value] = ''
+            }
+            $scope.filter();
         }
-    ]);
+        $scope.filter = function () {
 
+            $scope.difficultyArray = [$scope.difficulty.beginner, $scope.difficulty.intermediate, $scope.difficulty.advanced]
+            $scope.filtering = {
+                difficulty: $scope.difficultyArray
+            };
+            console.log($scope.difficultyArray);
+            console.log($scope.filtering);
 
-    app.register.controller("workouts.tagCtrl",["$scope","$resource","rest","tokenError",
-    function($scope,$resource,tokenError){
+            $scope.videos = filterVideoCollection.get($scope.filtering, function () {});
 
+        };
+
+        /*ANYTHING TAG RELATED, kept it in same scope in order make things less complicated*/
         var tagCollection =  $resource(":protocol://:url/tags/",{
             protocol: $scope.restProtocol,
             url: $scope.restURL
@@ -31,56 +66,21 @@ define(['app'], function (app) {
 
         $scope.tags = tagCollection.get(function() {},$scope.checkTokenError);
 
-        $scope.save = function(professional){
-            tagResource.update({id:tag.id},tag)
+
+        $scope.addTag = function(tag) {
+            
+            // Ensures that no two tags are replicated
+            if($scope.search.indexOf(tag) == -1){
+                $scope.search.push(tag);
+            }
+
         }
 
-        $scope.add = function() {
-            tagCollection.save($scope.newProfessional, function() {},
-                function(error) {
-                $scope.message = error.data;
-                $scope.checkTokenError();
-            });
-        }
+
 
 
 	}]);
 
-    app.register.controller("workouts.videoCtrl",["$scope","$resource","rest","tokenError",
-    function($scope,$resource,tokenError){
-
-        var videoCollection =  $resource(":protocol://:url/workouts/video/",{
-            protocol: $scope.restProtocol,
-            url: $scope.restURL
-        });
-        var videoResource = $resource(":protocol://:url/workouts/video/:id/",{
-            protocol: $scope.restProtocol,
-            url: $scope.restURL,
-            id:'@id'
-        },{update: { method: 'PUT' }});
-
-        $scope.videos = videoCollection.get(function() {},$scope.checkTokenError);
-
-
-
-        $scope.toggleDifficulty = function (difficulty) {
-            $scope.                
-            console.log($scope.Female);
-            $scope.filter();
-        };
-        $scope.filter = function () {
-            console.log('Working');
-            $scope.filtering = $scope.Trainers + $scope.Nutritionists + $scope.Male + $scope.Female;
-            console.log($scope.filtering);
-            // var professionalCollection =  $resource("http://:url/users/professionals/:id/",{
-            //     url: $scope.restURL,
-            //     id:$scope.filtering
-
-            // });
-        };
-
-
-
-    }]);
+    
 
 });

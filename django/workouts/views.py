@@ -9,7 +9,7 @@ from rest_framework import generics
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from workouts.models import Video, VideoComment
-
+from workouts.filters import DifficultyFilterBackend
 
 
 
