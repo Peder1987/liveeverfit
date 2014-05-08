@@ -32,8 +32,6 @@ class ProfessionFilterBackend(filters.BaseFilterBackend):
 	def filter_queryset(self, request, queryset, view):
 		if 'profession' in request.QUERY_PARAMS:
 			profession = request.GET.getlist('profession','')
-			print request.GET
-			print profession
 			try:
 				queryset = queryset.filter(profession__in= profession)
 				print queryset
