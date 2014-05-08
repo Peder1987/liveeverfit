@@ -74,10 +74,10 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div class="form-space">
-                                                <select id="accepting" type="text" class="form-control">
-                                                    <option value="both"></option>
-                                                    <option value="true">Yes</option>
-                                                    <option value="false">No</option>
+                                                <select ng-model="accepting" ng-change="filter()" id="accepting" type="text" class="form-control">
+                                                    <option value="Both">Both</option>
+                                                    <option value="True">Yes</option>
+                                                    <option value="False">No</option>
                                                 </select>
                                             </div>
                                         </div>

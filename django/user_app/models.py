@@ -7,10 +7,11 @@ from django.contrib.auth import models as auth_models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 from django.contrib.auth.models import BaseUserManager
 from django.db.models.signals import post_save
-from taggit.managers import TaggableManager
 from django.dispatch import receiver
-from rest_framework.authtoken.models import Token
 from django.db.models.signals import post_save
+
+from rest_framework.authtoken.models import Token
+from taggit.managers import TaggableManager
 from shopify_app import shopify_call
 from chargify import chargify_calls
 

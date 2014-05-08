@@ -1,5 +1,6 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 from rest_framework import viewsets, status, filters
 from rest_framework.response import Response
@@ -7,34 +8,37 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework import generics
 
-from .filters import UserFilter
-from .serializers import UserSerializer, PasswordSerializer, GroupSerializer, ProfessionalSerializer
+from .filters import UserFilter, GenderFilterBackend, ProfessionFilterBackend, LocationFilterBackend, AcceptingFilterBackend
+from .serializers import UserSerializer, PasswordSerializer, GroupSerializer, ProfessionalSerializer, LocationSerializer
 from .permissions import IsAdminOrSelf
-from .filters import GenderFilterBackend, ProfessionFilterBackend, LocationFilterBackend
-from .models import Professional
-User = get_user_model()
+from .models import Professional, UniqueLocation
+
+
 
 class UserViewSet(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAdminOrSelf,)
     model = User
+    permission_classes = (IsAdminOrSelf,)
     serializer_class = UserSerializer
     filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
 
 
 class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that represents a single or list of groups.
-    """
     model = Group
     permission_classes = (IsAdminUser,)
     serializer_class = GroupSerializer
+
+
+class LocationViewSet(viewsets.ModelViewSet):
+    model = UniqueLocation
+    permission_classes = (IsAuthenticated,)
+    serializer_class = LocationSerializer
 
 
 class ProfessionalViewSet(viewsets.ModelViewSet):
     model = Professional
     permission_classes = (IsAuthenticated,)
     serializer_class = ProfessionalSerializer
-    filter_backends = (GenderFilterBackend,ProfessionFilterBackend,LocationFilterBackend,)
+    filter_backends = (GenderFilterBackend,ProfessionFilterBackend,LocationFilterBackend,AcceptingFilterBackend,)
 
     def get_queryset(self):
         return Professional.objects.all()

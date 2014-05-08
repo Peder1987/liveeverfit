@@ -9,9 +9,9 @@ define(['app'], function(app) {
             $scope.profession = [];
             $scope.gender = [];
             $scope.location = [];
+            $scope.accepting = [];
 
-            $scope.selected = undefined;
-            $scope.locations = ['Houston,TX', 'Dallas,TX',];
+            $scope.locations = [];
 
             var professionalCollection =  $resource("http://:url/users/professionals",{
                 url: $scope.restURL
@@ -22,7 +22,18 @@ define(['app'], function(app) {
                 filter:'@filter'
             });
 
+            var locationlCollection =  $resource("http://:url/users/location",{
+                url: $scope.restURL
+            });
+
             $scope.professionals = professionalCollection.get(function() {},$scope.checkTokenError);
+
+            $scope.locationsJson = locationlCollection.get(function() {
+                $scope.locationsJson.results.forEach(function(entry) {
+                    $scope.locations.push(entry.location);
+                });
+            },$scope.checkTokenError);
+
 
             $scope.professionOnClick = function (value) {
                 if($scope.profession.indexOf(value) == -1){
@@ -54,7 +65,8 @@ define(['app'], function(app) {
                 $scope.filtering = {
                     profession: $scope.profession,
                     gender: $scope.gender,
-                    location: $scope.location
+                    location: $scope.location,
+                    accepting: $scope.accepting
                 };
                 $scope.professionals = filterProfessionalCollection.get($scope.filtering, function () {});
             };
@@ -89,7 +101,6 @@ define(['app'], function(app) {
             }
         
     }]);
-
 
 
     return app;    
