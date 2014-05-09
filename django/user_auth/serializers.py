@@ -29,7 +29,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
  
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name','password', 'password2')
+        fields = ('email', 'first_name', 'last_name','password', 'password2', 'tier')
         write_only_fields = ('password', )  # Note: Password field is write-only
 
     def validate_password(self, attrs, source):

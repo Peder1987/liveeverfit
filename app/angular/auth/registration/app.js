@@ -13,7 +13,8 @@ define(['app'], function(app) {
 				last_name: '',
 				email: '',
 				password: '',
-				password2: ''
+				password2: '',
+				tier: 1
 			};
 
     		var AuthToken =  $resource("http://:url/accounts/register/", {
@@ -31,6 +32,11 @@ define(['app'], function(app) {
 
 			$scope.setCurrentStepForm = function(step, valid){
 				if(valid == true){$scope.step = step;};
+			};
+
+			$scope.membership = function(step, tier){
+				$scope.user.tier = tier;
+				$scope.step = step;
 			};
 
 			$scope.submit = function() {

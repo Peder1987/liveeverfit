@@ -18,4 +18,4 @@ pros = Professional.objects.all()
 
 print pros
 
-print pros.filter(tags__name__in=['crossfit'])
+print pros.filter(tags__name__in=['looksy'])
