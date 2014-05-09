@@ -93,7 +93,7 @@ class TagFilterBackend(filters.BaseFilterBackend):
 			try:
 				for tag in tags:
 					special_list = [tag]
-					queryset = queryset.filter(tags__name__in=['crossfit'])
+					queryset = queryset.filter(tags__name__in=special_list)
 					print queryset
 			except:
 				pass
