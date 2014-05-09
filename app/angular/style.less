@@ -28,6 +28,23 @@
   background-color: #178aff;
 }
 
+
+::-webkit-input-placeholder { /* WebKit browsers */
+  color:    #DDD;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:    #DDD;
+  opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:    #DDD;
+  opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color:    #DDD;
+}
+
+
 tags-input *, *:before, *:after {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -92,6 +109,8 @@ tags-input .tags .tag-item .remove-button:active {
   color: red;
 }
 tags-input .tags .input {
+  background: none;
+  color: white;
   border: 0;
   outline: none;
   margin: 2px;

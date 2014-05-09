@@ -3,15 +3,16 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2 id="workoutsHeader" class="ef-header">professional workouts</h2>
+
                 <div class="row">
                     <div class="col-xs-6">
                         {{tagSelected}}
                         <tags-input ng-model="search" class="bootstrap"
-                               placeholder="Example: Title, tags, etc..."
-                               name="pattern" value="" display-property="name">
+                                    placeholder="Example: Title, tags, etc..."
+                                    name="pattern" value="" display-property="name">
                     </div>
-                    <button id="searchButton" type="button" class="col-xs-2 btn btn-primary">
-                        search <span class="glyphicon glyphicon-search"></span>
+                    <button id="searchButton" type="button" class="btn">
+                        <span class="fa fa-chevron-right"></span>
                     </button>
                 </div>
                 <div class="page-header">
