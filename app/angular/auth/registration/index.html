@@ -1,5 +1,4 @@
 
-
 <div class="container" ng-switch="getCurrentStep()" class="slide-frame">
 
 
@@ -8,7 +7,7 @@
       <h3>Basic Information</h3>
     </div>
     <div class="panel-body">
-      <form class="form-horizontal" name="registration">
+      <form class="form-horizontal" name="registrationForm">
         <label for="inputFirstName">
           First Name:
         </label>
@@ -36,9 +35,8 @@
 
         <hr></hr>
 
-        <button type="submit" class="btn btn-primary pull-right" ng-click="setCurrentStepForm('choice', registration.$valid)">Next</button>
-      </form>
-        
+        <button type="submit" class="btn btn-primary pull-right" ng-click="setCurrentStepForm('choice', registrationForm.$valid)">Next</button>
+      </form>        
     </div>
   </div><!--end registration-->
 
@@ -62,11 +60,12 @@
     <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('choice')">Back</button>
   </div><!--end user-->
 
+
   <div ng-switch-when="professionals">
     <div>
       Professionals
     </div>
-    <button type="submit" class="btn btn-primary pull-right" ng-click="setCurrentStep('registration')">Back</button>
+    <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('registration')">Back</button>
   </div><!--end professionals-->
 
 
@@ -77,6 +76,26 @@
     </div>
     <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('user')">Back</button>
   </div><!--end free-->
+
+
+  <div ng-switch-when="membership">
+    <div>
+      <button type="button" class="btn btn-primary" ng-click="membership('membershipSubmit', 2)">Tier 2</button>
+      <button type="button" class="btn btn-primary" ng-click="membership('membershipSubmit', 3)">Tier 3</button>
+      <button type="button" class="btn btn-primary" ng-click="membership('membershipSubmit', 4)">Tier 4</button>
+      <button type="button" class="btn btn-primary" ng-click="membership('membershipSubmit', 5)">Tier 5</button>
+    </div>
+    <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('user')">Back</button>
+  </div><!--end membership-->
+
+
+  <div ng-switch-when="membershipSubmit">
+    <div>
+      <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
+      <button type="submit" class="btn btn-primary" ng-click="submit()">Submit</button>
+    </div>
+    <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('user')">Back</button>
+  </div><!--end membershipSubmit-->
 
 
 </div>  
