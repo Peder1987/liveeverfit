@@ -364,7 +364,7 @@ class Professional(CustomUser):
 
     queue = models.BooleanField(_("queue"), default=True)
     objects = ProfessionalManager()
-    tags = TaggableManager(blank=True, verbose_name = 'professional')
+    tags = TaggableManager(blank=True)
 
     fitness_sales_experience = models.CharField(_('fitness sales experience'), max_length=100   , blank=True)
     education = models.CharField(_('education'), max_length=30, blank=True)

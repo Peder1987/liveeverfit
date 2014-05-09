@@ -10,7 +10,7 @@ define(['app'], function(app) {
             $scope.gender = [];
             $scope.location = [];
             $scope.accepting = [];
-
+            $scope.tagSelected = [];
             $scope.locations = [];
 
             var professionalCollection =  $resource("http://:url/users/professionals",{
@@ -61,23 +61,6 @@ define(['app'], function(app) {
                 }
                 $scope.filter();
             }
-            $scope.filter = function () {
-                $scope.filtering = {
-                    profession: $scope.profession,
-                    gender: $scope.gender,
-                    location: $scope.location,
-                    accepting: $scope.accepting
-                };
-                $scope.professionals = filterProfessionalCollection.get($scope.filtering, function () {});
-            };
-
-
-    }]);
-
-
-    app.register.controller("tagCtrl",["$scope","$resource","rest","tokenError",
-        function($scope,$resource,tokenError){
-
             var tagCollection =  $resource("http://:url/tags/",{
                 url: $scope.restURL
             });
@@ -87,20 +70,36 @@ define(['app'], function(app) {
             },{update: { method: 'PUT' }});
 
             $scope.tags = tagCollection.get(function() {},$scope.checkTokenError);
+            $scope.addTag = function(tag) {
+            
+                // Ensures that no two tags are replicated
+                
+                if($scope.tagSelected.indexOf(tag) == -1){
+                        $scope.tagSelected.push(tag);
+                }
+                else{
+                    var temp = $scope.tagSelected.indexOf(tag);
+                    $scope.tagSelected.splice(temp,1);
+                }
+                $scope.filter()
 
-            $scope.save = function(professional){
-                tagResource.update({id:tag.id},tag)
             }
+            $scope.filter = function () {
+                $scope.filtering = {
+                    profession: $scope.profession,
+                    gender: $scope.gender,
+                    location: $scope.location,
+                    accepting: $scope.accepting,
+                    tags : $scope.tagSelected,
+                };
+                $scope.professionals = filterProfessionalCollection.get($scope.filtering, function () {});
+            };
 
-            $scope.add = function() {
-                tagCollection.save($scope.newProfessional, function() {},
-                    function(error) {
-                    $scope.message = error.data;
-                    $scope.checkTokenError();
-                });
-            }
-        
+
     }]);
+
+
+
 
 
     return app;    

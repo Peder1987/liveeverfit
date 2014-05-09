@@ -82,3 +82,23 @@ class AcceptingFilterBackend(filters.BaseFilterBackend):
 
 	class Meta:
 		model = Professional
+
+
+class TagFilterBackend(filters.BaseFilterBackend):
+
+	def filter_queryset(self, request, queryset, view):
+		print queryset
+		if 'tags' in request.QUERY_PARAMS:
+			tags = request.GET.getlist('tags','')
+			try:
+				for tag in tags:
+					special_list = [tag]
+					queryset = queryset.filter(tags__name__in=['crossfit'])
+					print queryset
+			except:
+				pass
+
+		return queryset
+
+	class Meta:
+		model = Professional
