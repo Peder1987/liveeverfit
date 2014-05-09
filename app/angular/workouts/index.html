@@ -1,126 +1,99 @@
-<div ng-controller="workoutsCtrl">
-    <div id="workouts">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-9">
-                    <h2 id="workoutsHeader" class="ef-header">workouts \\</h2>
-
-                    <div class="row">
-                        <div class="col-xs-10">
-                            {{tagSelected}}
-                            <tags-input ng-model="search" class="bootstrap" 
-                                        placeholder="Example: Title, tags, etc..." 
-                                        name="pattern" value="" display-property="name"
-                                        
-                              
-                            </tags-input>
-                        </div>
-                        <button id="searchButton" type="button" class="col-xs-2 btn btn-primary">
-                            search <span class="glyphicon glyphicon-search"></span>
-                        </button>
+<div id="workouts" ng-controller="workoutsCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 id="workoutsHeader" class="ef-header">professional workouts</h2>
+                <div class="row">
+                    <div class="col-xs-6">
+                        {{tagSelected}}
+                        <tags-input ng-model="search" class="bootstrap"
+                               placeholder="Example: Title, tags, etc..."
+                               name="pattern" value="" display-property="name">
                     </div>
-
-
-                    <div class="page-header">
-                        <h2 class="entry-title">select your level of fitness...</h2>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-space">
-                                <button class="col-xs-12 btn toggle beginner difficulties" id='beginner' ng-click="difficultyOnClick('beginner')" ><span
-                                        class="difficulty beginner"></span> beginner
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-space">
-                                <button class="col-xs-12 btn toggle intermediate difficulties" id='intermediate' ng-click="difficultyOnClick('intermediate')"><span
-                                        class="difficulty intermediate"></span> intermediate
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-space">
-                                <button class="col-xs-12 btn toggle advanced difficulties" id='advanced' ng-click="difficultyOnClick('advanced')"><span
-                                        class="difficulty advanced"></span> advanced
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="page-header">
-                        <h2 class="entry-title">popular categories: </h2>
-                    </div>
-                    <p>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Popular Specialties</label>
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <div class="form-space">
-                                                <p>
-                                                    <div ng-repeat="tag in tags.results">
-                                                      <button class="tag tag-blue tag-click" ng-click="addTag(tag.name)">{{tag.name}}</button>
-                                                    </div>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </p>
-
-                    <div id="videosWidget">
-                            <div class="page-header">
-                                <h2 class="entry-title">popular views: </h2>
-                            </div>
-                                
-                                <div ng-repeat="video in videos.results">
-                                    <div class="col-xs-12 col-sm-4">
-                                        <div class="ef-workout-video">
-                                            <a href="/workouts/video/{{ video.id }}"><img src="http://beta.liveeverfit.com/media/{{ video.img }}"/></a>
-                                        </div>
-                                        <a href="/workouts/video/{{ video.id }}">
-                                            <div class="workout-title">
-                                                <span class="ellipsis">{{ video.title }}</span>
-                                                <span class="difficulty {{ video.difficulty }} pull-right"></span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-
-
-                                
-                            
-                        
-                    </div>
+                    <button id="searchButton" type="button" class="col-xs-2 btn btn-primary">
+                        search <span class="glyphicon glyphicon-search"></span>
+                    </button>
                 </div>
-                <div class="col-xs-12 col-sm-3">
-                    <div>
-                        <a href="/f3-foods-home/">
-                            <img src="http://beta.liveeverfit.com/static/img/F3-sidebar-ad.png" class="center-block"/>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="/fitness-professionals/">
-                            <img style="margin-top: 40px;" src="http://beta.liveeverfit.com/static/img/find-a-pro-sidebar-ad.jpg"  class="center-block"/>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="http://store.liveeverfit.com">
-                            <img style="margin-top: 40px;" src="http://beta.liveeverfit.com/static/img/shop-sidebar-ad.png"  class="center-block"/>
-                        </a>
-                    </div>
+                <div class="page-header">
+                    <h2 class="entry-title">select your level of fitness...</h2>
+                </div>
 
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-space">
+                            <button class="col-xs-12 btn toggle beginner difficulties" id='beginner'
+                                    ng-click="difficultyOnClick('beginner')"><span
+                                    class="difficulty beginner"></span> beginner
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-space">
+                            <button class="col-xs-12 btn toggle intermediate difficulties" id='intermediate'
+                                    ng-click="difficultyOnClick('intermediate')"><span
+                                    class="difficulty intermediate"></span> intermediate
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-space">
+                            <button class="col-xs-12 btn toggle advanced difficulties" id='advanced'
+                                    ng-click="difficultyOnClick('advanced')"><span
+                                    class="difficulty advanced"></span> advanced
+                            </button>
+                        </div>
+                    </div>
 
                 </div>
+                <div class="page-header">
+                    <h2 class="entry-title">popular categories: </h2>
+                </div>
+                <p>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Popular Specialties</label>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-space">
+                                        <p>
+
+                                        <div ng-repeat="tag in tags.results">
+                                            <button class="tag tag-blue tag-click" ng-click="addTag(tag.name)">
+                                                {{tag.name}}
+                                            </button>
+                                        </div>
+                </p>
             </div>
         </div>
     </div>
 </div>
+</div>
+</div>
+</p>
+
+<div id="videosWidget">
+    <div class="page-header">
+        <h2 class="entry-title">popular views: </h2>
+    </div>
+
+    <div ng-repeat="video in videos.results">
+        <div class="col-xs-12 col-sm-4">
+            <div class="ef-workout-video">
+                <a href="/workouts/video/{{ video.id }}"><img src="http://beta.liveeverfit.com/media/{{ video.img }}"/></a>
+            </div>
+            <a href="/workouts/video/{{ video.id }}">
+                <div class="workout-title">
+                    <span class="ellipsis">{{ video.title }}</span>
+                    <span class="difficulty {{ video.difficulty }} pull-right"></span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
 
 
 

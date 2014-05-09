@@ -364,11 +364,7 @@ a.header-logo {
     padding-top: 590px;
     margin-bottom: 100px;
 }
-#workouts {
-    background-image: url('../img/workouts-bg.jpg');
-    background-repeat: no-repeat;
-    background-position: center top;
-}
+
 #workoutsLogo {
     max-height: 240px;
     max-width: 120px;
