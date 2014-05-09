@@ -5,7 +5,6 @@
                 <h2 id="workoutsHeader" class="ef-header">professional workouts</h2>
                 <div class="row">
                     <div class="col-xs-6">
-                        {{tagSelected}}
                         <tags-input ng-model="search" class="bootstrap"
                                placeholder="Example: Title, tags, etc..."
                                name="pattern" value="" display-property="name">
@@ -61,7 +60,7 @@
                                         <p>
 
                                         <div ng-repeat="tag in tags.results">
-                                            <button class="tag tag-blue tag-click" ng-click="addTag(tag.name)">
+                                            <button class="tag tag-blue tag-click" ng-click="addTag(tag)">
                                                 {{tag.name}}
                                             </button>
                                         </div>
