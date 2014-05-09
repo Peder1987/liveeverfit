@@ -1,0 +1,141 @@
+<div ng-controller="account-settingsCtrl">
+    <div class="row">
+        <div class="col-xs-12 col-sm-7">
+            <div class="row">
+                <div class="col-xs-4 col-sm-4">
+                    <a href="/profile/view?id={{ profile_user.id }}" class="thumbnail">
+                        <img src="/media/{{ profile_user.img }}" data-toggle="modal"
+                             data-target="#profilePictureModal"/>
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="ef-entry-title" style="font-size: 28px;">
+                        <a href="/profile/view?id={{ profile_user.id }}">
+                            {{ profile_user.first_name }} {{ profile_user.last_name }}
+                        </a>
+
+                        <div style="font-size: 16px; letter-spacing: 0; ">
+                            Date joined: {{ profile_user.date_joined |date:"M d, Y" }}
+                        </div>
+                    </div>
+                    <div class="row seperate-bottom">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                                    <span class="bold">
+                                                        <span class="glyphicon glyphicon-envelope"></span> Email:
+                                                    </span>
+                                    <a id="email"
+                                       href="mailto:{{ profile_user.email }}"
+                                       class="edit-text"
+                                       data-title="Email"
+                                       data-type="email">{{ profile_user.email }}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row edit-password-info">
+                                <div class="col-xs-12">
+                                                    <span class="bold">
+                                                        <span class="glyphicon glyphicon-lock"></span> Password:
+                                                    </span>
+                                    <span href="" class="edit-password">Change</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if profile_user.is_professional %}
+            <div class="col-xs-12 col-sm-5">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                            <span class="bold">
+                                                <span style="font-size: 18px; font-weight: 700">@</span> Twitter:
+                                            </span>
+                                            <span id="twitter" class="edit-text" data-title="Twitter Username"
+                                                  data-type="text">
+                                                {{ profile_user.twitter }}
+                                            </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                            <span class="bold">
+                                                <span style="font-size: 18px; font-weight: 700">&nbsp;f</span> &nbsp;Facebook Page:
+                                            </span>
+                                            <span id="facebook" class="edit-text" data-title="Facebook Page"
+                                                  data-type="text">
+                                                {{ profile_user.facebook }}
+                                            </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                            <span class="bold">
+                                                <span class="glyphicon glyphicon-play"></span> Youtube:
+                                            </span>
+                                            <span id="youtube" class="edit-text" data-title="Youtube Url"
+                                                  data-type="text">
+                                                {{ profile_user.youtube }}
+                                            </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                            <span class="bold">
+                                                <span class="glyphicon glyphicon-plus"></span> Google+:
+                                            </span>
+                                            <span id="plus" class="edit-text" data-title="Google+ URL" data-type="text">
+                                                {{ profile_user.plus }}
+                                            </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                            <span class="bold">
+                                                <span style="font-size: 18px; font-weight: 700">in</span> LinkedIn:
+                                            </span>
+                                            <span id="linkedin" class="edit-text" data-title="LinkedIn Profile URL"
+                                                  data-type="text">
+                                                {{ profile_user.linkedin }}
+                                            </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                            <span class="bold">
+                                                <span class="glyphicon glyphicon-camera"></span> Instagram:
+                                            </span>
+                                            <span id="instagram" class="edit-text" data-title="Instagram Username"
+                                                  data-type="text">
+                                                {{ profile_user.instagram }}
+                                            </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                            <span class="bold">
+                                                <span class="glyphicon glyphicon-phone"></span> Phone Number:
+                                            </span>
+                                            <span id="phone" class="edit-text" data-title="Phone Number"
+                                                  data-type="text">
+                                                {{ profile_user.phone }}
+                                            </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+
+
+ 

@@ -32,6 +32,7 @@ define(['angularAMD', 'uiRouter', 'uiBootstrap', 'routeResolver', 'angularResour
                 .state('login', route.resolve('/login', 'auth/login'))
 
                 //LoggedIN
+                .state('account-settings', route.resolve('/account-settings', 'account-settings'))
                 .state('dashboard', route.resolve('/dashboard', 'dashboard'))
                 .state('workouts', route.resolve('/workouts', 'workouts'))
                 .state('fitness-professional', route.resolve('/fitness-professional', 'fitness-professional'))

@@ -65,11 +65,13 @@ define(['app',], function (app) {
             
             // Ensures that no two tags are replicated
             
-            if($scope.tagSelected.indexOf(tag) == -1){
-                    $scope.tagSelected.push(tag);
+            if($scope.search.indexOf(tag) == -1){
+                    $scope.search.push(tag);
+                    $scope.tagSelected.push(tag.name);
             }
             else{
-                var temp = $scope.tagSelected.indexOf(tag);
+                var temp = $scope.search.indexOf(tag);
+                $scope.search.splice(temp,1);
                 $scope.tagSelected.splice(temp,1);
             }
             $scope.filter()
