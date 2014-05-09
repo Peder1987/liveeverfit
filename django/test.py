@@ -8,3 +8,14 @@ from django.utils.timezone import utc, now
 #from schedule.models import Calendar, Event
 #Write code after this
 ##############################################
+
+from user_app.models import Professional
+
+
+users = User.objects.all()
+pros = Professional.objects.all()
+
+
+print pros
+
+print pros.filter(tags__name__in=['crossfit'])

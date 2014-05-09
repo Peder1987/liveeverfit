@@ -1,73 +1,82 @@
-<div class="container">
-  <div class="col-md-7">
-    <div class="panel panel-default" ng-controller="registrationCtrl">
-      <div class="panel-heading">
-        <h3>User Registration</h3>
-      </div>
-      <div class="panel-body">
-        <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
-          <form class="form-horizontal" role="form" ng-submit="submit()">
-            <label for="inputFirstName">
-              First Name:
-            </label>
-            <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" ng-model="user.first_name" required>
-              <p></p>
-            <label for="inputLastName">
-              Last Name:
-            </label>
-            <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name" ng-model="user.last_name" required>
-              <p></p>
-            <label for="inputEmail">
-              Email:
-            </label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="Email" ng-model="user.email" required>
-              <p></p>
-            <label for="inputPassword">
-              Password:
-            </label>
-            <input type="password" class="form-control" name="password" value="" id="password" placeholder="Password" ng-model="user.password" required>
-              <p></p>
-            <label for="inputPassword">
-              Re-enter Password:
-            </label>
-            <input type="password" class="form-control" name="password" value="" id="password" placeholder="Password" ng-model="user.password2" required>
 
-            <hr></hr>
 
-            <button id="signin"type="submit" class="btn btn-default pull-right">
-              Sign Up
-            </button>
-          </form>
-      </div>
-    </div> 
-  </div> <!--end col-md-7-->
-  <div class="col-md-4">
-    <div class="panel panel-default" ng-controller="loginCtrl">
-      <div class="panel-heading">
-        <h3>Have an account?</h3>
-        <h4>Sign in</h4>
-      </div>
-      <div class="panel-body">
-        <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
-          <form class="form-horizontal" role="form" ng-submit="submit()">
-            <label for="email">
-              Email:
-            </label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="Email" ng-model="user.email" required>
+<div class="container" ng-switch="getCurrentStep()" class="slide-frame">
 
-              <p></p>
 
-            <label for="password">
-              Password:
-            </label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Password" ng-model="user.password"required>
-
-              <hr></hr>
-
-            <button id="signin" type="submit" class="btn btn-default pull-right">Sign In</button>
-            <a ng-class="{active:$uiRoute}" ui-sref="forgot-password">Forgot your password?</a>
-          </form>
-      </div>
+  <div class="panel panel-default" ng-switch-when="registration">
+    <div class="panel-heading">
+      <h3>Basic Information</h3>
     </div>
-  </div> <!--end col-md-4-->
-</div> <!--end container-->
+    <div class="panel-body">
+      <form class="form-horizontal" name="registration">
+        <label for="inputFirstName">
+          First Name:
+        </label>
+        <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" ng-model="user.first_name" required>
+          <p></p>
+        <label for="inputLastName">
+          Last Name:
+        </label>
+        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name" ng-model="user.last_name" required>
+          <p></p>
+        <label for="inputEmail">
+          Email:
+        </label>
+        <input type="email" class="form-control" name="email" id="email" placeholder="Email" ng-model="user.email" required>
+          <p></p>
+        <label for="inputPassword">
+          Password:
+        </label>
+        <input type="password" class="form-control" name="password" value="" id="password" placeholder="Password" ng-model="user.password" required>
+          <p></p>
+        <label for="inputPassword">
+          Re-enter Password:
+        </label>
+        <input type="password" class="form-control" name="password" value="" id="password" placeholder="Password" ng-model="user.password2" required>
+
+        <hr></hr>
+
+        <button type="submit" class="btn btn-primary pull-right" ng-click="setCurrentStepForm('choice', registration.$valid)">Next</button>
+      </form>
+        
+    </div>
+  </div><!--end registration-->
+
+
+  <div ng-switch-when="choice">
+    <div>
+      <button type="button" class="btn btn-primary" ng-click="setCurrentStep('user')">User</button>
+      <button type="button" class="btn btn-primary" ng-click="setCurrentStep('professionals')">Trainer</button>
+      <button type="button" class="btn btn-primary" ng-click="setCurrentStep('professionals')">Nutritionist</button>
+      <button type="button" class="btn btn-primary" ng-click="setCurrentStep('professionals')">Promoter</button>
+    </div>
+    <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('registration')">Back</button>
+  </div><!--end choice-->
+
+
+  <div ng-switch-when="user">
+    <div>
+      <button type="button" class="btn btn-primary" ng-click="setCurrentStep('membership')">membership</button>
+      <button type="button" class="btn btn-primary" ng-click="setCurrentStep('free')">Free</button>
+    </div>
+    <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('choice')">Back</button>
+  </div><!--end user-->
+
+  <div ng-switch-when="professionals">
+    <div>
+      Professionals
+    </div>
+    <button type="submit" class="btn btn-primary pull-right" ng-click="setCurrentStep('registration')">Back</button>
+  </div><!--end professionals-->
+
+
+  <div ng-switch-when="free">
+    <div>
+      <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
+      <button type="submit" class="btn btn-primary" ng-click="submit()">Submit</button>
+    </div>
+    <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('user')">Back</button>
+  </div><!--end free-->
+
+
+</div>  

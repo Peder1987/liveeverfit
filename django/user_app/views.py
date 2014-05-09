@@ -8,7 +8,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework import generics
 
-from .filters import UserFilter, GenderFilterBackend, ProfessionFilterBackend, LocationFilterBackend, AcceptingFilterBackend
+from .filters import UserFilter, GenderFilterBackend, ProfessionFilterBackend, LocationFilterBackend, AcceptingFilterBackend, TagFilterBackend
 from .serializers import UserSerializer, PasswordSerializer, GroupSerializer, ProfessionalSerializer, LocationSerializer
 from .permissions import IsAdminOrSelf
 from .models import Professional, UniqueLocation
@@ -35,10 +35,11 @@ class LocationViewSet(viewsets.ModelViewSet):
 
 
 class ProfessionalViewSet(viewsets.ModelViewSet):
+    
     model = Professional
     permission_classes = (IsAuthenticated,)
     serializer_class = ProfessionalSerializer
-    filter_backends = (GenderFilterBackend,ProfessionFilterBackend,LocationFilterBackend,AcceptingFilterBackend,)
+    filter_backends = (GenderFilterBackend,ProfessionFilterBackend,LocationFilterBackend,AcceptingFilterBackend, TagFilterBackend)
 
     def get_queryset(self):
         return Professional.objects.all()

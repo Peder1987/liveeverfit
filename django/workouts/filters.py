@@ -19,12 +19,12 @@ class DifficultyFilterBackend(filters.BaseFilterBackend):
 		model = Video
 
 
-class TagFilterBackend(filters.BaseFilterBackend):
+class WorkoutTagFilterBackend(filters.BaseFilterBackend):
 
 	def filter_queryset(self, request, queryset, view):
 		if 'tags' in request.QUERY_PARAMS:
 			tags = request.GET.getlist('tags','')
-			
+
 			try:
 				for tag in tags:
 					special_list = [tag]
