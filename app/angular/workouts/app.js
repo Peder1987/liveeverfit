@@ -3,11 +3,12 @@
 define(['app',], function (app) {
     
 
-    app.register.controller('workoutsCtrl', ["$scope","$resource","rest","tokenError",
-    function($scope,$resource,tokenError, tags){
+    app.register.controller('workoutsCtrl', ["$scope","$resource",'$location', '$anchorScroll',"rest","tokenError", 
+    function($scope,$resource, $location, $anchorScroll, tokenError, tags){
         $scope.difficulty = [];
         $scope.tagSelected = [];
         $scope.search = '';
+        
         
         var videoCollection =  $resource(":protocol://:url/workouts/video/",{
             protocol: $scope.restProtocol,
@@ -64,8 +65,9 @@ define(['app',], function (app) {
         $scope.addTag = function(tag) {
             
             // Ensures that no two tags are replicated
-            
-            if($scope.search.indexOf(tag) == -1){
+            console.log('dib')
+   
+            /*if($scope.search.indexOf(tag) == -1){
                     $scope.search.push(tag);
                     $scope.tagSelected.push(tag.name);
             }
@@ -73,7 +75,7 @@ define(['app',], function (app) {
                 var temp = $scope.search.indexOf(tag);
                 $scope.search.splice(temp,1);
                 $scope.tagSelected.splice(temp,1);
-            }
+            }*/
             $scope.filter()
 
         }
@@ -83,6 +85,18 @@ define(['app',], function (app) {
 
 	}]);
 
-    
+    app.register.directive('scrollOnTag', function() {
+        return {
+            restrict: 'A',
+            link: function(scope, $elm, attrs) {
+              $elm.on('click', function() {
+                var $target;
+                //$target = $('#workoutsHeader');
+                //$("body").animate({scrollTop: $target.offset().top}, "slow");
+              });
+            }
+        }
+    });
+        
 
 });
