@@ -26,23 +26,24 @@ define(['app',], function (app) {
         });
         $scope.videos = videoCollection.get(function() {},$scope.checkTokenError);
 
-
+        $scope.selected = {};
 
         $scope.difficultyOnClick = function (value) {
             if($scope.difficulty.indexOf(value) == -1){
-                    $scope.difficulty.push(value);
+                $scope.selected[value] = true;
+                $scope.difficulty.push(value);
             }
             else{
                 var temp = $scope.difficulty.indexOf(value);
+                $scope.selected[value] = false;
                 $scope.difficulty.splice(temp,1);
             }
             $scope.filter();
-        }
+        };
         $scope.filter = function () {
             $scope.filtering = {
                 difficulty: $scope.difficulty,
-                tags : $scope.tagSelected,
-
+                tags : $scope.tagSelected
             };
             //console.log($scope.filtering)
             $scope.videos = filterVideoCollection.get($scope.filtering, function () {});
