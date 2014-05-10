@@ -22,7 +22,6 @@ define(['app', 'videojs'], function (app) {
                             $scope.video.rtmp_url = $sce.trustAsResourceUrl("rtmp://206.225.86.237:1935/vod/_definst_/mp4:" + $scope.video.url_video);
                             $scope.video.http_url = $sce.trustAsResourceUrl("http://206.225.86.237:1935/vod/content/" + $scope.video.url_video + "/playlist.m3u8");
                             $scope.videoStatus = 'selected';
-
                             setTimeout(function () {
                                 var $video = $('.video-js');
                                 $video.height($video.width() * 0.75);
