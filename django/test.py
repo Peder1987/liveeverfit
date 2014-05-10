@@ -15,7 +15,8 @@ from user_app.models import Professional
 users = User.objects.all()
 pros = Professional.objects.all()
 
+user =  User.objects.get(email='admin@test.com')
+pro = User.objects.get(email='pro2@test.com')
 
-print pros
-
-print pros.filter(tags__name__in=['looksy'])
+print Professional.objects.filter(pk=user.id).exists()
+print Professional.objects.filter(pk=pro.id).exists()

@@ -18,10 +18,12 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id','url', 'email', 'first_name',
-                  'last_name', 'is_staff', 'last_login_on',
-                  'joined_on')
+        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',)
 
+    def to_native(self, value):
+        obj = super(UserSerializer, self).to_native(value)
+        obj['is_professional'] = Professional.objects.filter(pk=obj['id']).exists()
+        return obj
 
 class LocationSerializer(serializers.ModelSerializer):
 
