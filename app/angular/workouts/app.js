@@ -1,8 +1,12 @@
 'use strict';
 
 define(['app', 'videojs'], function (app) {
-    app.register.controller('workoutsCtrl', ["$scope", "$sce", "$resource", "rest", "tokenError", '$stateParams', '$location', '$anchorScroll',
-        function ($scope, $sce, $resource, rest, tokenError, $stateParams, $stageChangeSuccess) {
+    app.register.controller('workoutsCtrl', ['$scope', 'restricted',
+        function ($scope) {
+            $scope.restricted();
+        }]);
+    app.register.controller('workoutsController', ["$sce", "$stateParams", "$resource", "rest", "tokenError", "$scope", "$anchorScroll",
+        function ($sce, $stateParams, $resource, rest, tokenError, $scope) {
             var videoCollection = $resource(":protocol://:url/workouts/video/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
@@ -16,20 +20,22 @@ define(['app', 'videojs'], function (app) {
                 }),
                 getVideo = function () {
                     if ($stateParams.id) {
-                        //if($scope.videojs) $scope.videojs.dispose();
                         $scope.videoStatus = 'loading';
+                        if ($scope.videojs) $scope.videojs.dispose();
                         $scope.video = videoResource.get({id: $stateParams.id}, function () {
                             $scope.video.rtmp_url = $sce.trustAsResourceUrl("rtmp://206.225.86.237:1935/vod/_definst_/mp4:" + $scope.video.url_video);
                             $scope.video.http_url = $sce.trustAsResourceUrl("http://206.225.86.237:1935/vod/content/" + $scope.video.url_video + "/playlist.m3u8");
                             $scope.videoStatus = 'selected';
                             setTimeout(function () {
-                                var $video = $('.video-js');
-                                $video.height($video.width() * 0.75);
-                                $(window).resize(function () {
-                                    $video.height($video.width() * 0.75);
+                                $scope.videojs = videojs('selectedVideo', {
+                                    techOrder: [ "flash", "html5"]
                                 });
-                                $scope.videojs = videojs(document.getElementById('selectedVideo'));
-                            }, 300);
+                                $scope.videojs.height($scope.videojs.el().offsetWidth * 0.75);
+                                $(window).resize(function () {
+                                    $scope.videojs.height($scope.videojs.el().offsetWidth * 0.75);
+                                });
+
+                            }, 100);
 //                            var $likeCount = $("#likeCount"),
 //                                $likeButton = $("#likeButton");
 //                                $likeButton.click(function () {
@@ -61,7 +67,6 @@ define(['app', 'videojs'], function (app) {
             videojs.options.flash.swf = "common/videojs/dist/video-js/video-js.swf";
 
             $scope.$on('$stateChangeSuccess', getVideo);
-            getVideo();
             $scope.videos = videoCollection.get(function () {
             }, $scope.checkTokenError);
 
