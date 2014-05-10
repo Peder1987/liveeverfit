@@ -2,18 +2,20 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h2 id="workoutsHeader" class="ef-header">professional workouts</h2>
+                <h2 id="workoutsHeader" class="ef-header">
+                    professional workouts
+                </h2>
 
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="row">
-                            <div class="col-xs-11">
+                            <div class="col-xs-10">
                                 <tags-input ng-model="search" class="bootstrap"
                                             placeholder="Example: Title, tags, etc..."
                                             name="pattern" value="" display-property="name">
                                 </tags-input>
                             </div>
-                            <div class="col-xs-1">
+                            <div class="col-xs-2">
                                 <button id="searchButton" ng-click="filter()" type="button" class="btn">
                                     <span class="fa fa-chevron-right"></span>
                                 </button>
@@ -45,6 +47,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-space">
+                                    <button class="col-xs-12 btn toggle advanced difficulties"
                                     <button class="col-xs-12 btn toggle advanced difficulties"
                                             ng-class="{selected: selected['advanced']}" id='advanced'
                                             ng-click="difficultyOnClick('advanced')">
@@ -78,10 +81,10 @@
                     <div class="col-xs-6">
                         <div class="col-xs-12 col-sm-4" ng-repeat="video in videos.results">
                             <div class="ef-workout-video">
-                                <a href="/workouts/video/{{ video.id }}"><img
+                                <a ui-sref="workouts.video(video)"><img
                                         src="http://beta.liveeverfit.com/media/{{ video.img }}"/></a>
                             </div>
-                            <a href="/workouts/video/{{ video.id }}">
+                            <a ui-sref="workouts.video(video)">
                                 <div class="workout-title">
                                     <span class="ellipsis">{{ video.title }}</span>
                                     <span class="difficulty {{ video.difficulty }} pull-right"></span>
@@ -90,7 +93,59 @@
                         </div>
                     </div>
                     <div class="col-xs-6">
-
+                        <div ng-switch="videoStatus">
+                            <div class="row">
+                                <div ng-switch-default class="col-xs-12">
+                                    <div class="workout-video-shadow">
+                                        <iframe width="100%" src="//www.youtube.com/embed/seat1hVbhdE?modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen="" class="ef-video"></iframe>
+                                    </div>
+                                </div>
+                                <div ng-switch-when="loading" class="col-xs-12">
+                                    Loading
+                                </div>
+                                <div ng-switch-when="selected" class="col-xs-12">
+                                    <div class="workout-video-shadow">
+                                        <video id="selectedVideo"
+                                               width="640" height="480"
+                                               class="video-js vjs-default-skin vjs-big-play-centered vjs-lef" controls
+                                               preload="auto"
+                                               poster="http://beta.liveeverfit.com/media/{{video.img}}"
+                                               data-setup='{"techOrder": ["flash", "html5"]}'>
+                                            <source src='{{video.rtmp_url}}'
+                                                    type='rtmp/mp4'/>
+                                            <source src='{{video.http_url}}'
+                                                    type='video/mp4'/>
+                                        </video>
+                                    </div>
+                                    <header class="page-header">
+                                        <h1>
+                                            {{video.title}}
+                                            <small class="pull-right">Views: <span class="blue">{{video.views}}</span>
+                                            </small>
+                                        </h1>
+                                    </header>
+                                    <p class="clearfix">
+                                        {% if request.user in video.likes_user.all %}
+                                        <button id="likeButton" type="button" class="btn btn-primary" data-val="unlike">
+                                            unlike <span
+                                                class="glyphicon glyphicon-thumbs-down"></span></button>
+                                        {% else %}
+                                        <button id="likeButton" type="button" class="btn btn-primary" data-val="like">
+                                            like <span
+                                                class="glyphicon glyphicon-thumbs-up"></span></button>
+                                        {% endif %}
+                                        <big class="pull-right">Likes: <span id="likeCount" class="blue">{{ video.likes }}</span></big>
+                                    </p>
+                                    <div class="lead"><span class="blue">Description: </span>{{ video.description }}
+                                    </div>
+                                    <div class="lead"><span class="blue">Tags: </span>
+                                        {% for video_tags in video.tags.names %}
+                                        <a href="#workoutsHeader" class="tag tag-click">{{ video_tags }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
