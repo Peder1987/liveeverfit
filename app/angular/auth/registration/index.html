@@ -44,9 +44,9 @@
   <div ng-switch-when="choice">
     <div>
       <button type="button" class="btn btn-primary" ng-click="setCurrentStep('user')">User</button>
-      <button type="button" class="btn btn-primary" ng-click="setCurrentStep('professionals')">Trainer</button>
-      <button type="button" class="btn btn-primary" ng-click="setCurrentStep('professionals')">Nutritionist</button>
-      <button type="button" class="btn btn-primary" ng-click="setCurrentStep('professionals')">Promoter</button>
+      <button type="button" class="btn btn-primary" ng-click="professionals('professionals', 'Trainer')">Trainer</button>
+      <button type="button" class="btn btn-primary" ng-click="professionals('professionals', 'Nutritionist')">Nutritionist</button>
+      <button type="button" class="btn btn-primary" ng-click="professionals('professionals', 'Promoter')">Promoter</button>
     </div>
     <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('registration')">Back</button>
   </div><!--end choice-->
@@ -63,7 +63,8 @@
 
   <div ng-switch-when="professionals">
     <div>
-      Professionals
+      Professionals<br>
+      <button type="submit" class="btn btn-primary" ng-click="proSubmit()">Submit</button>
     </div>
     <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('registration')">Back</button>
   </div><!--end professionals-->

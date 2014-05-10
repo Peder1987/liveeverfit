@@ -6,7 +6,7 @@ define(['app'], function(app) {
         app.register.controller('registrationCtrl', ["localStorageService","$resource","$scope","rest",
     	function(localStorageService, $resource, $scope) {
 
-    		$scope.step = 'registration';
+    		$scope.step = 'choice';
 
     		$scope.user = {
 				first_name: '',
@@ -18,6 +18,10 @@ define(['app'], function(app) {
 			};
 
     		var AuthToken =  $resource("http://:url/accounts/register/", {
+                url: $scope.restURL
+            });
+
+            var ProAuthToken =  $resource("http://:url/accounts/register-professional/", {
                 url: $scope.restURL
             });
 
@@ -39,6 +43,11 @@ define(['app'], function(app) {
 				$scope.step = step;
 			};
 
+			$scope.professionals = function(step, pro){
+				$scope.user.profession = pro;
+				$scope.step = step;
+			};
+
 			$scope.submit = function() {
                 // AutoFill Fix
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
@@ -47,6 +56,20 @@ define(['app'], function(app) {
 					localStorageService.add('Authorization', 'Token ' + $scope.authToken.token);
 					localStorageService.add('rest_token', $scope.authToken.token);
 					localStorageService.add('user_id', $scope.authToken.id);
+					window.location = "/";
+				},function(error) {
+					$scope.message = error.data;
+				});
+			}
+
+			$scope.proSubmit = function() {
+                // AutoFill Fix
+                angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
+				
+				$scope.proAuthToken = ProAuthToken.save($scope.user, function() {
+					localStorageService.add('Authorization', 'Token ' + $scope.proAuthToken.token);
+					localStorageService.add('rest_token', $scope.proAuthToken.token);
+					localStorageService.add('user_id', $scope.proAuthToken.id);
 					window.location = "/";
 				},function(error) {
 					$scope.message = error.data;

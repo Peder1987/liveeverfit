@@ -16,6 +16,7 @@ else:
 urlpatterns = patterns('',
 
 	url(r'^register/?$', 'user_auth.views.register'),	
+	url(r'^register-professional/?$', 'user_auth.views.register_professional'),	
 	url(r'^login', login_function),
 	url(r'^logout', 'user_auth.views.logout'),
 	url(r'^change-password', 'user_auth.views.change_password'),

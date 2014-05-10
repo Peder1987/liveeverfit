@@ -4,6 +4,7 @@ from django.contrib.auth.models import Group, Permission
 from rest_framework.authtoken.models import Token
 from rest_framework import serializers
 User = get_user_model()
+from user_app.models import Professional
 
 
 
@@ -54,6 +55,28 @@ class CreateUserSerializer(serializers.ModelSerializer):
         obj = super(CreateUserSerializer, self).restore_object(attrs, instance)
         #obj.save()
         return obj
+
+
+class CreateProfessionalSerializer(serializers.ModelSerializer):  
+    password2 = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = Professional
+        fields = ('email', 'first_name', 'last_name','password', 'password2', 'tier', 'profession')
+        write_only_fields = ('password', )  # Note: Password field is write-only
+
+    def validate_password(self, attrs, source):
+        password = attrs['password']
+        password_length = 8
+        if len(password) < password_length:
+          raise serializers.ValidationError('Password must be at least ' + str(password_length) + ' characters')
+        return attrs
+
+    def validate_password2(self, attrs, source):
+        password2 = attrs.pop(source)
+        if attrs['password'] != password2:
+            raise serializers.ValidationError('Both passwords must match')
+        return attrs
 
 
 class LogoutSerializer(serializers.ModelSerializer):  

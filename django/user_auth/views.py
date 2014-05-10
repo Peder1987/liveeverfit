@@ -15,6 +15,7 @@ import random
 import datetime
 #Models
 from rest_framework.authtoken.models import Token
+from user_app.models import Professional
 from django.contrib.auth import get_user_model
 User = get_user_model()
 #Rest Framework
@@ -30,7 +31,7 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import serializers
 #Serializers
-from .serializers import EmailSerializer, CreateUserSerializer, ReturnUserSerializer, LogoutSerializer, PasswordSerializer, ForgotPasswordSerializer, ChangePasswordSerializer, ResetPasswordSerializer
+from .serializers import EmailSerializer, CreateUserSerializer, ReturnUserSerializer, LogoutSerializer, PasswordSerializer, ForgotPasswordSerializer, ChangePasswordSerializer, ResetPasswordSerializer, CreateProfessionalSerializer
 
 
 
@@ -61,6 +62,32 @@ def register(request):
         user = User.objects.create_user(
             **user_data
         )
+
+        response = ReturnUserSerializer(instance=user).data
+        response['token'] = user.auth_token.key
+        response['id'] = user.id
+        return Response(response, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+def register_professional(request):
+    serialized = CreateProfessionalSerializer(data=request.DATA)
+    if serialized.is_valid():
+        user_data = {field: data for (field, data) in request.DATA.items()}
+        del user_data['password2']
+        del user_data['profession']
+
+        user = User.objects.create_user(**user_data)
+        pro = Professional.objects.create_prof(user)
+
+        user_data = {field: data for (field, data) in request.DATA.items()}
+        del user_data['password2']
+        pro.__dict__.update(**user_data)
+        pro.save()
+
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
         response['id'] = user.id
