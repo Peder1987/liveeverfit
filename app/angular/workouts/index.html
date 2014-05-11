@@ -13,6 +13,7 @@
                             <tags-input ng-model="search" class="bootstrap"
                                         placeholder="Example: Title, tags, etc..."
                                         name="pattern" value="" display-property="name">
+                                <auto-complete source="loadVideoTitles()"></auto-complete>
                             </tags-input>
                         </div>
                         <button id="searchButton" ng-click="filter()" type="button" class="btn btn-default">

@@ -10,7 +10,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from workouts.models import Video, VideoComment
 from workouts.filters import DifficultyFilterBackend, WorkoutTagFilterBackend
-
+from workouts.serializers import TitleSerializer
 
 
 
@@ -23,3 +23,10 @@ class VideoObjectViewSet(generics.RetrieveAPIView):
     model = Video
     permission_classes = (IsAuthenticated,)
     
+
+class TitleViewSet(generics.ListAPIView):
+
+	serializer_class = TitleSerializer
+	model = Video
+	permission_classes = (IsAuthenticated,)
+	search_fields = ('title', )

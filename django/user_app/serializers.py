@@ -32,6 +32,7 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = ('location',)
 
 
+
 class PasswordSerializer(serializers.Serializer):
     password = serializers.CharField(
         widget=forms.PasswordInput(),

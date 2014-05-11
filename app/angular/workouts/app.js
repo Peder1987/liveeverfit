@@ -7,7 +7,7 @@ define(['app', 'videojs'], function (app) {
         }]);
 
     app.register.controller('workoutsController', ["$sce", "$stateParams", "$resource", "rest", "tokenError", "localStorageService", "$scope", "$anchorScroll",
-        function ($sce, $stateParams, $resource, rest, tokenError, localStorageService, $scope) {
+        function ($sce, $stateParams, $resource, rest, tokenError, localStorageService, $scope, $q) {
             var videoCollection = $resource(":protocol://:url/workouts/video/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
@@ -53,6 +53,18 @@ define(['app', 'videojs'], function (app) {
                     filter: '@filter',
                     url: $scope.restURL
                 });
+
+            $scope.videoTitleCollection =  $resource("http://:url/users/titles?search",{
+                url: $scope.restURL
+            });
+            $scope.loadVideoTitles = function (value) {
+                var array = [];
+                var deferred = $q.defer();
+                console.log('dib');
+                deferred.resolve([{ text: 'Tag9' },{ text: 'Tag10' }]);
+                return deferred.promise;
+            };
+
             $scope.difficulty = [];
             $scope.tagSelected = [];
             $scope.search = '';
@@ -113,7 +125,7 @@ define(['app', 'videojs'], function (app) {
             $scope.addTag = function (tag) {
 
 
-                /*if($scope.search.indexOf(tag) == -1){
+                if($scope.search.indexOf(tag) == -1){
                  $scope.search.push(tag);
                  $scope.tagSelected.push(tag.name);
                  }
@@ -124,7 +136,7 @@ define(['app', 'videojs'], function (app) {
                  }
 
                  $scope.filter()
-                 */
+                 
                 $scope.filter()
             }
         }]);
