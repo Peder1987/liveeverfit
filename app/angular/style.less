@@ -6,6 +6,17 @@
 
 @import "workouts/style.less";
 
+@brand-primary: #7d8790;
+@btn-default-bg: #9ca4ad;
+@btn-default-border: #9ca4ad;
+@btn-default-color: #828c96;
+@text-color: #797878;
+
+@page-header-border-color: #b3b4b6;
+.page-header {
+  font-size: 21px;
+}
+
 .ef-header {
   line-height: 46px;
   position: relative;
@@ -44,13 +55,16 @@
   height: 22px;
   top: 4px;
   left: 0;
-  background-color: #7d8790;
+  background-color: @brand-primary;
 }
 
 #searchButton {
-  font-size: 19px;
+  font-size: 17px;
+  padding-top: 8px;
 }
-
+.btn-default:hover, .btn-default:focus {
+  color: #fff;
+}
 .btn.toggle {
   color: #ffffff;
   border: 1px solid #1a8cff;
@@ -265,8 +279,10 @@
 }
 .workout-title {
   width: 100%;
-  padding: 0 7px;
-  margin-bottom: 15px;
+  padding: 0 8px;
+  font-size: 15px;
+  line-height: 30px;
+  margin-bottom: 13px;
 }
 .workout-title .ellipsis {
   width: 85%!important;
@@ -321,7 +337,7 @@
   padding: 1px 5px;
 }
 .tag, .tag.tag-blue {
-  background-color: #1489ff;
+  background-color: @brand-primary;
   color: white;
   border: none;
   margin: 1px;
@@ -355,7 +371,7 @@ p.empty {
 }
 
 .blue {
-  color:#1a8cff!important;
+  color: @brand-primary!important;
   text-transform: capitalize;
 }
 
@@ -496,6 +512,7 @@ tags-input .host:active {
 }
 
 tags-input .tags {
+  border-radius: 4px;
   padding: 1px;
   overflow: hidden;
   word-wrap: break-word;

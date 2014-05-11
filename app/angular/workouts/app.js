@@ -5,8 +5,9 @@ define(['app', 'videojs'], function (app) {
         function ($scope) {
             $scope.restricted();
         }]);
-    app.register.controller('workoutsController', ["$sce", "$stateParams", "$resource", "rest", "tokenError", "$scope", "$anchorScroll",
-        function ($sce, $stateParams, $resource, rest, tokenError, $scope) {
+
+    app.register.controller('workoutsController', ["$sce", "$stateParams", "$resource", "rest", "tokenError", "localStorageService", "$scope", "$anchorScroll",
+        function ($sce, $stateParams, $resource, rest, tokenError, localStorageService, $scope) {
             var videoCollection = $resource(":protocol://:url/workouts/video/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
@@ -34,23 +35,17 @@ define(['app', 'videojs'], function (app) {
                                 $(window).resize(function () {
                                     $scope.videojs.height($scope.videojs.el().offsetWidth * 0.75);
                                 });
-
-                            }, 100);
-//                            var $likeCount = $("#likeCount"),
-//                                $likeButton = $("#likeButton");
-//                                $likeButton.click(function () {
-//                                    var bool = $likeButton.data('val') == "like";
-//                                    $.ajax({
-//                                        url: bool ? "/workouts/like/" : "/workouts/unlike",
-//                                        data: { pk: {{video.pk}} },
-//                                        type: "GET",
-//                            dataType: "html",
-//                            success: function (result) {
-//                            $likeButton.data('val', bool ? 'unlike' : 'like');
-//                            $likeButton.html(bool ? 'unlike <span class="glyphicon glyphicon-thumbs-down"></span>' : 'like <span class="glyphicon glyphicon-thumbs-up"></span>');
-//                            $likeCount.html(result);
-//                                });
+                            }, 10);
+                            if($scope.video.likes_user.indexOf(parseInt(localStorageService.get("user_id"))) >= 0) {
+                                $scope.video.like = "unlike";
+                            }
+                            else {
+                                $scope.video.like = "like";
+                            }
                         })
+                    }
+                    else {
+
                     }
                 },
                 filterVideoCollection = $resource(":protocol://:url/workouts/video?:filter", {
@@ -63,13 +58,19 @@ define(['app', 'videojs'], function (app) {
             $scope.search = '';
             $scope.video = {};
 
+            window.handleIframe = function(iframe) {
+                var $iframe = $(iframe);
+                $iframe.height($iframe.width() * 0.75);
+                $(window).resize(function () {
+                    $iframe.height($iframe.width() * 0.75);
+                });
+            };
 
             videojs.options.flash.swf = "common/videojs/dist/video-js/video-js.swf";
 
             $scope.$on('$stateChangeSuccess', getVideo);
             $scope.videos = videoCollection.get(function () {
             }, $scope.checkTokenError);
-
 
             $scope.selected = {};
             $scope.difficultyOnClick = function (value) {
