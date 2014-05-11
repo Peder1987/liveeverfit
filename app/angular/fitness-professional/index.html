@@ -93,7 +93,8 @@
                                         <div class="col-xs-12">
                                             <div class="form-space">
                                                 {{tagSelected}}
-                                                <input id="specialties" type="text" class="form-control" placeholder="Example: Crossfit, Nutrition" autocomplete="off" />
+                                                <tags-input id="specialties" type="text" class="bootstrap" placeholder="Example: Crossfit, Nutrition" autocomplete="off" ng-model="specialtySearch" display-property="name"/>
+                                                </tags-input>
                                             </div>
                                         </div>
                                     </div>
@@ -109,7 +110,7 @@
                                             <div class="form-space">
                                                 <p>
                                                     <div ng-repeat="tag in tags.results">
-                                                        <button class="tag tag-blue tag-click" ng-click="addTag(tag.name)">{{tag.name}}</button>
+                                                        <button class="tag tag-blue tag-click" ng-click="addTag(tag)">{{tag.name}}</button>
                                                     </div>
                                                 </p>
                                             </div>

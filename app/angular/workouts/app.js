@@ -54,15 +54,15 @@ define(['app', 'videojs'], function (app) {
                     url: $scope.restURL
                 });
 
-            $scope.videoTitleCollection =  $resource("http://:url/users/titles?search",{
+            $scope.videoTitleCollection =  $resource("http://:url/workouts/titles",{
                 url: $scope.restURL
             });
-            $scope.loadVideoTitles = function (value) {
-                var array = [];
-                var deferred = $q.defer();
-                console.log('dib');
-                deferred.resolve([{ text: 'Tag9' },{ text: 'Tag10' }]);
-                return deferred.promise;
+            $scope.loadVideoTitles = function (query) {
+                var videoTitles = $scope.videoTitleCollection.get({ search : query}, function(){
+                    
+                });
+                console.log(videoTitles);
+                return videoTitles
             };
 
             $scope.difficulty = [];
@@ -126,18 +126,18 @@ define(['app', 'videojs'], function (app) {
 
 
                 if($scope.search.indexOf(tag) == -1){
-                 $scope.search.push(tag);
-                 $scope.tagSelected.push(tag.name);
+                     $scope.search.push(tag);
+                     $scope.tagSelected.push(tag.name);
                  }
                  else {
                  var temp = $scope.search.indexOf(tag);
-                 $scope.search.splice(temp, 1);
-                 $scope.tagSelected.splice(temp, 1);
+                     $scope.search.splice(temp, 1);
+                     $scope.tagSelected.splice(temp, 1);
                  }
 
                  $scope.filter()
                  
-                $scope.filter()
+
             }
         }]);
 

@@ -10,7 +10,6 @@ define(['app'], function(app) {
             $scope.gender = [];
             $scope.location = [];
             $scope.accepting = [];
-            $scope.tagSelected = [];
             $scope.locations = [];
 
             var professionalCollection =  $resource("http://:url/users/professionals",{
@@ -60,6 +59,10 @@ define(['app'], function(app) {
                     $scope.location = [];
                 }
                 $scope.filter();
+
+            /*ANYTHING TAG RELATED, kept it in same scope in order make things less complicated*/   
+            $scope.tagSelected = [];
+            $scope.specialtySearch = "";
             }
             var tagCollection =  $resource("http://:url/tags/",{
                 url: $scope.restURL
@@ -69,19 +72,23 @@ define(['app'], function(app) {
                 id:'@id'
             },{update: { method: 'PUT' }});
 
+            
             $scope.tags = tagCollection.get(function() {},$scope.checkTokenError);
             $scope.addTag = function(tag) {
             
+                console.log(tag);
                 // Ensures that no two tags are replicated
-                
-                if($scope.tagSelected.indexOf(tag) == -1){
-                        $scope.tagSelected.push(tag);
-                }
-                else{
-                    var temp = $scope.tagSelected.indexOf(tag);
-                    $scope.tagSelected.splice(temp,1);
-                }
-                $scope.filter()
+                if($scope.specialtySearch.indexOf(tag) == -1){
+                     $scope.specialtySearch.push(tag);
+                     $scope.tagSelected.push(tag.name);
+                 }
+                 else {
+                     var temp = $scope.specialtySearch.indexOf(tag);
+                     $scope.specialtySearch.splice(temp, 1);
+                     $scope.tagSelected.splice(temp, 1);
+                 }
+
+                 $scope.filter()
 
             }
             $scope.filter = function () {
