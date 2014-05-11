@@ -1,5 +1,8 @@
 <div ng-controller="account-settingsCtrl">
 
+<script src="http://beta.liveeverfit.com/static/js/bootstrap3-typeahead.min.js"></script>
+<link rel="stylesheet" type="text/css" href="http://beta.liveeverfit.com/static/css/bootstrap-editable.css"/>
+
 <div class="profile-bg">
 <div class="container">
 <div class="row">
@@ -9,7 +12,7 @@
         <div class="col-xs-12 col-sm-7">
             <div class="row">
                 <div class="col-xs-4 col-sm-4">
-                    <a href="/profile/view?id={{ profile_user.id }}" class="thumbnail">
+                    <a ng-click="photoChange()" class="thumbnail">
                         <img src="/media/{{ profile_user.img }}" data-toggle="modal"
                              data-target="#profilePictureModal"/>
                     </a>
@@ -32,7 +35,7 @@
                                                         <span class="glyphicon glyphicon-envelope"></span> Email:
                                                     </span>
                                     <a id="email"
-                                       href="mailto:{{ profile_user.email }}"
+                                       ng-click='emailChange()'
                                        class="edit-text"
                                        data-title="Email"
                                        data-type="email">{{ profile_user.email }}
@@ -44,7 +47,7 @@
                                                     <span class="bold">
                                                         <span class="glyphicon glyphicon-lock"></span> Password:
                                                     </span>
-                                    <span href="" class="edit-password">Change</span>
+                                    <span  class="edit-password" ng-click='passwordChange()'>Change</span>
                                 </div>
                             </div>
                         </div>
@@ -52,7 +55,6 @@
                 </div>
             </div>
         </div>
-        {{profile_user.is_professional}}
         <div ng-if="profile_user.is_professional">
             <div class="col-xs-12 col-sm-5">
                 <div class="row">
@@ -136,10 +138,83 @@
                     </div>
                 </div>
             </div>
+
+          <h class="ef-header">
+              certifications
+              <button class="btn btn-primary pull-right" data-toggle="modal"
+                      data-target="#certificationModal"><span
+                      class="glyphicon glyphicon glyphicon-plus"></span> add certification
+              </button>
+          </h>
+          <div class="row">
+              <div class="col-xs-12">
+                  <div class="row">
+                      <div class="col-xs-12">
+                          <div class="panel panel-default">
+                              <div class="panel-heading bold">
+                                  Certification Name
+                                  <span class="pull-right">Certification Number</span>
+                              </div>
+                              <ul id="certifications" class="list-group">
+                                  
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
         </div>
     </div>
 </div>
 
 
+<script type="text/ng-template" id="account-settings/passwordChange.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Im a modal!</h3>
+    </div>
+    <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
+    <div class="modal-body">
+        <div class="form-group editable-name"><label>Old Password: </label><input ng-model='current_password' type="password" name="current_password" class="input-small form-control"></div>
+        <div class="form-group editable-name"><label>New Password: </label><input ng-model='password1' type="password" name="password1" class="input-small form-control"></div>
+        <div class="form-group editable-name"><label>Confirm New Password: </label><input ng-model='password2' type="password" name="password2" class="input-small form-control"></div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
 
- 
+ <script type="text/ng-template" id="account-settings/emailChange.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Im a modal!</h3>
+        </div>
+        <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
+        <div class="modal-body">
+            <div class="form-group editable-name"><label>Email: </label><input ng-model='email' type="text" class="input-small form-control"></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+</script>
+
+
+ <script type="text/ng-template" id="account-settings/photoChange.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Edit photo</h3>
+        </div>
+        <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
+        <div class="modal-body">
+            <div class="fileupload fileupload-new" data-provides="fileupload">
+              <button upload='"/your/upload/location"' class="fileupload-label fileupload-new" >
+                select image from your computer
+              </button>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+</script>
+
+
