@@ -39,18 +39,6 @@ def token_generator(size=5, chars=string.ascii_uppercase + string.ascii_lowercas
     return ''.join(random.choice(chars) for _ in range(size))
 
 
-
-@api_view(['GET'])
-#@authentication_classes((SessionAuthentication, BasicAuthentication))
-#@permission_classes((IsAuthenticated,))
-def example_view(request, format=None):
-    content = {
-        'user': unicode(request.user),  # django.contrib.auth.User instance.
-        'auth': unicode(request.auth),  # None
-    }
-    return Response(content)
-
-
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def register(request):
@@ -79,6 +67,19 @@ def register_professional(request):
         user_data = {field: data for (field, data) in request.DATA.items()}
         del user_data['password2']
         del user_data['profession']
+        del user_data['education']
+        del user_data['experience']
+        del user_data['certification_name1']
+        del user_data['certification_number1']
+        del user_data['certification_name2']
+        del user_data['certification_number2']
+        del user_data['phone']
+        del user_data['twitter']
+        del user_data['facebook'] 
+        del user_data['instagram'] 
+        del user_data['youtube'] 
+        del user_data['linkedin']
+        del user_data['plus']
 
         user = User.objects.create_user(**user_data)
         pro = Professional.objects.create_prof(user)

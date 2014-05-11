@@ -30,7 +30,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
  
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name','password', 'password2', 'tier')
+        fields = ('email', 'first_name', 'last_name', 'password', 'password2', 'gender', 'tier')
         write_only_fields = ('password', )  # Note: Password field is write-only
 
     def validate_password(self, attrs, source):
@@ -53,7 +53,6 @@ class CreateUserSerializer(serializers.ModelSerializer):
     def restore_object(self, attrs, instance=None):
         tags = attrs.pop('password2', None)
         obj = super(CreateUserSerializer, self).restore_object(attrs, instance)
-        #obj.save()
         return obj
 
 
@@ -62,7 +61,7 @@ class CreateProfessionalSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Professional
-        fields = ('email', 'first_name', 'last_name','password', 'password2', 'tier', 'profession')
+        fields = ('email', 'first_name', 'last_name','password', 'password2','gender', 'tier', 'profession')
         write_only_fields = ('password', )  # Note: Password field is write-only
 
     def validate_password(self, attrs, source):
