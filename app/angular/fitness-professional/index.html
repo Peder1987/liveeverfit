@@ -92,8 +92,8 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div class="form-space">
-                                                {{tagSelected}}
-                                                <tags-input id="specialties" type="text" class="bootstrap" placeholder="Example: Crossfit, Nutrition" autocomplete="off" ng-model="specialtySearch" display-property="name"/>
+                                                <tags-input id="specialties" type="text" class="bootstrap" placeholder="Example: Crossfit, Nutrition" ng-model="specialtySearch" display-property="name" on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)" add-from-autocomplete-only='true' a/>
+                                                
                                                 </tags-input>
                                             </div>
                                         </div>

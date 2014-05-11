@@ -60,10 +60,10 @@ define(['app'], function(app) {
                 }
                 $scope.filter();
 
+            }
             /*ANYTHING TAG RELATED, kept it in same scope in order make things less complicated*/   
             $scope.tagSelected = [];
             $scope.specialtySearch = "";
-            }
             var tagCollection =  $resource("http://:url/tags/",{
                 url: $scope.restURL
             });
@@ -76,10 +76,11 @@ define(['app'], function(app) {
             $scope.tags = tagCollection.get(function() {},$scope.checkTokenError);
             $scope.addTag = function(tag) {
             
-                console.log(tag);
                 // Ensures that no two tags are replicated
+                console.log(tag)
                 if($scope.specialtySearch.indexOf(tag) == -1){
                      $scope.specialtySearch.push(tag);
+                     console.log($scope.tagSelected)
                      $scope.tagSelected.push(tag.name);
                  }
                  else {
@@ -87,10 +88,36 @@ define(['app'], function(app) {
                      $scope.specialtySearch.splice(temp, 1);
                      $scope.tagSelected.splice(temp, 1);
                  }
-
+                 
                  $scope.filter()
 
             }
+            $scope.onTagAdd = function(tag) {
+                $scope.tagSelected = [];
+                $scope.specialtySearch.forEach(function(item) {
+                    $scope.tagSelected.push(item.name);
+                });
+                
+                $scope.filter()
+
+            }
+            $scope.onDeleteTag = function(tag) {
+                var temp = $scope.tagSelected.indexOf(tag.name);
+                $scope.tagSelected.splice(temp, 1);
+                
+                $scope.filter()
+
+            }
+            $scope.loadSpecialty = function(tag) {
+                console.log('delete');
+                console.log()
+                var temp = $scope.specialtySearch.indexOf(tag);
+                $scope.specialtySearch.splice(temp, 1);
+                $scope.tagSelected.splice(temp, 1);
+                $scope.filter()
+
+            }
+
             $scope.filter = function () {
                 $scope.filtering = {
                     profession: $scope.profession,
