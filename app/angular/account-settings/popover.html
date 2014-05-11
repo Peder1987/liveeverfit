@@ -1,0 +1,20 @@
+<script type="text/ng-template" id="account-settings/popover.html">
+        <div class="popover {{placement}}" ng-class="{ in: isOpen, fade: animation() }">
+        <div class="arrow"></div>
+
+        <div class="popover-inner">
+
+          <div class="popover-title popover-title-input" ng-show="showForm">
+            <input class="input-block" type="text" ng-model="title">
+          </div>
+
+          <h3 class="popover-title" ng-bind="title" ng-hide="showForm"></h3>
+
+          <div class="popover-content">
+                <button class="btn " ng-hide="showForm" ng-click="onRenameClick()">Rename</button>
+                <button class="btn " ng-show="showForm" ng-click="onDoneClick()">Done</button>
+          </div>
+
+        </div>
+      </div>
+</script>
