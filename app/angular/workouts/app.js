@@ -6,7 +6,7 @@ define(['app', 'videojs'], function (app) {
             $scope.restricted();
         }]);
 
-    app.register.controller('workoutsController', ["$sce", "$stateParams", "$resource", "rest", "tokenError", "localStorageService", "$scope", "$anchorScroll",
+    app.register.controller('workoutsController', ["$sce", "$stateParams", "$resource", "rest", "tokenError", "localStorageService", "$scope", "$anchorScroll", "promiseService",
         function ($sce, $stateParams, $resource, rest, tokenError, localStorageService, $scope) {
             var videoCollection = $resource(":protocol://:url/workouts/video/", {
                     protocol: $scope.restProtocol,
@@ -53,9 +53,28 @@ define(['app', 'videojs'], function (app) {
                     filter: '@filter',
                     url: $scope.restURL
                 });
+
+            $scope.videoTitleCollection =  $resource("http://:url/workouts/titles",{
+                url: $scope.restURL
+            });
+            $scope.videoTitles = []
+            $scope.loadVideoTitles = function (query) {
+                var deferred = $scope.q.defer();
+                var filtering = {
+                    search: query,
+                };
+                $scope.videoTitles =  $scope.videoTitleCollection.query(filtering, function () {
+                    deferred.resolve($scope.videoTitles);
+                });
+
+                return deferred.promise;
+            };
+
+
             $scope.difficulty = [];
+            $scope.videoSelected = [];
             $scope.tagSelected = [];
-            $scope.search = '';
+            $scope.videoSearch = '';
             $scope.video = {};
 
             window.handleIframe = function(iframe) {
@@ -88,7 +107,8 @@ define(['app', 'videojs'], function (app) {
             $scope.filter = function () {
                 $scope.filtering = {
                     difficulty: $scope.difficulty,
-                    tags: $scope.tagSelected
+                    tags: $scope.tagSelected,
+                    search : $scope.videoSelected
                 };
                 //console.log($scope.filtering)
                 $scope.videos = filterVideoCollection.get($scope.filtering, function () {
@@ -113,34 +133,61 @@ define(['app', 'videojs'], function (app) {
             $scope.addTag = function (tag) {
 
 
-                /*if($scope.search.indexOf(tag) == -1){
-                 $scope.search.push(tag);
+                if($scope.videoSearch.indexOf(tag) == -1){
+                 $scope.videoSearch.push(tag);
                  $scope.tagSelected.push(tag.name);
                  }
                  else {
-                 var temp = $scope.search.indexOf(tag);
-                 $scope.search.splice(temp, 1);
+                 var temp = $scope.videoSearch.indexOf(tag);
+                 $scope.videoSearch.splice(temp, 1);
                  $scope.tagSelected.splice(temp, 1);
                  }
 
-                 $scope.filter()
-                 */
+                 
+                 
                 $scope.filter()
             }
+            $scope.onTagAdd = function(tag) {         
+                $scope.names = [];
+                
+                $scope.tags.results.forEach(function(obj) {
+                    $scope.names.push(obj.name);
+                });
+                
+                if($scope.names.indexOf(tag.name) == -1){
+                    $scope.videoSelected.push(tag.name);
+                 }
+                 else{
+                    console.log('else');
+                    $scope.tagSelected.push(tag.name);  
+                 }
+
+                
+                $scope.filter()
+
+            }
+            $scope.onDeleteTag = function(tag) {
+                if($scope.tagSelected.indexOf(tag.name) != -1){
+                    var temp = $scope.tagSelected.indexOf(tag.name);
+
+                    $scope.tagSelected.splice(temp, 1);
+                    $scope.filter()
+
+                };
+                if($scope.videoSelected.indexOf(tag.name) != -1);
+                    var temp = $scope.videoSelected.indexOf(tag.name);
+
+                    $scope.videoSelected.splice(temp, 1);
+                    $scope.filter()
+
+                };
+
+
         }]);
 
-    app.register.directive('scrollOnTag', function () {
-        return {
-            restrict: 'A',
-            link: function (scope, $elm, attrs) {
-                $elm.on('click', function () {
-                    var $target;
-                    //$target = $('#workoutsHeader');
-                    //$("body").animate({scrollTop: $target.offset().top}, "slow");
-                });
-            }
-        }
+    app.register.service('promiseService', function($q, $rootScope) {
+
+      $rootScope.q = $q
+      
     });
-
-
 });
