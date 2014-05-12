@@ -12,11 +12,15 @@
 @btn-default-border: #9ca4ad;
 @btn-default-color: #828c96;
 @text-color: #797878;
+@input-bg: rgba(125, 135, 144, 0.38);
+@input-color: white;
 
 @page-header-border-color: #b3b4b6;
 .page-header {
   font-size: 21px;
 }
+
+
 
 .ef-header {
   line-height: 46px;
@@ -180,10 +184,10 @@
   outline: none;
 }
 .form-control:focus {
-  border-color: #1a8cff;
+  border-color: rgba(125, 135, 144, 0.5);
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(26,140,255,0.5);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(26,140,255,0.5);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(125, 135, 144,0.5);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(125, 135, 144,0.5);
 }
 .search-filters {
   padding:20px 0;
@@ -484,7 +488,7 @@ p.empty {
 }
 
 ::-webkit-input-placeholder { /* WebKit browsers */
-  color:    #DDD;
+  color:    #fff;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
   color:    #DDD;
@@ -521,10 +525,10 @@ tags-input .tags {
   background-color: rgba(125,135,144,0.38);
 }
 tags-input .tags.focused {
-  outline: none;
-  -webkit-box-shadow: 0 0 3px 1px rgba(5, 139, 242, 0.6);
-  -moz-box-shadow: 0 0 3px 1px rgba(5, 139, 242, 0.6);
-  box-shadow: 0 0 3px 1px rgba(5, 139, 242, 0.6);
+  border-color: rgba(125, 135, 144, 0.5);
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(125, 135, 144,0.5);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(125, 135, 144,0.5);
 }
 tags-input .tags .tag-list {
   margin: 0;
