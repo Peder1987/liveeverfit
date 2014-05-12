@@ -1,0 +1,117 @@
+#M,#F {
+  text-align: center;
+}
+
+#F.btn.toggle {
+  color: #ffffff;
+  border: 1px solid #ff0066;
+  background-color: #ff0066;
+}
+#F.btn.toggle:focus {
+  background-color: #ff0066;
+}
+#F.btn.toggle.selected {
+  background-color: #e2004f;
+  -webkit-box-shadow: 0 0 5px #ff0066;
+  box-shadow: 0 0 5px #ff0066;
+}
+#F.btn.toggle.selected:active {
+  -webkit-box-shadow: 0 0 5px #ff0066;
+  box-shadow: 0 0 5px #ff0066;
+}
+#F.btn.toggle:hover {
+  background-color: #ee0063;
+}
+
+
+.btn:focus, a:focus {
+  outline: none;
+}
+.form-control:focus {
+  border-color: #1a8cff;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(26,140,255,0.5);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(26,140,255,0.5);
+}
+.search-filters {
+  padding:20px 0;
+}
+
+.search-filters .form {
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom:20px;
+}
+
+.form-space {
+  margin-bottom: 5px;
+}
+.trainer-search {
+  position: absolute;
+  top: 73px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.map {
+  position: fixed;
+  top: 73px;
+  left: 0;
+  height: 150px;
+  width: 100%;
+}
+@media(min-width:768px) {
+  .map {
+    position: fixed;
+    top: 73px;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 40%;
+  }
+}
+
+#map_canvas {
+  height:100%;
+}
+.thumbnail>img {
+  width: 100%;
+  cursor: pointer;
+}
+.sidebar {
+  position: fixed;
+  top: 223px;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+//  border-left:solid 1px #eaeaea;
+//  -webkit-box-shadow: 2px -2px 5px rgba(0,0,0,0.5);
+//  box-shadow: 2px -2px 5px rgba(0,0,0,0.5);
+}
+@media(min-width:768px) {
+  .sidebar {
+    position: fixed;
+    top: 73px;
+    right: 0;
+    bottom: 0;
+    width: 60%;
+  }
+}
+.sidebar-bg {
+  background-image: url('common/img/fitness-professionals-bg.jpg');
+  background-repeat: no-repeat;
+  background-position: top right;
+  padding:0 20px 20px 20px;
+}
+.sidebar .thumbnail {
+  background: transparent;
+}
+.thumbnail {
+  border-color: #eaeaea;
+}
+.thumbnail:hover {
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.2);
+}
