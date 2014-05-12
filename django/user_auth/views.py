@@ -91,7 +91,7 @@ def register_professional(request):
         del user_data['primary_address']
 
         pro.__dict__.update(**user_data)
-        pro.save()git 
+        pro.save()
         address = Address.objects.get(id = user.primary_address.id)
         address.__dict__.update(**temp_address)
         address.save()
