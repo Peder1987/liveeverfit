@@ -3,8 +3,8 @@
 define(['app'], function(app) {
 
 
-    app.register.controller("fitness-professionalCtrl",["$scope","$resource","rest","tokenError",
-        function($scope,$resource,tokenError){
+    app.register.controller("fitness-professionalCtrl",["$scope","$resource","rest","tokenError", "specialtyTags",
+        function($scope,$resource,tokenError, specialtyTags){
 
             $scope.profession = [];
             $scope.gender = [];
@@ -61,6 +61,13 @@ define(['app'], function(app) {
                 $scope.filter();
 
             }
+            $scope.loadSpecialty = function () {
+                //return $scope.load_specialty()
+                var deferred = $scope.q.defer();
+                deferred.resolve($scope.tags.results);
+                return deferred.promise;
+
+            }
             /*ANYTHING TAG RELATED, kept it in same scope in order make things less complicated*/   
             $scope.tagSelected = [];
             $scope.specialtySearch = "";
@@ -77,10 +84,8 @@ define(['app'], function(app) {
             $scope.addTag = function(tag) {
             
                 // Ensures that no two tags are replicated
-                console.log(tag)
                 if($scope.specialtySearch.indexOf(tag) == -1){
                      $scope.specialtySearch.push(tag);
-                     console.log($scope.tagSelected)
                      $scope.tagSelected.push(tag.name);
                  }
                  else {
@@ -104,19 +109,10 @@ define(['app'], function(app) {
             $scope.onDeleteTag = function(tag) {
                 var temp = $scope.tagSelected.indexOf(tag.name);
                 $scope.tagSelected.splice(temp, 1);
-                
                 $scope.filter()
 
             }
-            $scope.loadSpecialty = function(tag) {
-                console.log('delete');
-                console.log()
-                var temp = $scope.specialtySearch.indexOf(tag);
-                $scope.specialtySearch.splice(temp, 1);
-                $scope.tagSelected.splice(temp, 1);
-                $scope.filter()
 
-            }
 
             $scope.filter = function () {
                 $scope.filtering = {
@@ -134,7 +130,11 @@ define(['app'], function(app) {
 
 
 
+    app.register.service('specialtyTags', function($q, $rootScope) {
 
+      $rootScope.q = $q
+      
+    });
 
     return app;    
 });
