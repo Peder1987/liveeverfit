@@ -115,8 +115,13 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div class="form-space">
-                                                <tags-input id="specialties" type="text" class="bootstrap" placeholder="Example: Crossfit, Nutrition" ng-model="specialtySearch" display-property="name" on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)"  a/>
-                                                <auto-complete source="loadSpecialty($query)" min-length="1"></auto-complete>
+                                                <tags-input id="specialties" type="text" class="bootstrap"
+                                                            placeholder="Example: Crossfit, Nutrition"
+                                                            ng-model="specialtySearch" display-property="name"
+                                                            on-tag-removed="onDeleteTag($tag)"
+                                                            on-tag-added="onTagAdd($tag)">
+                                                    <auto-complete source="loadSpecialty($query)"
+                                                                   min-length="1"></auto-complete>
                                                 </tags-input>
                                             </div>
                                         </div>
@@ -128,16 +133,13 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Popular Specialties</label>
-
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <div class="form-space">
-                                                <p>
-                                                    <div ng-repeat="tag in tags.results">
-                                                        <button class="tag tag-blue tag-click" ng-click="addTag(tag)">{{tag.name}}</button>
-                                                    </div>
-                                                </p>
-                                            </div>
+                                            <span ng-repeat="tag in tags.results"
+                                                  class="tag tag-blue tag-click"
+                                                  ng-click="addTag(tag)">
+                                                {{tag.name}}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -145,33 +147,30 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.search-filters -->
-
-
-                <div id="trainer-results">
-                    <div ng-repeat="professional in professionals.results">
-                        <div class="col-sm-6 col-md-4">
-                            <div class="thumbnail">
-                                <img src="/media/"/>
-
-                                <div class="caption">
-                                    {{professional.first_name}} {{professional.last_name}}<br/>
-                                    {{professional.profession}}<br>
-                                    {{professional.gender}}<br>
-                                    {{professional.location}}<br>
-                                    Accepting Clients: {{professional.is_accepting}}<br/>
-                                    Biography: {{professional.bio}}<br/>
-                                </div>
+            </div>
+            <!-- /.search-filters -->
+            <div id="trainer-results">
+                <div ng-repeat="professional in professionals.results">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="/media/"/>
+                            <div class="caption">
+                                {{professional.first_name}} {{professional.last_name}}<br/>
+                                {{professional.profession}}<br>
+                                {{professional.gender}}<br>
+                                {{professional.location}}<br>
+                                Accepting Clients: {{professional.is_accepting}}<br/>
+                                Biography: {{professional.bio}}<br/>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- /.trainer-results -->
-
             </div>
+            <!-- /.trainer-results -->
         </div>
-        <!-- /.sidebar-->
     </div>
+    <!-- /.sidebar-->
+</div>
 </div>
 
 
