@@ -56,28 +56,6 @@ class CreateUserSerializer(serializers.ModelSerializer):
         return obj
 
 
-class CreateProfessionalSerializer(serializers.ModelSerializer):  
-    password2 = serializers.CharField(write_only=True)
-
-    class Meta:
-        model = Professional
-        fields = ('email', 'first_name', 'last_name','password', 'password2','gender', 'tier', 'profession')
-        write_only_fields = ('password', )  # Note: Password field is write-only
-
-    def validate_password(self, attrs, source):
-        password = attrs['password']
-        password_length = 8
-        if len(password) < password_length:
-          raise serializers.ValidationError('Password must be at least ' + str(password_length) + ' characters')
-        return attrs
-
-    def validate_password2(self, attrs, source):
-        password2 = attrs.pop(source)
-        if attrs['password'] != password2:
-            raise serializers.ValidationError('Both passwords must match')
-        return attrs
-
-
 class LogoutSerializer(serializers.ModelSerializer):  
     class Meta:
         model = User
