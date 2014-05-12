@@ -248,6 +248,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.get_or_create(user=instance)
+        address = Address()
+        address.save()
+        instance.primary_address = address
+        instance.save()
 
 
 class AddressManager(models.Manager):

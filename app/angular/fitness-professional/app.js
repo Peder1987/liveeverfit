@@ -7,55 +7,59 @@ define(['app'], function(app) {
         function($scope,$resource,tokenError){
 
             $scope.profession = [];
+            $scope.professionSelected = {};
             $scope.gender = [];
+            $scope.genderSelected = {};
             $scope.location = [];
             $scope.accepting = [];
             $scope.locations = [];
 
-            var professionalCollection =  $resource("http://:url/users/professionals",{
+            var professionalCollection = $resource("http://:url/users/professionals", {
                 url: $scope.restURL
             });
 
-            var filterProfessionalCollection =  $resource("http://:url/users/professionals?:filter",{
+            var filterProfessionalCollection = $resource("http://:url/users/professionals?:filter", {
                 url: $scope.restURL,
-                filter:'@filter'
+                filter: '@filter'
             });
 
-            var locationlCollection =  $resource("http://:url/users/location",{
+            var locationlCollection = $resource("http://:url/users/location", {
                 url: $scope.restURL
             });
 
-            $scope.professionals = professionalCollection.get(function() {},$scope.checkTokenError);
+            $scope.professionals = professionalCollection.get(function () {
+            }, $scope.checkTokenError);
 
-            $scope.locationsJson = locationlCollection.get(function() {
-                $scope.locationsJson.results.forEach(function(entry) {
+            $scope.locationsJson = locationlCollection.get(function () {
+                $scope.locationsJson.results.forEach(function (entry) {
                     $scope.locations.push(entry.location);
                 });
-            },$scope.checkTokenError);
-
-
+            }, $scope.checkTokenError);
             $scope.professionOnClick = function (value) {
-                if($scope.profession.indexOf(value) == -1){
+                if ($scope.profession.indexOf(value) == -1) {
                     $scope.profession.push(value);
+                    $scope.professionSelected[value] = true;
                 }
-                else{
-                    var temp = $scope.profession.indexOf(value);
-                    $scope.profession.splice(temp,1);
+                else {
+                    $scope.profession.splice($scope.profession.indexOf(value), 1);
+                    $scope.professionSelected[value] = false;
                 }
                 $scope.filter();
-            }
+            };
             $scope.genderOnClick = function (value) {
-               if($scope.gender.indexOf(value) == -1){
+                if ($scope.gender.indexOf(value) == -1) {
                     $scope.gender.push(value);
+                    $scope.genderSelected[value] = true;
                 }
-                else{
-                    var temp = $scope.gender.indexOf(value);
-                    $scope.gender.splice(temp,1);
+                else {
+                    $scope.gender.splice($scope.gender.indexOf(value), 1);
+                    $scope.genderSelected[value] = false;
+
                 }
                 $scope.filter();
-            }
+            };
             $scope.locationOnChange = function () {
-                if($scope.location.length <= 0){
+                if ($scope.location.length <= 0) {
                     $scope.location = [];
                 }
                 $scope.filter();
