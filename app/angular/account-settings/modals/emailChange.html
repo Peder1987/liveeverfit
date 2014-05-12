@@ -1,0 +1,11 @@
+<div class="modal-header">
+    <h3 class="modal-title">Im a modal!</h3>
+</div>
+    <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
+        <div class="modal-body">
+            <div class="form-group editable-name"><label>Email: </label><input ng-model='email' type="text" class="input-small form-control"></div>
+        </div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>
