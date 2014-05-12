@@ -12,7 +12,7 @@ router = routers.SimpleRouter(trailing_slash=False)
 
 
 urlpatterns = patterns('',
-    url(r'^video/?$', VideoViewSet.as_view()),
+    url(r'^video?$', VideoViewSet.as_view()),
     url(r'^video/(?P<pk>[0-9]+)$', VideoObjectViewSet.as_view()),
     url(r'^titles?$', TitleViewSet.as_view()),
 )

@@ -70,9 +70,11 @@ define(['app', 'videojs'], function (app) {
                 return deferred.promise;
             };
 
+
             $scope.difficulty = [];
+            $scope.videoSelected = [];
             $scope.tagSelected = [];
-            $scope.search = '';
+            $scope.videoSearch = '';
             $scope.video = {};
 
             window.handleIframe = function(iframe) {
@@ -105,7 +107,8 @@ define(['app', 'videojs'], function (app) {
             $scope.filter = function () {
                 $scope.filtering = {
                     difficulty: $scope.difficulty,
-                    tags: $scope.tagSelected
+                    tags: $scope.tagSelected,
+                    search : $scope.videoSelected
                 };
                 //console.log($scope.filtering)
                 $scope.videos = filterVideoCollection.get($scope.filtering, function () {
@@ -130,20 +133,56 @@ define(['app', 'videojs'], function (app) {
             $scope.addTag = function (tag) {
 
 
-                if($scope.search.indexOf(tag) == -1){
-                 $scope.search.push(tag);
+                if($scope.videoSearch.indexOf(tag) == -1){
+                 $scope.videoSearch.push(tag);
                  $scope.tagSelected.push(tag.name);
                  }
                  else {
-                 var temp = $scope.search.indexOf(tag);
-                 $scope.search.splice(temp, 1);
+                 var temp = $scope.videoSearch.indexOf(tag);
+                 $scope.videoSearch.splice(temp, 1);
                  $scope.tagSelected.splice(temp, 1);
                  }
 
-                 $scope.filter()
+                 
                  
                 $scope.filter()
             }
+            $scope.onTagAdd = function(tag) {         
+                $scope.names = [];
+                
+                $scope.tags.results.forEach(function(obj) {
+                    $scope.names.push(obj.name);
+                });
+                
+                if($scope.names.indexOf(tag.name) == -1){
+                    $scope.videoSelected.push(tag.name);
+                 }
+                 else{
+                    console.log('else');
+                    $scope.tagSelected.push(tag.name);  
+                 }
+
+                
+                $scope.filter()
+
+            }
+            $scope.onDeleteTag = function(tag) {
+                if($scope.tagSelected.indexOf(tag.name) != -1){
+                    var temp = $scope.tagSelected.indexOf(tag.name);
+
+                    $scope.tagSelected.splice(temp, 1);
+                    $scope.filter()
+
+                };
+                if($scope.videoSelected.indexOf(tag.name) != -1);
+                    var temp = $scope.videoSelected.indexOf(tag.name);
+
+                    $scope.videoSelected.splice(temp, 1);
+                    $scope.filter()
+
+                };
+
+
         }]);
 
     app.register.service('promiseService', function($q, $rootScope) {
