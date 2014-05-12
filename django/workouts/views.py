@@ -25,8 +25,8 @@ class VideoObjectViewSet(generics.RetrieveAPIView):
     
 
 class TitleViewSet(generics.ListAPIView):
-
+	paginate_by = None
 	serializer_class = TitleSerializer
 	model = Video
-	permission_classes = (IsAuthenticated,)
+	permission_classes = (AllowAny,)
 	search_fields = ('title', )

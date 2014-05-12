@@ -6,8 +6,8 @@ define(['app', 'videojs'], function (app) {
             $scope.restricted();
         }]);
 
-    app.register.controller('workoutsController', ["$sce", "$stateParams", "$resource", "rest", "tokenError", "localStorageService", "$scope", "$anchorScroll",
-        function ($sce, $stateParams, $resource, rest, tokenError, localStorageService, $scope, $q) {
+    app.register.controller('workoutsController', ["$sce", "$stateParams", "$resource", "rest", "tokenError", "localStorageService", "$scope", "$anchorScroll", "promiseService",
+        function ($sce, $stateParams, $resource, rest, tokenError, localStorageService, $scope) {
             var videoCollection = $resource(":protocol://:url/workouts/video/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
@@ -57,12 +57,17 @@ define(['app', 'videojs'], function (app) {
             $scope.videoTitleCollection =  $resource("http://:url/workouts/titles",{
                 url: $scope.restURL
             });
+            $scope.videoTitles = []
             $scope.loadVideoTitles = function (query) {
-                var videoTitles = $scope.videoTitleCollection.get({ search : query}, function(){
-                    
+                var deferred = $scope.q.defer();
+                var filtering = {
+                    search: query,
+                };
+                $scope.videoTitles =  $scope.videoTitleCollection.query(filtering, function () {
+                    deferred.resolve($scope.videoTitles);
                 });
-                console.log(videoTitles);
-                return videoTitles
+
+                return deferred.promise;
             };
 
             $scope.difficulty = [];
@@ -141,18 +146,9 @@ define(['app', 'videojs'], function (app) {
             }
         }]);
 
-    app.register.directive('scrollOnTag', function () {
-        return {
-            restrict: 'A',
-            link: function (scope, $elm, attrs) {
-                $elm.on('click', function () {
-                    var $target;
-                    //$target = $('#workoutsHeader');
-                    //$("body").animate({scrollTop: $target.offset().top}, "slow");
-                });
-            }
-        }
+    app.register.service('promiseService', function($q, $rootScope) {
+
+      $rootScope.q = $q
+      
     });
-
-
 });

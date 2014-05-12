@@ -6,7 +6,8 @@ from workouts.models import Video
 
 class TitleSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Video
+	def to_native(self, obj):
+		return {"name":obj.title}
+	class Meta:
+		model = Video
         fields = ('title',)
-

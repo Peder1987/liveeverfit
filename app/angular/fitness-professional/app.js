@@ -4,7 +4,7 @@ define(['app'], function(app) {
 
 
     app.register.controller("fitness-professionalCtrl",["$scope","$resource","rest","tokenError", "specialtyTags",
-        function($scope,$resource,tokenError, specialtyTags){
+        function($scope,$resource,tokenError){
 
             $scope.profession = [];
             $scope.gender = [];
