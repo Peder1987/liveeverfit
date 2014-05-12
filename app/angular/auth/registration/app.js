@@ -85,8 +85,19 @@ define(['app'], function(app) {
 					$scope.pro[key] = value;
 					console.log($scope.pro);
 				});
+				$scope.pro.primary_address = $scope.address;
 				$scope.proSubmit();
 			};
+
+			$scope.ifPromoter = function(){	
+				if($scope.pro.profession == 'Promoter'){
+					return false;
+				}
+				else{
+					return true;
+				};
+			};
+
 
 			$scope.submit = function() {
                 // AutoFill Fix
@@ -100,7 +111,7 @@ define(['app'], function(app) {
 				},function(error) {
 					$scope.message = error.data;
 				});
-			}
+			};
 
 			$scope.proSubmit = function() {
                 // AutoFill Fix

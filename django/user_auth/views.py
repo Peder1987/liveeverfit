@@ -15,7 +15,7 @@ import random
 import datetime
 #Models
 from rest_framework.authtoken.models import Token
-from user_app.models import Professional
+from user_app.models import Professional, Address
 from django.contrib.auth import get_user_model
 User = get_user_model()
 #Rest Framework
@@ -31,7 +31,7 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import serializers
 #Serializers
-from .serializers import EmailSerializer, CreateUserSerializer, ReturnUserSerializer, LogoutSerializer, PasswordSerializer, ForgotPasswordSerializer, ChangePasswordSerializer, ResetPasswordSerializer, CreateProfessionalSerializer
+from .serializers import EmailSerializer, CreateUserSerializer, ReturnUserSerializer, LogoutSerializer, PasswordSerializer, ForgotPasswordSerializer, ChangePasswordSerializer, ResetPasswordSerializer
 
 
 
@@ -62,7 +62,7 @@ def register(request):
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def register_professional(request):
-    serialized = CreateProfessionalSerializer(data=request.DATA)
+    serialized = CreateUserSerializer(data=request.DATA)
     if serialized.is_valid():
         user_data = {field: data for (field, data) in request.DATA.items()}
         del user_data['password2']
@@ -80,14 +80,21 @@ def register_professional(request):
         del user_data['youtube'] 
         del user_data['linkedin']
         del user_data['plus']
+        del user_data['primary_address']
 
         user = User.objects.create_user(**user_data)
         pro = Professional.objects.create_prof(user)
 
         user_data = {field: data for (field, data) in request.DATA.items()}
+        temp_address = user_data['primary_address']
         del user_data['password2']
+        del user_data['primary_address']
+
         pro.__dict__.update(**user_data)
         pro.save()
+        address = Address.objects.get(id = user.primary_address.id)
+        address.__dict__.update(**temp_address)
+        address.save()
 
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key

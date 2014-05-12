@@ -188,13 +188,13 @@
       <h3>Certifications</h3>
     </div>
     <div class="panel-body">
-      <form class="form-horizontal" name="professionalForm">
+      <form class="form-horizontal" name="certificationsForm">
 
         <label for="inputCertifications1">
           Certifications 1:
         </label>
-        <input type="text" class="form-control" name="Certifications1" id="Certifications1" placeholder="Certifications Name" ng-model="pro.certification_name1">
-        <input type="text" class="form-control" name="Certifications1" id="Certifications1" placeholder="Certifications Number" ng-model="pro.certification_number1">
+        <input type="text" class="form-control" name="Certifications1" id="Certifications1" placeholder="Certifications Name" ng-model="pro.certification_name1" ng-required="ifPromoter()">
+        <input type="text" class="form-control" name="Certifications1" id="Certifications1" placeholder="Certifications Number" ng-model="pro.certification_number1" ng-required="ifPromoter()">
           <p></p>
 
         <label for="inputCertifications2">
@@ -204,7 +204,7 @@
         <input type="text" class="form-control" name="Certifications2" id="Certifications2" placeholder="Certifications Number" ng-model="pro.certification_number2">
 
         <hr></hr>
-        <button type="submit" class="btn btn-primary pull-right" ng-click="setCurrentStep('membershipSubmitPro')">Next</button>
+        <button type="submit" class="btn btn-primary pull-right" ng-click="setCurrentStepForm('membershipSubmitPro', certificationsForm.$valid)">Next</button>
         <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('experience')">Back</button>
       </form>        
     </div>
