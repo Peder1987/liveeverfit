@@ -82,7 +82,7 @@ module.exports = function (grunt) {
         },
         watch: {
             less: {
-                files: ["angular/{,*/}*.less"],
+                files: ["angular/**/*.less"],
                 tasks: "less:development"
             },
             livereload: {

@@ -18,16 +18,25 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id','url', 'email', 'first_name',
-                  'last_name', 'is_staff', 'last_login_on',
-                  'joined_on')
+        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',)
 
+    def to_native(self, value):
+        obj = super(UserSerializer, self).to_native(value)
+        print obj
+        if Professional.objects.filter(pk=obj['id']).exists():
+            obj['type'] = 'professional'
+        elif obj.is_upgraded:
+            obj['type'] = 'upgraded'
+        else:
+            obj['type'] = 'user'
+        return obj
 
 class LocationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UniqueLocation
         fields = ('location',)
+
 
 
 class PasswordSerializer(serializers.Serializer):

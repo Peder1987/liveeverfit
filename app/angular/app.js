@@ -32,8 +32,10 @@ define(['angularAMD', 'uiRouter', 'uiBootstrap', 'routeResolver', 'angularResour
                 .state('login', route.resolve('/login', 'auth/login'))
 
                 //LoggedIN
+                .state('account-settings', route.resolve('/account-settings', 'account-settings'))
                 .state('dashboard', route.resolve('/dashboard', 'dashboard'))
                 .state('workouts', route.resolve('/workouts', 'workouts'))
+                .state('workouts.video', route.resolve('/:id', 'workouts'))
                 .state('fitness-professional', route.resolve('/fitness-professional', 'fitness-professional'))
                 .state('change-password', route.resolve('/change-password', 'auth/change-password'))
                 .state('logout', route.resolve('/logout', 'auth/logout'));
@@ -82,7 +84,6 @@ define(['angularAMD', 'uiRouter', 'uiBootstrap', 'routeResolver', 'angularResour
                 url: 'footer/index.html'
             };
     }]);
-
 
     app.directive('ng-blur', function() {
         return {

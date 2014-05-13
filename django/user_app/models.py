@@ -248,6 +248,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.get_or_create(user=instance)
+        address = Address()
+        address.save()
+        instance.primary_address = address
+        instance.save()
 
 
 class AddressManager(models.Manager):
@@ -346,7 +350,7 @@ class certification(models.Model):
 
 class ProfessionalManager(models.Manager):
     def create_prof(self, user):
-        extended_user = Professional(lefuser_ptr=user)
+        extended_user = Professional(customuser_ptr=user)
         extended_user.__dict__.update(user.__dict__)
         extended_user.is_active = False
         extended_user.save()
@@ -359,6 +363,7 @@ class Professional(CustomUser):
         ('Trainer', 'Trainer'),
         ('Promoter', 'Promoter'),
     )
+    
     profession = models.CharField(_('profession'), max_length=30, blank=True, choices=PROFESSIONAL_CHOICES)
     is_accepting = models.BooleanField(_('accepting'), default=False)
 
@@ -385,6 +390,12 @@ class Professional(CustomUser):
     #Metadata
     def __unicode__(self):
         return self.email
+
+    class Meta:
+        verbose_name = _('Professional')
+        verbose_name_plural = _('Professionals')
+
+
 
     def get_all_data(self):
         data = super(Professional, self).get_all_data()

@@ -15,6 +15,7 @@ import random
 import datetime
 #Models
 from rest_framework.authtoken.models import Token
+from user_app.models import Professional, Address
 from django.contrib.auth import get_user_model
 User = get_user_model()
 #Rest Framework
@@ -38,18 +39,6 @@ def token_generator(size=5, chars=string.ascii_uppercase + string.ascii_lowercas
     return ''.join(random.choice(chars) for _ in range(size))
 
 
-
-@api_view(['GET'])
-#@authentication_classes((SessionAuthentication, BasicAuthentication))
-#@permission_classes((IsAuthenticated,))
-def example_view(request, format=None):
-    content = {
-        'user': unicode(request.user),  # django.contrib.auth.User instance.
-        'auth': unicode(request.auth),  # None
-    }
-    return Response(content)
-
-
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def register(request):
@@ -61,6 +50,52 @@ def register(request):
         user = User.objects.create_user(
             **user_data
         )
+
+        response = ReturnUserSerializer(instance=user).data
+        response['token'] = user.auth_token.key
+        response['id'] = user.id
+        return Response(response, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+def register_professional(request):
+    serialized = CreateUserSerializer(data=request.DATA)
+    if serialized.is_valid():
+        user_data = {field: data for (field, data) in request.DATA.items()}
+        del user_data['password2']
+        del user_data['profession']
+        del user_data['education']
+        del user_data['experience']
+        del user_data['certification_name1']
+        del user_data['certification_number1']
+        del user_data['certification_name2']
+        del user_data['certification_number2']
+        del user_data['phone']
+        del user_data['twitter']
+        del user_data['facebook'] 
+        del user_data['instagram'] 
+        del user_data['youtube'] 
+        del user_data['linkedin']
+        del user_data['plus']
+        del user_data['primary_address']
+
+        user = User.objects.create_user(**user_data)
+        pro = Professional.objects.create_prof(user)
+
+        user_data = {field: data for (field, data) in request.DATA.items()}
+        temp_address = user_data['primary_address']
+        del user_data['password2']
+        del user_data['primary_address']
+
+        pro.__dict__.update(**user_data)
+        pro.save()
+        address = Address.objects.get(id = user.primary_address.id)
+        address.__dict__.update(**temp_address)
+        address.save()
+
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
         response['id'] = user.id

@@ -55,7 +55,8 @@ require.config({
         'ui.bootstrap.modal': 'common/angular-bootstrap/modal/modal',
         'ui.bootstrap.tabs': 'common/angular-bootstrap/tabs/tabs',
         'app' : 'app',
-        'footer' : 'footer/app'
+        'footer' : 'footer/app',
+        'videojs': 'common/videojs/dist/video-js/video'
     },
 
      //Angular does not support AMD out of the box, put it in a shim

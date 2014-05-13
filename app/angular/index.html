@@ -12,8 +12,8 @@
     </head>
     <body>
         <div ng-controller="NavCtrl" ng-include="templateNav.url"></div>
-        <div class="container" ui-view autoscroll="false"></div>
-        <footer ng-controller="footerCtrl" ng-include="templateNav.url"></footer>
+        <div ui-view autoscroll="false"></div>
+        <!--<footer ng-controller="footerCtrl" ng-include="templateNav.url"></footer>-->
         <script src="common/require/require.js" data-main="main.js"></script>
     </body>
 </html>

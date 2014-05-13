@@ -4,6 +4,7 @@ from django.contrib.auth.models import Group, Permission
 from rest_framework.authtoken.models import Token
 from rest_framework import serializers
 User = get_user_model()
+from user_app.models import Professional
 
 
 
@@ -29,7 +30,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
  
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name','password', 'password2')
+        fields = ('email', 'first_name', 'last_name', 'password', 'password2', 'gender', 'tier')
         write_only_fields = ('password', )  # Note: Password field is write-only
 
     def validate_password(self, attrs, source):
@@ -52,7 +53,6 @@ class CreateUserSerializer(serializers.ModelSerializer):
     def restore_object(self, attrs, instance=None):
         tags = attrs.pop('password2', None)
         obj = super(CreateUserSerializer, self).restore_object(attrs, instance)
-        #obj.save()
         return obj
 
 
