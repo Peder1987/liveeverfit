@@ -56,7 +56,9 @@ require.config({
         'ui.bootstrap.tabs': 'common/angular-bootstrap/tabs/tabs',
         'app' : 'app',
         'footer' : 'footer/app',
-        'videojs': 'common/videojs/dist/video-js/video'
+        'videojs': 'common/videojs/dist/video-js/video',
+        'stripe': 'common/stripe/angular-stripe-js',
+        'stripeJS' : 'common/stripe/stripe'
     },
 
      //Angular does not support AMD out of the box, put it in a shim
@@ -79,6 +81,7 @@ require.config({
             'ui.bootstrap.tabs': ['angular'],
             'footer': ['app'],
             'ngTagsInput': ['angular'],
+            'stripe': ['angular', "stripeJS"],
     },
 
     //Kick start application

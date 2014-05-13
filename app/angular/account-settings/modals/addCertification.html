@@ -1,0 +1,31 @@
+<div class="modal-header">
+            <h3 class="modal-title">Add Certification</h3>
+</div>
+    <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
+        <div class="modal-body">
+            <form class="form-horizontal" name="registrationForm">                  
+                <label for="nameName">
+                    CARD NAME
+                </label>
+                <input type="text" class="form-control" name="name" id="name" placeholder="" ng-model="creditcard.name" required>
+                  <p></p>
+                <label for="numberName">
+                    CARD NUMBER
+                </label>
+                <input type="text" class="form-control" name="number" id="number" placeholder="Valid Card Number" ng-model="creditcard.number" required>
+                  <p></p>
+                <label for="cvcName">
+                    CVV CODE
+                </label>
+                <input type="text" class="form-control" name="cvc" id="cvc" placeholder="cvc" ng-model="creditcard.cvc" required>
+                  <p></p>
+
+
+
+                <hr></hr>
+            </form>  
+        </div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

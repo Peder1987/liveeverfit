@@ -57,13 +57,16 @@
         </div>
     
     <div ng-switch="profile_user.type">
-      <div ng-switch-when="professional"></div>
-        <div ng-include src="'account-settings/profiles/professional.html'"></div>
-        <div ng-switch-when="upgraded">
-            <div ng-include src="'account-settings/profiles/upgaded.html'"></div>
+        <div ng-include src="'account-settings/profiles/socialMedia.html'"></div>
+        <div ng-switch-when="professional"> 
+            <div ng-include src="'account-settings/profiles/certifications.html'"></div>
         </div>
-      <div ng-switch-default>...</div>
+        
+      
+        
+        <div ng-switch-default></div>
+        </div>
     </div>
-    
+    <div ng-include src="'account-settings/profiles/membership.html'"></div>
 </div>
 
