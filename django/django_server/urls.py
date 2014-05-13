@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^docs/', include('rest_framework_swagger.urls')),
     url(r'^tags', include('taggit.urls')),
     url(r'^workouts/', include('workouts.urls')),
+    url(r'^messages/', include('messages.urls')),
 )
 
 
