@@ -8,15 +8,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" ng-class="{active:$uiRoute}" ui-sref="home">
+            <a class="navbar-brand" ng-class="{active:$uiRoute}" ui-route="/" ui-sref="home">
                 <image src="common/img/navbar/logo.png"/>
             </a>
             <div ng-if="token != null">
                 <ul class="visible-xs xs-icon">
-                    <a ng-class="{active:$uiRoute}" ui-sref="">
+                    <a ng-class="{active:$uiRoute}">
                         <i class="fa fa-shopping-cart fa-lg"></i>
                     </a>
-                    <a ng-class="{active:$uiRoute}" ui-sref="">
+                    <a ng-class="{active:$uiRoute}">
                         <i class="fa fa-envelope fa-lg"></i>
                     </a>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -24,17 +24,17 @@
                     </a>
                     <ul class="xs-icon-dropdown dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dLabel">
                         <li>
-                            <a ng-class="{active:$uiRoute}" ui-sref="">
+                            <a ng-class="{active:$uiRoute}">
                                 what do i owe my clients
                             </a>
                         </li>
                         <li>
-                            <a ng-class="{active:$uiRoute}" ui-sref="">
+                            <a ng-class="{active:$uiRoute}">
                                 how do i get paid?
                             </a>
                         </li>
                         <li>
-                            <a ng-class="{active:$uiRoute}" ui-sref="">
+                            <a ng-class="{active:$uiRoute}">
                                 account setting's
                             </a>
                         </li>
@@ -89,12 +89,16 @@
         <div ng-if="token != null" class="navbar-collapse collapse" collapse="isCollapsed">
             <ul class="nav navbar-nav">
                 <li>
-                    <a ng-class="{active:$uiRoute}" ui-sref="fitness-professional">
+                    <a ui-route="/fitness-professional"
+                       ng-class="{active:$uiRoute}"
+                       ui-sref="fitness-professional">
                         FITNESS PROFESSIONALS
                     </a>
                 </li>
                 <li>
-                    <a ng-class="{active:$uiRoute}" ui-sref="workouts">
+                    <a ui-route="/workouts"
+                       ng-class="{active:$uiRoute}"
+                       ui-sref="workouts">
                         WORKOUTS
                     </a>
                 </li>
@@ -104,7 +108,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a ng-class="{active:$uiRoute}" ui-sref="">
+                            <a ng-class="{active:$uiRoute}" >
                                 Equipment
                             </a>
                         </li>
@@ -115,17 +119,17 @@
                         </li>
                         <li>
 
-                            <a ng-class="{active:$uiRoute}" ui-sref="">
+                            <a ng-class="{active:$uiRoute}" >
                                 f3 Foods
                             </a>
                         </li>
                         <li>
-                            <a ng-class="{active:$uiRoute}" ui-sref="">
+                            <a ng-class="{active:$uiRoute}" >
                                 Featured Items
                             </a>
                         </li>
                         <li>
-                            <a ng-class="{active:$uiRoute}" ui-sref="">
+                            <a ng-class="{active:$uiRoute}" >
                                 Supplements
                             </a>
                         </li>
@@ -145,13 +149,13 @@
             </ul>
             <ul class="nav navbar-nav pull-right hidden-xs">
                 <li>
-                    <a ng-class="{active:$uiRoute}" ui-sref=""
+                    <a ng-class="{active:$uiRoute}"
                        style="height: 75px; padding-top: 34px;">
                         <i class="fa fa-shopping-cart fa-lg"></i>
                     </a>
                 </li>
                 <li>
-                    <a ng-class="{active:$uiRoute}" ui-sref=""
+                    <a ng-class="{active:$uiRoute}"
                        style="height: 75px; padding-top: 34px;">
                         <i class="fa fa-envelope fa-lg"></i>
                     </a>
@@ -162,17 +166,17 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dLabel">
                         <li>
-                            <a ng-class="{active:$uiRoute}" ui-sref="">
+                            <a ng-class="{active:$uiRoute}" >
                                 what do i owe my clients
                             </a>
                         </li>
                         <li>
-                            <a ng-class="{active:$uiRoute}" ui-sref="">
+                            <a ng-class="{active:$uiRoute}" >
                                 how do i get paid?
                             </a>
                         </li>
                         <li>
-                            <a ng-class="{active:$uiRoute}" ui-sref="">
+                            <a ng-class="{active:$uiRoute}" >
                                 account setting's
                             </a>
                         </li>
