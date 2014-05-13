@@ -54,9 +54,11 @@ require.config({
         'ui.bootstrap.timepicker': 'common/angular-bootstrap/timepicker/timepicker',
         'ui.bootstrap.modal': 'common/angular-bootstrap/modal/modal',
         'ui.bootstrap.tabs': 'common/angular-bootstrap/tabs/tabs',
-        'app' : 'app',
         'footer' : 'footer/app',
-        'videojs': 'common/videojs/dist/video-js/video'
+        'videojs': 'common/videojs/dist/video-js/video',
+        'underscore': 'common/underscore/underscore',
+        'angular-google-maps': 'common/angular-google-maps/dist/angular-google-maps',
+        'app' : 'app',
     },
 
      //Angular does not support AMD out of the box, put it in a shim
@@ -70,15 +72,18 @@ require.config({
             "uiRouter": ['angular'],
             "uiBootstrap": ['angular'],
             "autoFillEvent": ['angular'],
-            "jqueryui": ["jquery"],
-            "fullcalendar": ["jquery"],
             'ui.calendar': ['angular'],
             'ui.bootstrap.datepicker': ['angular'],
             'ui.bootstrap.timepicker': ['angular'],
             'ui.bootstrap.modal': ['angular'],
             'ui.bootstrap.tabs': ['angular'],
-            'footer': ['app'],
             'ngTagsInput': ['angular'],
+            'underscore': ['angular'],
+            "jqueryui": ["jquery"],
+            "fullcalendar": ["jquery"],
+            'angular-google-maps': ['underscore'],
+            'footer': ['app'],
+
     },
 
     //Kick start application
