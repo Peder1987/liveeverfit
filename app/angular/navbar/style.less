@@ -1,108 +1,111 @@
-@navbar-height: 75px;
-@navbar-bg:#eeeded;
+@navbar-height: 62px;
+@navbar-bg: #eeeded;
 @navbar-default-link-hover-color: #5d5d60;
 @navbar-default-link-hover-bg: #e2e2e2;
-@navbar-default-link-active-bg:#e2e2e2;
+@navbar-default-link-active-bg: #e2e2e2;
 
 @dropdown-bg: #d7d8d8;
 @dropdown-link-hover-bg: #eae9e9;
 @dropdown-link-hover-color: #7e7e7e;
 @dropdown-link-color: #7e7e7e;
 
+.navbar-brand:hover,
 .navbar-default .navbar-nav > li > a.active {
   background-color: @navbar-default-link-hover-bg;
   color: @navbar-default-link-hover-color;
 }
 
+.navbar-brand:hover:after,
+.navbar-brand.active:after,
 .navbar-default .navbar-nav > li > a:hover:after,
-.navbar-default .navbar-nav > li > a:focus:after,
 .navbar-default .navbar-nav > li > a.active:after {
-    bottom: -3px;
-    content: '';
-    height: 3px;
-    left: 0;
-    right: 0;
-    position: absolute;
-    background-color: #adadad;
-    z-index: 1;
+  bottom: -3px;
+  content: '';
+  height: 3px;
+  left: 0;
+  right: 0;
+  position: absolute;
+  background-color: #adadad;
+  z-index: 1;
 }
 
 .navbar {
-    background: @navbar-bg;
-    background: -moz-linear-gradient(top,  #eeeded 0%, #e2e2e2 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeded), color-stop(100%,#cdcdcd));
-    background: -webkit-linear-gradient(top,  #eeeded 0%,#e2e2e2 100%);
-    background: -o-linear-gradient(top,  #eeeded 0%,#e2e2e2 100%);
-    background: -ms-linear-gradient(top,  #eeeded 0%,#e2e2e2 100%);
-    background: linear-gradient(to bottom,  #eeeded 0%,#e2e2e2 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeded', endColorstr='#cdcdcd',GradientType=0 );
-    border-bottom: solid 3px #1a8cff;
-    z-index: 3;
-// -webkit-box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
-// box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
-    margin-bottom:0px;
-    font-size: 10px;
-    font-family: 'Open Sans', sans-serif;
+  background: @navbar-bg;
+  background: -moz-linear-gradient(top, #eeeded 0%, #e2e2e2 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeded), color-stop(100%, #cdcdcd));
+  background: -webkit-linear-gradient(top, #eeeded 0%, #e2e2e2 100%);
+  background: -o-linear-gradient(top, #eeeded 0%, #e2e2e2 100%);
+  background: -ms-linear-gradient(top, #eeeded 0%, #e2e2e2 100%);
+  background: linear-gradient(to bottom, #eeeded 0%, #e2e2e2 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeded', endColorstr='#cdcdcd', GradientType=0);
+  border-bottom: solid 3px #1a8cff;
+  z-index: 3;
+  // -webkit-box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
+  // box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
+  margin-bottom: 0px;
+  font-size: 10px;
+  font-family: 'Open Sans', sans-serif;
 }
+
 .navbar:after {
-    bottom: -3px;
-    content: '';
-    height: 3px;
-    left: 0;
-    right: 0;
-    position: absolute;
-    background-color: #1a8cff;
-    z-index: 0;
+  bottom: -3px;
+  content: '';
+  height: 3px;
+  left: 0;
+  right: 0;
+  position: absolute;
+  background-color: #1a8cff;
+  z-index: 0;
 }
 
 .navbar-brand {
-    margin-top: -18px;
+  position: relative;
+  padding: 3px 5px;
 }
 
-.dropdown{
-  color:#000000;
+.dropdown {
+  color: #000000;
 }
 
 .dropdown-menu {
-    color: #FFFFFF;
-    top: 78px;
-    box-shadow: 0 3px 5px rgba(93, 93, 96, 0.3);
-    border: none;
+  color: #FFFFFF;
+  top: 65px;
+  box-shadow: 0 3px 5px rgba(93, 93, 96, 0.3);
+  border: none;
 }
 
 i {
-    margin-top: 0px;
+  margin-top: 0px;
 }
 
-
-.btn-evergreen{
-    background-image: url('../common/img/navbar/btn-evergreen.png');
-    background-repeat: no-repeat;
-    width: 60px;
-    height: 78px;
-    padding-top: 22px;
+.btn-evergreen {
+  background-image: url('../common/img/navbar/btn-evergreen.png');
+  background-repeat: no-repeat;
+  width: 60px;
+  height: 69;
+  margin-top: -7px;
 }
 
-.btn-evergreen:hover{
-    background-image: url('../common/img/navbar/btn-evergreen-white.png');
-    background-repeat: no-repeat;
+.btn-evergreen:hover {
+  background-image: url('../common/img/navbar/btn-evergreen-white.png');
+  background-repeat: no-repeat;
 }
 
-.xs-icon{
+.xs-icon {
   position: absolute;
   left: 10%;
   top: 30px;
 }
 
 .xs-icon a {
-    color: #adadad;
-    margin: 15px;
+  color: #adadad;
+  margin: 15px;
 }
 
-.xs-icon-dropdown{
-    width: 100%;
-    background-color:@dropdown-bg;
-    background-clip: padding-box;
-    font-size: 10px;
-    margin-top: -31px;
+.xs-icon-dropdown {
+  width: 100%;
+  background-color: @dropdown-bg;
+  background-clip: padding-box;
+  font-size: 10px;
+  margin-top: -31px;
 }
