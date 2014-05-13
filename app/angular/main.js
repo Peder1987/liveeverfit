@@ -56,6 +56,8 @@ require.config({
         'ui.bootstrap.tabs': 'common/angular-bootstrap/tabs/tabs',
         'footer' : 'footer/app',
         'videojs': 'common/videojs/dist/video-js/video',
+        'stripe': 'common/stripe/angular-stripe-js',
+        'stripeJS' : 'common/stripe/stripe',
         'underscore': 'common/underscore/underscore',
         'angular-google-maps': 'common/angular-google-maps/dist/angular-google-maps',
         'app' : 'app',
@@ -78,12 +80,12 @@ require.config({
             'ui.bootstrap.modal': ['angular'],
             'ui.bootstrap.tabs': ['angular'],
             'ngTagsInput': ['angular'],
+            'stripe': ['angular', "stripeJS"],
             'underscore': ['angular'],
             "jqueryui": ["jquery"],
             "fullcalendar": ["jquery"],
             'angular-google-maps': ['underscore'],
             'footer': ['app'],
-
     },
 
     //Kick start application

@@ -1,0 +1,75 @@
+
+<h class="ef-header">
+    certifications
+    <button class="btn btn-primary pull-right" data-toggle="modal" ng-click="addCertification()"
+            data-target="#certificationModal"><span
+            class="glyphicon glyphicon glyphicon-plus"></span> add certification
+    </button>
+</h>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading bold">
+                        Certification Name
+                        <span class="pull-right">Certification Number</span>
+                    </div>
+                    <ul id="certifications" class="list-group">
+                        
+                            <li ng-show="profile_user.certification_name1 != ''" id="certification-{{ certification.pk }}" class="list-group-item">
+                                <span class="fn url nickname edit-text"
+                                      id="certification_name"
+                                      data-title="Certification Name",
+                                      data-pk="{{ certification.pk }}",
+                                      data-url="/edit-certification/",
+                                      data-type="text">
+                                    {{ profile_user.certification_name1 }}
+                                </span>
+                                <button type="button"
+                                        class="delete close"
+                                        data-url="/delete-certification/"
+                                        data-pk="{{ certification.pk }}"
+                                        data-id="certification-{{ certification.pk }}"
+                                        style="margin-left: 15px;"
+                                        ng-click="deleteCertification(this)">
+                                    ×
+                                </button>
+                                <span class="badge edit-text"
+                                      id="certification_number"
+                                      data-title="Certification Number"
+                                      data-url="/edit-certification/",
+                                      data-pk="{{ certification.pk }}"
+                                      data-type="text">
+                                      {{ profile_user.certification_number1 }}
+                                </span>
+                            </li>
+                            <li ng-show="profile_user.certification_name2 != ''" id="certification-2 }}" class="list-group-item">
+                                <span class="fn url nickname edit-text"
+                                      id="certification_name"
+                                      
+                                      data-type="text">
+                                    {{ profile_user.certification_name2 }}
+                                </span>
+                                <button type="button"
+                                        class="delete close"
+                                        style="margin-left: 15px;"
+                                        ng-click="deleteCertification(this)">
+                                    ×
+                                </button>
+                                <span class="badge edit-text"
+                                      id="certification_number"
+                                      data-title="Certification Number"
+                                      data-url="/edit-certification/",
+                                      data-pk="{{ certification.pk }}"
+                                      data-type="text">
+                                      {{ profile_user.certification_number2 }}
+                                </span>
+                            </li>
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
