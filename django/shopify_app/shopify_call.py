@@ -146,7 +146,7 @@ def customer_orders(self): # shopify_orders
 
 
 def customer_sales_to_date(self): # shopify_sales
-    from lef_user.models import LefUser
+    from user_app.models import CustomUser
     """
     using shopify_id will search shopify tags
     pertaining to that id to find a list of customers
@@ -210,7 +210,7 @@ def test_function():
 
 
 def update_local_host():
-    from lef_user.models import LefUser
+    from user_app.models import CustomUser
 
     lef_users = LefUser.objects.all()
     for user in lef_users:

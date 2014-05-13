@@ -7,7 +7,7 @@
                                         <span style="font-size: 18px; font-weight: 700">@</span> Twitter:
                                     </span>
                                     <span id="twitter" class="edit-text" data-title="Twitter Username"
-                                          data-type="text">
+                                          data-type="text" editable-text="profile_user.twitter" e-form="editable">
                                         {{ profile_user.twitter }}
                                     </span>
                     </div>
@@ -18,7 +18,7 @@
                                         <span style="font-size: 18px; font-weight: 700">&nbsp;f</span> &nbsp;Facebook Page:
                                     </span>
                                     <span id="facebook" class="edit-text" data-title="Facebook Page"
-                                          data-type="text">
+                                          data-type="text" editable-text="profile_user.facebook" e-form="editable">
                                         {{ profile_user.facebook }}
                                     </span>
                     </div>
@@ -29,7 +29,7 @@
                                         <span class="glyphicon glyphicon-play"></span> Youtube:
                                     </span>
                                     <span id="youtube" class="edit-text" data-title="Youtube Url"
-                                          data-type="text">
+                                          data-type="text" editable-text="profile_user.youtube" e-form="editable">
                                         {{ profile_user.youtube }}
                                     </span>
                     </div>
@@ -39,7 +39,7 @@
                                     <span class="bold">
                                         <span class="glyphicon glyphicon-plus"></span> Google+:
                                     </span>
-                                    <span id="plus" class="edit-text" data-title="Google+ URL" data-type="text">
+                                    <span id="plus" class="edit-text" data-title="Google+ URL" data-type="text" editable-text="profile_user.plus" e-form="editable">
                                         {{ profile_user.plus }}
                                     </span>
                     </div>
@@ -50,7 +50,7 @@
                                         <span style="font-size: 18px; font-weight: 700">in</span> LinkedIn:
                                     </span>
                                     <span id="linkedin" class="edit-text" data-title="LinkedIn Profile URL"
-                                          data-type="text">
+                                          data-type="text" editable-text="profile_user.linkedin" e-form="editable">
                                         {{ profile_user.linkedin }}
                                     </span>
                     </div>
@@ -61,7 +61,7 @@
                                         <span class="glyphicon glyphicon-camera"></span> Instagram:
                                     </span>
                                     <span id="instagram" class="edit-text" data-title="Instagram Username"
-                                          data-type="text">
+                                          data-type="text" editable-text="profile_user.instagram" e-form="editable">
                                         {{ profile_user.instagram }}
                                     </span>
                     </div>
@@ -72,7 +72,7 @@
                                         <span class="glyphicon glyphicon-phone"></span> Phone Number:
                                     </span>
                                     <span id="phone" class="edit-text" data-title="Phone Number"
-                                          data-type="text">
+                                          data-type="text" editable-text="profile_user.phone" e-form="editable">
                                         {{ profile_user.phone }}
                                     </span>
                     </div>
@@ -80,56 +80,3 @@
             </div>
         </div>
     </div>
-
-<h class="ef-header">
-    certifications
-    <button class="btn btn-primary pull-right" data-toggle="modal"
-            data-target="#certificationModal"><span
-            class="glyphicon glyphicon glyphicon-plus"></span> add certification
-    </button>
-</h>
-<div class="row">
-    <div class="col-xs-12">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading bold">
-                        Certification Name
-                        <span class="pull-right">Certification Number</span>
-                    </div>
-                    <ul id="certifications" class="list-group">
-                        <div ng-repeat="certification in certifications">
-                            <li id="certification-{{ certification.pk }}" class="list-group-item">
-                                <span class="fn url nickname edit-text"
-                                      id="certification_name"
-                                      data-title="Certification Name",
-                                      data-pk="{{ certification.pk }}",
-                                      data-url="/edit-certification/",
-                                      data-type="text">
-                                    {{ certification.certification_name }}
-                                </span>
-                                <button type="button"
-                                        class="delete close"
-                                        data-url="/delete-certification/"
-                                        data-pk="{{ certification.pk }}"
-                                        data-id="certification-{{ certification.pk }}"
-                                        style="margin-left: 15px;"
-                                        onclick="deleteCertification(this)">
-                                    ×
-                                </button>
-                                <span class="badge edit-text"
-                                      id="certification_number"
-                                      data-title="Certification Number"
-                                      data-url="/edit-certification/",
-                                      data-pk="{{ certification.pk }}"
-                                      data-type="text">
-                                      {{ certification.certification_number }}
-                                </span>
-                            </li>
-                        </div>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

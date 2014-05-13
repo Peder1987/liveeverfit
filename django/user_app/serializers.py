@@ -8,6 +8,7 @@ from user_app.models import Professional, UniqueLocation
 
 
 
+
 class UserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(source='id', required=True)  
     first_name = serializers.CharField(source='first_name', required=False)
@@ -22,9 +23,16 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_native(self, value):
         obj = super(UserSerializer, self).to_native(value)
-        print obj
+        #print obj
         if Professional.objects.filter(pk=obj['id']).exists():
+            pro = Professional.objects.get(pk=obj['id'])
+            obj = ProfessionalSerializer(instance=pro).data
+
+            obj['customer_list'] = pro.user_connections.all()
+            obj['shopify_sales'] = pro.shopify_sales()
+            obj['creditcard'] = pro.stripe_get_creditcard()
             obj['type'] = 'professional'
+            print obj
         elif obj.is_upgraded:
             obj['type'] = 'upgraded'
         else:
@@ -60,5 +68,4 @@ class ProfessionalSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Professional
-        exclude = ('password',)
-
+        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',)

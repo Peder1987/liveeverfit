@@ -7,7 +7,7 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 from django.test import Client
-from lef_user.models import LefUser, Professional
+from user_app.models import LefUser, Professional
 
 class SimpleTest(TestCase):
 	def setUp(self):

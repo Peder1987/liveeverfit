@@ -1,5 +1,8 @@
 <div class="row">
     <div class="col-md-5">
+        <div class="google-map" center="map.center" zoom="map.zoom" draggable='true'>
+            <marker ng-repeat="professional in professionals.results" coords="professional.coords" icon="'fitness-professional/img/marker.png'"></marker>
+        </div>
     </div>
     <div class="col-md-7">
         <div class="sidebar">
@@ -145,7 +148,9 @@
                     <!-- /.search-filters -->
                     <div id="trainer-results">
                         <div class="row">
-                            <div class="col-sm-6 col-md-4" ng-repeat="professional in professionals.results">
+                            <div class="col-sm-6 col-md-4" 
+                                 ng-repeat="professional in professionals.results" 
+                                 ng-mouseover="hello(professional)">
                                 <div class="thumbnail">
                                     <img src="/media/"/>
                                     <div class="caption">
@@ -167,5 +172,3 @@
         <!-- /.sidebar-->
     </div>
 </div>
-
-
