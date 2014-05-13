@@ -3,7 +3,7 @@
 
 @import "common/bootstrap/less/bootstrap.less";
 @icon-font-path: "common/bootstrap/fonts/";
-
+@import "navbar/style.less";
 @import "workouts/style.less";
 @import "fitness-professional/style.less";
 
@@ -15,12 +15,20 @@
 @input-bg: rgba(125, 135, 144, 0.38);
 @input-color: white;
 
+@input-border: rgba(125, 135, 144, 0.1);
+
 @page-header-border-color: #b3b4b6;
+
+#page {
+  position: absolute;
+  top: 78px;
+  bottom: 0px;
+  width: 100%;
+}
+
 .page-header {
   font-size: 21px;
 }
-
-
 
 .ef-header {
   line-height: 46px;
@@ -76,6 +84,7 @@
   background-color: #1a8cff;
   text-align: left;
   font-size: 21px;
+  line-height: 26px;
 }
 .btn.toggle:focus {
   background-color: #1a8cff;
@@ -488,18 +497,18 @@ p.empty {
 }
 
 ::-webkit-input-placeholder { /* WebKit browsers */
-  color:    #fff;
+  color:    #DDD!important;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-  color:    #DDD;
+  color:    #DDD!important;
   opacity:  1;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-  color:    #DDD;
+  color:    #DDD!important;
   opacity:  1;
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
-  color:    #DDD;
+  color:    #DDD!important;
 }
 
 
@@ -523,6 +532,10 @@ tags-input .tags {
   word-wrap: break-word;
   cursor: text;
   background-color: rgba(125,135,144,0.38);
+  border: 1px solid @input-border;
+  .box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+  .transition(~"border-color ease-in-out .15s, box-shadow ease-in-out .15s");
+
 }
 tags-input .tags.focused {
   border-color: rgba(125, 135, 144, 0.5);
@@ -686,3 +699,4 @@ tags-input .autocomplete .suggestion-item em {
 // }
 
 // @panel-default-border: none;
+@import "navbar/style.less";
