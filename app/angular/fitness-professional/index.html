@@ -1,13 +1,9 @@
-<style media="screen" type="text/css">
-.angular-google-map-container { height: 400px; }
-</style>
-
-
 <div class="row">
-
     <div class="col-md-5">
+        <div class="google-map" center="map.center" zoom="map.zoom" draggable='true'>
+            <marker ng-repeat="professional in professionals.results" coords="professional.coords" icon="'fitness-professional/img/marker.png'"></marker>
+        </div>
     </div>
-
     <div class="col-md-7">
         <div class="sidebar">
             <div class="sidebar-bg">
@@ -176,15 +172,3 @@
         <!-- /.sidebar-->
     </div>
 </div>
-
-{{map.center}}
-<div class="row">
-    <div class="google-map col-md-6" center="map.center" zoom="map.zoom" draggable='true'>
-         <div ng-repeat="professional in professionals.results">
-             <marker coords="professional.coords" icon="'fitness-professional/img/marker.png'"></marker>
-         </div>
-    </div>
-</div>
-
-
-
