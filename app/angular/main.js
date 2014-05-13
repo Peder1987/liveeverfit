@@ -56,14 +56,11 @@ require.config({
         'ui.bootstrap.tabs': 'common/angular-bootstrap/tabs/tabs',
         'footer' : 'footer/app',
         'videojs': 'common/videojs/dist/video-js/video',
-<<<<<<< HEAD
         'stripe': 'common/stripe/angular-stripe-js',
-        'stripeJS' : 'common/stripe/stripe'
-=======
+        'stripeJS' : 'common/stripe/stripe',
         'underscore': 'common/underscore/underscore',
         'angular-google-maps': 'common/angular-google-maps/dist/angular-google-maps',
         'app' : 'app',
->>>>>>> 5b745283c75c12fd1bcd5f45834e9b32a3dab933
     },
 
      //Angular does not support AMD out of the box, put it in a shim
@@ -83,16 +80,12 @@ require.config({
             'ui.bootstrap.modal': ['angular'],
             'ui.bootstrap.tabs': ['angular'],
             'ngTagsInput': ['angular'],
-<<<<<<< HEAD
             'stripe': ['angular', "stripeJS"],
-=======
             'underscore': ['angular'],
             "jqueryui": ["jquery"],
             "fullcalendar": ["jquery"],
             'angular-google-maps': ['underscore'],
             'footer': ['app'],
-
->>>>>>> 5b745283c75c12fd1bcd5f45834e9b32a3dab933
     },
 
     //Kick start application
