@@ -21,25 +21,19 @@
                                 <span class="fn url nickname edit-text"
                                       id="certification_name"
                                       data-title="Certification Name",
-                                      data-pk="{{ certification.pk }}",
-                                      data-url="/edit-certification/",
                                       data-type="text">
                                     {{ profile_user.certification_name1 }}
                                 </span>
                                 <button type="button"
                                         class="delete close"
-                                        data-url="/delete-certification/"
-                                        data-pk="{{ certification.pk }}"
-                                        data-id="certification-{{ certification.pk }}"
+                                        
+                                        
                                         style="margin-left: 15px;"
                                         ng-click="deleteCertification(this)">
                                     ×
                                 </button>
                                 <span class="badge edit-text"
                                       id="certification_number"
-                                      data-title="Certification Number"
-                                      data-url="/edit-certification/",
-                                      data-pk="{{ certification.pk }}"
                                       data-type="text">
                                       {{ profile_user.certification_number1 }}
                                 </span>
@@ -60,8 +54,6 @@
                                 <span class="badge edit-text"
                                       id="certification_number"
                                       data-title="Certification Number"
-                                      data-url="/edit-certification/",
-                                      data-pk="{{ certification.pk }}"
                                       data-type="text">
                                       {{ profile_user.certification_number2 }}
                                 </span>

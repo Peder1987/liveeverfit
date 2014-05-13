@@ -62,34 +62,37 @@ require.config({
         'stripeJS': 'common/stripe/stripe',
         'underscore': 'common/underscore/underscore',
         'angular-google-maps': 'common/angular-google-maps/dist/angular-google-maps',
-        'app': 'app'
+        'xeditable' : 'common/angular-xeditable/dist/js/xeditable',
+        'app' : 'app',
+
     },
 
     //Angular does not support AMD out of the box, put it in a shim
     shim: {
-        'angular': {
-            exports: 'angular'
-        },
-        'angularAMD': ['angular'],
-        "angularLocalStorage": ['angular'],
-        "angularResource": ['angular'],
-        "uiRouter": ['angular'],
-        "uiBootstrap": ['angular'],
-        "autoFillEvent": ['angular'],
-        'ui.utils': ['angular'],
-        'ui.calendar': ['angular'],
-        'ui.bootstrap.datepicker': ['angular'],
-        'ui.bootstrap.timepicker': ['angular'],
-        'ui.bootstrap.modal': ['angular'],
-        'ui.bootstrap.tabs': ['angular'],
-        'ui.bootstrap.carousel': ['angular'],
-        'ngTagsInput': ['angular'],
-        'stripe': ['angular', "stripeJS"],
-        'underscore': ['angular'],
-        "jqueryui": ["jquery"],
-        "fullcalendar": ["jquery"],
-        'angular-google-maps': ['underscore'],
-        'footer': ['app']
+            'angular': {
+                    exports: 'angular'
+            },
+            'angularAMD': ['angular'],
+            "angularLocalStorage": ['angular'],
+            "angularResource": ['angular'],
+            "uiRouter": ['angular'],
+            "uiBootstrap": ['angular'],
+            "autoFillEvent": ['angular'],
+            'ui.utils': ['angular'],
+            'ui.calendar': ['angular'],
+            'ui.bootstrap.datepicker': ['angular'],
+            'ui.bootstrap.timepicker': ['angular'],
+            'ui.bootstrap.modal': ['angular'],
+            'ui.bootstrap.tabs': ['angular'],
+            'ui.bootstrap.carousel': ['angular'],
+            'ngTagsInput': ['angular'],
+            'stripe': ['angular', "stripeJS"],
+            'underscore': ['angular'],
+            "jqueryui": ["jquery"],
+            "fullcalendar": ["jquery"],
+            'angular-google-maps': ['underscore'],
+            'footer': ['app'],
+            'xeditable': ['angular']
     },
     //Kick start application
     deps: ['app']
