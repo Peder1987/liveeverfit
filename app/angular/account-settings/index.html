@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-xs-4 col-sm-4">
                     <a ng-click="photoChange()" class="thumbnail">
-                        <img src="/media/{{ profile_user.img }}" data-toggle="modal"
+                        <img src="/common/media/{{ profile_user.img }}" data-toggle="modal"
                              data-target="#profilePictureModal"/>
                     </a>
                 </div>
@@ -55,166 +55,15 @@
                 </div>
             </div>
         </div>
-        <div ng-if="profile_user.is_professional">
-            <div class="col-xs-12 col-sm-5">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                            <span class="bold">
-                                                <span style="font-size: 18px; font-weight: 700">@</span> Twitter:
-                                            </span>
-                                            <span id="twitter" class="edit-text" data-title="Twitter Username"
-                                                  data-type="text">
-                                                {{ profile_user.twitter }}
-                                            </span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                            <span class="bold">
-                                                <span style="font-size: 18px; font-weight: 700">&nbsp;f</span> &nbsp;Facebook Page:
-                                            </span>
-                                            <span id="facebook" class="edit-text" data-title="Facebook Page"
-                                                  data-type="text">
-                                                {{ profile_user.facebook }}
-                                            </span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                            <span class="bold">
-                                                <span class="glyphicon glyphicon-play"></span> Youtube:
-                                            </span>
-                                            <span id="youtube" class="edit-text" data-title="Youtube Url"
-                                                  data-type="text">
-                                                {{ profile_user.youtube }}
-                                            </span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                            <span class="bold">
-                                                <span class="glyphicon glyphicon-plus"></span> Google+:
-                                            </span>
-                                            <span id="plus" class="edit-text" data-title="Google+ URL" data-type="text">
-                                                {{ profile_user.plus }}
-                                            </span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                            <span class="bold">
-                                                <span style="font-size: 18px; font-weight: 700">in</span> LinkedIn:
-                                            </span>
-                                            <span id="linkedin" class="edit-text" data-title="LinkedIn Profile URL"
-                                                  data-type="text">
-                                                {{ profile_user.linkedin }}
-                                            </span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                            <span class="bold">
-                                                <span class="glyphicon glyphicon-camera"></span> Instagram:
-                                            </span>
-                                            <span id="instagram" class="edit-text" data-title="Instagram Username"
-                                                  data-type="text">
-                                                {{ profile_user.instagram }}
-                                            </span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                            <span class="bold">
-                                                <span class="glyphicon glyphicon-phone"></span> Phone Number:
-                                            </span>
-                                            <span id="phone" class="edit-text" data-title="Phone Number"
-                                                  data-type="text">
-                                                {{ profile_user.phone }}
-                                            </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-          <h class="ef-header">
-              certifications
-              <button class="btn btn-primary pull-right" data-toggle="modal"
-                      data-target="#certificationModal"><span
-                      class="glyphicon glyphicon glyphicon-plus"></span> add certification
-              </button>
-          </h>
-          <div class="row">
-              <div class="col-xs-12">
-                  <div class="row">
-                      <div class="col-xs-12">
-                          <div class="panel panel-default">
-                              <div class="panel-heading bold">
-                                  Certification Name
-                                  <span class="pull-right">Certification Number</span>
-                              </div>
-                              <ul id="certifications" class="list-group">
-                                  
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+    
+    <div ng-switch="profile_user.type">
+      <div ng-switch-when="professional"></div>
+        <div ng-include src="'account-settings/profiles/professional.html'"></div>
+        <div ng-switch-when="upgraded">
+            <div ng-include src="'account-settings/profiles/upgaded.html'"></div>
         </div>
+      <div ng-switch-default>...</div>
     </div>
+    
 </div>
-
-
-<script type="text/ng-template" id="account-settings/passwordChange.html">
-    <div class="modal-header">
-        <h3 class="modal-title">Im a modal!</h3>
-    </div>
-    <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
-    <div class="modal-body">
-        <div class="form-group editable-name"><label>Old Password: </label><input ng-model='current_password' type="password" name="current_password" class="input-small form-control"></div>
-        <div class="form-group editable-name"><label>New Password: </label><input ng-model='password1' type="password" name="password1" class="input-small form-control"></div>
-        <div class="form-group editable-name"><label>Confirm New Password: </label><input ng-model='password2' type="password" name="password2" class="input-small form-control"></div>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-    </div>
-</script>
-
- <script type="text/ng-template" id="account-settings/emailChange.html">
-        <div class="modal-header">
-            <h3 class="modal-title">Im a modal!</h3>
-        </div>
-        <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
-        <div class="modal-body">
-            <div class="form-group editable-name"><label>Email: </label><input ng-model='email' type="text" class="input-small form-control"></div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">OK</button>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        </div>
-</script>
-
-
- <script type="text/ng-template" id="account-settings/photoChange.html">
-        <div class="modal-header">
-            <h3 class="modal-title">Edit photo</h3>
-        </div>
-        <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
-        <div class="modal-body">
-            <div class="fileupload fileupload-new" data-provides="fileupload">
-              <input type='file' upload='"/your/upload/location"' class="fileupload-label fileupload-new" >
-                select image from your computer
-              </button>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">OK</button>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        </div>
-</script>
-
 

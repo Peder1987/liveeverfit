@@ -22,7 +22,13 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_native(self, value):
         obj = super(UserSerializer, self).to_native(value)
-        obj['is_professional'] = Professional.objects.filter(pk=obj['id']).exists()
+        print obj
+        if Professional.objects.filter(pk=obj['id']).exists():
+            obj['type'] = 'professional'
+        elif obj.is_upgraded:
+            obj['type'] = 'upgraded'
+        else:
+            obj['type'] = 'user'
         return obj
 
 class LocationSerializer(serializers.ModelSerializer):

@@ -55,6 +55,8 @@ class ProfessionalAdmin(UserAdmin):
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        (_('Certifications'), {'fields': ("certification_name1", "certification_number1", "certification_name2", "certification_number2",)}),
+        (_('Social Media'), {'fields': ("twitter", "facebook", "instagram", "youtube", "linkedin", "plus", )}),
         (_('Tags'), {'fields': ('tags', )}),
     )
     add_fieldsets = (
