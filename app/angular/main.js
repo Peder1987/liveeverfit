@@ -50,6 +50,7 @@ require.config({
         'jqueryui': 'common/jquery-ui/ui/jquery-ui',
         'fullcalendar': 'common/fullcalendar/fullcalendar',
         'ui.calendar': 'common/angular-ui-calendar/src/calendar',
+        'ui.utils': 'common/angular-ui-utils/ui-utils.min',
         'ui.bootstrap.datepicker': 'common/angular-bootstrap/datepicker/datepicker',
         'ui.bootstrap.timepicker': 'common/angular-bootstrap/timepicker/timepicker',
         'ui.bootstrap.modal': 'common/angular-bootstrap/modal/modal',
@@ -61,7 +62,6 @@ require.config({
         'stripeJS': 'common/stripe/stripe',
         'underscore': 'common/underscore/underscore',
         'angular-google-maps': 'common/angular-google-maps/dist/angular-google-maps',
-
         'xeditable' : 'common/angular-xeditable/dist/js/xeditable',
         'app' : 'app',
 
@@ -78,6 +78,7 @@ require.config({
             "uiRouter": ['angular'],
             "uiBootstrap": ['angular'],
             "autoFillEvent": ['angular'],
+            'ui.utils': ['angular'],
             'ui.calendar': ['angular'],
             'ui.bootstrap.datepicker': ['angular'],
             'ui.bootstrap.timepicker': ['angular'],
@@ -91,7 +92,7 @@ require.config({
             "fullcalendar": ["jquery"],
             'angular-google-maps': ['underscore'],
             'footer': ['app'],
-            'xeditable': ['angular'],
+            'xeditable': ['angular']
     },
     //Kick start application
     deps: ['app']
