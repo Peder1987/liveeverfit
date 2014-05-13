@@ -1,10 +1,11 @@
 #workouts {
-  background-image: url('workouts/img/workouts_bg.jpg');
-  background-repeat: no-repeat;
-  background-position: center 10px;
-  background-size: cover;
-  background-attachment: fixed;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   padding-top: 89px;
+  overflow-y: scroll;
   .container {
     background-color: rgba(250, 250, 250, .35);
   }
@@ -13,9 +14,21 @@
     width: 145px;
     height: 27px;
     position: absolute;
-    top: 120px;
+    top: 49px;
   }
   video {
     display: none;
   }
+}
+#workoutsBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-image: url('workouts/img/workouts_bg.jpg');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
 }
