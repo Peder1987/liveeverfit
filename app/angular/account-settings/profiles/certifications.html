@@ -17,7 +17,7 @@
                     </div>
                     <ul id="certifications" class="list-group">
                         
-                            <li id="certification-{{ certification.pk }}" class="list-group-item">
+                            <li ng-show="profile_user.certification_name1 != ''" id="certification-{{ certification.pk }}" class="list-group-item">
                                 <span class="fn url nickname edit-text"
                                       id="certification_name"
                                       data-title="Certification Name",
@@ -44,20 +44,15 @@
                                       {{ profile_user.certification_number1 }}
                                 </span>
                             </li>
-                            <li id="certification-{{ certification.pk }}" class="list-group-item">
+                            <li ng-show="profile_user.certification_name2 != ''" id="certification-2 }}" class="list-group-item">
                                 <span class="fn url nickname edit-text"
                                       id="certification_name"
-                                      data-title="Certification Name",
-                                      data-pk="{{ certification.pk }}",
-                                      data-url="/edit-certification/",
+                                      
                                       data-type="text">
                                     {{ profile_user.certification_name2 }}
                                 </span>
                                 <button type="button"
                                         class="delete close"
-                                        data-url="/delete-certification/"
-                                        data-pk="{{ certification.pk }}"
-                                        data-id="certification-{{ certification.pk }}"
                                         style="margin-left: 15px;"
                                         ng-click="deleteCertification(this)">
                                     ×

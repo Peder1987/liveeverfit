@@ -4,20 +4,16 @@
     <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
         <div class="modal-body">
             <form class="form-horizontal" name="registrationForm">                  
-                <label for="nameName">
-                    CARD NAME
+                <label for="certificationName">
+                    Certification Name
                 </label>
-                <input type="text" class="form-control" name="name" id="name" placeholder="" ng-model="creditcard.name" required>
+                <input type="text" class="form-control" name="name" id="name" placeholder="Certification Name" ng-model="creditcard.name" required>
                   <p></p>
                 <label for="numberName">
-                    CARD NUMBER
+                    Certification Number
                 </label>
-                <input type="text" class="form-control" name="number" id="number" placeholder="Valid Card Number" ng-model="creditcard.number" required>
-                  <p></p>
-                <label for="cvcName">
-                    CVV CODE
-                </label>
-                <input type="text" class="form-control" name="cvc" id="cvc" placeholder="cvc" ng-model="creditcard.cvc" required>
+                <input type="text" class="form-control" name="number" id="number" placeholder="Certification Number" ng-model="creditcard.number" required>
+                  
                   <p></p>
 
 

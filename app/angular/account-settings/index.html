@@ -57,8 +57,8 @@
         </div>
     
     <div ng-switch="profile_user.type">
-        <div ng-include src="'account-settings/profiles/socialMedia.html'"></div>
-        <div ng-switch-when="professional"> 
+        <div ng-switch-when="professional"> <!--Certifications/Social Media only if user is professional-->
+            <div ng-include src="'account-settings/profiles/socialMedia.html'"></div>
             <div ng-include src="'account-settings/profiles/certifications.html'"></div>
         </div>
         

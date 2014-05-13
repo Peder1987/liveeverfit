@@ -1,6 +1,13 @@
+<style media="screen" type="text/css">
+.angular-google-map-container { height: 400px; }
+</style>
+
+
 <div class="row">
+
     <div class="col-md-5">
     </div>
+
     <div class="col-md-7">
         <div class="sidebar">
             <div class="sidebar-bg">
@@ -145,7 +152,9 @@
                     <!-- /.search-filters -->
                     <div id="trainer-results">
                         <div class="row">
-                            <div class="col-sm-6 col-md-4" ng-repeat="professional in professionals.results">
+                            <div class="col-sm-6 col-md-4" 
+                                 ng-repeat="professional in professionals.results" 
+                                 ng-mouseover="hello(professional)">
                                 <div class="thumbnail">
                                     <img src="/media/"/>
                                     <div class="caption">
@@ -167,5 +176,15 @@
         <!-- /.sidebar-->
     </div>
 </div>
+
+{{map.center}}
+<div class="row">
+    <div class="google-map col-md-6" center="map.center" zoom="map.zoom" draggable='true'>
+         <div ng-repeat="professional in professionals.results">
+             <marker coords="professional.coords" icon="'fitness-professional/img/marker.png'"></marker>
+         </div>
+    </div>
+</div>
+
 
 

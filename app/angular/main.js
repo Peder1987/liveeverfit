@@ -54,11 +54,16 @@ require.config({
         'ui.bootstrap.timepicker': 'common/angular-bootstrap/timepicker/timepicker',
         'ui.bootstrap.modal': 'common/angular-bootstrap/modal/modal',
         'ui.bootstrap.tabs': 'common/angular-bootstrap/tabs/tabs',
-        'app' : 'app',
         'footer' : 'footer/app',
         'videojs': 'common/videojs/dist/video-js/video',
+<<<<<<< HEAD
         'stripe': 'common/stripe/angular-stripe-js',
         'stripeJS' : 'common/stripe/stripe'
+=======
+        'underscore': 'common/underscore/underscore',
+        'angular-google-maps': 'common/angular-google-maps/dist/angular-google-maps',
+        'app' : 'app',
+>>>>>>> 5b745283c75c12fd1bcd5f45834e9b32a3dab933
     },
 
      //Angular does not support AMD out of the box, put it in a shim
@@ -72,16 +77,22 @@ require.config({
             "uiRouter": ['angular'],
             "uiBootstrap": ['angular'],
             "autoFillEvent": ['angular'],
-            "jqueryui": ["jquery"],
-            "fullcalendar": ["jquery"],
             'ui.calendar': ['angular'],
             'ui.bootstrap.datepicker': ['angular'],
             'ui.bootstrap.timepicker': ['angular'],
             'ui.bootstrap.modal': ['angular'],
             'ui.bootstrap.tabs': ['angular'],
-            'footer': ['app'],
             'ngTagsInput': ['angular'],
+<<<<<<< HEAD
             'stripe': ['angular', "stripeJS"],
+=======
+            'underscore': ['angular'],
+            "jqueryui": ["jquery"],
+            "fullcalendar": ["jquery"],
+            'angular-google-maps': ['underscore'],
+            'footer': ['app'],
+
+>>>>>>> 5b745283c75c12fd1bcd5f45834e9b32a3dab933
     },
 
     //Kick start application

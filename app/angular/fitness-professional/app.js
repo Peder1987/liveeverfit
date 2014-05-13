@@ -28,6 +28,12 @@ define(['app'], function(app) {
             });
 
             $scope.professionals = professionalCollection.get(function () {
+                angular.forEach($scope.professionals.results, function(value,key){
+                    $scope.professionals.results[key].coords = {
+                        latitude:value.lat,
+                        longitude:value.lng,
+                    }
+                });
             }, $scope.checkTokenError);
 
             $scope.locationsJson = locationlCollection.get(function () {
@@ -35,6 +41,7 @@ define(['app'], function(app) {
                     $scope.locations.push(entry.location);
                 });
             }, $scope.checkTokenError);
+
             $scope.professionOnClick = function (value) {
                 if ($scope.profession.indexOf(value) == -1) {
                     $scope.profession.push(value);
@@ -72,6 +79,7 @@ define(['app'], function(app) {
                 return deferred.promise;
 
             }
+
             /*ANYTHING TAG RELATED, kept it in same scope in order make things less complicated*/   
             $scope.tagSelected = [];
             $scope.specialtySearch = "";
@@ -83,10 +91,8 @@ define(['app'], function(app) {
                 id:'@id'
             },{update: { method: 'PUT' }});
 
-            
             $scope.tags = tagCollection.get(function() {},$scope.checkTokenError);
             $scope.addTag = function(tag) {
-            
                 // Ensures that no two tags are replicated
                 if($scope.specialtySearch.indexOf(tag) == -1){
                      $scope.specialtySearch.push(tag);
@@ -97,7 +103,6 @@ define(['app'], function(app) {
                      $scope.specialtySearch.splice(temp, 1);
                      $scope.tagSelected.splice(temp, 1);
                  }
-                 
                  $scope.filter()
 
             }
@@ -117,7 +122,7 @@ define(['app'], function(app) {
 
             }
 
-
+            //filter function
             $scope.filter = function () {
                 $scope.filtering = {
                     profession: $scope.profession,
@@ -126,18 +131,36 @@ define(['app'], function(app) {
                     accepting: $scope.accepting,
                     tags : $scope.tagSelected,
                 };
-                $scope.professionals = filterProfessionalCollection.get($scope.filtering, function () {});
+                $scope.professionals = filterProfessionalCollection.get($scope.filtering, function () {
+                    angular.forEach($scope.professionals.results, function(value,key){
+                    $scope.professionals.results[key].coords = {
+                        latitude:value.lat,
+                        longitude:value.lng,
+                    }
+                });
+                });
             };
 
+            //This section is for the google map
+           $scope.map = {
+                center: {
+                    latitude:  30.267153,
+                    longitude: -97.743061,
+                },
+                zoom: 5
+            };
+
+            $scope.hello = function(professional)
+            {
+                $scope.map.center = professional.coords;
+
+            };
 
     }]);
 
 
-
     app.register.service('specialtyTags', function($q, $rootScope) {
-
       $rootScope.q = $q
-      
     });
 
     return app;    
