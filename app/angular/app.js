@@ -6,13 +6,14 @@
  ######################################################*/
 'use strict';
 
-define(['angularAMD', 'uiRouter', 'uiBootstrap', 'routeResolver', 'angularResource', 'angularLocalStorage', 'autoFillEvent', 'jquery', 'jqueryui', 'fullcalendar', 'ui.calendar', 'ui.bootstrap.datepicker', 'ui.bootstrap.timepicker', 'ui.bootstrap.modal', 'ui.bootstrap.tabs', 'ngTagsInput', 'underscore','angular-google-maps', 'stripeJS', "stripe"], function (angularAMD) {
+define(['angularAMD', 'uiRouter', 'uiBootstrap', 'routeResolver', 'angularResource', 'angularLocalStorage', 'autoFillEvent', 'jquery', 'jqueryui', 'fullcalendar', 'ui.calendar', 'ui.bootstrap.datepicker', 'ui.bootstrap.timepicker', 'ui.bootstrap.modal', 'ui.bootstrap.tabs', 'ngTagsInput', 'underscore','angular-google-maps', 'stripeJS', "stripe", "xeditable",], function (angularAMD) {
     'use strict';
 
-    var app = angular.module('app', ['ui.router', 'ui.bootstrap', 'ui.bootstrap.datepicker', 'ngTagsInput', 'ui.bootstrap.timepicker', 'ui.bootstrap.modal', 'routeResolverServices', 'ngResource', 'LocalStorageModule', 'ui.calendar', 'ui.bootstrap.tabs', 'google-maps', ]);
+    var app = angular.module('app', ['ui.router', 'ui.bootstrap', 'ui.bootstrap.datepicker', 'ngTagsInput', 'ui.bootstrap.timepicker', 'ui.bootstrap.modal', 'routeResolverServices', 'ngResource', 'LocalStorageModule', 'ui.calendar', 'ui.bootstrap.tabs', 'google-maps', "xeditable",]);
 
 
-    app.run(function ($http, localStorageService) {
+    app.run(function ($http, localStorageService, editableOptions) {
+        editableOptions.theme = 'bs3';
         $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
     });
 

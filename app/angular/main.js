@@ -60,6 +60,7 @@ require.config({
         'stripeJS' : 'common/stripe/stripe',
         'underscore': 'common/underscore/underscore',
         'angular-google-maps': 'common/angular-google-maps/dist/angular-google-maps',
+        'xeditable' : 'common/angular-xeditable/dist/js/xeditable',
         'app' : 'app',
     },
 
@@ -86,6 +87,7 @@ require.config({
             "fullcalendar": ["jquery"],
             'angular-google-maps': ['underscore'],
             'footer': ['app'],
+            'xeditable': ['angular'],
     },
 
     //Kick start application
