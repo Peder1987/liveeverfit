@@ -8,78 +8,104 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" ng-class="{active:$uiRoute}" ui-sref="home">LQ Technology</a>
+            <a class="navbar-brand" ng-class="{active:$uiRoute}" ui-sref="home">
+                <image src="common/img/navbar/logo.png" />
+            </a>
+            <div ng-if="token != null">
+                <ul class="visible-xs xs-icon">
+                        <a ng-class="{active:$uiRoute}" ui-sref="">
+                        <i class="fa fa-shopping-cart fa-lg"></i>
+                        </a>
+                        <a ng-class="{active:$uiRoute}" ui-sref="">
+                        <i class="fa fa-envelope fa-lg"></i>
+                        </a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user fa-lg"></i> <b class="caret"></b>
+                            </a>
+                            <ul class="xs-icon-dropdown dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dLabel">
+                                <li>
+                                    <a ng-class="{active:$uiRoute}" ui-sref="">
+                                        what do i owe my clients
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ng-class="{active:$uiRoute}" ui-sref="">
+                                        how do i get paid?
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ng-class="{active:$uiRoute}" ui-sref="">
+                                        account setting's
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ng-class="{active:$uiRoute}" ui-sref="logout">
+                                        Sign Out
+                                    </a>
+                                </li>
+                            </ul>
+
+                </ul>
+            </div>
         </div>
         <!--Logged out navbar-->
         <div ng-if="token === null" class="navbar-collapse collapse" collapse="isCollapsed">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav">
                 <li>
                     <a ng-class="{active:$uiRoute}" ui-sref="home">
-                        <span class="glyphicon glyphicon-home"></span> Home
+                        <span class="">HOME</span>
                     </a>
                 </li>
                 <li>
                     <a ng-class="{active:$uiRoute}" ui-sref="about">
-                        <span class="glyphicon glyphicon-bullhorn"></span> About
+                        <span class=""></span> ABOUT
                     </a>
                 </li>
                 <li>
                     <a ng-class="{active:$uiRoute}" ui-sref="contact-us">
-                        <span class="glyphicon glyphicon-envelope"></span> Contact Us
+                        <span class=""></span> CONTACT US
                     </a>
                 </li>
                 <li>
                     <a ng-class="{active:$uiRoute}" ui-sref="registration">
-                        <span class="glyphicon glyphicon-registration-mark"></span> Register
+                        <span class=""></span> REGISTER
                     </a>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-log-in"></span> LogIn <b class="caret"></b>
+                <li>
+                    <a ng-class="{active:$uiRoute}" ui-sref="home"
+                        style="height: 75px; padding-top: 23px;" class="btn-evergreen">
+                            
                     </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a ng-class="{active:$uiRoute}" ui-sref="login">
-                                LogIn
-                            </a>
-                        </li>
-                    </ul>
+                </li>
+                <li class="pull-right">
+                    <a ng-class="{active:$uiRoute}" ui-sref="login">
+                        LOGIN <i class="fa fa-sign-in fa-lg"></i> 
+                    </a>
                 </li>
             </ul>
+            
         </div>
         <!--Logged in navbar-->
         <div ng-if="token != null" class="navbar-collapse collapse" collapse="isCollapsed">
             <ul class="nav navbar-nav">
                 <li>
-                    <a ng-class="{active:$uiRoute}" ui-sref="dashboard">
-                        <span class="glyphicon glyphicon-dashboard"></span> Dashboard
-                    </a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a ng-class="{active:$uiRoute}" ui-sref="home">
-                        <span class="glyphicon glyphicon-home"></span> Home
+                    <a ng-class="{active:$uiRoute}" ui-sref="fitness-professional">
+                        FITNESS PROFESSIONALS
                     </a>
                 </li>
                 <li>
                     <a ng-class="{active:$uiRoute}" ui-sref="workouts">
-                        <span class="glyphicon glyphicon-calendar"></span> Workouts
-                    </a>
-                </li>
-                <li>
-                    <a ng-class="{active:$uiRoute}" ui-sref="fitness-professional">
-                        <span class="glyphicon glyphicon-fire"></span> Fitness Professionals
+                        WORKOUTS
                     </a>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-cog"></span> Account <b class="caret"></b>
+                        SHOP <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a ng-class="{active:$uiRoute}" ui-sref="change-password">
-                                Change Password
+                            <a ng-class="{active:$uiRoute}" ui-sref="">
+                                Equipment
                             </a>
                         </li>
                         <li>
@@ -88,21 +114,77 @@
                             </a>
                         </li>
                         <li>
-                            <a ng-class="{active:$uiRoute}" ui-sref="logout">
-                                LogOut
+                   
+                            <a ng-class="{active:$uiRoute}" ui-sref="">
+                                f3 Foods
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-class="{active:$uiRoute}" ui-sref="">
+                                Featured Items
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-class="{active:$uiRoute}" ui-sref="">
+                                Supplements
                             </a>
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a ng-class="{active:$uiRoute}" ui-sref="home">
+                        CONTACT
+                    </a>
+                </li>
+                <li>
+                    <a ng-class="{active:$uiRoute}" ui-sref="home"
+                       style="height: 75px; padding-top: 23px;" class="btn-evergreen">
+                       
+                    </a>
+                </li>
             </ul>
+                <ul class="nav navbar-nav pull-right hidden-xs">
+                        <li>
+                            <a ng-class="{active:$uiRoute}" ui-sref=""
+                                style="height: 75px; padding-top: 34px;">
+                                <i class="fa fa-shopping-cart fa-lg"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-class="{active:$uiRoute}" ui-sref=""
+                                style="height: 75px; padding-top: 34px;">
+                                <i class="fa fa-envelope fa-lg"></i>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user fa-lg"></i> <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dLabel">
+                                <li>
+                                    <a ng-class="{active:$uiRoute}" ui-sref="">
+                                        what do i owe my clients
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ng-class="{active:$uiRoute}" ui-sref="">
+                                        how do i get paid?
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ng-class="{active:$uiRoute}" ui-sref="">
+                                        account setting's
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ng-class="{active:$uiRoute}" ui-sref="logout">
+                                        Sign Out
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                </ul>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
 
