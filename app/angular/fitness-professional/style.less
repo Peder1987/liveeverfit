@@ -1,4 +1,4 @@
-#M,#F {
+#M, #F {
   text-align: center;
 }
 
@@ -7,44 +7,50 @@
   border: 1px solid #ff0066;
   background-color: #ff0066;
 }
+
 #F.btn.toggle:focus {
   background-color: #ff0066;
 }
+
 #F.btn.toggle.selected {
   background-color: #e2004f;
   -webkit-box-shadow: 0 0 5px #ff0066;
   box-shadow: 0 0 5px #ff0066;
 }
+
 #F.btn.toggle.selected:active {
   -webkit-box-shadow: 0 0 5px #ff0066;
   box-shadow: 0 0 5px #ff0066;
 }
+
 #F.btn.toggle:hover {
   background-color: #ee0063;
 }
 
-
 .btn:focus, a:focus {
   outline: none;
 }
+
 .form-control:focus {
   border-color: #1a8cff;
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(26,140,255,0.5);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(26,140,255,0.5);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(26, 140, 255, 0.5);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(26, 140, 255, 0.5);
 }
+
 .search-filters {
-  padding:20px 0;
+  padding: 20px 0;
 }
 
 .search-filters .form {
   border-bottom: 1px solid #eaeaea;
-  padding-bottom:20px;
+  padding-bottom: 20px;
 }
 
 .form-space {
   margin-bottom: 5px;
 }
+
 .trainer-search {
   position: absolute;
   top: 73px;
@@ -54,16 +60,17 @@
 }
 
 .google-map {
-  position: fixed;
-  top: 7px;
+  position: absolute;
+  top: 0;
   left: 0;
   height: 150px;
   width: 100%;
 }
-@media(min-width:768px) {
+
+@media (min-width: 768px) {
   .google-map {
-    position: fixed;
-    top: 78px;
+    position: absolute;
+    top: 0;
     left: 0;
     bottom: 0;
     height: 100%;
@@ -72,33 +79,34 @@
 }
 
 .angular-google-map-container {
-  height:100%;
+  height: 100%;
 }
-.thumbnail>img {
+
+.thumbnail > img {
   width: 100%;
   cursor: pointer;
 }
+
 .sidebar {
-  position: fixed;
-  top: 223px;
+  position: absolute;
+  top: 150px;
   right: 0;
   bottom: 0;
   width: 100%;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-//  border-left:solid 1px #eaeaea;
-//  -webkit-box-shadow: 2px -2px 5px rgba(0,0,0,0.5);
-//  box-shadow: 2px -2px 5px rgba(0,0,0,0.5);
 }
-@media(min-width:768px) {
+
+@media (min-width: 768px) {
   .sidebar {
-    position: fixed;
-    top: 78px;
+    position: absolute;
+    top: 0;
     right: 0;
     bottom: 0;
     width: 60%;
   }
 }
+
 .sidebar-bg {
   background-image: url('workouts/img/workouts_bg.jpg');
   background-repeat: no-repeat;
@@ -116,13 +124,16 @@
     top: 50px;
   }
 }
+
 .sidebar .thumbnail {
   background: transparent;
 }
+
 .thumbnail {
   border-color: #eaeaea;
 }
+
 .thumbnail:hover {
-  -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.2);
-  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
 }
