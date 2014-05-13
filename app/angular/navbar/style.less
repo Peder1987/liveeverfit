@@ -4,8 +4,10 @@
 @navbar-default-link-hover-bg: #e2e2e2;
 @navbar-default-link-active-bg:#e2e2e2;
 
-@dropdown-link-hover-bg: #eeeded;
-@dropdown-link-hover-color: #5d5d60;
+@dropdown-bg: #d7d8d8;
+@dropdown-link-hover-bg: #eae9e9;
+@dropdown-link-hover-color: #7e7e7e;
+@dropdown-link-color: #7e7e7e;
 
 .navbar-default .navbar-nav > li > a:hover:after,
 .navbar-default .navbar-nav > li > a:focus:after {
@@ -48,12 +50,15 @@
 }
 
 .navbar-brand {
-    margin-top: -28px;
+    margin-top: -18px;
+}
+
+.dropdown{
+  color:#000000;
 }
 
 .dropdown-menu {
     color: #FFFFFF;
-    width: 250px;
     top: 78px;
     box-shadow: 0 3px 5px rgba(93, 93, 96, 0.3);
     border: none;
@@ -78,20 +83,20 @@ i {
 }
 
 .xs-icon{
-    position: absolute;
-    left: 50px;
-    top: 30px;
+  position: absolute;
+  left: 10%;
+  top: 30px;
 }
 
 .xs-icon a {
     color: #adadad;
-    margin: 10px;
+    margin: 15px;
 }
 
 .xs-icon-dropdown{
-    background-color:@navbar-bg;
-    position: absolute;
-    left: -17px;
-    top: 45px;
-
+    width: 100%;
+    background-color:@dropdown-bg;
+    background-clip: padding-box;
+    font-size: 10px;
+    margin-top: -31px;
 }
