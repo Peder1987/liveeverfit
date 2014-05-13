@@ -91,21 +91,35 @@ i {
   background-repeat: no-repeat;
 }
 
+.navbar-default .navbar-collapse {
+  border: none;
+}
+
+.navbar-nav {
+  margin: 0 -15px;
+}
+@media (min-width: 768px) {
+  .navbar-nav {
+    margin: 0;
+  }
+}
+
+
 .xs-icon {
   position: absolute;
-  left: 10%;
-  top: 30px;
-}
-
-.xs-icon a {
-  color: #adadad;
-  margin: 15px;
-}
-
-.xs-icon-dropdown {
-  width: 100%;
-  background-color: @dropdown-bg;
-  background-clip: padding-box;
-  font-size: 10px;
-  margin-top: -31px;
+  left: 50%;
+  width: 144px;
+  margin-left: -72px;
+  a {
+    text-decoration: none;
+    color: #adadad;
+    height: 62px;
+    padding: 21px 15px;
+    display: inline-block;
+  }
+  .dropdown-menu {
+    position: fixed;
+    top: 63px;
+    width: 100%;
+  }
 }
