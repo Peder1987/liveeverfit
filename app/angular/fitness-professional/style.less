@@ -93,17 +93,28 @@
 @media(min-width:768px) {
   .sidebar {
     position: fixed;
-    top: 73px;
+    top: 78px;
     right: 0;
     bottom: 0;
     width: 60%;
   }
 }
 .sidebar-bg {
-  background-image: url('common/img/fitness-professionals-bg.jpg');
+  background-image: url('workouts/img/workouts_bg.jpg');
   background-repeat: no-repeat;
   background-position: top right;
-  padding:0 20px 20px 20px;
+  background-attachment: fixed;
+  padding: 89px 13px 13px 13px;
+  .container-fluid {
+    background-color: rgba(250, 250, 250, .35);
+  }
+  .container-fluid:before {
+    background-image: url("common/img/container-logo.png");
+    width: 145px;
+    height: 27px;
+    position: absolute;
+    top: 49px;
+  }
 }
 .sidebar .thumbnail {
   background: transparent;

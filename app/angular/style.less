@@ -3,7 +3,7 @@
 
 @import "common/bootstrap/less/bootstrap.less";
 @icon-font-path: "common/bootstrap/fonts/";
-
+@import "navbar/style.less";
 @import "workouts/style.less";
 @import "fitness-professional/style.less";
 
@@ -12,8 +12,20 @@
 @btn-default-border: #9ca4ad;
 @btn-default-color: #828c96;
 @text-color: #797878;
+@input-bg: rgba(125, 135, 144, 0.38);
+@input-color: white;
+
+@input-border: rgba(125, 135, 144, 0.1);
 
 @page-header-border-color: #b3b4b6;
+
+#page {
+  position: absolute;
+  top: 78px;
+  bottom: 0px;
+  width: 100%;
+}
+
 .page-header {
   font-size: 21px;
 }
@@ -72,6 +84,7 @@
   background-color: #1a8cff;
   text-align: left;
   font-size: 21px;
+  line-height: 26px;
 }
 .btn.toggle:focus {
   background-color: #1a8cff;
@@ -180,10 +193,10 @@
   outline: none;
 }
 .form-control:focus {
-  border-color: #1a8cff;
+  border-color: rgba(125, 135, 144, 0.5);
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(26,140,255,0.5);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(26,140,255,0.5);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(125, 135, 144,0.5);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(125, 135, 144,0.5);
 }
 .search-filters {
   padding:20px 0;
@@ -484,18 +497,18 @@ p.empty {
 }
 
 ::-webkit-input-placeholder { /* WebKit browsers */
-  color:    #DDD;
+  color:    #DDD!important;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-  color:    #DDD;
+  color:    #DDD!important;
   opacity:  1;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-  color:    #DDD;
+  color:    #DDD!important;
   opacity:  1;
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
-  color:    #DDD;
+  color:    #DDD!important;
 }
 
 
@@ -519,12 +532,16 @@ tags-input .tags {
   word-wrap: break-word;
   cursor: text;
   background-color: rgba(125,135,144,0.38);
+  border: 1px solid @input-border;
+  .box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+  .transition(~"border-color ease-in-out .15s, box-shadow ease-in-out .15s");
+
 }
 tags-input .tags.focused {
-  outline: none;
-  -webkit-box-shadow: 0 0 3px 1px rgba(5, 139, 242, 0.6);
-  -moz-box-shadow: 0 0 3px 1px rgba(5, 139, 242, 0.6);
-  box-shadow: 0 0 3px 1px rgba(5, 139, 242, 0.6);
+  border-color: rgba(125, 135, 144, 0.5);
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(125, 135, 144,0.5);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(125, 135, 144,0.5);
 }
 tags-input .tags .tag-list {
   margin: 0;
@@ -682,3 +699,4 @@ tags-input .autocomplete .suggestion-item em {
 // }
 
 // @panel-default-border: none;
+@import "navbar/style.less";

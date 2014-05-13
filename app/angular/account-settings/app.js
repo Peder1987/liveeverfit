@@ -18,7 +18,7 @@ define(['app'], function(app) {
 	        $scope.passwordChange = function (size){
 	        	
 	        	var modalInstance = $modal.open({
-			      templateUrl: 'account-settings/passwordChange.html',
+			      templateUrl: 'account-settings/modals/passwordChange.html',
 			      controller : passwordInstanceCtrl,
 			      size: size,
 			    });
@@ -32,7 +32,7 @@ define(['app'], function(app) {
 	        $scope.emailChange = function (size){
 	        	
 	        	var modalInstance = $modal.open({
-			      templateUrl: 'account-settings/emailChange.html',
+			      templateUrl: 'account-settings/modals/emailChange.html',
 			      controller : emailChangeCtrl,
 			      size: size,
 			      resolve: {
@@ -52,7 +52,7 @@ define(['app'], function(app) {
 	         $scope.photoChange = function (size){
 	        	
 	        	var modalInstance = $modal.open({
-			      templateUrl: 'account-settings/photoChange.html',
+			      templateUrl: 'account-settings/modals/photoChange.html',
 			      controller : photoChangeCtrl,
 			      size: size,
 			      resolve: {

@@ -20,9 +20,9 @@ define(['app', 'videojs'], function (app) {
                     update: { method: 'PUT' }
                 }),
                 getVideo = function () {
+                    if ($scope.videojs) $scope.videojs.dispose();
                     if ($stateParams.id) {
                         $scope.videoStatus = 'loading';
-                        if ($scope.videojs) $scope.videojs.dispose();
                         $scope.video = videoResource.get({id: $stateParams.id}, function () {
                             $scope.video.rtmp_url = $sce.trustAsResourceUrl("rtmp://206.225.86.237:1935/vod/_definst_/mp4:" + $scope.video.url_video);
                             $scope.video.http_url = $sce.trustAsResourceUrl("http://206.225.86.237:1935/vod/content/" + $scope.video.url_video + "/playlist.m3u8");
@@ -45,7 +45,7 @@ define(['app', 'videojs'], function (app) {
                         })
                     }
                     else {
-
+                        $scope.videoStatus = false;
                     }
                 },
                 filterVideoCollection = $resource(":protocol://:url/workouts/video?:filter", {
@@ -76,13 +76,14 @@ define(['app', 'videojs'], function (app) {
             $scope.tagSelected = [];
             $scope.videoSearch = '';
             $scope.video = {};
-
+            $scope.iframeHidden = true;
             window.handleIframe = function(iframe) {
                 var $iframe = $(iframe);
                 $iframe.height($iframe.width() * 0.75);
                 $(window).resize(function () {
                     $iframe.height($iframe.width() * 0.75);
                 });
+                $iframe.removeClass("hidden");
             };
 
             videojs.options.flash.swf = "common/videojs/dist/video-js/video-js.swf";
