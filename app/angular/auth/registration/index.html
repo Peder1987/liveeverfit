@@ -1,232 +1,516 @@
-
+<div id="registrationBg"></div>
+<div id="registration">
 <div class="container" ng-switch="getCurrentStep()" class="slide-frame">
+<div class="row">
+<div class="col-xs-12">
+<h2 id="workoutsHeader" class="ef-header">
+    registration
+</h2>
+<div ng-switch-when="registration">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">basic information</h2>
+            </div>
+            <form class="form-horizontal" name="registrationForm">
+                <div class="form-group">
+                    <label for="gender" class="col-sm-2 control-label">
+                        Gender
+                    </label>
 
+                    <div class="col-sm-10">
+                        <select ng-model="user.gender" id="gender" type="text" class="form-control">
+                            <option value="">None</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="firstName" class="col-sm-2 control-label">
+                        First Name
+                    </label>
 
-  <div class="panel panel-default" ng-switch-when="registration">
-    <div class="panel-heading">
-      <h3>Basic Information</h3>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="firstName"
+                               placeholder="First Name"
+                               ng-model="user.first_name" required>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="lastName" class="col-sm-2 control-label">
+                        Last Name
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="lastName"
+                               placeholder="Last Name"
+                               ng-model="user.last_name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-sm-2 control-label">
+                        Email
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="email"
+                               placeholder="Email"
+                               ng-model="user.email" required>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-sm-2 control-label">
+                        Password
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="password"
+                               placeholder="Password"
+                               ng-model="user.password" required>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="password2" class="col-sm-2 control-label">
+                        Confirm Password:
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="password2"
+                               placeholder="Password"
+                               ng-model="user.password2" required>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="panel-body">
-      <form class="form-horizontal" name="registrationForm">
-        <label for="inputGender">
-          Gender:
-        </label>
-        <select ng-model="user.gender" id="gender" type="text" class="form-control">
-            <option value="">None</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-        </select>
-          <p></p>
-        <label for="inputFirstName">
-          First Name:
-        </label>
-        <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" ng-model="user.first_name" required>
-          <p></p>
-        <label for="inputLastName">
-          Last Name:
-        </label>
-        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name" ng-model="user.last_name" required>
-          <p></p>
-        <label for="inputEmail">
-          Email:
-        </label>
-        <input type="email" class="form-control" name="email" id="email" placeholder="Email" ng-model="user.email" required>
-          <p></p>
-        <label for="inputPassword">
-          Password:
-        </label>
-        <input type="password" class="form-control" name="password" value="" id="password" placeholder="Password" ng-model="user.password" required>
-          <p></p>
-        <label for="inputPassword">
-          Re-enter Password:
-        </label>
-        <input type="password" class="form-control" name="password" value="" id="password" placeholder="Password" ng-model="user.password2" required>
+    <br>
 
-        <hr></hr>
-
-        <button type="submit" class="btn btn-primary pull-right" ng-click="setCurrentStepForm('choice', registrationForm.$valid)">Next</button>
-      </form>        
+    <div class="row">
+        <button type="submit" class="btn btn-primary col-xs-offset-10"
+                ng-click="setCurrentStepForm('choice', registrationForm.$valid)">Next
+        </button>
     </div>
-  </div><!--end registration-->
+</div>
+<!--end registration-->
+<div ng-switch-when="choice">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">membership</h2>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 col-xs-offset-4" style="text-align: center;">
+                    <button type="button" class="btn btn-primary"
+                            ng-click="setCurrentStep('user')">
+                        user
+                    </button>
+                </div>
+            </div>
+            <br>
+            <br>
 
+            <div class="row">
+                <div class="col-xs-4" style="text-align:center;">
+                    <button type="button" class="btn btn-primary"
+                            ng-click="professionals('professionals', 7,'Trainer')">
+                        trainer
+                    </button>
+                </div>
 
-  <div ng-switch-when="choice">
-    <div>
-      <button type="button" class="btn btn-primary" ng-click="setCurrentStep('user')">User</button>
-      <button type="button" class="btn btn-primary" ng-click="professionals('professionals', 7,'Trainer')">Trainer</button>
-      <button type="button" class="btn btn-primary" ng-click="professionals('professionals', 7,'Nutritionist')">Nutritionist</button>
-      <button type="button" class="btn btn-primary" ng-click="professionals('professionals', 7,'Promoter')">Promoter</button>
+                <div class="col-xs-4" style="text-align:center;">
+                    <button type="button" class="btn btn-primary"
+                            ng-click="professionals('professionals', 7,'Nutritionist')">
+                        nutritionist
+                    </button>
+                </div>
+
+                <div class="col-xs-4" style="text-align:center;">
+                    <button type="button" class="btn btn-primary"
+                            ng-click="professionals('professionals', 7,'Promoter')">
+                        promoter
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-    <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('registration')">Back</button>
-  </div><!--end choice-->
+    <br>
 
-
-  <div ng-switch-when="user">
-    <div>
-      <button type="button" class="btn btn-primary" ng-click="setCurrentStep('membership')">membership</button>
-      <button type="button" class="btn btn-primary" ng-click="membership('membershipSubmit', 1)">Free</button>
+    <div class="row">
+        <button type="button" class="btn btn-primary col-xs-offset-1"
+                ng-click="setCurrentStep('registration')">
+            Back
+        </button>
     </div>
-    <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('choice')">Back</button>
-  </div><!--end user-->
-
-
-  <div ng-switch-when="membership">
-    <div>
-      <button type="button" class="btn btn-primary" ng-click="membership('membershipSubmit', 2)">Tier 2</button>
-      <button type="button" class="btn btn-primary" ng-click="membership('membershipSubmit', 3)">Tier 3</button>
-      <button type="button" class="btn btn-primary" ng-click="membership('membershipSubmit', 4)">Tier 4</button>
-      <button type="button" class="btn btn-primary" ng-click="membership('membershipSubmit', 5)">Tier 5</button>
+</div>
+<!--end choice-->
+<div ng-switch-when="user">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">user</h2>
+            </div>
+            <div class="row">
+                <div class="col-xs-6" style="text-align: center;">
+                    <button type="button" class="btn btn-primary"
+                            ng-click="setCurrentStep('membership')">
+                        membership
+                    </button>
+                </div>
+                <div class="col-xs-6" style="text-align: center;">
+                    <button type="button" class="btn btn-primary"
+                            ng-click="membership('membershipSubmit', 1)">
+                        free
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-    <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('user')">Back</button>
-  </div><!--end membership-->
+    <br>
 
-
-  <div class="panel panel-default" ng-switch-when="professionals">
-    <div class="panel-heading">
-      <h3>Professional Information</h3>
+    <div class="row">
+        <button type="button" class="btn btn-primary col-xs-offset-1"
+                ng-click="setCurrentStep('choice')">
+            Back
+        </button>
     </div>
-    <div class="panel-body">
-      <form class="form-horizontal" name="professionalForm">
-          <p></p>
-        <label for="inputPrimaryAddress">
-          Primary Address:
-        </label>
-        <input type="text" ng-model="tempAddress.formatted_address" placeholder="Primary Address" typeahead="address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" ng-change="setAddress()" typeahead-on-select="setAddress()" class="form-control" required>
-        <input type="text" class="form-control" name="firstName" id="firstName" placeholder="P.O. Box, Apartment, Suite, Unit, Building, Floor, Etc." ng-change="setAddress()" ng-model="tempAddress.street_line2">
-        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-          <p></p>
-
-        <label for="inputTwitter">
-          Twitter:
-        </label>
-        <input type="text" class="form-control" name="twitter" id="twitter" placeholder="twitter" ng-model="pro.twitter">
-          <p></p>
-        <label for="inputFacebook">
-          Facebook:
-        </label>
-        <input type="text" class="form-control" name="facebook" id="facebook" placeholder="facebook" ng-model="pro.facebook">
-          <p></p>
-        <label for="inputInstagram">
-          Instagram:
-        </label>
-        <input type="text" class="form-control" name="instagram" id="instagram" placeholder="instagram" ng-model="pro.instagram">
-          <p></p>
-        <label for="inputYoutube">
-          Youtube:
-        </label>
-        <input type="text" class="form-control" name="youtube" id="youtube" placeholder="youtube" ng-model="pro.youtube">
-          <p></p>
-        <label for="inputLinkedin">
-          Linkedin:
-        </label>
-        <input type="text" class="form-control" name="linkedin" id="linkedin" placeholder="linkedin" ng-model="pro.linkedin">
-          <p></p>
-        <label for="inputPlus">
-          Plus:
-        </label>
-        <input type="text" class="form-control" name="plus" id="plus" placeholder="plus" ng-model="pro.plus">
-          <p></p>
-
-        <label for="inputPhone">
-          Phone:
-        </label>
-        <input type="text" class="form-control" name="phone" id="phone" placeholder="phone" ng-model="pro.phone">
-          <p></p>
-
-        <hr></hr>
-        <button type="submit" class="btn btn-primary pull-right" ng-click="setCurrentStepForm('experience', professionalForm.$valid)">Next</button>
-        <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('choice')">Back</button>
-      </form>        
+</div>
+<!--end user-->
+<div ng-switch-when="membership">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">user membership</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" style="text-align: center;">
+                    <button type="button" class="btn btn-primary" ng-click="membership('membershipSubmit', 2)">Tier 2
+                    </button>
+                </div>
+                <div class="col-sm-3" style="text-align: center;">
+                    <button type="button" class="btn btn-primary" ng-click="membership('membershipSubmit', 3)">Tier 3
+                    </button>
+                </div>
+                <div class="col-sm-3" style="text-align: center;">
+                    <button type="button" class="btn btn-primary" ng-click="membership('membershipSubmit', 4)">Tier 4
+                    </button>
+                </div>
+                <div class="col-sm-3" style="text-align: center;">
+                    <button type="button" class="btn btn-primary" ng-click="membership('membershipSubmit', 5)">Tier 5
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div><!--end professionals-->
+    <br>
 
-
-  <div class="panel panel-default" ng-switch-when="experience">
-    <div class="panel-heading">
-      <h3>Experience</h3>
+    <div class="row">
+        <button type="button" class="btn btn-primary col-xs-offset-1"
+                ng-click="setCurrentStep('user')">
+            Back
+        </button>
     </div>
-    <div class="panel-body">
-      <form class="form-horizontal" name="experienceForm">
-          <p></p>
-        <input type="checkbox" ng-model="tempCheck1" required> I am at least 18 years of age<br>
-          <p></p>
-        <label for="inputGender">
-          Education:
-        </label>
-        <select ng-model="pro.education" id="education" type="text" class="form-control">
-            <option value="High School">High School</option>
-            <option value="Graduated/GED">Graduated/GED</option>
-            <option value="University">University</option>
-            <option value="Bachelor's Degree">Bachelor's Degree</option>
-            <option value="Master's Degree">Master's Degree</option>
-            <option value="Doctorate">Doctorate</option>
-        </select>
-          <p></p>
-        <input type="checkbox" ng-model="tempCheck2" required> I am certified as a {{pro.profession}}<br>
-          <p></p>
-        <label for="inputGender">
-          Experience:
-        </label>
-        <select ng-model="pro.experience" id="experience" type="text" class="form-control">
-            <option value="None">None</option>
-            <option value="Less than 1 year">Less than 1 year</option>
-            <option value="1-2 years">1-2 years</option>
-            <option value="2+ years">2+ years</option>
-        </select>
-          <p></p>
+</div>
+<!--end membership-->
+<div ng-switch-when="professionals">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">professional information</h2>
+            </div>
+            <form class="form-horizontal" name="professionalForm">
+                <div class="form-group">
+                    <label for="address" class="col-sm-2 control-label">
+                        Primary Address
+                    </label>
 
-        <hr></hr>
-        <button type="submit" class="btn btn-primary pull-right" ng-click="setCurrentStepForm('certifications', experienceForm.$valid)">Next</button>
-        <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('professionals')">Back</button>
-      </form>        
+                    <div class="col-sm-10">
+                        <input id="address" type="text" ng-model="tempAddress.formatted_address"
+                               placeholder="Primary Address"
+                               typeahead="address for address in getLocation($viewValue)"
+                               typeahead-loading="loadingLocations"
+                               ng-change="setAddress()" typeahead-on-select="setAddress()" class="form-control"
+                               required>
+
+                        <input type="text" class="form-control" name="firstName" id="firstName"
+                               placeholder="P.O. Box, Apartment, Suite, Unit, Building, Floor, Etc."
+                               ng-change="setAddress()"
+                               ng-model="tempAddress.street_line2">
+                    </div>
+                    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                </div>
+                <div class="form-group">
+                    <label for="twitter" class="col-sm-2 control-label">
+                        Twitter
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="twitter" id="twitter" placeholder="twitter"
+                               ng-model="pro.twitter">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="facebook" class="col-sm-2 control-label">
+                        Facebook
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="facebook" id="facebook" placeholder="facebook"
+                               ng-model="pro.facebook">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="instagram" class="col-sm-2 control-label">
+                        Instagram
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="instagram" id="instagram" placeholder="instagram"
+                               ng-model="pro.instagram">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="youtube" class="col-sm-2 control-label">
+                        Youtube
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="youtube" id="youtube"
+                               placeholder="youtube"
+                               ng-model="pro.youtube">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="linkedin" class="col-sm-2 control-label">
+                        Linkedin:
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="linkedin" id="linkedin"
+                               placeholder="linkedin"
+                               ng-model="pro.linkedin">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="plus" class="col-sm-2 control-label">
+                        Plus:
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="plus" id="plus" placeholder="plus"
+                               ng-model="pro.plus">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="col-sm-2 control-label">
+                        Phone:
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="phone" id="phone" placeholder="phone"
+                               ng-model="pro.phone">
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-  </div><!--end experience-->
-
-
-  <div class="panel panel-default" ng-switch-when="certifications">
-    <div class="panel-heading">
-      <h3>Certifications</h3>
+    <br>
+    <div class="row">
+        <button type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('choice')">
+            Back
+        </button>
+        <button type="submit" class="btn btn-primary col-xs-offset-9"
+                ng-click="setCurrentStepForm('experience', professionalForm.$valid)">
+            Next
+        </button>
     </div>
-    <div class="panel-body">
-      <form class="form-horizontal" name="certificationsForm">
+</div>
+<!--end professionals-->
+<div ng-switch-when="experience">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">experience</h2>
+            </div>
+            <form class="form-horizontal" name="experienceForm">
+                <div class="form-group">
+                    <label for="agreement" class="sr-only col-sm-2 control-label">
+                        Age Agreement
+                    </label>
 
-        <label for="inputCertifications1">
-          Certifications 1:
-        </label>
-        <input type="text" class="form-control" name="Certifications1" id="Certifications1" placeholder="Certifications Name" ng-model="pro.certification_name1" ng-required="ifPromoter()">
-        <input type="text" class="form-control" name="Certifications1" id="Certifications1" placeholder="Certifications Number" ng-model="pro.certification_number1" ng-required="ifPromoter()">
-          <p></p>
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input id="agreement" type="checkbox" ng-model="tempCheck1" required>
+                        I am at least 18 years of age
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="education" class="col-sm-2 control-label">
+                        Education
+                    </label>
 
-        <label for="inputCertifications2">
-          Certifications 2:
-        </label>
-        <input type="text" class="form-control" name="Certifications2" id="Certifications2" placeholder="Certifications Name" ng-model="pro.certification_name2">
-        <input type="text" class="form-control" name="Certifications2" id="Certifications2" placeholder="Certifications Number" ng-model="pro.certification_number2">
+                    <div class="col-sm-10">
+                        <select ng-model="pro.education" id="education" type="text" class="form-control">
+                            <option value="High School">High School</option>
+                            <option value="Graduated/GED">Graduated/GED</option>
+                            <option value="University">University</option>
+                            <option value="Bachelor's Degree">Bachelor's Degree</option>
+                            <option value="Master's Degree">Master's Degree</option>
+                            <option value="Doctorate">Doctorate</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="certified" class="sr-only col-sm-2 control-label">
+                        Certified Professional
+                    </label>
 
-        <hr></hr>
-        <button type="submit" class="btn btn-primary pull-right" ng-click="setCurrentStepForm('membershipSubmitPro', certificationsForm.$valid)">Next</button>
-        <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('experience')">Back</button>
-      </form>        
+                    <div class="col-sm-10">
+                        <input id="certified" type="checkbox" ng-model="tempCheck2" required> I am certified as a
+                        {{pro.profession}}<br>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="experience" class="col-sm-2 control-label">
+                        Experience
+                    </label>
+
+                    <div class="col-sm-10">
+                        <select ng-model="pro.experience" id="experience" type="text" class="form-control">
+                            <option value="None">None</option>
+                            <option value="Less than 1 year">Less than 1 year</option>
+                            <option value="1-2 years">1-2 years</option>
+                            <option value="2+ years">2+ years</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-  </div><!--end certifications-->
+    <br>
 
-
-  <div ng-switch-when="membershipSubmit">
-    <div>
-      <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
-      <button type="submit" class="btn btn-primary" ng-click="submit()">Submit</button>
+    <div class="row">
+        <button type="button" class="btn btn-primary col-xs-offset-1"
+                ng-click="setCurrentStep('professionals')">
+            Back
+        </button>
+        <button type="submit" class="btn btn-primary col-xs-offset-9"
+                ng-click="setCurrentStepForm('certifications', experienceForm.$valid)">
+            Next
+        </button>
     </div>
-    <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('user')">Back</button>
-  </div><!--end membershipSubmit-->
+</div>
+<!--end experience-->
+<div ng-switch-when="certifications">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">certifications</h2>
+            </div>
+            <form class="form-horizontal" name="certificationsForm">
+                <div class="form-group">
+                    <label for="certificationOneName" class="col-sm-2 control-label">
+                        Name
+                    </label>
 
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="certificationOneName"
+                               placeholder="Certifications Name" ng-model="pro.certification_name1"
+                               ng-required="ifPromoter()">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="certificationNumberName" class="col-sm-2 control-label">
+                        Number
+                    </label>
 
-  <div ng-switch-when="membershipSubmitPro">
-    <div>
-      <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
-      <button type="submit" class="btn btn-primary" ng-click="preProSubmit()">Submit</button>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="certificationOneNumber"
+                               placeholder="Certifications Number" ng-model="pro.certification_number1"
+                               ng-required="ifPromoter()">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="certificationTwoName" class="col-sm-2 control-label">
+                        Name
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="certificationTwoName"
+                               placeholder="Certifications Name" ng-model="pro.certification_name2">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="certificationTwoNumber" class="col-sm-2 control-label">
+                        Number
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="certificationTwoNumber"
+                               placeholder="Certifications Number" ng-model="pro.certification_number2">
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <button type="button" class="btn btn-primary pull-right" ng-click="setCurrentStep('certifications')">Back</button>
-  </div><!--end membershipSubmit-->
+    <br>
 
-
-</div>  
+    <div class="row">
+        <button type="button" class="btn btn-primary col-xs-offset-1"
+                ng-click="setCurrentStep('experience')">
+            Back
+        </button>
+        <button type="submit" class="btn btn-primary col-xs-offset-9"
+                ng-click="setCurrentStepForm('membershipSubmitPro', certificationsForm.$valid)">
+            Next
+        </button>
+    </div>
+</div>
+<!--end certifications-->
+<div ng-switch-when="membershipSubmit">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">check for errors</h2>
+            </div>
+            <div class="alert alert-danger" ng-repeat="(error, msg) in message">
+                {{msg[0]}}
+            </div>
+            <div ng-if="!message">
+                No Errors.
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <button type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('user')">Back</button>
+        <button type="submit" class="btn btn-primary col-xs-offset-9" ng-click="submit()">Submit</button>
+    </div>
+</div>
+<!--end membershipSubmit-->
+<div ng-switch-when="membershipSubmitPro">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">checkinging for errors</h2>
+            </div>
+            <div class="alert alert-danger" ng-repeat="(error, msg) in message">
+                {{msg[0]}}
+            </div>
+            <div ng-if="!message">
+                No Errors.
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <button type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('certifications')">Back</button>
+        <button type="submit" class="btn btn-primary col-xs-offset-9" ng-click="submit()">Submit</button>
+    </div>
+</div>
+<!--end membershipSubmit-->
+</div>
+</div>
+</div>

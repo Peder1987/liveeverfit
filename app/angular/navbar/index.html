@@ -1,4 +1,4 @@
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div ng-if="token != null" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed" data-toggle="collapse"
@@ -43,45 +43,8 @@
                     </ul>
             </div>
         </div>
-        <!--Logged out navbar-->
-        <div ng-if="token === null" class="navbar-collapse collapse" collapse="isCollapsed">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a ng-class="{active:$uiRoute}" ui-sref="home">
-                        <span class="">HOME</span>
-                    </a>
-                </li>
-                <li>
-                    <a ng-class="{active:$uiRoute}" ui-sref="about">
-                        <span class=""></span> ABOUT
-                    </a>
-                </li>
-                <li>
-                    <a ng-class="{active:$uiRoute}" ui-sref="contact-us">
-                        <span class=""></span> CONTACT US
-                    </a>
-                </li>
-                <li>
-                    <a ng-class="{active:$uiRoute}" ui-sref="registration">
-                        <span class=""></span> REGISTER
-                    </a>
-                </li>
-                <li>
-                    <a ng-class="{active:$uiRoute}" ui-sref="home"
-                       style="height: 75px; padding-top: 23px;" class="btn-evergreen">
-
-                    </a>
-                </li>
-                <li class="pull-right">
-                    <a ng-class="{active:$uiRoute}" ui-sref="login">
-                        LOGIN <i class="fa fa-sign-in fa-lg"></i>
-                    </a>
-                </li>
-            </ul>
-
-        </div>
         <!--Logged in navbar-->
-        <div ng-if="token != null" class="navbar-collapse collapse" collapse="isCollapsed">
+        <div  class="navbar-collapse collapse" collapse="isCollapsed">
             <ul class="nav navbar-nav">
                 <li>
                     <a ui-route="/fitness-professional"

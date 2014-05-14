@@ -12,7 +12,7 @@
     </head>
     <body>
         <div ng-controller="NavCtrl" ng-include="templateNav.url"></div>
-        <div id="page" ui-view autoscroll="false"></div>
+        <div id="page" ng-controller="PageCtrl" ui-view autoscroll="false" ng-class="{'no-nav': token == null}"></div>
         <!--<footer ng-controller="footerCtrl" ng-include="templateNav.url"></footer>-->
         <script src="common/require/require.js" data-main="main.js"></script>
 

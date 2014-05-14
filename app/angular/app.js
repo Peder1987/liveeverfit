@@ -77,6 +77,11 @@ define(['angularAMD', 'uiRouter', 'uiBootstrap', 'routeResolver', 'angularResour
             };
         }]);
 
+    app.controller('PageCtrl', ['localStorageService', '$scope',
+        function(localStorageService, $scope) {
+            $scope.token = localStorageService.get('Authorization');
+        }]);
+
 
     app.controller('footerCtrl', ['localStorageService', '$scope', 
         function(localStorageService, $scope) {
