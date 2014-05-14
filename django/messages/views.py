@@ -18,7 +18,7 @@ from messages.models import Message
 from messages.forms import ComposeForm
 from messages.utils import format_quote, get_user_model, get_username_field
 from messages.filters import InboxOwnerBackendFilter, SentOwnerBackendFilter, DeletedOwnerBackendFilter
-from messages.serializers import DeleteSerializer, UnDeleteSerializer, ReplySerializer
+from messages.serializers import DeleteSerializer, UnDeleteSerializer, ReplySerializer, InboxSerializer
 User = get_user_model()
 
 if "notification" in settings.INSTALLED_APPS:
@@ -225,6 +225,7 @@ class InboxListView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     model = Message
     filter_backends = (InboxOwnerBackendFilter,)
+    serializer_class = InboxSerializer
 
 class SentListView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
