@@ -16,10 +16,13 @@ class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='email', required=False)
     last_login_on = serializers.DateTimeField(source='last_login',read_only=True)
     joined_on = serializers.DateTimeField(source='date_joined', read_only=True)
+    img = serializers.ImageField(allow_empty_file=True, required=False)
 
     class Meta:
         model = User
-        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',)
+        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',
+
+            )
 
     def to_native(self, value):
         obj = super(UserSerializer, self).to_native(value)
@@ -65,7 +68,8 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ProfessionalSerializer(serializers.ModelSerializer):
-
+    email = serializers.EmailField(source='email', required=False)
+    img = serializers.ImageField(allow_empty_file=True, required=False)
     class Meta:
         model = Professional
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',)

@@ -84,8 +84,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     img = models.ImageField(_('image'), upload_to="trainers", blank=True, default='default-profile.svg')
     bio = models.CharField(_('biography'), max_length=5000, blank=True)
     referred_by = models.ForeignKey('Professional', null=True, related_name='user_reference', blank=True)
-    shopify_id = models.IntegerField(default=0)
-    chargify_id = models.IntegerField(default=0)
+    shopify_id = models.IntegerField(default=0, blank=True)
+    chargify_id = models.IntegerField(default=0, blank=True)
     stripe_id = models.CharField(max_length=50, blank=True, default='')
 
     url = models.CharField(_('url'), max_length=100, blank=True)

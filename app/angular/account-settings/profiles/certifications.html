@@ -3,7 +3,7 @@
     certifications
     <button class="btn btn-primary pull-right" data-toggle="modal" ng-click="addCertification()"
             data-target="#certificationModal"><span
-            class="glyphicon glyphicon glyphicon-plus"></span> add certification
+            class="glyphicon glyphicon glyphicon-plus"></span> add/edit certification
     </button>
 </h>
 <div class="row">
@@ -29,7 +29,7 @@
                                         
                                         
                                         style="margin-left: 15px;"
-                                        ng-click="deleteCertification(this)">
+                                        ng-click="deleteCertification('certification_name1')">
                                     ×
                                 </button>
                                 <span class="badge edit-text"
@@ -48,13 +48,13 @@
                                 <button type="button"
                                         class="delete close"
                                         style="margin-left: 15px;"
-                                        ng-click="deleteCertification(this)">
+                                        ng-click="deleteCertification('certification_name2')">
                                     ×
                                 </button>
                                 <span class="badge edit-text"
                                       id="certification_number"
                                       data-title="Certification Number"
-                                      data-type="text">
+                                      data-type="text" >
                                       {{ profile_user.certification_number2 }}
                                 </span>
                             </li>

@@ -10,13 +10,19 @@ define(['app'], function(app) {
     		$scope.user_id = localStorageService.get('user_id');
     		
     		
-	        var profileResource = $resource(":protocol://:url/users/:id/",{
+	        $scope.profileResource = $resource(":protocol://:url/users/:id/",{
+	            protocol: $scope.restProtocol,
+	            url: $scope.restURL,
+	            id: $scope.user_id
+	        },{update: { method: 'PUT' }});
+
+	        $scope.professionalResource = $resource(":protocol://:url/users/professionals/:id/",{
 	            protocol: $scope.restProtocol,
 	            url: $scope.restURL,
 	            id: $scope.user_id
 	        },{update: { method: 'PUT' }});
 	        
-	        $scope.profile_user = profileResource.get(function() {},$scope.checkTokenError);
+	        $scope.profile_user = $scope.profileResource.get(function() {},$scope.checkTokenError);
 
 
 	        $scope.passwordChange = function (size){
@@ -97,7 +103,7 @@ define(['app'], function(app) {
 			    
 	        };
 	        $scope.addCertification = function (size){
-	        	console.log('test')
+	        	
 	        	var modalInstance = $modal.open({
 			      templateUrl: 'account-settings/modals/addCertification.html',
 			      controller : addCertificationCtrl,
@@ -105,6 +111,16 @@ define(['app'], function(app) {
 			      resolve: {
 					        email: function () {
 					          return  $scope.profile_user.email;
+					        },
+					        profileResource: function(){
+					        	if($scope.profile_user.type == "professional"){
+					        		
+					        		return $scope.professionalResource
+					        	}
+					        	return $scope.profileResource 
+					        },
+					        profile_user: function () {
+					          return  $scope.profile_user;
 					        }
 				      }
 			      
@@ -117,9 +133,24 @@ define(['app'], function(app) {
 			    });
 			    
 	        };
-	        $scope.deleteCertification = function (size){
-	        	console.log('test');
-	        	
+	        $scope.deleteCertification = function (cert){
+	        	if(cert = 'certification_name1'){
+	        		console.log('')
+	        		$scope.profile_user.certification_name1 = '';
+	        		$scope.profile_user.certification_number1 = '';
+	        	}else{
+	        		$scope.profile_user.certification_name2 = '';
+	        		$scope.profile_user.certification_number2 = '';
+
+	        	}
+	        	var certifications = {
+		    		id : $scope.profile_user.id,
+		    		certification_name1 : $scope.profile_user.certification_name1,
+		    		certification_number1 : $scope.profile_user.certification_number1,
+		    		certification_name2 : $scope.profile_user.certification_name2,
+		    		certification_number2 : $scope.profile_user.certification_number2,
+		    	}
+	        	var obj = $scope.professionalResource.update({id:$scope.profile_user.id}, certifications);
 			    
 	        };
 
@@ -203,13 +234,7 @@ define(['app'], function(app) {
 			}
 	
 			$scope.ok = function() {
-                // AutoFill Fix
-                angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
-				$scope.authToken = AuthChange.save($scope.user, function() {
-					window.location = "/#/logout";
-				},function(error) {
-					$scope.message = error.data;
-				});
+               
 			}
 
 			$scope.cancel = function () {
@@ -270,15 +295,24 @@ define(['app'], function(app) {
 				$modalInstance.dismiss();
 			};
     };
-    var addCertificationCtrl = function($scope, $resource, $modalInstance, localStorageService) {
+    var addCertificationCtrl = function($scope, $resource, $modalInstance, localStorageService, profileResource, profile_user) {
     	$scope.message = '';
-    		
-		$scope.ok = function() {
-            
+    	console.log(profile_user);
+    	$scope.certifications = {
+    		id : profile_user.id,
+    		certification_name1 : profile_user.certification_name1,
+    		certification_number1 : profile_user.certification_number1,
+    		certification_name2 : profile_user.certification_name2,
+    		certification_number2 : profile_user.certification_number2,
+    	}
+    	
+		$scope.ok = function(valid) {
+            var obj = profileResource.update({id:$scope.certifications.id}, $scope.certifications);
+
 		}
 
 		$scope.cancel = function () {
-			
+			$modalInstance.dismiss();
 		};
     };
 
