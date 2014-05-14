@@ -87,14 +87,12 @@ class AcceptingFilterBackend(filters.BaseFilterBackend):
 class TagFilterBackend(filters.BaseFilterBackend):
 
 	def filter_queryset(self, request, queryset, view):
-		print queryset
 		if 'tags' in request.QUERY_PARAMS:
 			tags = request.GET.getlist('tags','')
 			try:
 				for tag in tags:
 					special_list = [tag]
 					queryset = queryset.filter(tags__name__in=special_list)
-					print queryset
 			except:
 				pass
 

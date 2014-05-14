@@ -29,10 +29,16 @@ define(['app'], function (app) {
 
             $scope.professionals = professionalCollection.get(function () {
                 angular.forEach($scope.professionals.results, function (value, key) {
-                    $scope.professionals.results[key].coords = {
+                    $scope.professionals.results[key].marker = {};
+                    $scope.professionals.results[key].marker.coords = {
                         latitude: value.lat,
                         longitude: value.lng,
-                    }
+                    };
+                    $scope.professionals.results[key].marker.icon = {
+                        url:'fitness-professional/img/marker.png',
+                    };
+                    $scope.professionals.results[key].marker.show = false;
+
                 });
             }, $scope.checkTokenError);
 
@@ -134,25 +140,48 @@ define(['app'], function (app) {
                 };
                 $scope.professionals = filterProfessionalCollection.get($scope.filtering, function () {
                     angular.forEach($scope.professionals.results, function (value, key) {
-                        $scope.professionals.results[key].coords = {
+                        $scope.professionals.results[key].marker = {};
+                        $scope.professionals.results[key].marker.coords = {
                             latitude: value.lat,
                             longitude: value.lng,
-                        }
+                        };
+                        $scope.professionals.results[key].marker.icon = {
+                            url:'fitness-professional/img/marker.png',
+                        };
+                        $scope.professionals.results[key].marker.show = false;
+
                     });
-                });
+                },$scope.checkTokenError);
             };
+
             //This section is for the google map
             $scope.map = {
                 center: {
                     latitude: 30.267153,
                     longitude: -97.743061
                 },
-                zoom: 5
+                control:{},
+                zoom: 5,
             };
 
-            $scope.hello = function (professional) {
-                $scope.map.center = professional.coords;
+            $scope.proFocus = function (professional) {
+                $scope.map.control.refresh(professional.marker.coords);
+                professional.marker.options = {
+                    animation: google.maps.Animation.BOUNCE,
+                }
+                professional.marker.show = true;
             };
+            $scope.proUnfocus = function (professional) {
+                $scope.map.control.refresh(professional.marker.coords);
+                professional.marker.options = {
+                    animation: null,
+                }
+                professional.marker.show = false;
+            };
+
+
+
+
         }]);
 
     app.register.service('specialtyTags', function ($q, $rootScope) {

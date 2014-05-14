@@ -168,6 +168,7 @@ INSTALLED_APPS = (
     'shopify_app',
     'chargify',
     'workouts',
+    'messages',
     # 'board',
     # 'registration',
     # 'ws4redis',

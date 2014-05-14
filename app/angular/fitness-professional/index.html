@@ -1,6 +1,18 @@
-
-<div class="google-map" center="map.center" zoom="map.zoom" draggable='true'>
-    <marker ng-repeat="professional in professionals.results" coords="professional.coords" icon="'fitness-professional/img/marker.png'"></marker>
+<div class="google-map" center="map.center" zoom="map.zoom" draggable='true' control="map.control">
+    <marker ng-repeat="professional in professionals.results" coords="professional.marker.coords" icon="professional.marker.icon" options="professional.marker.options">
+        <window show="professional.marker.show">
+            <div class="thumbnail">
+                <div class="caption">
+                    {{professional.first_name}} {{professional.last_name}}<br/>
+                    {{professional.profession}}<br>
+                    {{professional.gender}}<br>
+                    {{professional.location}}<br>
+                    Accepting Clients: {{professional.is_accepting}}<br/>
+                    Biography: {{professional.bio}}<br/>
+                </div>
+            </div>
+        </window>
+    </marker>
 </div>
 
 <div class="sidebar">
@@ -147,8 +159,7 @@
             <div id="trainer-results">
                 <div class="row">
                     <div class="col-sm-6 col-md-4"
-                         ng-repeat="professional in professionals.results"
-                         ng-mouseover="hello(professional)">
+                         ng-repeat="professional in professionals.results" ng-mouseover="proFocus(professional)" ng-mouseleave="proUnfocus(professional)">
                         <div class="thumbnail">
                             <img src="/media/"/>
                             <div class="caption">
@@ -166,5 +177,4 @@
             <!-- /.trainer-results -->
         </div>
     </div>
-</div>
-<!-- /.sidebar-->
+</div><!-- /.sidebar-->
