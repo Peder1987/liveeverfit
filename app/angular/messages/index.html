@@ -1,64 +1,60 @@
-<div id="messagesBg"></div>
-<div id="messagesPage">
-    <div class="container">
-        <div class="row-fluid">
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <ul class="nav navbar-nav">
+<div ng-controller="messagesCtrl">
+    <div id="messagesBg"></div>
+    <div id="messagesPage">
+        <div class="container">
+            <div class="row-fluid">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a ng-click="newClick()" class="active">
+                                    <i class="fa fa-plus fa-lg ever-blue" style="line-height: 1em;"></i>&ThinSpace;<i class="fa fa-envelope fa-lg blue"></i>
+                                    <br> new
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-3">
+                    <ul class="nav nav-pills nav-stacked">
                         <li>
-                            <a href="/messages/new/" class="active">
-                                <i class="fa fa-plus fa-lg ever-blue" style="line-height: 1em;"></i>&ThinSpace;<i class="fa fa-envelope fa-lg blue"></i>
-                                <br> new
+                            <a  ng-click="inboxClick()">
+                                <span class="fa fa-inbox blue"></span>
+                                &nbsp; inbox
+                                <span class="badge pull-right">0</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a  ng-click="outboxClick()">
+                                <span class="fa fa-fighter-jet"></span>
+                                &nbsp; sent
+                            </a>
+                        </li>
+                        <li>
+                            <a  ng-click="trashClick()">
+                                <span class="fa fa-trash-o"></span>
+                                &nbsp; deleted
                             </a>
                         </li>
                     </ul>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-3">
-                <ul class="nav nav-pills nav-stacked">
-                    <li>
-                        <a href="/messages/inbox/">
-                            <span class="fa fa-inbox blue"></span>
-                            &nbsp; inbox
-                            <span class="badge pull-right">0</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/messages/outbox/">
-                            <span class="fa fa-fighter-jet"></span>
-                            &nbsp; sent
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/messages/trash/">
-                            <span class="fa fa-trash-o"></span>
-                            &nbsp; deleted
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-xs-12 col-sm-9">
-                <form action="" method="post">
-                    <input type="hidden" name="csrfmiddlewaretoken" value="xsAh7DRIyTMvd0cow7B686FSUu1PYkSp">
-
-                    <div class="form-group">
-                        <label for="id_recipient">Recipient:</label>
-                        <input id="id_recipient" class="form-control" name="recipient" type="text" value="">
+                <div ng-switch="view">
+                    <div ng-switch-when="message">
+                        <div ng-include src="'messages/views/newMessage.html'"></div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="id_subject">Subject:</label>
-                        <input id="id_subject" class="form-control" maxlength="120" name="subject" type="text" value="">
+                    <div ng-switch-when="sent">
+                        <div ng-include src="'messages/views/messageList.html'"></div>
                     </div>
-                    <div class="form-group">
-                        <label for="id_body">Body:</label>
-                        <textarea cols="55" class="form-control" id="id_body" name="body" rows="12"></textarea>
+                    <div ng-switch-when="trash">
+                        <div ng-include src="'messages/views/messageList.html'"></div>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                    <div ng-switch-default>
+                        <div ng-include src="'messages/views/messageList.html'"></div>
+                    </div>
+                        
+                </div>
             </div>
         </div>
     </div>

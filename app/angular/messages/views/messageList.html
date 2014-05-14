@@ -1,0 +1,44 @@
+{{title}}
+<div ng-switch="listView">
+        <div ng-switch-default >
+            
+            <div ng-repeat="msg in list"> 
+                <div class='fa fa-inbox blue' ng-click="messageOpen(msg)"> 
+                    {{msg.subject}}
+                    {{msg.body}}
+                    {{msg.sender}}
+                    {{msg.recipient}}
+                </div>
+                <br>
+
+            </div>
+            
+        </div>
+        <div ng-switch-when="message">
+
+                {{msgView.subject}}
+                {{msgView.body}}
+                {{msgView.sender}}
+                {{msgView.recipient}}
+
+        </div>
+        
+                        
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
