@@ -1,5 +1,6 @@
 @navbar-height: 62px;
-@navbar-bg: #eeeded;
+@navbar-bg: rgba(145, 153, 162, 0.37);
+@navbar-default-bg: #eeeded;
 @navbar-default-link-hover-color: #5d5d60;
 @navbar-default-link-hover-bg: #e2e2e2;
 @navbar-default-link-active-bg: #e2e2e2;
@@ -29,7 +30,7 @@
   z-index: 1;
 }
 
-.navbar {
+.navbar-default {
   background: @navbar-bg;
   background: -moz-linear-gradient(top, #eeeded 0%, #e2e2e2 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeded), color-stop(100%, #cdcdcd));
@@ -47,7 +48,7 @@
   font-family: 'Open Sans', sans-serif;
 }
 
-.navbar:after {
+.navbar-default:after {
   bottom: -3px;
   content: '';
   height: 3px;

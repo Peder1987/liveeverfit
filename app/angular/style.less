@@ -6,8 +6,11 @@
 @import "home/style.less";
 @import "navbar/style.less";
 @import "workouts/style.less";
+@import "messages/style.less";
 @import "fitness-professional/style.less";
 @import "common/angular-xeditable/dist/css/xeditable.css";
+
+@ever-blue: #1a8cff;
 
 @brand-primary: #7d8790;
 @btn-default-bg: #9ca4ad;
@@ -20,6 +23,8 @@
 @input-border: rgba(125, 135, 144, 0.1);
 
 @page-header-border-color: #b3b4b6;
+
+@badge-bg: @ever-blue;
 
 #page {
   position: absolute;
@@ -389,6 +394,9 @@ p.empty {
 .blue {
   color: @brand-primary!important;
   text-transform: capitalize;
+}
+.ever-blue {
+  color: @ever-blue;
 }
 
 .glyphicon-shopping-cart {

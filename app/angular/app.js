@@ -35,7 +35,7 @@ define(['angularAMD', 'uiRouter', 'uiBootstrap', 'routeResolver', 'angularResour
 
                 //LoggedIN
                 .state('account-settings', route.resolve('/account-settings', 'account-settings'))
-                .state('dashboard', route.resolve('/dashboard', 'dashboard'))
+                .state('messages', route.resolve('/messages', 'messages'))
                 .state('workouts', route.resolve('/workouts', 'workouts'))
                 .state('workouts.video', route.resolve('/:id', 'workouts'))
                 .state('fitness-professional', route.resolve('/fitness-professional', 'fitness-professional'))

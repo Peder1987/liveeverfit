@@ -4,9 +4,7 @@
             <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed" data-toggle="collapse"
                     data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+                <span class="fa fa-bars fa-lg"></span>
             </button>
             <a class="navbar-brand" ng-class="{active:$uiRoute}" ui-route="/" ui-sref="home">
                 <image src="common/img/navbar/logo.png"/>
@@ -15,7 +13,7 @@
                     <a ng-class="{active:$uiRoute}">
                         <i class="fa fa-shopping-cart fa-lg"></i>
                     </a>
-                    <a ng-class="{active:$uiRoute}">
+                    <a ng-class="{active:$uiRoute}" ui-sref="messages">
                         <i class="fa fa-envelope fa-lg"></i>
                     </a>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -147,12 +145,12 @@
             <ul class="nav navbar-nav pull-right hidden-xs">
                 <li>
                     <a ng-class="{active:$uiRoute}">
-                        <i class="fa fa-shopping-cart fa-lg"></i> &ZeroWidthSpace;
+                        <i class="fa fa-shopping-cart fa-lg"></i>&ZeroWidthSpace;
                     </a>
                 </li>
                 <li>
-                    <a ng-class="{active:$uiRoute}">
-                        <i class="fa fa-envelope fa-lg"></i> &ZeroWidthSpace;
+                    <a ng-class="{active:$uiRoute}" ui-sref="messages">
+                        <i class="fa fa-envelope fa-lg"></i>&ZeroWidthSpace;
                     </a>
                 </li>
                 <li class="dropdown">
