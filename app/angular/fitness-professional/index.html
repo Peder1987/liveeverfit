@@ -1,7 +1,7 @@
 <div class="google-map" center="map.center" zoom="map.zoom" draggable='true' control="map.control">
     <marker ng-repeat="professional in professionals.results" coords="professional.marker.coords"
-            icon="professional.marker.icon" options="professional.marker.options">
-        <window show="professional.marker.show">
+            icon="professional.marker.icon" options="professional.marker.options" events="professional.marker.events">
+        <window>
             <div class="thumbnail">
                 <div class="caption">
                     {{professional.first_name}} {{professional.last_name}}<br/>

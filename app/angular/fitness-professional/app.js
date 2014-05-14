@@ -37,7 +37,18 @@ define(['app'], function (app) {
                     $scope.professionals.results[key].marker.icon = {
                         url:'fitness-professional/img/marker.png',
                     };
-                    $scope.professionals.results[key].marker.show = false;
+                    $scope.professionals.results[key].marker.events = {
+                        mouseover: function(marker, eventName, args) {
+                            marker.icon.size = new google.maps.Size(75, 75);
+                            marker.icon.scaledSize = new google.maps.Size(75, 75);
+                            $scope.$apply();
+                        },
+                        mouseout: function(marker, eventName, args) {
+                            marker.icon.size = null;
+                            marker.icon.scaledSize = null;
+                            $scope.$apply();
+                        },
+                    }; 
 
                 });
             }, $scope.checkTokenError);
@@ -148,7 +159,18 @@ define(['app'], function (app) {
                         $scope.professionals.results[key].marker.icon = {
                             url:'fitness-professional/img/marker.png',
                         };
-                        $scope.professionals.results[key].marker.show = false;
+                        $scope.professionals.results[key].marker.events = {
+                            mouseover: function(marker, eventName, args) {
+                                marker.icon.size = new google.maps.Size(75, 75);
+                                marker.icon.scaledSize = new google.maps.Size(75, 75);
+                                $scope.$apply();
+                            },
+                            mouseout: function(marker, eventName, args) {
+                                marker.icon.size = null;
+                                marker.icon.scaledSize = null;
+                                $scope.$apply();
+                            },
+                        }; 
 
                     });
                 },$scope.checkTokenError);
@@ -165,24 +187,19 @@ define(['app'], function (app) {
             };
 
             $scope.proFocus = function (professional) {
+                professional.marker.icon.size = new google.maps.Size(75, 75);
+                professional.marker.icon.scaledSize = new google.maps.Size(75, 75);
                 $scope.map.control.refresh(professional.marker.coords);
-                professional.marker.options = {
-                    animation: google.maps.Animation.BOUNCE,
-                }
-                professional.marker.show = true;
             };
             $scope.proUnfocus = function (professional) {
+                professional.marker.icon.size = null;
+                professional.marker.icon.scaledSize = null;
                 $scope.map.control.refresh(professional.marker.coords);
-                professional.marker.options = {
-                    animation: null,
-                }
-                professional.marker.show = false;
             };
-
-
 
 
         }]);
+
 
     app.register.service('specialtyTags', function ($q, $rootScope) {
         $rootScope.q = $q
