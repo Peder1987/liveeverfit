@@ -48,6 +48,16 @@ define(['app'], function(app) {
 			      resolve: {
 					        email: function () {
 					          return  $scope.profile_user.email;
+					        },
+					        id : function () {
+					        	return $scope.profile_user.id;
+					        },
+					        profileResource: function(){
+					        	if($scope.profile_user.type == "professional"){
+					        		
+					        		return $scope.professionalResource
+					        	}
+					        	return $scope.profileResource 
 					        }
 				      }
 			      
@@ -125,7 +135,11 @@ define(['app'], function(app) {
 				      }
 			      
 			    });
-			    modalInstance.result.then(function () {
+			    modalInstance.result.then(function (certs) {
+			    	$scope.profile_user.certification_name1 = certs.certification_name1;
+					$scope.profile_user.certification_number1 = certs.certification_number1;
+					$scope.profile_user.certification_name2 = certs.certification_name2;
+					$scope.profile_user.certification_number2 = certs.certification_number2;
 			      
 			    }, function () {
 			    	
@@ -134,14 +148,15 @@ define(['app'], function(app) {
 			    
 	        };
 	        $scope.deleteCertification = function (cert){
-	        	if(cert = 'certification_name1'){
-	        		console.log('')
+	        	console.log(cert)
+	        	if(cert == 'certification_name1'){
+	        		console.log('cert1')
 	        		$scope.profile_user.certification_name1 = '';
 	        		$scope.profile_user.certification_number1 = '';
 	        	}else{
 	        		$scope.profile_user.certification_name2 = '';
 	        		$scope.profile_user.certification_number2 = '';
-
+	        		console.log('cert2')
 	        	}
 	        	var certifications = {
 		    		id : $scope.profile_user.id,
@@ -151,6 +166,20 @@ define(['app'], function(app) {
 		    		certification_number2 : $scope.profile_user.certification_number2,
 		    	}
 	        	var obj = $scope.professionalResource.update({id:$scope.profile_user.id}, certifications);
+			    
+	        };
+	        $scope.updateProfile = function (){
+	        	var resourceType;
+				var temp = $scope.profile_user
+	        	if($scope.profile_user.type == "professional"){
+					        		
+					resourceType = $scope.professionalResource;
+				}else{
+					resourceType = $scope.profileResource;
+				}
+				//removing image since it isn't required 
+				delete temp['img']
+	        	var obj = resourceType.update({id:$scope.profile_user.id}, temp);
 			    
 	        };
 
@@ -192,23 +221,21 @@ define(['app'], function(app) {
 			};
     };
 
-    var emailChangeCtrl = function($scope, $resource, $modalInstance, localStorageService, email) {
-    		
-    		
-			$scope.email = email;
-			
-			var AuthChange =  $resource("http://:url/accounts/change-password", {
-                url: $scope.restURL
-            });
-
-    		$scope.user = {
-				token: localStorageService.get('rest_token'),
-				current_password: '',
-				password: '',
-				password2: '',
-			}
-	
-			$scope.ok = function() {
+    var emailChangeCtrl = function($scope, $resource, $modalInstance, localStorageService, email, id, profileResource) {
+			$scope.email = email;	
+			$scope.message = '';
+			$scope.ok = function(emailEdit) {
+				
+				
+				var newEmail = {email:emailEdit}
+                var obj = profileResource.update({id:id}, newEmail).$promise.then(
+		        function( value ){/*Do something with value*/
+            		$modalInstance.close(emailEdit);
+		        },
+		        function( error ){
+		        	$scope.message = error.data;
+		        }
+		      )
                 
 			}
 
@@ -226,13 +253,6 @@ define(['app'], function(app) {
                 url: $scope.restURL
             });
 
-    		$scope.user = {
-				token: localStorageService.get('rest_token'),
-				current_password: '',
-				password: '',
-				password2: '',
-			}
-	
 			$scope.ok = function() {
                
 			}
@@ -297,7 +317,6 @@ define(['app'], function(app) {
     };
     var addCertificationCtrl = function($scope, $resource, $modalInstance, localStorageService, profileResource, profile_user) {
     	$scope.message = '';
-    	console.log(profile_user);
     	$scope.certifications = {
     		id : profile_user.id,
     		certification_name1 : profile_user.certification_name1,
@@ -308,7 +327,7 @@ define(['app'], function(app) {
     	
 		$scope.ok = function(valid) {
             var obj = profileResource.update({id:$scope.certifications.id}, $scope.certifications);
-
+            $modalInstance.close($scope.certifications);
 		}
 
 		$scope.cancel = function () {

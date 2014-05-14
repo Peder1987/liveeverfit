@@ -10,8 +10,8 @@
 <h2 class="ef-header">account settings</h2>
 <td style="width:40%">
         
-        <form editable-form name="editable" ng-show="editable.$visible">
-          <button type="submit" ng-disabled="editable.$waiting" class="btn btn-primary">
+        <form editable-form name="editable" ng-show="editable.$visible" onbeforesave="updateProfile()">
+          <button type="submit" ng-disabled="editable.$waiting" class="btn btn-primary" >
             save
           </button>
           <button type="button" ng-disabled="editable.$waiting" ng-click="editable.$cancel()" class="btn btn-default">

@@ -78,7 +78,7 @@
                                         </span>
                         {{ creditcard.exp_month }}/{{ creditcard.exp_year }}
                     </div>
-                    <div ng-if="false">
+                    <div ng-if="!profile_user.creditcard">
                         No payment details on file.
                     </div>
                     <br>
