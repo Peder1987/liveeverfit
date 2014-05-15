@@ -15,7 +15,7 @@ import random
 import datetime
 #Models
 from rest_framework.authtoken.models import Token
-from user_app.models import Professional, Address
+from user_app.models import Professional, Address, UniqueLocation
 from django.contrib.auth import get_user_model
 User = get_user_model()
 #Rest Framework
@@ -90,6 +90,16 @@ def register_professional(request):
         temp_address = user_data['primary_address']
         del user_data['password2']
         del user_data['primary_address']
+
+        print 'Start'
+        print temp_address
+
+        temp_location = temp_address.city + ', ' +temp_address.state
+        print temp_location
+
+        location = UniqueLocation.get_or_create(location = temp_location)
+        print location
+        print 'End'
 
         pro.__dict__.update(**user_data)
         pro.save()
