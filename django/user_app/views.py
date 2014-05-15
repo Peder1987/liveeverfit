@@ -35,7 +35,7 @@ class LocationViewSet(viewsets.ModelViewSet):
 
 
 class ProfessionalViewSet(viewsets.ModelViewSet):
-    
+    paginate_by = 9
     model = Professional
     permission_classes = (IsAuthenticated,)
     serializer_class = ProfessionalSerializer
