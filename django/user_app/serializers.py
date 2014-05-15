@@ -67,9 +67,20 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'name', 'permissions')
 
 
+class ProfessionalListSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source='email', required=False)
+    img = serializers.ImageField(allow_empty_file=True, required=False)
+    class Meta:
+        model = Professional
+        fields = ("first_name", "last_name", "profession", "gender", "location", "is_accepting", "img")
+
+
+
 class ProfessionalSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='email', required=False)
     img = serializers.ImageField(allow_empty_file=True, required=False)
     class Meta:
         model = Professional
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',)
+
+

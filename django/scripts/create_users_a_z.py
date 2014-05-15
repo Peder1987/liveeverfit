@@ -15,6 +15,7 @@ from user_app.models import Professional
 def create_professional_dummy_data():
 	accepting = True
 	tags = ["looksy", 'crossfit', 'fitness']
+	profession_list = ['Nutritionist', 'Trainer']
 	counter = 0
 	for letter in string.ascii_uppercase:
 		email = 'pro_' + letter + '@test.com'
@@ -29,6 +30,7 @@ def create_professional_dummy_data():
 			user = User.objects.create_user(**data_dict)
 			pro = Professional.objects.create_prof(user)
 			pro.is_accepting=accepting
+			pro.profession = profession_list[counter%2]
 			pro.tags.add(tags[counter%3])
 			pro.save()
 		accepting = not accepting

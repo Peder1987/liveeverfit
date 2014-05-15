@@ -13,6 +13,7 @@ define(['app'], function (app) {
             $scope.location = [];
             $scope.accepting = [];
             $scope.locations = [];
+            $scope.page = 0;
 
             var professionalCollection = $resource("http://:url/users/professionals", {
                 url: $scope.restURL
@@ -142,6 +143,7 @@ define(['app'], function (app) {
 
             //filter function
             $scope.filter = function () {
+                $scope.page = 0
                 $scope.filtering = {
                     profession: $scope.profession,
                     gender: $scope.gender,
