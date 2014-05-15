@@ -352,7 +352,6 @@ class ProfessionalManager(models.Manager):
     def create_prof(self, user):
         extended_user = Professional(customuser_ptr=user)
         extended_user.__dict__.update(user.__dict__)
-        extended_user.is_active = False
         extended_user.save()
         return extended_user
 
