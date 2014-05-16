@@ -1,5 +1,5 @@
 <div class="google-map" center="map.center" zoom="map.zoom" draggable='true' control="map.control">
-    <marker ng-repeat="professional in professionals.results" coords="professional.marker.coords"
+    <marker ng-repeat="professional in professionals" coords="professional.marker.coords"
             icon="professional.marker.icon" options="professional.marker.options" events="professional.marker.events">
         <window>
             <div class="thumbnail">
@@ -167,7 +167,7 @@
         <div id="trainer-results">
             <div class="row">
                 <div class="col-sm-6 col-md-4"
-                     ng-repeat="professional in professionals.results" ng-mouseover="proMouseOver(professional)"
+                     ng-repeat="professional in professionals" ng-mouseover="proMouseOver(professional)"
                      ng-mouseleave="proMouseOut(professional)">
                     <div class="thumbnail">
                         <img src="/common/media/{{professional.img}}"/>
@@ -184,7 +184,7 @@
                 </div>
             </div>
         </div>
-        <button id="showMore" type="button" class="btn btn-primary btn-lg btn-block" onclick="getPros(true)">Show More</button>
+        <button ng-show="next" id="showMore" type="button" class="btn btn-primary btn-lg btn-block" ng-click="getPros()">Show More</button>
         <!-- /.trainer-results -->
     </div>
 </div><!-- /.sidebar-->
