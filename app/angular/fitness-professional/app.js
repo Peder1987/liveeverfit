@@ -11,8 +11,6 @@ define(['app'], function (app) {
                     url: $scope.restURL
                 });
 
-            console.log($scope);
-
             $scope.profession = [];
             $scope.professionSelected = {};
             $scope.gender = [];
