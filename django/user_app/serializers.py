@@ -72,7 +72,7 @@ class ProfessionalListSerializer(serializers.ModelSerializer):
     img = serializers.ImageField(allow_empty_file=True, required=False)
     class Meta:
         model = Professional
-        fields = ("first_name", "last_name", "profession", "gender", "location", "is_accepting", "img")
+        fields = ("first_name", "last_name", "profession", "gender", "location", "is_accepting", "img", 'lat', 'lng',)
 
 
 
