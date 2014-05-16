@@ -3,13 +3,14 @@
 define(['app'], function (app) {
     app.register.controller("fitness-professionalCtrl", ["$scope", "$resource", "rest", "tokenError", "specialtyTags",
         function ($scope, $resource) {
+
             var filterProfessionalCollection = $resource("http://:url/users/professionals?:filter", {
-                    url: $scope.restURL,
-                    filter: '@filter'
-                }),
-                locationlCollection = $resource("http://:url/users/location", {
-                    url: $scope.restURL
-                });
+                url: $scope.restURL,
+                filter: '@filter'
+            }),
+            locationlCollection = $resource("http://:url/users/location", {
+                url: $scope.restURL
+            });
 
             $scope.profession = [];
             $scope.professionSelected = {};
@@ -106,6 +107,7 @@ define(['app'], function (app) {
                     latitude: 30.267153,
                     longitude: -97.743061
                 },
+                control:{},
                 zoom: 5
             };
 
