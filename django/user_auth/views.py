@@ -15,7 +15,7 @@ import random
 import datetime
 #Models
 from rest_framework.authtoken.models import Token
-from user_app.models import Professional, Address
+from user_app.models import Professional, Address, UniqueLocation
 from django.contrib.auth import get_user_model
 User = get_user_model()
 #Rest Framework
@@ -43,10 +43,11 @@ def token_generator(size=5, chars=string.ascii_uppercase + string.ascii_lowercas
 @permission_classes((AllowAny,))
 def register(request):
     serialized = CreateUserSerializer(data=request.DATA)
+
     if serialized.is_valid():
         user_data = {field: data for (field, data) in request.DATA.items()}
         del user_data['password2']
-
+        
         user = User.objects.create_user(
             **user_data
         )
@@ -54,6 +55,7 @@ def register(request):
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
         response['id'] = user.id
+        user.shopify_create(user_data['password'])
         return Response(response, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
@@ -84,13 +86,20 @@ def register_professional(request):
 
         user = User.objects.create_user(**user_data)
         pro = Professional.objects.create_prof(user)
-
         user_data = {field: data for (field, data) in request.DATA.items()}
         temp_address = user_data['primary_address']
         del user_data['password2']
         del user_data['primary_address']
 
+        temp_location = temp_address['city'] + ', ' +temp_address['state']
+        location = UniqueLocation.objects.get_or_create(location = temp_location)
+        location[0].counter += 1
+        location[0].save()
+
         pro.__dict__.update(**user_data)
+        pro.location = temp_location
+        pro.lat = temp_address['lat']
+        pro.lng = temp_address['lng']
         pro.save()
         address = Address.objects.get(id = user.primary_address.id)
         address.__dict__.update(**temp_address)
@@ -99,6 +108,7 @@ def register_professional(request):
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
         response['id'] = user.id
+        pro.shopify_create(user_data['password'])
         return Response(response, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)

@@ -70,8 +70,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     )
     gender = models.CharField(_('gender'), max_length=1, blank=True, choices=GENDER_CHOICES)
     location = models.CharField(_('location'), max_length=100, blank=True)
-    lat = models.CharField(_('latitude'), max_length=30, blank=True)
-    lng = models.CharField(_('longitude'), max_length=30, blank=True)
+    lat = models.CharField(_('latitude'), max_length=30, blank=True, default="29.760193")
+    lng = models.CharField(_('longitude'), max_length=30, blank=True, default="-95.369390")
 
     twitter = models.CharField(_('twitter'), max_length=100, blank=True)
     facebook = models.CharField(_('facebook'), max_length=100, blank=True)
@@ -163,7 +163,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def get_address(self):
         # grabs primary address
-        return self.primary_address.to_dict()
+        return self.primary_address.shopify_format()
 
     def email_user(self, subject, message, from_email=None):
         """
@@ -252,6 +252,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         address.save()
         instance.primary_address = address
         instance.save()
+
 
 
 class AddressManager(models.Manager):
@@ -352,7 +353,6 @@ class ProfessionalManager(models.Manager):
     def create_prof(self, user):
         extended_user = Professional(customuser_ptr=user)
         extended_user.__dict__.update(user.__dict__)
-        extended_user.is_active = False
         extended_user.save()
         return extended_user
 
