@@ -9,8 +9,17 @@ define(['app'], function (app) {
                 }),
                 locationlCollection = $resource("http://:url/users/location", {
                     url: $scope.restURL
-                });
+                }),
+                tagCollection = $resource("http://:url/tags/", {
+                    url: $scope.restURL
+                }),
+                tagResource = $resource("http://:url/tags/:id/", {
+                    url: $scope.restURL,
+                    id: '@id'
+                }, {update: { method: 'PUT' }});
 
+            $scope.tagSelected = [];
+            $scope.specialtySearch = "";
             $scope.profession = [];
             $scope.professionSelected = {};
             $scope.gender = [];
@@ -18,6 +27,7 @@ define(['app'], function (app) {
             $scope.location = [];
             $scope.accepting = [];
             $scope.locations = [];
+            $scope.bigMarkerSize = new google.maps.Size(60,100);
 
             $scope.locationsJson = locationlCollection.get(function () {
                 $scope.locationsJson.results.forEach(function (entry) {
@@ -60,20 +70,7 @@ define(['app'], function (app) {
                 deferred.resolve($scope.tags.results);
                 return deferred.promise;
             };
-
-            /*ANYTHING TAG RELATED, kept it in same scope in order make things less complicated*/
-            $scope.tagSelected = [];
-            $scope.specialtySearch = "";
-            var tagCollection = $resource("http://:url/tags/", {
-                    url: $scope.restURL
-                }),
-                tagResource = $resource("http://:url/tags/:id/", {
-                    url: $scope.restURL,
-                    id: '@id'
-                }, {update: { method: 'PUT' }});
-
-            $scope.tags = tagCollection.get(function () {
-            }, $scope.checkTokenError);
+            $scope.tags = tagCollection.get($.noop(), $scope.checkTokenError);
             $scope.addTag = function (tag) {
                 // Ensures that no two tags are replicated
                 if ($scope.specialtySearch.indexOf(tag) == -1) {
@@ -86,7 +83,6 @@ define(['app'], function (app) {
                     $scope.tagSelected.splice(temp, 1);
                 }
                 $scope.filter()
-
             };
             $scope.onTagAdd = function (tag) {
                 $scope.tagSelected = [];
@@ -106,17 +102,16 @@ define(['app'], function (app) {
                     latitude: 30.267153,
                     longitude: -97.743061
                 },
-                zoom: 5
+                zoom: 5,
+                control: {}
             };
 
             $scope.proMouseOver = function (professional) {
-                professional.marker.icon.size = new google.maps.Size(75, 75);
-                professional.marker.icon.scaledSize = new google.maps.Size(75, 75);
+                professional.marker.icon.size = professional.marker.icon.scaledSize = $scope.bigMarkerSize;
                 $scope.map.control.refresh(professional.marker.coords);
             };
             $scope.proMouseOut = function (professional) {
-                professional.marker.icon.size = null;
-                professional.marker.icon.scaledSize = null;
+                professional.marker.icon.size = professional.marker.icon.scaledSize = null;
                 $scope.map.control.refresh(professional.marker.coords);
             };
             //filter function
@@ -147,14 +142,12 @@ define(['app'], function (app) {
                                 url: 'data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 60 100"><path fill="#' + gender[professional.gender] + '" d="m50.532 9.799c-4.024-4.941-9.865-8.389-16.158-9.428 -1.444-0.252-2.907-0.371-4.37-0.371l-0.008 0c-1.463 0-2.926 0.119-4.37 0.371 -6.293 1.039-12.134 4.486-16.158 9.427 -4.099 4.957-6.345 11.398-6.237 17.828 0.158 2.438 0.861 4.801 1.734 7.07 1.508 5.257 6.578 11.108 6.578 11.108 6.28 6.377 7.42 8.29 9.586 11.821 1.594 2.969 2.752 5.15 4.25 9.875 3.49 11.716 3.72 27.245 4.617 32.451l0 0.049c0.001-0.008-0.001-0.017 0-0.024 0.001 0.008 0 0.017 0 0.024l0-0.049c1-5.20499 1.132-20.73499 4.621-32.451 1.498-4.724 2.658-6.906 4.252-9.875 2.166-3.531 3.307-5.443 9.587-11.82 0 0 5.071-5.852 6.579-11.108 0.873-2.269 1.576-4.631 1.734-7.07 0.108-6.43-2.138-12.871-6.237-17.828z"/>' + profession[professional.profession] + '</svg>'
                             },
                             events: {
-                                mouseover: function (marker, eventName, args) {
-                                    marker.icon.size = new google.maps.Size(75, 75);
-                                    marker.icon.scaledSize = new google.maps.Size(75, 75);
+                                mouseover: function (marker) {
+                                    marker.icon.size = marker.icon.scaledSize = $scope.bigMarkerSize;
                                     $scope.$apply();
                                 },
-                                mouseout: function (marker, eventName, args) {
-                                    marker.icon.size = null;
-                                    marker.icon.scaledSize = null;
+                                mouseout: function (marker) {
+                                    marker.icon.size = marker.icon.scaledSize = null;
                                     $scope.$apply();
                                 }
                             }
