@@ -23,14 +23,12 @@ define(['app', 'videojs'], function (app) {
                 });
             // initialize first view
             $scope.view = 'inbox';
-            $scope.title = 'inbox';
             $scope.list = $scope.inboxCollection.get({}, function (data){
                     $scope.list = data.results;
                 });
             $scope.inboxClick = function () {
                 
                 $scope.view = 'inbox';
-                $scope.title = 'inbox';
                 $scope.listView = "false";
                 var items = $scope.inboxCollection.get({}, function (data){
                     $scope.list = data.results;
@@ -39,7 +37,6 @@ define(['app', 'videojs'], function (app) {
             };
             $scope.outboxClick = function () {
                 $scope.view = 'outbox';
-                $scope.title = 'outbox';
                 $scope.listView = "false";
                 var items = $scope.sentCollection.get({}, function (data){
                     $scope.list = data.results;

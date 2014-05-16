@@ -1,4 +1,4 @@
-<div ng-controller="messagesCtrl">
+
     <div id="messagesBg"></div>
     <div id="messagesPage">
         <div class="container">
@@ -7,7 +7,7 @@
                     <div class="navbar-inner">
                         <ul class="nav navbar-nav">
                             <li>
-                                <a ng-click="newClick()" class="active">
+                                <a ng-click="newClick()" ng-class="{active: view == 'message'}">
                                     <i class="fa fa-plus fa-lg ever-blue" style="line-height: 1em;"></i>&ThinSpace;<i class="fa fa-envelope fa-lg blue"></i>
                                     <br> new
                                 </a>
@@ -19,20 +19,20 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-3">
                     <ul class="nav nav-pills nav-stacked">
-                        <li>
-                            <a  ng-click="inboxClick()">
+                        <li ng-class="{active: view == 'inbox'}">
+                            <a  ng-click="inboxClick()" >
                                 <span class="fa fa-inbox blue"></span>
                                 &nbsp; inbox
                                 <span class="badge pull-right">0</span>
                             </a>
                         </li>
-                        <li>
+                        <li ng-class="{active: view == 'outbox'}">
                             <a  ng-click="outboxClick()">
                                 <span class="fa fa-fighter-jet"></span>
                                 &nbsp; sent
                             </a>
                         </li>
-                        <li>
+                        <li ng-class="{active: view == 'trash'}">
                             <a  ng-click="trashClick()">
                                 <span class="fa fa-trash-o"></span>
                                 &nbsp; deleted
@@ -53,9 +53,7 @@
                     <div ng-switch-default>
                         <div ng-include src="'messages/views/messageList.html'"></div>
                     </div>
-                        
                 </div>
             </div>
         </div>
     </div>
-</div>
