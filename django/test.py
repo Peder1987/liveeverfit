@@ -10,7 +10,7 @@ from django.utils.timezone import utc, now
 ##############################################
 
 from user_app.models import Professional
-
+from workouts.models import Video
 
 users = User.objects.all()
 pros = Professional.objects.all()
@@ -21,7 +21,7 @@ pro = User.objects.get(email='pro2@test.com')
 # print Professional.objects.filter(pk=user.id).exists()
 # print Professional.objects.filter(pk=pro.id).exists()
 import string
-def create_professional_dummy_data():
+def create_workout_videos():
 	accepting = True
 	tags = ["looksy", 'crossfit', 'fitness']
 	profession_list = ['Nutritionist', 'Trainer']
@@ -29,20 +29,19 @@ def create_professional_dummy_data():
 	for letter in string.ascii_uppercase:
 		email = 'pro_' + letter + '@test.com'
 		password = 'admin123'
-		first = 'pro_first_' + letter 
-		last = 'pro_last_' + letter
+		pro = Professional.objects.get(email=email)
+		title = 'pro_title_' +letter
+		description = 'this is a description for video ' + title
+		difficulty = ['beginner', 'intermediate', 'advanced']
 
-		if not Professional.objects.filter(email=email).exists():
-			data_dict = {"email":email, "password" : password, "first_name":first, "last_name":last,
-				"password":password,
-			}
-			user = User.objects.create_user(**data_dict)
-			pro = Professional.objects.create_prof(user)
-			pro.is_accepting=accepting
-			pro.profession = profession_list[counter%2]
-			pro.tags.add(tags[counter%3])
-			pro.save()
-		accepting = not accepting
+		obj, created = Video.objects.get_or_create(user=pro, title=title,
+													description=description, difficulty=difficulty[(counter+1)%3])
+		
+		obj.video_tags.add(tags[counter%3])
+		
+		
+		
+		
 		counter += 1
 
-create_professional_dummy_data()
+create_workout_videos()

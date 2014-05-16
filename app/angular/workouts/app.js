@@ -8,6 +8,20 @@ define(['app', 'videojs'], function (app) {
 
     app.register.controller('workoutsController', ["$sce", "$stateParams", "$resource", "rest", "tokenError", "localStorageService", "$scope", "$anchorScroll", "promiseService",
         function ($sce, $stateParams, $resource, rest, tokenError, localStorageService, $scope) {
+            $scope.page = 1
+            $scope.difficulty = [];
+            $scope.videoSelected = [];
+            $scope.tagSelected = [];
+            $scope.iframeHidden = true;
+            $scope.difficultySelected = {}; 
+            $scope.video = {}; // for 1 video
+            $scope.videos = []; //for video list
+            $scope.videoSearch = ''; // this is the search bar string
+            $scope.videoTitles = [] // for typeahead
+            $scope.next = true;
+
+
+            
             var videoCollection = $resource(":protocol://:url/workouts/video/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
@@ -26,7 +40,7 @@ define(['app', 'videojs'], function (app) {
                         $scope.video = videoResource.get({id: $stateParams.id}, function () {
                             $scope.video.rtmp_url = $sce.trustAsResourceUrl("rtmp://206.225.86.237:1935/vod/_definst_/mp4:" + $scope.video.url_video);
                             $scope.video.http_url = $sce.trustAsResourceUrl("http://206.225.86.237:1935/vod/content/" + $scope.video.url_video + "/playlist.m3u8");
-                            $scope.videoStatus = 'selected';
+                            $scope.videoStatus = 'difficultySelected';
                             setTimeout(function () {
                                 $scope.videojs = videojs('selectedVideo', {
                                     techOrder: [ "flash", "html5"]
@@ -57,7 +71,6 @@ define(['app', 'videojs'], function (app) {
             $scope.videoTitleCollection =  $resource("http://:url/workouts/titles",{
                 url: $scope.restURL
             });
-            $scope.videoTitles = []
             $scope.loadVideoTitles = function (query) {
                 var deferred = $scope.q.defer();
                 var filtering = {
@@ -70,13 +83,22 @@ define(['app', 'videojs'], function (app) {
                 return deferred.promise;
             };
 
+            $scope.getPros = function (){
+                $scope.page = $scope.page + 1;
+                $scope.filtering = {
+                    difficulty: $scope.difficulty,
+                    tags: $scope.tagSelected,
+                    search : $scope.videoSelected,
+                    page : $scope.page
+                };
+                var newVideos = filterVideoCollection.get($scope.filtering, function () {
+                    $scope.videos = $scope.videos.concat(newVideos.results);
+                    $scope.next = newVideos.next;
+                });
+                //$scope.videos = ;
+            };
 
-            $scope.difficulty = [];
-            $scope.videoSelected = [];
-            $scope.tagSelected = [];
-            $scope.videoSearch = '';
-            $scope.video = {};
-            $scope.iframeHidden = true;
+            
             window.handleIframe = function(iframe) {
                 var $iframe = $(iframe);
                 $iframe.height($iframe.width() * 0.75);
@@ -89,31 +111,40 @@ define(['app', 'videojs'], function (app) {
             videojs.options.flash.swf = "common/videojs/dist/video-js/video-js.swf";
 
             $scope.$on('$stateChangeSuccess', getVideo);
-            $scope.videos = videoCollection.get(function () {
-            }, $scope.checkTokenError);
+            //initialize video array
+            var initVideos = filterVideoCollection.get({}, function () {
+                $scope.next = initVideos.next;
+                $scope.videos = initVideos.results;
+            });
 
-            $scope.selected = {};
+            
             $scope.difficultyOnClick = function (value) {
                 if ($scope.difficulty.indexOf(value) == -1) {
-                    $scope.selected[value] = true;
+                    $scope.difficultySelected[value] = true;
                     $scope.difficulty.push(value);
                 }
                 else {
                     var temp = $scope.difficulty.indexOf(value);
-                    $scope.selected[value] = false;
+                    $scope.difficultySelected[value] = false;
                     $scope.difficulty.splice(temp, 1);
                 }
                 $scope.filter();
             };
             $scope.filter = function () {
+                $scope.page = 1
+
                 $scope.filtering = {
                     difficulty: $scope.difficulty,
                     tags: $scope.tagSelected,
                     search : $scope.videoSelected
                 };
                 //console.log($scope.filtering)
-                $scope.videos = filterVideoCollection.get($scope.filtering, function () {
+                var vids = filterVideoCollection.get($scope.filtering, function () {
+                    $scope.videos = vids.results;
+                    $scope.next = vids.next;
                 });
+
+                
             };
 
             /*ANYTHING TAG RELATED, kept it in same scope in order make things less complicated*/
@@ -159,7 +190,6 @@ define(['app', 'videojs'], function (app) {
                     $scope.videoSelected.push(tag.name);
                  }
                  else{
-                    console.log('else');
                     $scope.tagSelected.push(tag.name);  
                  }
 
