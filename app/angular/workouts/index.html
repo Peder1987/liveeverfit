@@ -28,7 +28,7 @@
                         <div class="col-xs-12 col-md-6 col-lg-4">
                             <div class="form-space">
                                 <button class="col-xs-12 btn toggle beginner difficulties"
-                                        ng-class="{selected: selected['beginner']}" id='beginner'
+                                        ng-class="{difficultySelected: difficultySelected['beginner']}" id='beginner'
                                         ng-click="difficultyOnClick('beginner')">
                                     beginner
                                     <span class="difficulty beginner"></span>
@@ -38,7 +38,7 @@
                         <div class="col-xs-12 col-md-6 col-lg-4">
                             <div class="form-space">
                                 <button class="col-xs-12 btn toggle intermediate difficulties"
-                                        ng-class="{selected: selected['intermediate']}" id='intermediate'
+                                        ng-class="{difficultySelected: difficultySelected['intermediate']}" id='intermediate'
                                         ng-click="difficultyOnClick('intermediate')">
                                     intermediate
                                     <span class="difficulty intermediate"></span>
@@ -48,7 +48,7 @@
                         <div class="col-xs-12 col-md-6 col-lg-4">
                             <div class="form-space">
                                 <button class="col-xs-12 btn toggle advanced difficulties"
-                                        ng-class="{selected: selected['advanced']}" id='advanced'
+                                        ng-class="{difficultySelected: difficultySelected['advanced']}" id='advanced'
                                         ng-click="difficultyOnClick('advanced')">
                                     advanced
                                     <span class="difficulty advanced"></span>
@@ -77,10 +77,10 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
-                    <div class="col-xs-6 col-md-4" ng-repeat="video in videos.results">
+                    <div class="col-xs-6 col-md-4" ng-repeat="video in videos">
                         <div class="ef-workout-video">
                             <a ui-sref="workouts.video(video)"><img
-                                    src="http://beta.liveeverfit.com/media/{{ video.img }}"/></a>
+                                    src="http://beta.liveeverfit.com/media/{{ video.img }}" /></a>
                         </div>
                         <a ui-sref="workouts.video(video)">
                             <div class="workout-title">
@@ -89,7 +89,7 @@
                             </div>
                         </a>
                     </div>
-                    <button id="showMore" type="button" class="btn btn-primary btn-lg btn-block" onclick="getPros(true)">Show More</button>
+                    <button ng-show="next" id="showMore" type="button" class="btn btn-primary btn-lg btn-block" ng-click="getPros()">Show More</button>
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <div ng-switch="videoStatus" style="min-height: 650px;">
@@ -104,7 +104,7 @@
                             <div ng-switch-when="loading" class="col-xs-12">
                                 Loading
                             </div>
-                            <div ng-switch-when="selected" class="col-xs-12">
+                            <div ng-switch-when="difficultySelected" class="col-xs-12">
                                 <div class="workout-video-shadow">
                                     <video id="selectedVideo"
                                            width="640" height="480"

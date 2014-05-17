@@ -10,7 +10,7 @@ from taggit.managers import TaggableManager
 import datetime
 from django.db.models import permalink
 from django.contrib.comments.moderation import CommentModerator, moderator
-
+from django.utils.timezone import now
 
 
 #Video Model
@@ -19,7 +19,7 @@ class Video(models.Model):
     slug = models.SlugField(max_length=100, unique=True, blank=True,null=True)
     title = models.CharField(max_length = 200, blank=True,null=True)
     description = models.TextField('description', null=True, blank=True)
-    pub_date = models.DateTimeField('date published', default=datetime.datetime.now, null=True, blank=True)
+    pub_date = models.DateTimeField('date published', default=now, null=True, blank=True)
     url_video = models.CharField(max_length = 200, blank=True,null=True)
     img = models.ImageField(upload_to="workout", blank=True, default='default-profile.svg')
     video_tags = TaggableManager(blank=True, verbose_name='video')

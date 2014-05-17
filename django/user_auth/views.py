@@ -91,7 +91,13 @@ def register_professional(request):
         del user_data['password2']
         del user_data['primary_address']
 
-        temp_location = temp_address['city'] + ', ' +temp_address['state']
+        city = temp_address['city']
+        city = str(city)
+        city = city.strip()
+        state = temp_address['state']
+        state = str(state)
+        state = state.strip()
+        temp_location = city + ', ' + state
         location = UniqueLocation.objects.get_or_create(location = temp_location)
         location[0].counter += 1
         location[0].save()

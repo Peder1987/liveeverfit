@@ -18,7 +18,7 @@ from workouts.serializers import TitleSerializer
 class VideoViewSet(generics.ListAPIView):
     model = Video
     permission_classes = (IsAuthenticated,)
-    
+    paginate_by = 9
     filter_backends = (DifficultyFilterBackend, WorkoutTagFilterBackend, SearchFilter,)
     search_fields = ('title', )
     

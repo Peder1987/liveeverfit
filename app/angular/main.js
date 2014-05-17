@@ -63,7 +63,8 @@ require.config({
         'underscore': 'common/underscore/underscore',
         'angular-google-maps': 'common/angular-google-maps/dist/angular-google-maps',
         'xeditable' : 'common/angular-xeditable/dist/js/xeditable',
-        'app' : 'app'
+        'geolocation' : 'common/angularjs-geolocation/dist/angularjs-geolocation.min',
+        'app' : 'app',
 
     },
 
@@ -92,7 +93,8 @@ require.config({
             "fullcalendar": ["jquery"],
             'angular-google-maps': ['angular','underscore'],
             'footer': ['app'],
-            'xeditable': ['angular']
+            'xeditable': ['angular'],
+            'geolocation': ['angular']
     },
     //Kick start application
     deps: ['app']
