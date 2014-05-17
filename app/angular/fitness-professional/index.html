@@ -68,7 +68,8 @@
                                     <div class="form-space">
                                         <button id="findMe" ng-click="findMe()" type="button"
                                                 class="col-xs-12 btn btn-primary">
-                                            <span class="glyphicon glyphicon-map-marker"></span> Find Me
+                                            Find Me
+                                            <span class="fa" ng-class="{'fa-compass': !findMeLoading, 'fa-circle-o-notch fa-spin': findMeLoading}"></span>
                                         </button>
                                     </div>
                                 </div>

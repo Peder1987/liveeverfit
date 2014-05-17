@@ -1,8 +1,8 @@
 'use strict';
 
 define(['app'], function (app) {
-    app.register.controller("fitness-professionalCtrl", ["localStorageService","geolocation","$scope", "$http","$resource", "rest", "tokenError", "specialtyTags",
-        function (localStorageService,geolocation,$scope,$http,$resource) {
+    app.register.controller("fitness-professionalCtrl", ["localStorageService", "geolocation", "$scope", "$http", "$resource", "rest", "tokenError", "specialtyTags",
+        function (localStorageService, geolocation, $scope, $http, $resource) {
 
             var filterProfessionalCollection = $resource("http://:url/users/professionals?:filter", {
                     url: $scope.restURL,
@@ -71,30 +71,32 @@ define(['app'], function (app) {
                 $scope.filter();
             };
             $scope.findMe = function () {
-                geolocation.getLocation().then(function(data){
-                  $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-                  delete $http.defaults.headers.common['Authorization']
-
-                  $http.get('https://maps.googleapis.com/maps/api/geocode/json', {
-                        params: {
-                        latlng: $scope.coords.lat+','+$scope.coords.long,
-                        sensor: true,
-                        }
-                    }).then(function(res){
-                        var types = {};
-                        for (var i = 0; i < res.data.results[0].address_components.length; i++) {
-                            var addressType = res.data.results[0].address_components[i].types[0];
-                            types[addressType] = i;
-                        };
-                        $scope.temp_city = (!(types['locality'] === undefined)?res.data.results[0].address_components[types['locality']]['short_name']:!(types['sublocality'] === undefined)?res.data.results[0].address_components[types['sublocality']]['short_name']:!(types['neighborhood'] === undefined)?res.data.results[0].address_components[types['neighborhood']]['short_name'] + ' ':'');
-                        $scope.temp_state = (!(types['administrative_area_level_1'] === undefined)?res.data.results[0].address_components[types['administrative_area_level_1']]['short_name'] + ' ':'');
-                    
-                        $scope.temp_state = $scope.temp_state.trim()
-                        $scope.location= $scope.temp_city + ', ' + $scope.temp_state;
-                        $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
-                        $scope.filter();
+                $scope.findMeLoading = true;
+                geolocation.getLocation().then(function (data) {
+                    angular.extend($scope.map, {
+                        center: data.coords,
+                        zoom: 10
                     });
+                    delete $http.defaults.headers.common['Authorization'];
+                    $http.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                        params: {
+                            latlng: data.coords.latitude + ',' + data.coords.longitude,
+                            sensor: true
+                        }
+                    }).then(function (res) {
+                        var types = {},
+                            city = null,
+                            state = null;
+                        for (var i = 0; i < res.data.results[0].address_components.length; i++) {
+                            types[res.data.results[0].address_components[i].types[0]] = i;
+                        }
+                        city = (!(types['locality'] === undefined) ? res.data.results[0].address_components[types['locality']]['short_name'] : !(types['sublocality'] === undefined) ? res.data.results[0].address_components[types['sublocality']]['short_name'] : !(types['neighborhood'] === undefined) ? res.data.results[0].address_components[types['neighborhood']]['short_name'] + ' ' : '');
+                        state = (!(types['administrative_area_level_1'] === undefined) ? res.data.results[0].address_components[types['administrative_area_level_1']]['short_name'] + ' ' : '').trim();
 
+                        $scope.location = city + ', ' + state;
+                        $scope.filter();
+                        $scope.findMeLoading = false;
+                    });
                     $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
                 });
             };
@@ -133,10 +135,10 @@ define(['app'], function (app) {
             //This section is for the google map
             $scope.map = {
                 center: {
-                    latitude: 30.267153,
-                    longitude: -97.743061
+                    latitude: 38.719805,
+                    longitude: -98.613281
                 },
-                zoom: 5,
+                zoom: 4,
                 control: {}
             };
             $scope.proMouseOver = function (professional) {
@@ -150,7 +152,7 @@ define(['app'], function (app) {
             //filter function
             $scope.filter = function () {
                 $scope.page = 1;
-                var filterPros= filterProfessionalCollection.get({
+                var filterPros = filterProfessionalCollection.get({
                     profession: $scope.profession,
                     gender: $scope.gender,
                     location: $scope.location,
@@ -179,8 +181,8 @@ define(['app'], function (app) {
                                 url: 'data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 60 100"><path fill="#' + gender[professional.gender] + '" d="m50.532 9.799c-4.024-4.941-9.865-8.389-16.158-9.428 -1.444-0.252-2.907-0.371-4.37-0.371l-0.008 0c-1.463 0-2.926 0.119-4.37 0.371 -6.293 1.039-12.134 4.486-16.158 9.427 -4.099 4.957-6.345 11.398-6.237 17.828 0.158 2.438 0.861 4.801 1.734 7.07 1.508 5.257 6.578 11.108 6.578 11.108 6.28 6.377 7.42 8.29 9.586 11.821 1.594 2.969 2.752 5.15 4.25 9.875 3.49 11.716 3.72 27.245 4.617 32.451l0 0.049c0.001-0.008-0.001-0.017 0-0.024 0.001 0.008 0 0.017 0 0.024l0-0.049c1-5.20499 1.132-20.73499 4.621-32.451 1.498-4.724 2.658-6.906 4.252-9.875 2.166-3.531 3.307-5.443 9.587-11.82 0 0 5.071-5.852 6.579-11.108 0.873-2.269 1.576-4.631 1.734-7.07 0.108-6.43-2.138-12.871-6.237-17.828z"/>' + profession[professional.profession] + '</svg>'
                             },
                             events: {
-                                click: function() {
-                                    if($scope.openedWindow) {
+                                click: function () {
+                                    if ($scope.openedWindow) {
                                         $scope.openedWindow.show = false;
                                     }
                                     $scope.openedWindow = professional.marker.window;
@@ -233,7 +235,7 @@ define(['app'], function (app) {
                                 M: "1A8CFF",
                                 F: "ff0066"
                             };
-                            professional.marker = {
+                        professional.marker = {
                             coords: {
                                 latitude: value.lat,
                                 longitude: value.lng
@@ -257,7 +259,7 @@ define(['app'], function (app) {
                     });
                 }, $scope.checkTokenError);
             };
-    }]);
+        }]);
     app.register.service('specialtyTags', function ($q, $rootScope) {
         $rootScope.q = $q
     });
