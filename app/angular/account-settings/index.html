@@ -74,8 +74,8 @@
     
     <div ng-switch="profile_user.type">
         <div ng-switch-when="professional"> <!--Certifications/Social Media only if user is professional-->
-            <div ng-include src="'account-settings/profiles/socialMedia.html'"></div>
-            <div ng-include src="'account-settings/profiles/certifications.html'"></div>
+            <div ng-include src="'account-settings/views/socialMedia.html'"></div>
+            <div ng-include src="'account-settings/views/certifications.html'"></div>
         </div>
         <div ng-switch-when="upgraded">
             
@@ -86,6 +86,6 @@
         <div ng-switch-default></div>
         </div>
     </div>
-    <div ng-include src="'account-settings/profiles/membership.html'"></div>
+    <div ng-include src="'account-settings/views/membership.html'"></div>
 </div>
 

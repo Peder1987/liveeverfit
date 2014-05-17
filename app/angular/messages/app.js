@@ -5,7 +5,7 @@ define(['app', 'videojs'], function (app) {
 
     app.register.controller('messagesCtrl', ["$sce", "$stateParams", "$resource",  
                                             "rest", "tokenError", "localStorageService", "$scope",
-                                            "$anchorScroll", "promiseService", 
+                                            "$anchorScroll", "promiseService", "$http",
 
         function ($sce, $stateParams, $resource, rest, tokenError, localStorageService, $scope) {
 
@@ -21,11 +21,36 @@ define(['app', 'videojs'], function (app) {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
                 });
+            $scope.clientListCollection = $resource(":protocol://:url/users/professionals/client-list/", {
+                    protocol: $scope.restProtocol,
+                    url: $scope.restURL
+                });
+
             // initialize first view
             $scope.view = 'inbox';
             $scope.list = $scope.inboxCollection.get({}, function (data){
                     $scope.list = data.results;
                 });
+
+            $scope.getClientList = function (query) {
+                console.log(query)
+                var deferred = $scope.q.defer();
+                var filtering = {
+                    search: query,
+                };
+                $scope.clientList =  $scope.clientListCollection.query(filtering, function (data) {
+                    console.log(data)
+                    console.log($scope.clientList);
+
+                    deferred.resolve($scope.clientList);
+                    return $scope.clientList;
+                });
+
+                /*if ($scope.location.length <= 0) {
+                    $scope.location = [];
+                }*/
+                return deferred.promise;
+            };
             $scope.inboxClick = function () {
                 
                 $scope.view = 'inbox';

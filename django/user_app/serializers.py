@@ -26,7 +26,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_native(self, value):
         obj = super(UserSerializer, self).to_native(value)
-        #print obj
+        print obj
+
         if Professional.objects.filter(pk=obj['id']).exists():
             pro = Professional.objects.get(pk=obj['id'])
             obj = ProfessionalSerializer(instance=pro).data
@@ -36,7 +37,7 @@ class UserSerializer(serializers.ModelSerializer):
             obj['creditcard'] = pro.stripe_get_creditcard()
             obj['type'] = 'professional'
             print obj
-        elif obj.is_upgraded:
+        elif obj['is_upgraded']:
             obj['type'] = 'upgraded'
         else:
             obj['type'] = 'user'
@@ -84,3 +85,7 @@ class ProfessionalSerializer(serializers.ModelSerializer):
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',)
 
 
+class ClientListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('email',)

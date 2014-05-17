@@ -100,3 +100,12 @@ class TagFilterBackend(filters.BaseFilterBackend):
 
 	class Meta:
 		model = Professional
+
+
+class OwnerFilterBackend(filters.BaseFilterBackend):
+	def filter_queryset(self, request, queryset, view):
+		return queryset.filter(connection=request.user)
+
+	class Meta:
+		model = User
+
