@@ -260,3 +260,4 @@ class ReplyMessageObjView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
     model = Message
     serializer_class = ReplySerializer
+

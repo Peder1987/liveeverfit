@@ -31,5 +31,5 @@ class TitleViewSet(generics.ListAPIView):
 	paginate_by = None
 	serializer_class = TitleSerializer
 	model = Video
-	permission_classes = (AllowAny,)
+	permission_classes = (IsAuthenticated,)
 	search_fields = ('title', )

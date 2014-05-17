@@ -9,7 +9,6 @@ define(['app'], function(app) {
     		
     		$scope.user_id = localStorageService.get('user_id');
     		
-    		
 	        $scope.profileResource = $resource(":protocol://:url/users/:id/",{
 	            protocol: $scope.restProtocol,
 	            url: $scope.restURL,
@@ -22,7 +21,7 @@ define(['app'], function(app) {
 	            id: $scope.user_id
 	        },{update: { method: 'PUT' }});
 	        
-	        $scope.profile_user = $scope.profileResource.get(function() {},$scope.checkTokenError);
+	        $scope.profile_user = $scope.profileResource.get(function() {console.log($scope.profile_user)},$scope.checkTokenError);
 
 
 	        $scope.passwordChange = function (size){
@@ -62,7 +61,8 @@ define(['app'], function(app) {
 				      }
 			      
 			    });
-			    modalInstance.result.then(function () {
+			    modalInstance.result.then(function (email) {
+			    	$scope.profile_user.email = email;
 			      
 			    }, function () {
 			    	
@@ -227,9 +227,10 @@ define(['app'], function(app) {
 			$scope.ok = function(emailEdit) {
 				
 				
-				var newEmail = {email:emailEdit}
+				var newEmail = {email:emailEdit, id:id}
                 var obj = profileResource.update({id:id}, newEmail).$promise.then(
 		        function( value ){/*Do something with value*/
+
             		$modalInstance.close(emailEdit);
 		        },
 		        function( error ){

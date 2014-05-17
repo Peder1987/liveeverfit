@@ -36,4 +36,5 @@ urlpatterns = patterns('',
     url(r'^reply/(?P<message_id>[\d]+)$', ReplyMessageObjView.as_view()),
     url(r'^delete/(?P<pk>[0-9]+)$', DeleteMessageObjView.as_view()),
     url(r'^undelete/(?P<pk>[0-9]+)$', UnDeleteMessageObjView.as_view()),
+    
 )
