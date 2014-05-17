@@ -11,11 +11,11 @@
 
         </div>
     </div>
-    <div ng-switch-when="message">
-        {{msgView.subject}}
-        {{msgView.body}}
-        {{msgView.sender}}
-        {{msgView.recipient}}
+    <div ng-switch-when="openMessage">
+        <div >From: {{msgView.sender}} </div>
+        <!-- <div >{{msgView.recipient}} </div> -->
+        <div > Subject :{{msgView.subject}} </div>
+        <div > Message:{{msgView.body}} </div>
     </div>
 </div>
 

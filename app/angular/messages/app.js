@@ -8,7 +8,12 @@ define(['app', 'videojs'], function (app) {
                                             "$anchorScroll", "promiseService", "$http",
 
         function ($sce, $stateParams, $resource, rest, tokenError, localStorageService, $scope) {
-
+            $scope.newMessage = {
+                body: '',
+                recipient: '',
+                subject: ''
+            }
+            
             $scope.inboxCollection = $resource(":protocol://:url/messages/inbox/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
@@ -25,7 +30,15 @@ define(['app', 'videojs'], function (app) {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
                 });
-
+            $scope.newMessageResource = $resource(":protocol://:url/messages/compose/", {
+                    protocol: $scope.restProtocol,
+                    url: $scope.restURL
+                });
+            $scope.replyMessageResource = $resource(":protocol://:url/messages/reply/:id", {
+                    id: '@id',
+                    protocol: $scope.restProtocol,
+                    url: $scope.restURL
+                });
             // initialize first view
             $scope.view = 'inbox';
             $scope.list = $scope.inboxCollection.get({}, function (data){
@@ -33,22 +46,13 @@ define(['app', 'videojs'], function (app) {
                 });
 
             $scope.getClientList = function (query) {
-                console.log(query)
                 var deferred = $scope.q.defer();
                 var filtering = {
                     search: query,
                 };
                 $scope.clientList =  $scope.clientListCollection.query(filtering, function (data) {
-                    console.log(data)
-                    console.log($scope.clientList);
-
                     deferred.resolve($scope.clientList);
-                    return $scope.clientList;
                 });
-
-                /*if ($scope.location.length <= 0) {
-                    $scope.location = [];
-                }*/
                 return deferred.promise;
             };
             $scope.inboxClick = function () {
@@ -76,10 +80,10 @@ define(['app', 'videojs'], function (app) {
                 });
             };
             $scope.newClick = function () {
-                $scope.view = 'message';
+                $scope.view = 'newMessage';
             };
             $scope.messageOpen = function (data) {
-                $scope.listView = "message";
+                $scope.listView = "openMessage";
                 $scope.msgView = {
                     subject: data.subject,
                     body: data.body,
@@ -87,6 +91,14 @@ define(['app', 'videojs'], function (app) {
                     recipient: data.recipient,
                 }
             };
+            $scope.submitMessage = function () {
+                console.log($scope.newMessage)
+                $scope.newMessageResource.save($scope.newMessage, function (){
+                    
+                });
+                
+            };
+            
         }]);
 
     app.register.service('promiseService', function($q, $rootScope) {

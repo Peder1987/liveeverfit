@@ -19,8 +19,22 @@ define(['app', 'videojs'], function (app) {
             $scope.videoSearch = ''; // this is the search bar string
             $scope.videoTitles = [] // for typeahead
             $scope.next = true;
+                       
+            var tagCollection = $resource(":protocol://:url/tags/", {
+                protocol: $scope.restProtocol,
+                url: $scope.restURL
+            });
+            var tagResource = $resource(":protocol://:url/tags/:id/", {
+                protocol: $scope.restProtocol,
+                url: $scope.restURL,
+                id: '@id'
+            }, {update: { method: 'PUT' }});
 
-
+            //initialize video array
+            var initVideos = filterVideoCollection.get({}, function () {
+                $scope.next = initVideos.next;
+                $scope.videos = initVideos.results;
+            });
             
             var videoCollection = $resource(":protocol://:url/workouts/video/", {
                     protocol: $scope.restProtocol,
@@ -111,11 +125,7 @@ define(['app', 'videojs'], function (app) {
             videojs.options.flash.swf = "common/videojs/dist/video-js/video-js.swf";
 
             $scope.$on('$stateChangeSuccess', getVideo);
-            //initialize video array
-            var initVideos = filterVideoCollection.get({}, function () {
-                $scope.next = initVideos.next;
-                $scope.videos = initVideos.results;
-            });
+            
 
             
             $scope.difficultyOnClick = function (value) {
@@ -138,7 +148,6 @@ define(['app', 'videojs'], function (app) {
                     tags: $scope.tagSelected,
                     search : $scope.videoSelected
                 };
-                //console.log($scope.filtering)
                 var vids = filterVideoCollection.get($scope.filtering, function () {
                     $scope.videos = vids.results;
                     $scope.next = vids.next;
@@ -147,16 +156,8 @@ define(['app', 'videojs'], function (app) {
                 
             };
 
-            /*ANYTHING TAG RELATED, kept it in same scope in order make things less complicated*/
-            var tagCollection = $resource(":protocol://:url/tags/", {
-                protocol: $scope.restProtocol,
-                url: $scope.restURL
-            });
-            var tagResource = $resource(":protocol://:url/tags/:id/", {
-                protocol: $scope.restProtocol,
-                url: $scope.restURL,
-                id: '@id'
-            }, {update: { method: 'PUT' }});
+             /*ANYTHING TAG RELATED, kept it in same scope in order make things less complicated
+              on review decide on how to do this*/
 
             $scope.tags = tagCollection.get(function () {
             }, $scope.checkTokenError);
