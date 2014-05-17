@@ -28,35 +28,8 @@
         return this._isOpen = val;
       }
     };
-    /*
-    Do the same for InfoBox
-    TODO: Clean this up so the logic is defined once, wait until develop becomes master as this will be easier
-    */
+    return;
 
-    if (!window.InfoBox) {
-      return;
-    }
-    window.InfoBox.prototype._open = window.InfoBox.prototype.open;
-    window.InfoBox.prototype._close = window.InfoBox.prototype.close;
-    window.InfoBox.prototype._isOpen = false;
-    window.InfoBox.prototype.open = function(map, anchor) {
-      this._isOpen = true;
-      this._open(map, anchor);
-    };
-    window.InfoBox.prototype.close = function() {
-      this._isOpen = false;
-      this._close();
-    };
-    return window.InfoBox.prototype.isOpen = function(val) {
-      if (val == null) {
-        val = void 0;
-      }
-      if (val == null) {
-        return this._isOpen;
-      } else {
-        return this._isOpen = val;
-      }
-    };
   });
 
 }).call(this);
@@ -4268,7 +4241,32 @@ InfoBox.prototype.close = function () {
     }
 
     this.setMap(null);
-};;/**
+};
+InfoBox.prototype._open = window.InfoBox.prototype.open;
+InfoBox.prototype._close = window.InfoBox.prototype.close;
+InfoBox.prototype._isOpen = false;
+InfoBox.prototype.open = function(map, anchor) {
+    this._isOpen = true;
+    this._open(map, anchor);
+};
+InfoBox.prototype.close = function() {
+    this._isOpen = false;
+    this._close();
+};
+InfoBox.prototype.isOpen = function(val) {
+    if (val == null) {
+        val = void 0;
+    }
+    if (val == null) {
+        return this._isOpen;
+    } else {
+        return this._isOpen = val;
+    }
+};
+
+
+
+/**
  * @name MarkerClustererPlus for Google Maps V3
  * @version 2.1.1 [November 4, 2013]
  * @author Gary Little

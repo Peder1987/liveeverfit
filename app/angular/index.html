@@ -14,9 +14,8 @@
         <div ng-controller="NavCtrl" ng-include="templateNav.url"></div>
         <div id="page" ng-controller="PageCtrl" ui-view autoscroll="false" ng-class="{'no-nav': token == null}"></div>
         <!--<footer ng-controller="footerCtrl" ng-include="templateNav.url"></footer>-->
-        <script src="common/require/require.js" data-main="main.js"></script>
-
         <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+        <script src="common/require/require.js" data-main="main.js"></script>
     </body>
 </html>
 

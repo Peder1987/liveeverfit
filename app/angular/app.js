@@ -7,7 +7,7 @@
 'use strict';
 
 
-define(['angularAMD', 'uiRouter', 'uiBootstrap', 'routeResolver', 'angularResource', 'angularLocalStorage', 'autoFillEvent', 'jquery', 'jqueryui', 'fullcalendar', 'ui.calendar', 'ui.utils', 'ui.bootstrap.datepicker', 'ui.bootstrap.timepicker', 'ui.bootstrap.modal', 'ui.bootstrap.tabs', 'ui.bootstrap.carousel', 'ngTagsInput', 'underscore','angular-google-maps', 'stripeJS', "stripe",  "xeditable",], function (angularAMD) {
+define(['angularAMD', 'uiRouter', 'uiBootstrap', 'routeResolver', 'angularResource', 'angularLocalStorage', 'autoFillEvent', 'jquery', 'jqueryui', 'fullcalendar', 'ui.calendar', 'ui.utils', 'ui.bootstrap.datepicker', 'ui.bootstrap.timepicker', 'ui.bootstrap.modal', 'ui.bootstrap.tabs', 'ui.bootstrap.carousel', 'ngTagsInput', 'underscore','angular-google-maps','stripeJS', "stripe",  "xeditable"], function (angularAMD) {
     'use strict';
 
     var app = angular.module('app', ['ui.router', 'ui.route', 'ui.bootstrap', 'ui.bootstrap.datepicker', 'ngTagsInput', 'ui.bootstrap.timepicker', 'ui.bootstrap.modal', 'ui.bootstrap.carousel', 'routeResolverServices', 'ngResource', 'LocalStorageModule', 'ui.calendar', 'ui.bootstrap.tabs', 'google-maps', "xeditable"]);
@@ -63,7 +63,7 @@ define(['angularAMD', 'uiRouter', 'uiBootstrap', 'routeResolver', 'angularResour
 
     app.service('tokenError', ['$rootScope', function ($rootScope) {
         $rootScope.checkTokenError = function (error) {
-            if (error.data['detail'] == 'Invalid token') {
+            if (error.data && error.data['detail'] == 'Invalid token') {
                 window.location = '/#/logout';
             }
         }

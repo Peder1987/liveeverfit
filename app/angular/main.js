@@ -63,7 +63,7 @@ require.config({
         'underscore': 'common/underscore/underscore',
         'angular-google-maps': 'common/angular-google-maps/dist/angular-google-maps',
         'xeditable' : 'common/angular-xeditable/dist/js/xeditable',
-        'app' : 'app',
+        'app' : 'app'
 
     },
 
@@ -90,7 +90,7 @@ require.config({
             'underscore': ['angular'],
             "jqueryui": ["jquery"],
             "fullcalendar": ["jquery"],
-            'angular-google-maps': ['underscore'],
+            'angular-google-maps': ['angular','underscore'],
             'footer': ['app'],
             'xeditable': ['angular']
     },
