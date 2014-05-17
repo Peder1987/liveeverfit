@@ -87,7 +87,6 @@ define(['app', 'videojs'], function (app) {
                     recipient: data.recipient,
                 }
             };
-
         }]);
 
     app.register.service('promiseService', function($q, $rootScope) {
