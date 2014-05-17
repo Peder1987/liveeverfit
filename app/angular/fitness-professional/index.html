@@ -4,6 +4,7 @@
         <window show="professional.marker.window.show" options="professional.marker.window.options">
             <div class="closeBg"></div>
             <img class="img" src="/common/media/{{professional.img}}"/>
+
             <div class="pro-overlay" ng-click="alert()">
                 <div class="pro-overlay-text">
                     <div class="name">{{professional.first_name}} {{professional.last_name}}</div>
@@ -22,35 +23,33 @@
 
             <div class="form" role="form">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-xs-12">
                         <div class="form-group">
                             <label>Type</label>
 
                             <div class="row">
-                                <div class="col-sm-6 col-md-12 col-lg-6">
-                                    <div class="form-space">
-                                        <button id="Trainer" type="button"
-                                                class="col-xs-12 btn toggle proffesional"
-                                                ng-class="{selected: professionSelected['Trainer']}"
-                                                ng-click="professionOnClick('Trainer')">
-                                            Trainers <span class="fa fa-user pull-right"></span>
-                                        </button>
-                                    </div>
+                                <div class="col-sm-6 col-lg-6">
+                                    <button id="Trainer" type="button"
+                                            class="col-xs-12 btn toggle proffesional"
+                                            ng-class="{selected: professionSelected['Trainer']}"
+                                            ng-click="professionOnClick('Trainer')">
+                                        Trainers <span class="fa fa-user pull-right"></span>
+                                    </button>
                                 </div>
-                                <div class="col-sm-6 col-md-12 col-lg-6">
-                                    <div class="form-space">
-                                        <button id="Nutritionist" type="button"
-                                                class="col-xs-12 btn toggle proffesional"
-                                                ng-class="{selected: professionSelected['Nutritionist']}"
-                                                ng-click="professionOnClick('Nutritionist')">
-                                            Nutritionists
-                                            <span class="fa fa-heart pull-right"></span>
-                                        </button>
-                                    </div>
+                                <div class="col-sm-6 col-lg-6 col-">
+                                    <button id="Nutritionist" type="button"
+                                            class="col-xs-12 btn toggle proffesional"
+                                            ng-class="{selected: professionSelected['Nutritionist']}"
+                                            ng-click="professionOnClick('Nutritionist')">
+                                        Nutritionists
+                                        <span class="fa fa-heart pull-right"></span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Location</label>
@@ -67,8 +66,35 @@
                                 </div>
                                 <div class="col-sm-4 col-md-12 col-lg-4">
                                     <div class="form-space">
-                                        <button id="findMe" ng-click= "findMe()" type="button" class="col-xs-12 btn btn-primary">
+                                        <button id="findMe" ng-click="findMe()" type="button"
+                                                class="col-xs-12 btn btn-primary">
                                             <span class="glyphicon glyphicon-map-marker"></span> Find Me
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Gender</label>
+
+                            <div class="row">
+                                <div class="col-xs-6 col-md-12 col-lg-6">
+                                    <div class="form-space">
+                                        <button id="M" type="button" class="col-xs-12 btn toggle gender"
+                                                ng-class="{selected: genderSelected['M']}"
+                                                ng-click="genderOnClick('M')">Male
+                                            <span class="fa fa-male pull-right"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-12 col-lg-6">
+                                    <div class="form-space">
+                                        <button id="F" type="button" class="col-xs-12 btn toggle gender"
+                                                ng-class="{selected: genderSelected['F']}"
+                                                ng-click="genderOnClick('F')">Female
+                                            <span class="fa fa-female pull-right"></span>
                                         </button>
                                     </div>
                                 </div>
@@ -79,23 +105,19 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Gender</label>
+                            <label>Specialties</label>
 
                             <div class="row">
-                                <div class="col-xs-6 col-sm-4 col-md-6 col-lg-4">
+                                <div class="col-xs-12">
                                     <div class="form-space">
-                                        <button id="M" type="button" class="col-xs-12 btn toggle gender"
-                                                ng-class="{selected: genderSelected['M']}"
-                                                ng-click="genderOnClick('M')">Male
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-4 col-md-6 col-lg-4">
-                                    <div class="form-space">
-                                        <button id="F" type="button" class="col-xs-12 btn toggle gender"
-                                                ng-class="{selected: genderSelected['F']}"
-                                                ng-click="genderOnClick('F')">Female
-                                        </button>
+                                        <tags-input id="specialties" type="text" class="bootstrap"
+                                                    placeholder="Example: Crossfit, Nutrition"
+                                                    ng-model="specialtySearch" display-property="name"
+                                                    on-tag-removed="onDeleteTag($tag)"
+                                                    on-tag-added="onTagAdd($tag)">
+                                            <auto-complete source="loadSpecialty($query)"
+                                                           min-length="1"></auto-complete>
+                                        </tags-input>
                                     </div>
                                 </div>
                             </div>
@@ -114,28 +136,6 @@
                                             <option value="True">Yes</option>
                                             <option value="False">No</option>
                                         </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Specialties</label>
-
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="form-space">
-                                        <tags-input id="specialties" type="text" class="bootstrap"
-                                                    placeholder="Example: Crossfit, Nutrition"
-                                                    ng-model="specialtySearch" display-property="name"
-                                                    on-tag-removed="onDeleteTag($tag)"
-                                                    on-tag-added="onTagAdd($tag)">
-                                            <auto-complete source="loadSpecialty($query)"
-                                                           min-length="1"></auto-complete>
-                                        </tags-input>
                                     </div>
                                 </div>
                             </div>
@@ -169,6 +169,7 @@
                      ng-mouseleave="proMouseOut(professional)">
                     <div class="thumbnail">
                         <img src="/common/media/{{professional.img}}"/>
+
                         <div class="caption">
                             {{professional.first_name}} {{professional.last_name}}<br/>
                             {{professional.profession}}<br>
@@ -181,7 +182,9 @@
                 </div>
             </div>
         </div>
-        <button ng-show="next" id="showMore" type="button" class="btn btn-primary btn-lg btn-block" ng-click="getPros()">Show More</button>
+        <button ng-show="next" id="showMore" type="button" class="btn btn-primary btn-lg btn-block"
+                ng-click="getPros()">Show More
+        </button>
         <!-- /.trainer-results -->
     </div>
 </div><!-- /.sidebar-->
