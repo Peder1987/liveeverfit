@@ -64,7 +64,7 @@ require.config({
         'angular-google-maps': 'common/angular-google-maps/dist/angular-google-maps',
         'xeditable' : 'common/angular-xeditable/dist/js/xeditable',
         'geolocation' : 'common/angularjs-geolocation/dist/angularjs-geolocation.min',
-        'app' : 'app',
+        'app' : 'app'
 
     },
 
