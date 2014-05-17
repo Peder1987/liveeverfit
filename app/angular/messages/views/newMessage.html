@@ -1,22 +1,20 @@
 <div class="col-xs-12 col-sm-9">
-    <form action="" method="post">
-        
 
+    <form method="post">
         <div class="form-group">
             <label for="id_recipient">Recipient:</label>
-            <input id="id_recipient"  class="form-control" name="recipient" type="text" value="" ng-model="newMessage.recipient" 
-                                               typeahead="obj.email for obj in getClientList($viewValue)" tyepahead-min-length="1">
+            <input id="id_recipient" class="form-control" name="recipient" type="text"
+                   ng-model="newMessage.recipient"
+                   typeahead="obj.email for obj in getClientTypeAhead($viewValue)">
         </div>
-
         <div class="form-group">
             <label for="id_subject">Subject:</label>
-            <input id="id_subject" class="form-control" maxlength="120" name="subject" type="text" value="" ng-model="newMessage.subject">
+            <input id="id_subject" class="form-control" maxlength="120" name="subject" type="text" ng-model="newMessage.subject">
         </div>
         <div class="form-group">
             <label for="id_body">Body:</label>
-            <textarea cols="55" class="form-control" id="id_body" name="body" rows="12" ng-model="newMessage.body"></textarea>
+            <textarea class="form-control" id="id_body" name="body" rows="13" ></textarea>
         </div>
-
         <button type="submit" class="btn btn-primary" ng-click="submitMessage()">Submit</button>
     </form>
 </div>
