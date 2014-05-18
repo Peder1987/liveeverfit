@@ -30,11 +30,7 @@ define(['app', 'videojs'], function (app) {
                 id: '@id'
             }, {update: { method: 'PUT' }});
 
-            //initialize video array
-            var initVideos = filterVideoCollection.get({}, function () {
-                $scope.next = initVideos.next;
-                $scope.videos = initVideos.results;
-            });
+            
             
             var videoCollection = $resource(":protocol://:url/workouts/video/", {
                     protocol: $scope.restProtocol,
@@ -81,6 +77,11 @@ define(['app', 'videojs'], function (app) {
                     filter: '@filter',
                     url: $scope.restURL
                 });
+            //initialize video array
+            var initVideos = filterVideoCollection.get({}, function () {
+                $scope.next = initVideos.next;
+                $scope.videos = initVideos.results;
+            });
 
             $scope.videoTitleCollection =  $resource("http://:url/workouts/titles",{
                 url: $scope.restURL
