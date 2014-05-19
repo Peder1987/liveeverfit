@@ -89,3 +89,28 @@ class ClientListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name',)
+
+
+class ModifyMembershipSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source='email', required=False)
+    
+    class Meta:
+        model = User
+        
+
+
+class PaymentSerializer(serializers.ModelSerializer):
+    #email = serializers.EmailField(source='email', required=False)
+    stripeToken = serializers.CharField(required=True)
+
+    class Meta:
+        model = User
+        fields = ('id','stripeToken',)
+
+    def to_native(self, value):
+        # no need to return anything
+        obj = super(PaymentSerializer,self).to_native(value)
+        stripe_token = obj['stripeToken']
+        value.stripe_edit_creditcard(stripe_token)
+
+    

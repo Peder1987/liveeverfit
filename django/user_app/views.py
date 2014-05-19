@@ -11,6 +11,7 @@ from rest_framework import generics
 from .filters import UserFilter, GenderFilterBackend, ProfessionFilterBackend, LocationFilterBackend, AcceptingFilterBackend, TagFilterBackend
 from .filters import OwnerFilterBackend
 from .serializers import UserSerializer, PasswordSerializer, GroupSerializer, ProfessionalListSerializer, LocationSerializer, ClientListSerializer
+from .serializers import PaymentSerializer, ModifyMembershipSerializer
 from .permissions import IsAdminOrSelf
 from .models import Professional, UniqueLocation
 
@@ -58,3 +59,19 @@ class ClientListView(generics.ListAPIView):
     serializer_class = ClientListSerializer
     filter_backends = (OwnerFilterBackend, filters.SearchFilter,)
     search_fields = ('email', 'first_name', 'last_name')
+
+
+
+    
+
+class ModifyMembershipView(generics.RetrieveUpdateDestroyAPIView):
+    model = User
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ModifyMembershipSerializer
+    
+
+class PaymentView(generics.RetrieveUpdateDestroyAPIView):
+    model = User
+    permission_classes = (IsAdminOrSelf,)
+    serializer_class = PaymentSerializer
+    
