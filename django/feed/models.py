@@ -1,9 +1,14 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 User = get_user_model()
-# Create your models here.
+from django.utils.translation import ugettext_lazy as _
+
+# FOR MORE INFORMATION REFER TO THIS
+# https://django-model-utils.readthedocs.org/en/latest/managers.html
+
 class Feed(models.Model):
     user = models.ForeignKey(User)
+
     
     # first_name = models.CharField(_('first name'), max_length=30, blank=True)
     # last_name = models.CharField(_('last name'), max_length=30, blank=True)
@@ -29,13 +34,20 @@ class Feed(models.Model):
 
 
 
-
 class Entry(models.Model):
-	"""
+    """
 	Entry class will be abstracted in order to 
 	define the types of entries
 	"""
     class Meta:
         abstract = True
+
+class TextEntry(Entry):
+    text = models.CharField(_('text'), max_length=300, blank=False)
+
+
+
+class PhotoEntry(Entry):
+    text = models.CharField(_('text'), max_length=300, blank=False)
 
 

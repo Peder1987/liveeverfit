@@ -169,6 +169,8 @@ INSTALLED_APPS = (
     'chargify',
     'workouts',
     'messages',
+    'feed',
+    'model_utils',
     # 'board',
     # 'registration',
     # 'ws4redis',
