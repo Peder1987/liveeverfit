@@ -6,7 +6,7 @@ define(['app'], function(app) {
     		$scope.token = localStorageService.get('Authorization');
             if ($scope.token === null) {
               //$scope.homeTemplate = {name: 'loggedout.html', url: 'home/loggedout.html'};
-                window.location = "http://liveeverfit.com/landing/";
+                window.location = "http://dev.liveeverfit.com/landing/";
             } else {
               $scope.homeTemplate = {name: 'loggedin.html', url: 'home/loggedin.html'};
             }
