@@ -32,7 +32,7 @@ class UserSerializer(serializers.ModelSerializer):
             pro = Professional.objects.get(pk=obj['id'])
             obj = ProfessionalSerializer(instance=pro).data
 
-            obj['customer_list'] = pro.user_connections.all()
+            #obj['customer_list'] = pro.user_connections.all()
             obj['shopify_sales'] = pro.shopify_sales()
             obj['creditcard'] = pro.stripe_get_creditcard()
             obj['type'] = 'professional'
@@ -82,7 +82,7 @@ class ProfessionalSerializer(serializers.ModelSerializer):
     img = serializers.ImageField(allow_empty_file=True, required=False)
     class Meta:
         model = Professional
-        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',)
+        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list")
 
 
 class ClientListSerializer(serializers.ModelSerializer):
