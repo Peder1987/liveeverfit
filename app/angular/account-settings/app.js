@@ -256,6 +256,7 @@ define(['app'], function(app) {
             });
 
 			$scope.ok = function() {
+				console.log('hello');
                
 			}
 
