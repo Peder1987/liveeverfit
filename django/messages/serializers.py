@@ -7,7 +7,8 @@ from django.utils.timezone import now
 
 class InboxSerializer(serializers.ModelSerializer):
     sender = serializers.IntegerField(source='sender.email', required=True)  
-    recipient = serializers.CharField(source='recipient.email', required=False)
+    img = serializers.IntegerField(source='sender.img', required=True)  
+    #recipient = serializers.CharField(source='recipient.email', required=False)
     
     class Meta:
         model = Message
