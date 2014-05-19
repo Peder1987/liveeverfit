@@ -16,7 +16,7 @@ class InboxSerializer(serializers.ModelSerializer):
     
 class SentSerializer(serializers.ModelSerializer):
     recipient = serializers.IntegerField(source='recipient.email', required=True)  
-    img = serializers.IntegerField(source='recipient.img', required=True)  
+    img = serializers.IntegerField(source='recipient.img.url', required=True)  
     class Meta:
         model = Message
         

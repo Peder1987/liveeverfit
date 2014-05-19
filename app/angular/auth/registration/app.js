@@ -48,6 +48,19 @@ define(['app'], function(app) {
 				lng: ''
 			};
 
+			$scope.creditcard = {
+				name : '',
+				number : '',
+				cvc : '',
+				exp_month : '',
+				exp_year : '',
+				address_line1 : '',
+				address_line2 : '',
+				address_city : '',
+				address_country : '',
+				address_state : '',
+				address_zip : '',
+    		}
 
     		var AuthToken =  $resource("http://:url/accounts/register/", {
                 url: $scope.restURL
