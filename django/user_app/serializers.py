@@ -26,7 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_native(self, value):
         obj = super(UserSerializer, self).to_native(value)
-        print obj
+            
 
         if Professional.objects.filter(pk=obj['id']).exists():
             pro = Professional.objects.get(pk=obj['id'])
@@ -35,6 +35,7 @@ class UserSerializer(serializers.ModelSerializer):
             #obj['customer_list'] = pro.user_connections.all()
             obj['shopify_sales'] = pro.shopify_sales()
             obj['creditcard'] = pro.stripe_get_creditcard()
+            print pro.stripe_get_creditcard()
             obj['type'] = 'professional'
             print obj
         elif obj['is_upgraded']:

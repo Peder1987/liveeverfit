@@ -95,8 +95,8 @@ def delete_creditcard(customer):
 		customer.cards.retrieve(default_card).delete()
 
 def get_creditcard(self):
+	customer = self.stripe_get_create_customer()
 	if self.stripe_id:
-		customer = self.stripe_get_create_customer()
 		default_card =  customer.default_card
 		if default_card:
 			card = customer.cards.retrieve(default_card)

@@ -266,19 +266,38 @@ define(['app'], function(app) {
     };
     var paymentDetailCtrl = function($scope, $resource, $modalInstance, localStorageService, $http, profile_user, profileResource) {
     		$scope.message = '';
-    		$scope.creditcard = {
-				name : profile_user.creditcard.name,
-				number : profile_user.creditcard.number,
-				cvc : profile_user.creditcard.cvc,
-				exp_month : profile_user.creditcard.exp_month,
-				exp_year : profile_user.creditcard.exp_year,
-				address_line1 : profile_user.creditcard.address_line1,
-				address_line2 : profile_user.creditcard.address_line2,
-				address_city : profile_user.creditcard.address_city,
-				address_country : profile_user.creditcard.address_country,
-				address_state : profile_user.creditcard.address_state,
-				address_zip : profile_user.creditcard.address_zip,
+
+    		if(profile_user.creditcard){
+	    		$scope.creditcard = {
+					name : profile_user.creditcard.name,
+					number : profile_user.creditcard.number,
+					cvc : profile_user.creditcard.cvc,
+					exp_month : profile_user.creditcard.exp_month,
+					exp_year : profile_user.creditcard.exp_year,
+					address_line1 : profile_user.creditcard.address_line1,
+					address_line2 : profile_user.creditcard.address_line2,
+					address_city : profile_user.creditcard.address_city,
+					address_country : profile_user.creditcard.address_country,
+					address_state : profile_user.creditcard.address_state,
+					address_zip : profile_user.creditcard.address_zip,
+	    		}
+
+    		}else{
+    			$scope.creditcard = {
+					name : "",
+					number : "",
+					cvc : "",
+					exp_month : "",
+					exp_year : "",
+					address_line1 : "",
+					address_line2 : "",
+					address_city : "",
+					address_country : "",
+					address_state : "",
+					address_zip : "",
+	    		}
     		}
+
 			$scope.ok = function() {
 				var stripeToken;
 				var paymentResource = $resource(":protocol://:url/users/modify-payment-details/:id",{
