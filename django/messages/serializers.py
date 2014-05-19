@@ -48,25 +48,26 @@ class UnDeleteSerializer(serializers.ModelSerializer):
 
         
 class ComposeSerializer(serializers.ModelSerializer):
+    recipient = serializers.SlugRelatedField(slug_field="email")
+
     class Meta:
         model = Message
-        #fields = ('id',)
-    def restore_object(self, attrs, instance=None):
-        """
-        Given a dictionary of deserialized field values, either update
-        an existing model instance, or create a new model instance.
-        """
-        obj = super(ReplySerializer, self).restore_object(attrs, instance)
+        fields = ('recipient', 'subject', 'body', 'sender')
 
-        print obj
-        obj.save()
-        return obj
+    def __init__(self, *args, **kwargs):
+        
+        # Logged in user to be sender
+        user = kwargs['context']['request'].user
+        kwargs['data']['sender'] = user.pk
+        print kwargs
+        return super(ComposeSerializer, self).__init__(*args, **kwargs)
 
 
 class ReplySerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         #fields = ('id',)
+
     def restore_object(self, attrs, instance=None):
         """
         Given a dictionary of deserialized field values, either update

@@ -18,51 +18,13 @@ from messages.models import Message
 from messages.forms import ComposeForm
 from messages.utils import format_quote, get_user_model, get_username_field
 from messages.filters import InboxOwnerBackendFilter, SentOwnerBackendFilter, DeletedOwnerBackendFilter
-from messages.serializers import DeleteSerializer, UnDeleteSerializer, ReplySerializer, InboxSerializer
+from messages.serializers import DeleteSerializer, UnDeleteSerializer, ReplySerializer, InboxSerializer, ComposeSerializer
 User = get_user_model()
 
 if "notification" in settings.INSTALLED_APPS:
     from notification import models as notification
 else:
     notification = None
-
-def inbox(request, template_name='messages/inbox.html'):
-    """
-    Displays a list of received messages for the current user.
-    Optional Arguments:
-        ``template_name``: name of the template to use.
-    """
-    message_list = Message.objects.inbox_for(request.user)
-    return render_to_response(template_name, {
-        'message_list': message_list,
-    }, context_instance=RequestContext(request))
-inbox = login_required(inbox)
-
-def outbox(request, template_name='messages/outbox.html'):
-    """
-    Displays a list of sent messages by the current user.
-    Optional arguments:
-        ``template_name``: name of the template to use.
-    """
-    message_list = Message.objects.outbox_for(request.user)
-    return render_to_response(template_name, {
-        'message_list': message_list,
-    }, context_instance=RequestContext(request))
-outbox = login_required(outbox)
-
-def trash(request, template_name='messages/trash.html'):
-    """
-    Displays a list of deleted messages. 
-    Optional arguments:
-        ``template_name``: name of the template to use
-    Hint: A Cron-Job could periodicly clean up old messages, which are deleted
-    by sender and recipient.
-    """
-    message_list = Message.objects.trash_for(request.user)
-    return render_to_response(template_name, {
-        'message_list': message_list,
-    }, context_instance=RequestContext(request))
-trash = login_required(trash)
 
 def compose(request, recipient=None, form_class=ComposeForm,
         template_name='messages/compose.html', success_url=None, recipient_filter=None):
@@ -253,7 +215,8 @@ class UnDeleteMessageObjView(generics.UpdateAPIView):
 class ComposeMessageObjView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
     model = Message
-    
+    serializer_class= ComposeSerializer
+        
 
 
 class ReplyMessageObjView(generics.CreateAPIView):
