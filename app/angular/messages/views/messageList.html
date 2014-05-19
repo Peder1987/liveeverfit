@@ -8,9 +8,21 @@
                          style="width: 64px; height: 64px;">
 
                     <div class="media-body">
-                        <div><b>{{msg.sender}}</b></div>
-                        <div>{{msg.subject}}</div>
-                        <div class="blue">{{msg.body | limitTo: 8}}...</div>
+                        <div ng-switch="view" class="col-xs-12 col-sm-9">
+                            <div ng-switch-when="sent">
+                                <div><b>{{msg.recipient}}</b></div>
+                                <div>{{msg.subject}}</div>
+                                <div class="blue">{{msg.body | limitTo: 8}}...</div>
+                            </div>
+                            <div ng-switch-default>
+                                <div><b>{{msg.sender}}</b></div>
+                                <div>{{msg.subject}}</div>
+                                <div class="blue">{{msg.body | limitTo: 8}}...</div>
+                                
+                            </div>
+                        </div>
+            
+                        
 
                     </div>
                 </div>

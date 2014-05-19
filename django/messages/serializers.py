@@ -14,7 +14,12 @@ class InboxSerializer(serializers.ModelSerializer):
         model = Message
     
     
-
+class SentSerializer(serializers.ModelSerializer):
+    recipient = serializers.IntegerField(source='recipient.email', required=True)  
+    img = serializers.IntegerField(source='recipient.img', required=True)  
+    class Meta:
+        model = Message
+        
 
 class DeleteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -60,7 +65,6 @@ class ComposeSerializer(serializers.ModelSerializer):
         # Logged in user to be sender
         user = kwargs['context']['request'].user
         kwargs['data']['sender'] = user.pk
-        print kwargs
         return super(ComposeSerializer, self).__init__(*args, **kwargs)
 
 

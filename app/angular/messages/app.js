@@ -42,9 +42,7 @@ define(['app', 'videojs'], function (app) {
                 });
             // initialize first view
             $scope.view = 'inbox';
-            $scope.list = $scope.inboxCollection.get({}, function (data){
-                    $scope.list = data.results;
-                });
+            
 
             $scope.getClientList = function (query) {
                 var deferred = $scope.q.defer();
@@ -59,7 +57,6 @@ define(['app', 'videojs'], function (app) {
             $scope.inboxClick = function () {
                 
                 $scope.view = 'inbox';
-                $scope.listView = "false";
                 var items = $scope.inboxCollection.get({}, function (data){
                     $scope.list = data.results;
                 });
@@ -67,7 +64,6 @@ define(['app', 'videojs'], function (app) {
             };
             $scope.outboxClick = function () {
                 $scope.view = 'outbox';
-                $scope.listView = "false";
                 var items = $scope.sentCollection.get({}, function (data){
                     $scope.list = data.results;
                 });
@@ -75,7 +71,6 @@ define(['app', 'videojs'], function (app) {
             $scope.trashClick = function () {
                 $scope.view = 'trash';
                 $scope.title = 'trash';
-                $scope.listView = "false";
                 var items = $scope.trashCollection.get({}, function (data){
                     $scope.list = data.results;
                 });
@@ -84,7 +79,6 @@ define(['app', 'videojs'], function (app) {
                 $scope.view = 'newMessage';
             };
             $scope.messageOpen = function (data) {
-                $scope.listView = "openMessage";
                 $scope.msgView = {
                     subject: data.subject,
                     body: data.body,
