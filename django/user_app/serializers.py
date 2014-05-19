@@ -88,4 +88,4 @@ class ProfessionalSerializer(serializers.ModelSerializer):
 class ClientListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email',)
+        fields = ('email', 'first_name', 'last_name',)

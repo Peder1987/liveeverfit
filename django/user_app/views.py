@@ -57,4 +57,4 @@ class ClientListView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = ClientListSerializer
     filter_backends = (OwnerFilterBackend, filters.SearchFilter,)
-    search_fields = ('email', )
+    search_fields = ('email', 'first_name', 'last_name')
