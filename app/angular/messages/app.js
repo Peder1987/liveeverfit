@@ -63,20 +63,11 @@ define(['app', 'videojs'], function (app) {
                             $scope.trashCollection.get({}, success);
                         },
                         new: function () {
-                            if ($stateParams.recipient) {
-                                $scope.newMessage = {
-                                    body: '',
-                                    recipient: $stateParams.recipient,
-                                    subject: ''
-                                };
-                            }
-                            else {
-                                $scope.newMessage = {
-                                    body: '',
-                                    recipient: '',
-                                    subject: ''
-                                };
-                            }
+                            $scope.newMessage = {
+                                body: '',
+                                recipient: $stateParams.recipient || '',
+                                subject: ''
+                            };
                         }
                     };
                 $scope.view = $stateParams.view || 'inbox';
