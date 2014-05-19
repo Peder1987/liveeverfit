@@ -13,7 +13,7 @@
         </div>
         <div class="form-group">
             <label for="id_body">Body:</label>
-            <textarea class="form-control" id="id_body" name="body" rows="13" ></textarea>
+            <textarea class="form-control" id="id_body" name="body" rows="13" ng-model="newMessage.body"></textarea>
         </div>
         <button type="submit" class="btn btn-primary" ng-click="submitMessage()">Submit</button>
     </form>

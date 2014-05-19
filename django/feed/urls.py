@@ -12,7 +12,7 @@ from schedule.views import EventViewSet,EventObjectViewSet, EventViewSet
 
 
 urlpatterns = patterns('',
-    url(r'^(?P<pk>[0-9]+)$', EventViewSet.as_view()),
-    url(r'^event/?$', EventViewSet.as_view()),
-    url(r'^event/(?P<pk>[0-9]+)$', EventObjectViewSet.as_view()),
+    # url(r'^(?P<pk>[0-9]+)$', EventViewSet.as_view()),
+    # url(r'^event/?$', EventViewSet.as_view()),
+    # url(r'^event/(?P<pk>[0-9]+)$', EventObjectViewSet.as_view()),
 )
