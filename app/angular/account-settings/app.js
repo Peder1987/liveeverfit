@@ -183,7 +183,15 @@ define(['app'], function(app) {
 	        	var obj = $scope.profileResource.update({id:$scope.profile_user.id}, temp);
 			    
 	        };
-
+	        $scope.cancelMembership = function (){
+	        	console.log('dib');
+			    
+	        };
+	        $scope.modifyTier = function (){
+	        	console.log('dib');
+			    
+	        };
+	        
 			
     }]);
 	
