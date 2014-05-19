@@ -1,29 +1,19 @@
 <div class="row">
     <div ng-class="{'col-xs-12': !detail, 'col-xs-4': detail}">
-        <div ng-repeat="msg in list" class="list-group">
-            <a ui-sref="messages.view.detail({index: $index})" class="list-group-item">
+        <div class="list-group">
+            <a ng-repeat="msg in list" ui-sref="messages.view.detail({index: $index})" class="list-group-item">
                 <div class="media">
                     <img class="media-object pull-left" data-src="holder.js/64x64" alt="64x64"
-                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+"
+                         src="common/media/{{msg.img}}"
                          style="width: 64px; height: 64px;">
 
                     <div class="media-body">
-                        <div ng-switch="view" class="col-xs-12 col-sm-9">
-                            <div ng-switch-when="sent">
-                                <div><b>{{msg.recipient}}</b></div>
-                                <div>{{msg.subject}}</div>
-                                <div class="blue">{{msg.body | limitTo: 8}}...</div>
-                            </div>
-                            <div ng-switch-default>
-                                <div><b>{{msg.sender}}</b></div>
-                                <div>{{msg.subject}}</div>
-                                <div class="blue">{{msg.body | limitTo: 8}}...</div>
-                                
-                            </div>
+                        <div class="col-xs-12 col-sm-9">
+                            <div ng-if="view == 'sent'"><b>{{msg.recipient}}</b></div>
+                            <div ng-if="view == 'inbox'"><b>{{msg.sender}}</b></div>
+                            <div>{{msg.subject}}</div>
+                            <div class="blue">{{msg.body | limitTo: 13}}...</div>
                         </div>
-            
-                        
-
                     </div>
                 </div>
             </a>
@@ -33,11 +23,12 @@
     <div ng-if="detail" class="col-xs-8">
         <div class="media">
             <img class="media-object pull-left" data-src="holder.js/64x64" alt="64x64"
-                 src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+"
+                 src="common/media/{{detail.img}}"
                  style="width: 64px; height: 64px;">
 
             <div class="media-body">
-                <div><b>{{detail.sender}}</b></div>
+                <div ng-if="view == 'sent'"><b>{{detail.recipient}}</b></div>
+                <div ng-if="view == 'inbox'"><b>{{detail.sender}}</b></div>
                 <div>{{detail.subject}}</div>
             </div>
         </div>
