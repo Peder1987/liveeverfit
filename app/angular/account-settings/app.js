@@ -75,22 +75,24 @@ define(['app'], function(app) {
 			    });
 	        };
 
-	        $scope.photoChange = function (size){
-	       
+
+	        $scope.photoChange = function(size){
 	        	var modalInstance = $modal.open({
-			      templateUrl: 'account-settings/modals/photoChange.html',
-			      controller : 'photoChangeCtrl',
-			      size: size,
-			      resolve: {
-					        email: function () {
-					          return  $scope.profile_user.email;
-					        }
-				      }
-			    });
-			    modalInstance.result.then(function () {
-			      
-			    }, function () {
-			 
+	        		templateUrl: 'account-settings/modals/photoChange.html',
+	        		controller : 'photoChangeCtrl',
+	        		size: size,
+	        		resolve: {
+	        			id : function(){
+	        				return $scope.profile_user.id;
+	        			},
+	        			email: function () {
+	        				return  $scope.profile_user.email;
+	        			}
+	        		}
+	        	});
+	        	modalInstance.result.then(function(){
+			    },function(){
+
 			    });
 	        };
 
@@ -194,25 +196,19 @@ define(['app'], function(app) {
     }]);
 
 
-	app.register.controller('photoChangeCtrl', ['$scope', '$resource', '$modalInstance', 'localStorageService', 'email','shareImg',
-        function($scope, $resource, $modalInstance, localStorageService, email,shareImg) {
-   
-            $scope.email = email;
-			
-			var AuthChange =  $resource("http://:url/accounts/change-password", {
-                url: $scope.restURL
-            });
+	app.register.controller("photoChangeCtrl", ["$scope","$resource","$modalInstance","localStorageService","shareImg","email","id",
+		function($scope,$resource,$modalInstance,localStorageService,shareImg,email,id){
 
 			$scope.ok = function() {
-				console.log('This will be for the uploading');
+				console.log('Uploading');
 				console.log(shareImg);
 			}
 
 			$scope.cancel = function () {
 				$modalInstance.dismiss();
 			};
-        }
-    ]);
+
+	}]);
 	
 
 	
