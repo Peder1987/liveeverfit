@@ -8,7 +8,7 @@
                 <button ng-show="view != 'deleted'" class="close" ng-click="deleteMessage($index, msg)">&times;</button>
                 <div class="media">
                     <img class="media-object pull-left" data-src="holder.js/64x64" alt="64x64"
-                         src="common/media/{{msg.img}}"
+                         src="{{msg.img}}"
                          style="width: 64px; height: 64px;">
 
                     <div class="media-body">
@@ -28,7 +28,7 @@
     <div ng-if="detail" class="col-xs-7">
         <div class="media">
             <img class="media-object pull-left" data-src="holder.js/64x64" alt="64x64"
-                 src="common/media/{{detail.img}}"
+                 src="{{detail.img}}"
                  style="width: 64px; height: 64px;">
 
             <div class="media-body" style="padding-top: 24px;">

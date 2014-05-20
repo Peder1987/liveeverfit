@@ -11,7 +11,7 @@ from rest_framework import generics
 from .filters import UserFilter, GenderFilterBackend, ProfessionFilterBackend, LocationFilterBackend, AcceptingFilterBackend, TagFilterBackend
 from .filters import OwnerFilterBackend
 from .serializers import UserSerializer, PasswordSerializer, GroupSerializer, ProfessionalListSerializer, LocationSerializer, ClientListSerializer
-from .serializers import PaymentSerializer, ModifyMembershipSerializer
+from .serializers import PaymentSerializer, ModifyMembershipSerializer, CreditcardSerializer
 from .permissions import IsAdminOrSelf
 from .models import Professional, UniqueLocation
 
@@ -51,6 +51,12 @@ class ProfessionalObjView(generics.RetrieveUpdateDestroyAPIView):
     model = Professional
     permission_classes = (IsAdminOrSelf,)
     filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
+
+class CreditcardView(generics.RetrieveAPIView):
+    model = User
+    permission_classes= (IsAdminOrSelf,)
+    serializer_class = CreditcardSerializer
+    #filter_backends =
 
 class ClientListView(generics.ListAPIView):
     paginate_by = None

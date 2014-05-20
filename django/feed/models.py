@@ -1,12 +1,13 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-User = get_user_model()
 from django.utils.translation import ugettext_lazy as _
+User = get_user_model()
 
 # FOR MORE INFORMATION REFER TO THIS
 # https://django-model-utils.readthedocs.org/en/latest/managers.html
+from model_utils.models import TimeStampedModel
 
-class Feed(models.Model):
+class Feed(TimeStampedModel):
     user = models.ForeignKey(User)
 
     
@@ -34,7 +35,7 @@ class Feed(models.Model):
 
 
 
-class Entry(models.Model):
+class Entry(TimeStampedModel):
     """
 	Entry class will be abstracted in order to 
 	define the types of entries
@@ -47,7 +48,22 @@ class TextEntry(Entry):
 
 
 
-class PhotoEntry(Entry):
+class PictureEntry(Entry):
     text = models.CharField(_('text'), max_length=300, blank=False)
 
 
+class VideoEntry(Entry):
+    pass
+
+class EventEntry(Entry):
+    pass
+
+class BlogEntry(Entry):
+    pass
+
+
+class EventEntry(Entry):
+    pass
+
+class LinkEntry(Entry):
+    pass
