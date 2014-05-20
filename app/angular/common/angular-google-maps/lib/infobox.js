@@ -773,6 +773,7 @@ InfoBox.prototype.open = function (map, anchor) {
         this.panBox_();
     }
 };
+
 /**
  * Removes the InfoBox from the map.
  */
@@ -809,28 +810,3 @@ InfoBox.prototype.close = function () {
 
     this.setMap(null);
 };
-
-InfoBox.prototype._open = window.InfoBox.prototype.open;
-InfoBox.prototype._close = window.InfoBox.prototype.close;
-InfoBox.prototype._isOpen = false;
-InfoBox.prototype.open = function(map, anchor) {
-    this._isOpen = true;
-    this._open(map, anchor);
-};
-InfoBox.prototype.close = function() {
-    this._isOpen = false;
-    this._close();
-};
-InfoBox.prototype.isOpen = function(val) {
-    if (val == null) {
-        val = void 0;
-    }
-    if (val == null) {
-        return this._isOpen;
-    } else {
-        return this._isOpen = val;
-    }
-};
-setTimeout(function() {
-    console.log(InfoBox.prototype.isOpen);
-}, 50);
