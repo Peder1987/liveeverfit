@@ -89,7 +89,7 @@ define(['app', 'videojs'], function (app) {
                         }
                     };
                 $scope.view = $stateParams.view || 'inbox';
-                if ($stateParams.index && $scope.list) {
+                if ($stateParams.index != undefined && $scope.list) {
                     $scope.detailIndex = $stateParams.index;
                     $scope.detail = $scope.list[$stateParams.index];
                 }

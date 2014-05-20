@@ -1,8 +1,8 @@
 <div class="row">
-    <div ng-class="{'col-xs-12': !detail, 'col-xs-4': detail}">
+    <div ng-class="{'col-xs-12': !detail, 'col-xs-5': detail}">
         <div class="list-group">
             <a ng-repeat="msg in list"
-               ng-class="{active: $index == detailIndex}"
+               ui-sref-active="active"
                ui-sref="messages.view.detail({index: $index})"
                class="list-group-item">
                 <button ng-show="view != 'deleted'" class="close" ng-click="deleteMessage($index, msg)">&times;</button>
@@ -25,8 +25,7 @@
             </a>
         </div>
     </div>
-
-    <div ng-if="detail" class="col-xs-8">
+    <div ng-if="detail" class="col-xs-7">
         <div class="media">
             <img class="media-object pull-left" data-src="holder.js/64x64" alt="64x64"
                  src="common/media/{{detail.img}}"
