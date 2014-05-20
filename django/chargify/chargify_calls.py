@@ -95,8 +95,8 @@ def delete_creditcard(customer):
 		customer.cards.retrieve(default_card).delete()
 
 def get_creditcard(self):
+	customer = self.stripe_get_create_customer()
 	if self.stripe_id:
-		customer = self.stripe_get_create_customer()
 		default_card =  customer.default_card
 		if default_card:
 			card = customer.cards.retrieve(default_card)
@@ -156,7 +156,7 @@ def edit_creditcard(self, edit_info):
 
 	edit_creditcard(customer, edit_info)
 	"""
-	stripToken = edit_info['stripToken']
+	stripToken = edit_info
 	customer = self.stripe_get_create_customer()
 	old_card = customer.default_card
 	try:
@@ -170,7 +170,7 @@ def edit_creditcard(self, edit_info):
 	customer.default_card = card
 	if old_card:
 		# only need 1 card to charge
-		print old_card
+		
 		customer.cards.retrieve(old_card).delete()
 		
 	

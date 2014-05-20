@@ -28,7 +28,23 @@
   .navbar-nav > li > a.active {
     background-color: rgba(145, 153, 162, 0.70);
   }
+  .media-object {
+    border-radius: 4px;
+  }
+  .media-body div div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .media-body > div > b {
+    color: #95abbf;
+  }
+  p {
+    color: #a1a1a1;
+    font-size: 12px;
+  }
 }
+
 #messagesBg {
   position: absolute;
   top: 0;
@@ -42,4 +58,9 @@
   background-size: cover;
 }
 
-
+@list-group-bg: rgba(216, 213, 213, 0.32);
+@list-group-border: transparent;
+@list-group-hover-bg: rgba(199, 197, 197, 0.32);
+@list-group-link-color: #a1a1a1;
+@list-group-active-bg: fade(@component-active-bg, 30%);
+@list-group-active-border: transparent;

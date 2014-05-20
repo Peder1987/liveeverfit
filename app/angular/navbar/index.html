@@ -9,11 +9,13 @@
             <a class="navbar-brand" ng-class="{active:$uiRoute}" ui-route="/" ui-sref="home">
                 <image src="common/img/navbar/logo.png"/>
             </a>
-            <div ng-if="token != null" class="visible-xs xs-icon">
-                    <a ng-class="{active:$uiRoute}">
+            <div class="visible-xs xs-icon">
+                    <a>
                         <i class="fa fa-shopping-cart fa-lg"></i>
                     </a>
-                    <a ng-class="{active:$uiRoute}" ui-sref="messages">
+                    <a ui-route="/messages"
+                       ng-class="{active:$uiRoute}"
+                       ui-sref="messages">
                         <i class="fa fa-envelope fa-lg"></i>
                     </a>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -21,17 +23,17 @@
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                         <li>
-                            <a ng-class="{active:$uiRoute}">
+                            <a>
                                 what do i owe my clients
                             </a>
                         </li>
                         <li>
-                            <a ng-class="{active:$uiRoute}">
+                            <a>
                                 how do i get paid?
                             </a>
                         </li>
                         <li>
-                            <a ng-class="{active:$uiRoute}">
+                            <a>
                                 account setting's
                             </a>
                         </li>
@@ -107,12 +109,14 @@
             </ul>
             <ul class="nav navbar-nav pull-right hidden-xs">
                 <li>
-                    <a ng-class="{active:$uiRoute}">
+                    <a>
                         <i class="fa fa-shopping-cart fa-lg"></i>&ZeroWidthSpace;
                     </a>
                 </li>
                 <li>
-                    <a ng-class="{active:$uiRoute}" ui-sref="messages">
+                    <a ui-route="/messages"
+                       ng-class="{active:$uiRoute}"
+                       ui-sref="messages">
                         <i class="fa fa-envelope fa-lg"></i>&ZeroWidthSpace;
                     </a>
                 </li>
@@ -122,22 +126,22 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dLabel">
                         <li>
-                            <a ng-class="{active:$uiRoute}" >
+                            <a>
                                 what do i owe my clients
                             </a>
                         </li>
                         <li>
-                            <a ng-class="{active:$uiRoute}" >
+                            <a>
                                 how do i get paid?
                             </a>
                         </li>
                         <li>
-                            <a ng-class="{active:$uiRoute}" >
+                            <a>
                                 account setting's
                             </a>
                         </li>
                         <li>
-                            <a ng-class="{active:$uiRoute}" ui-sref="logout">
+                            <a ui-sref="logout">
                                 Sign Out
                             </a>
                         </li>

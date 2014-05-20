@@ -1,14 +1,17 @@
 <div class="modal-header">
             <h3 class="modal-title">Edit photo</h3>
 </div>
-    <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
-        <div class="modal-body">
-            <div class="fileupload fileupload-new" data-provides="fileupload">
-                <input type='file' upload='"/your/upload/location"' class="fileupload-label fileupload-new" >
-                select image from your computer
-                </button>
-            </div>
-        </div>
+
+<div ng-controller="ProfilePicCtrl">
+    <h3>Profile Pic</h3>
+    <input type="file" accept="image/*" fileselect="img.onFileSelect($files)">
+    <h3>Crop</h3>
+    <img-cropped src="imageSrc" selected="selected(cords)"></img-cropped>
+    <h3>Div Preview
+      <div id="cropped-image" ng-show="cropped" ng-style="{ width:picWidth+'px', height:picHeight+'px', overflow:'hidden' }"><img id="preview" ng-src="{{myImg.0.src}}"></div>
+    </h3>
+</div>
+        
 <div class="modal-footer">
     <button class="btn btn-primary" ng-click="ok()">OK</button>
     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>

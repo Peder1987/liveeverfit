@@ -26,17 +26,19 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_native(self, value):
         obj = super(UserSerializer, self).to_native(value)
-        #print obj
+            
+
         if Professional.objects.filter(pk=obj['id']).exists():
             pro = Professional.objects.get(pk=obj['id'])
             obj = ProfessionalSerializer(instance=pro).data
 
-            obj['customer_list'] = pro.user_connections.all()
+            #obj['customer_list'] = pro.user_connections.all()
             obj['shopify_sales'] = pro.shopify_sales()
             obj['creditcard'] = pro.stripe_get_creditcard()
+            print pro.stripe_get_creditcard()
             obj['type'] = 'professional'
             print obj
-        elif obj.is_upgraded:
+        elif obj['is_upgraded']:
             obj['type'] = 'upgraded'
         else:
             obj['type'] = 'user'
@@ -81,6 +83,35 @@ class ProfessionalSerializer(serializers.ModelSerializer):
     img = serializers.ImageField(allow_empty_file=True, required=False)
     class Meta:
         model = Professional
-        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',)
+        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list")
 
 
+class ClientListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('email', 'first_name', 'last_name',)
+
+
+class ModifyMembershipSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source='email', required=False)
+    
+    class Meta:
+        model = User
+        
+
+
+class PaymentSerializer(serializers.ModelSerializer):
+    #email = serializers.EmailField(source='email', required=False)
+    stripeToken = serializers.CharField(required=True)
+
+    class Meta:
+        model = User
+        fields = ('id','stripeToken',)
+
+    def to_native(self, value):
+        # no need to return anything
+        obj = super(PaymentSerializer,self).to_native(value)
+        stripe_token = obj['stripeToken']
+        value.stripe_edit_creditcard(stripe_token)
+
+    

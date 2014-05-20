@@ -1,13 +1,13 @@
 
     <div id="messagesBg"></div>
-    <div id="messagesPage">
+    <div id="messagesPage" ng-controller="messagesController">
         <div class="container">
             <div class="row-fluid">
                 <div class="navbar">
                     <div class="navbar-inner">
                         <ul class="nav navbar-nav">
                             <li>
-                                <a ng-click="newClick()" ng-class="{active: view == 'message'}">
+                                <a ui-sref="messages.view({view: 'new'})" ng-class="{active: view == 'new'}">
                                     <i class="fa fa-plus fa-lg ever-blue" style="line-height: 1em;"></i>&ThinSpace;<i class="fa fa-envelope fa-lg blue"></i>
                                     <br> new
                                 </a>
@@ -20,40 +20,35 @@
                 <div class="col-xs-12 col-sm-3">
                     <ul class="nav nav-pills nav-stacked">
                         <li ng-class="{active: view == 'inbox'}">
-                            <a  ng-click="inboxClick()" >
+                            <a  ui-sref="messages.view({view: 'inbox'})" >
                                 <span class="fa fa-inbox blue"></span>
                                 &nbsp; inbox
                                 <span class="badge pull-right">0</span>
                             </a>
                         </li>
-                        <li ng-class="{active: view == 'outbox'}">
-                            <a  ng-click="outboxClick()">
+                        <li ng-class="{active: view == 'sent'}">
+                            <a  ui-sref="messages.view({view: 'sent'})">
                                 <span class="fa fa-fighter-jet"></span>
                                 &nbsp; sent
                             </a>
                         </li>
-                        <li ng-class="{active: view == 'trash'}">
-                            <a  ng-click="trashClick()">
+                        <li ng-class="{active: view == 'deleted'}">
+                            <a  ui-sref="messages.view({view: 'deleted'})">
                                 <span class="fa fa-trash-o"></span>
                                 &nbsp; deleted
                             </a>
                         </li>
                     </ul>
                 </div>
-                <div ng-switch="view">
-                    <div ng-switch-when="message">
+                <div ng-switch="view" class="col-xs-12 col-sm-9">
+                    <div ng-switch-when="new">
+
                         <div ng-include src="'messages/views/newMessage.html'"></div>
-                    </div>
-                    <div ng-switch-when="sent">
-                        <div ng-include src="'messages/views/messageList.html'"></div>
-                    </div>
-                    <div ng-switch-when="trash">
-                        <div ng-include src="'messages/views/messageList.html'"></div>
                     </div>
                     <div ng-switch-default>
                         <div ng-include src="'messages/views/messageList.html'"></div>
                     </div>
                 </div>
-            </div>
+            
         </div>
     </div>

@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^tags', include('taggit.urls')),
     url(r'^workouts/', include('workouts.urls')),
     url(r'^messages/', include('messages.urls')),
+    url(r'^ajax-upload/', include('cicu.urls')),
 )
 
 

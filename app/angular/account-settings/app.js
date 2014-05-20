@@ -2,27 +2,34 @@
 
 define(['app'], function(app) {
 
-    app.register.controller('account-settingsCtrl', ['$scope', '$resource', '$modal','localStorageService',"rest","tokenError",
-    	function($scope, $resource, $modal, localStorageService, tokenError) {
+    app.register.controller('account-settingsCtrl', ['$scope','$resource','$modal','$http','localStorageService','rest','tokenError',
+    	function($scope, $resource, $modal, $http,localStorageService, tokenError) {
     		
     		Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
     		
     		$scope.user_id = localStorageService.get('user_id');
     		
-    		
-	        $scope.profileResource = $resource(":protocol://:url/users/:id/",{
+	        var userResource = $resource(":protocol://:url/users/:id/",{
 	            protocol: $scope.restProtocol,
 	            url: $scope.restURL,
 	            id: $scope.user_id
 	        },{update: { method: 'PUT' }});
 
-	        $scope.professionalResource = $resource(":protocol://:url/users/professionals/:id/",{
+	        var professionalResource = $resource(":protocol://:url/users/professionals/:id/",{
 	            protocol: $scope.restProtocol,
 	            url: $scope.restURL,
 	            id: $scope.user_id
 	        },{update: { method: 'PUT' }});
 	        
-	        $scope.profile_user = $scope.profileResource.get(function() {},$scope.checkTokenError);
+	        $scope.profile_user = userResource.get(function() {
+	        	if($scope.profile_user.type == "professional"){
+					$scope.profileResource = userResource
+					        
+				}else{
+					$scope.profileResource = professionalResource
+				}
+
+	        },$scope.checkTokenError);
 
 
 	        $scope.passwordChange = function (size){
@@ -53,40 +60,39 @@ define(['app'], function(app) {
 					        	return $scope.profile_user.id;
 					        },
 					        profileResource: function(){
-					        	if($scope.profile_user.type == "professional"){
-					        		
-					        		return $scope.professionalResource
-					        	}
+
 					        	return $scope.profileResource 
 					        }
 				      }
 			      
 			    });
-			    modalInstance.result.then(function () {
+			    modalInstance.result.then(function (email) {
+			    	$scope.profile_user.email = email;
 			      
 			    }, function () {
 			    	
 			      
 			    });
 	        };
-	        $scope.photoChange = function (size){
-	        	
+
+
+	        $scope.photoChange = function(size){
 	        	var modalInstance = $modal.open({
-			      templateUrl: 'account-settings/modals/photoChange.html',
-			      controller : photoChangeCtrl,
-			      size: size,
-			      resolve: {
-					        email: function () {
-					          return  $scope.profile_user.email;
-					        }
-				      }
-			      
-			    });
-			    modalInstance.result.then(function () {
-			      
-			    }, function () {
-			    	
-			      
+	        		templateUrl: 'account-settings/modals/photoChange.html',
+	        		controller : 'photoChangeCtrl',
+	        		size: size,
+	        		resolve: {
+	        			id : function(){
+	        				return $scope.profile_user.id;
+	        			},
+	        			email: function () {
+	        				return  $scope.profile_user.email;
+	        			}
+	        		}
+	        	});
+	        	modalInstance.result.then(function(){
+			    },function(){
+
 			    });
 	        };
 
@@ -100,7 +106,13 @@ define(['app'], function(app) {
 			      resolve: {
 					        email: function () {
 					          return  $scope.profile_user.email;
-					        }
+					        },
+					        profile_user: function () {
+					          return  $scope.profile_user;
+					        },
+					        profileResource: function(){
+					        	return $scope.profileResource 
+					        },
 				      }
 			      
 			    });
@@ -123,10 +135,6 @@ define(['app'], function(app) {
 					          return  $scope.profile_user.email;
 					        },
 					        profileResource: function(){
-					        	if($scope.profile_user.type == "professional"){
-					        		
-					        		return $scope.professionalResource
-					        	}
 					        	return $scope.profileResource 
 					        },
 					        profile_user: function () {
@@ -165,26 +173,42 @@ define(['app'], function(app) {
 		    		certification_name2 : $scope.profile_user.certification_name2,
 		    		certification_number2 : $scope.profile_user.certification_number2,
 		    	}
-	        	var obj = $scope.professionalResource.update({id:$scope.profile_user.id}, certifications);
+	        	var obj = $scope.profileResource.update({id:$scope.profile_user.id}, certifications);
 			    
 	        };
 	        $scope.updateProfile = function (){
 	        	var resourceType;
 				var temp = $scope.profile_user
-	        	if($scope.profile_user.type == "professional"){
-					        		
-					resourceType = $scope.professionalResource;
-				}else{
-					resourceType = $scope.profileResource;
-				}
 				//removing image since it isn't required 
 				delete temp['img']
-	        	var obj = resourceType.update({id:$scope.profile_user.id}, temp);
+				var obj = $scope.profileResource.update({id:$scope.profile_user.id}, temp);
 			    
 	        };
-
-			
+	        $scope.cancelMembership = function (){
+	        	console.log('dib');
+			    
+	        };
+	        $scope.modifyTier = function (){
+	        	console.log('dib');
+			    
+	        };
+	        
     }]);
+
+
+	app.register.controller('photoChangeCtrl', ['$scope','$resource','$modalInstance','$upload','localStorageService','shareImg','email','id',
+		function($scope,$resource,$modalInstance,$upload,localStorageService,shareImg,email,id){
+
+			$scope.ok = function() {
+				console.log('Uploading');
+				console.log(shareImg);
+			}
+
+			$scope.cancel = function () {
+				$modalInstance.dismiss();
+			};
+
+	}]);
 	
 
 	
@@ -227,9 +251,10 @@ define(['app'], function(app) {
 			$scope.ok = function(emailEdit) {
 				
 				
-				var newEmail = {email:emailEdit}
+				var newEmail = {email:emailEdit, id:id}
                 var obj = profileResource.update({id:id}, newEmail).$promise.then(
 		        function( value ){/*Do something with value*/
+
             		$modalInstance.close(emailEdit);
 		        },
 		        function( error ){
@@ -244,39 +269,49 @@ define(['app'], function(app) {
 			};
     };
 
-   	var photoChangeCtrl = function($scope, $resource, $modalInstance, localStorageService, email) {
-    		
-    		
-			$scope.email = email;
-			
-			var AuthChange =  $resource("http://:url/accounts/change-password", {
-                url: $scope.restURL
-            });
 
-			$scope.ok = function() {
-               
-			}
-
-			$scope.cancel = function () {
-				$modalInstance.dismiss();
-			};
-    };
-    var paymentDetailCtrl = function($scope, $resource, $modalInstance, localStorageService) {
+    var paymentDetailCtrl = function($scope, $resource, $modalInstance, localStorageService, $http, profile_user, profileResource) {
     		$scope.message = '';
-    		$scope.creditcard = {
-				name : '',
-				number : '',
-				cvc : '',
-				exp_month : '',
-				exp_year : '',
-				address_line1 : '',
-				address_line2 : '',
-				address_city : '',
-				address_country : '',
-				address_state : '',
-				address_zip : '',
+
+    		if(profile_user.creditcard){
+	    		$scope.creditcard = {
+					name : profile_user.creditcard.name,
+					number : profile_user.creditcard.number,
+					cvc : profile_user.creditcard.cvc,
+					exp_month : profile_user.creditcard.exp_month,
+					exp_year : profile_user.creditcard.exp_year,
+					address_line1 : profile_user.creditcard.address_line1,
+					address_line2 : profile_user.creditcard.address_line2,
+					address_city : profile_user.creditcard.address_city,
+					address_country : profile_user.creditcard.address_country,
+					address_state : profile_user.creditcard.address_state,
+					address_zip : profile_user.creditcard.address_zip,
+	    		}
+
+    		}else{
+    			$scope.creditcard = {
+					name : "",
+					number : "",
+					cvc : "",
+					exp_month : "",
+					exp_year : "",
+					address_line1 : "",
+					address_line2 : "",
+					address_city : "",
+					address_country : "",
+					address_state : "",
+					address_zip : "",
+	    		}
     		}
+
 			$scope.ok = function() {
+				var stripeToken;
+				var paymentResource = $resource(":protocol://:url/users/modify-payment-details/:id",{
+					id : profile_user.id,
+		            protocol: $scope.restProtocol,
+		            url: $scope.restURL,
+		        },{update: { method: 'PUT' }});
+				$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
                 Stripe.createToken({
                     name: $scope.creditcard.name,
                     number: $scope.creditcard.number,
@@ -302,18 +337,60 @@ define(['app'], function(app) {
                     }
                     else {
                     	$scope.message = '';
-                    	var stripeToken = response['id'];
-                    	console.log(stripeToken);
-                        /*$.post('/modify-payment-details/', $.param(paramObj),function (data) {
+                        $scope.$apply()
 
-                    	});*/
+                    	stripeToken = response['id'];
+                    	response = paymentResource.update({id:profile_user.id,stripeToken:stripeToken}, function(){})
+                    	$modalInstance.close();
+  
                     }
             	});
-			}
+			};
 
 			$scope.cancel = function () {
 				$modalInstance.dismiss();
 			};
+			$scope.getLocation = function(val) {
+				delete $http.defaults.headers.common['Authorization']
+
+				return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+					params: {
+				    address: val,
+				    sensor: false,
+				    components:'country:USA'
+					}
+				}).then(function(res){
+					$scope.addressesInputs = {};
+					var addresses = [];
+					var types = {};
+					angular.forEach(res.data.results, function(item){
+						for (var i = 0; i < item.address_components.length; i++) {
+                            var addressType = item.address_components[i].types[0];
+                            types[addressType] = i;
+                        };
+						addresses.push(item.formatted_address);
+						for (var i = 0; i < item.address_components.length; i++) {
+							$scope.addressesInputs[item.formatted_address] = {
+								city: (!(types['locality'] === undefined)?item.address_components[types['locality']]['short_name']:!(types['sublocality'] === undefined)?item.address_components[types['sublocality']]['short_name']:!(types['neighborhood'] === undefined)?item.address_components[types['neighborhood']]['short_name'] + ' ':''),
+								state: (!(types['administrative_area_level_1'] === undefined)?item.address_components[types['administrative_area_level_1']]['short_name'] + ' ':'')
+							};
+						};
+					});
+					return addresses;
+				});
+				$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
+			};
+	
+			$scope.setAddress = function() {
+				if ($scope.tempAddress.formatted_address !== "undefined")
+				{
+					$scope.address = $scope.addressesInputs[$scope.tempAddress.formatted_address];
+					if ($scope.address !== undefined){
+						$scope.address.street_line2 = (!($scope.tempAddress.street_line2 === undefined)?$scope.tempAddress.street_line2 + ' ':'');
+					}
+				}
+			};
+
     };
     var addCertificationCtrl = function($scope, $resource, $modalInstance, localStorageService, profileResource, profile_user) {
     	$scope.message = '';
@@ -335,5 +412,186 @@ define(['app'], function(app) {
 		};
     };
 
+
+
+
+    //JCrop
+    app.register.factory('shareImg', function($rootScope){
+    	var data = {};
+    	return data;
+    });
+
+
+    app.register.factory('fileReader', function($q){
+    	var onLoad = function (reader, deferred, scope) {
+    		return function () {
+                scope.$apply(function () {
+                    deferred.resolve(reader.result);
+                });
+            };
+        };
+        var onError = function (reader, deferred, scope) {
+            return function () {
+                scope.$apply(function () {
+                    deferred.reject(reader.result);
+                });
+            };
+        };
+        var onProgress = function (reader, scope) {
+            return function (event) {
+                scope.$broadcast(
+                	'fileProgress', 
+                	{ total: event.total,
+                		loaded: event.loaded
+                	});
+            };
+        };
+        var getReader = function (deferred, scope) {
+            var reader = new FileReader();
+            reader.onload = onLoad(reader, deferred, scope);
+            reader.onerror = onError(reader, deferred, scope);
+            reader.onprogress = onProgress(reader, scope);
+            return reader;
+        };
+        var readAsDataURL = function (file, scope) {
+            var deferred = $q.defer();
+            var reader = getReader(deferred, scope);
+            reader.readAsDataURL(file);
+            return deferred.promise;
+        };
+        return { readAsDataUrl: readAsDataURL };
+    });
+
+
+	app.register.directive('fileselect', function(){
+        return {
+            link: function(scope, element, attributes) {
+                element.bind('change', function(changeEvent) {
+                    scope.img = changeEvent.target.files[0];
+                    scope.getFile();
+                });
+            }
+        };
+    });
+
+
+    app.register.directive('imgCropped', ['$window','shareImg',
+    	function($window,shareImg) {
+
+            var bounds = {};
+            return {
+                restrict: 'E',
+                replace: true,
+                scope: { src:'=', selected:'&' 
+            },
+            link: function (scope, element, attr){
+                scope.$parent.myImg; 
+                var clear = function() {
+                    if (scope.$parent.myImg) {
+                        scope.$parent.myImg.next().remove();
+                        scope.$parent.myImg.remove();
+                        scope.$parent.myImg = undefined;
+                    }
+                };
+
+                scope.$watch('src', function (nv) {
+                    clear();
+                    if (!nv){
+                    	return;
+                    }
+                    element.after('<img style="max-width: 100%;"/>');
+                    scope.$parent.myImg = element.next();
+                    scope.$parent.myImg.attr('src', nv);
+                    $window.jQuery(scope.$parent.myImg).Jcrop({ 
+                        trackDocument: true, 
+                        onSelect: function(cords) {
+                            scope.$apply(function() {
+                                cords.bx = bounds.x;
+                                cords.by = bounds.y;
+                                scope.selected({cords: cords});
+                            });
+                        }, 
+                        aspectRatio: 1.333333333333333333
+                    }, 
+                    function(){
+                        var boundsArr = this.getBounds();
+                        bounds.x = boundsArr[0];
+                        bounds.y = boundsArr[1];
+                        //Factory
+                        shareImg.imgOrig = scope.$parent.img;
+                    });
+                });
+                scope.$on('$destroy', clear);
+              }
+            };
+    }]);
+
+
+    app.register.controller('ProfilePicCtrl', ['$window','$timeout','$scope','fileReader','shareImg',
+        function($window, $timeout, $scope, fileReader,shareImg) {
+
+            $scope.getFile = function(){
+                $scope.progress = 0;
+                fileReader.readAsDataUrl($scope.img, $scope).then(function(result) {
+                    $scope.imageSrc = result;
+                });
+                $timeout(function () {
+                  $scope.initJcrop();
+                });
+            };
+
+            $scope.$on('fileProgress', function(e, progress) {
+                $scope.progress = progress.loaded / progress.total;
+            });
+
+            $scope.initJcrop = function(){
+                $window.jQuery('img.aj-crop').Jcrop({
+                    onSelect: function(){
+                    }, 
+                    onChange: function(){
+                    }, 
+                    trackDocument: true, 
+                    aspectRatio: 1.333333333333333333
+                });
+            };
+
+            $scope.selected = function (cords) {
+              var scale;
+              $scope.picWidth = cords.w;
+              $scope.picHeight = cords.h;
+
+              if ($scope.picWidth > 400) {
+                scale = (400 / $scope.picWidth);
+                $scope.picHeight *= scale;
+                $scope.picWidth *= scale;
+              }
+              if ($scope.picHeight > 400) {
+                scale = (400 / $scope.picHeight);
+                $scope.picHeight *= scale;
+                $scope.picWidth *= scale;
+              }
+              $scope.cropped = true;
+              var rx = $scope.picWidth / cords.w, 
+              		ry = $scope.picHeight / cords.h, 
+                    canvas = document.createElement('canvas'), 
+                    context = canvas.getContext('2d'), 
+                    imageObj = $window.jQuery('img#preview')[0];
+              $window.jQuery('img#preview').css({
+              	width: Math.round(rx * cords.bx) + 'px',
+                height: Math.round(ry * cords.by) + 'px',
+                marginLeft: '-' + Math.round(rx * cords.x) + 'px',
+                marginTop: '-' + Math.round(ry * cords.y) + 'px'
+              });
+            };
+
+    }]);
+	//End JCrop
+
+
  	
 });
+
+
+
+
+

@@ -46,19 +46,17 @@
   margin-bottom: 0px;
   font-size: 10px;
   font-family: 'Open Sans', sans-serif;
+  &:after {
+    bottom: -3px;
+    content: '';
+    height: 3px;
+    left: 0;
+    right: 0;
+    position: absolute;
+    background-color: #1a8cff;
+    z-index: 0;
+  }
 }
-
-.navbar-default:after {
-  bottom: -3px;
-  content: '';
-  height: 3px;
-  left: 0;
-  right: 0;
-  position: absolute;
-  background-color: #1a8cff;
-  z-index: 0;
-}
-
 .navbar-brand {
   position: relative;
   padding: 3px 5px;
@@ -117,6 +115,22 @@ i {
     height: 62px;
     padding: 21px 15px;
     display: inline-block;
+    position: relative;
+    float: left;
+    &.active {
+      background-color: @navbar-default-link-hover-bg;
+      color: @navbar-default-link-hover-color;
+    }
+    &.active:after {
+      bottom: -3px;
+      content: '';
+      height: 3px;
+      left: 0;
+      right: 0;
+      position: absolute;
+      background-color: #adadad;
+      z-index: 1;
+     }
   }
   .dropdown-menu {
     position: fixed;

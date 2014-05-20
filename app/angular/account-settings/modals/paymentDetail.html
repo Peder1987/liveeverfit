@@ -59,7 +59,7 @@
                 <label for="Address">
                     ADDRESS
                 </label>
-                <input type="text" class="form-control" name="address_line1" id="address_line1" placeholder="Address" ng-model="creditcard.address_line1" required>
+                <input type="text" class="form-control" name="address_line1" id="address_line1" placeholder="Address" ng-model="creditcard.address_line1"  typeahead="address for address in getLocation($viewValue)" required>
                   <p></p>
 
 
