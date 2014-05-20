@@ -27,7 +27,7 @@ define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','an
 
                 //LoggedOut
                 .state('about', route.resolve('/about', 'about'))
-                .state('contact-us', route.resolve('/contact-us', 'contact-us'))
+                .state('contact', route.resolve('/contact', 'contact'))
                 .state('forgot-password', route.resolve('/forgot-password', 'auth/forgot-password'))
                 .state('reset-password', route.resolve('/reset-password/:change_password_token/:email', 'auth/reset-password'))
                 .state('registration', route.resolve('/registration', 'auth/registration'))

@@ -2,7 +2,7 @@
 
 define(['app'], function(app) {
 
-    app.register.controller('contact-usCtrl', ['$scope', 
+    app.register.controller('contactCtrl', ['$scope',
     	function($scope) {
     }]);
     
