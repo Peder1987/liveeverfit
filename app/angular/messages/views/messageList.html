@@ -5,7 +5,7 @@
                ng-class="{active: $index == detailIndex}"
                ui-sref="messages.view.detail({index: $index})"
                class="list-group-item">
-                <button class="close" ng-click="deleteMessage($index)">&times;</button>
+                <button ng-show="view != 'deleted'" class="close" ng-click="deleteMessage($index, msg)">&times;</button>
                 <div class="media">
                     <img class="media-object pull-left" data-src="holder.js/64x64" alt="64x64"
                          src="common/media/{{msg.img}}"
@@ -15,6 +15,8 @@
                         <div class="col-xs-12 col-sm-9">
                             <div ng-if="view == 'sent'"><b>{{msg.recipient}}</b></div>
                             <div ng-if="view == 'inbox'"><b>{{msg.sender}}</b></div>
+                            <div ng-if="view == 'deleted'"><b>Sender: {{msg.recipient}}</b></div>
+                            <div ng-if="view == 'deleted'"><b>Recipient: {{msg.sender}}</b></div>
                             <div>{{msg.subject}}</div>
                             <div>{{msg.body}}</div>
                         </div>
