@@ -171,6 +171,7 @@ INSTALLED_APPS = (
     'messages',
     'feed',
     'model_utils',
+    'cicu',
     # 'board',
     # 'registration',
     # 'ws4redis',
