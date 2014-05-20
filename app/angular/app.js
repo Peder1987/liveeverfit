@@ -40,6 +40,7 @@ define(['angularAMD', 'uiRouter', "geolocation",'uiBootstrap', 'routeResolver', 
                 .state('workouts', route.resolve('/workouts', 'workouts'))
                 .state('workouts.video', route.resolve('/:id', 'workouts'))
                 .state('fitness-professional', route.resolve('/fitness-professional', 'fitness-professional'))
+                .state('evergreen', route.resolve('/evergreen', 'evergreen'))
                 .state('change-password', route.resolve('/change-password', 'auth/change-password'))
                 .state('logout', route.resolve('/logout', 'auth/logout'));
 

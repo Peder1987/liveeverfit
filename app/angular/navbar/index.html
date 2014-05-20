@@ -1,4 +1,4 @@
-<div ng-if="token != null" class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed" data-toggle="collapse"
@@ -99,9 +99,9 @@
                     </a>
                 </li>
                 <li>
-                    <a ng-class="{active:$uiRoute}" ui-sref="home"
-                       class="btn-evergreen">
-
+                    <a ui-route="/evergreen"
+                       ng-class="{active:$uiRoute}"
+                       ui-sref="evergreen" class="btn-evergreen">
                     </a>
                 </li>
             </ul>
