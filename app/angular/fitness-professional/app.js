@@ -32,7 +32,7 @@ define(['app'], function (app) {
             $scope.location = [];
             $scope.accepting = [];
             $scope.locations = [];
-            $scope.page = 1
+            $scope.page = 1;
             $scope.bigMarkerSize = new google.maps.Size(35, 58);
 
             $scope.locationsJson = locationlCollection.get(function () {

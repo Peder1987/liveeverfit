@@ -72,8 +72,8 @@ define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','an
         }
     }]);
 
-    app.controller('NavCtrl', ['localStorageService', '$scope', 
-        function(localStorageService, $scope) {
+    app.controller('NavCtrl', ['localStorageService', '$state', '$scope',
+        function(localStorageService, $state, $scope) {
             $scope.isCollapsed = true;
             $scope.token = localStorageService.get('Authorization');
             $scope.templateNav = {

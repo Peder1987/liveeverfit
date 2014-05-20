@@ -156,15 +156,12 @@ define(['app'], function(app) {
 			    
 	        };
 	        $scope.deleteCertification = function (cert){
-	        	console.log(cert)
-	        	if(cert == 'certification_name1'){
-	        		console.log('cert1')
+	        	if(cert == 'certification_name1') {
 	        		$scope.profile_user.certification_name1 = '';
 	        		$scope.profile_user.certification_number1 = '';
-	        	}else{
+	        	} else {
 	        		$scope.profile_user.certification_name2 = '';
 	        		$scope.profile_user.certification_number2 = '';
-	        		console.log('cert2')
 	        	}
 	        	var certifications = {
 		    		id : $scope.profile_user.id,
@@ -172,8 +169,8 @@ define(['app'], function(app) {
 		    		certification_number1 : $scope.profile_user.certification_number1,
 		    		certification_name2 : $scope.profile_user.certification_name2,
 		    		certification_number2 : $scope.profile_user.certification_number2,
-		    	}
-	        	var obj = $scope.profileResource.update({id:$scope.profile_user.id}, certifications);
+		    	};
+	            $scope.profileResource.update({id:$scope.profile_user.id}, certifications);
 			    
 	        };
 	        $scope.updateProfile = function (){
@@ -213,8 +210,7 @@ define(['app'], function(app) {
 
 	
     var passwordInstanceCtrl = function($scope, $resource, $modalInstance, localStorageService) {
-    		
-    		
+
 			$scope.current_password = '';
 			$scope.password1 = '';
 			$scope.password2 = '';
@@ -227,8 +223,12 @@ define(['app'], function(app) {
 				token: localStorageService.get('rest_token'),
 				current_password: '',
 				password: '',
-				password2: '',
-			}
+				password2: ''
+			};
+
+            $scope.closeAlert = function (error) {
+                delete $scope.message[error];
+            };
 	
 			$scope.ok = function() {
                 // AutoFill Fix
@@ -248,27 +248,20 @@ define(['app'], function(app) {
     var emailChangeCtrl = function($scope, $resource, $modalInstance, localStorageService, email, id, profileResource) {
 			$scope.email = email;	
 			$scope.message = '';
+            $scope.closeAlert = function (error) {
+                delete $scope.message[error];
+            };
 			$scope.ok = function(emailEdit) {
-				
-				
-				var newEmail = {email:emailEdit, id:id}
-                var obj = profileResource.update({id:id}, newEmail).$promise.then(
-		        function( value ){/*Do something with value*/
-
+                profileResource.update({id:id}, {email:emailEdit, id:id}).$promise.then(function() {
             		$modalInstance.close(emailEdit);
-		        },
-		        function( error ){
+		        }, function( error ) {
 		        	$scope.message = error.data;
-		        }
-		      )
-                
-			}
-
+		        })
+			};
 			$scope.cancel = function () {
 				$modalInstance.dismiss();
 			};
     };
-
 
     var paymentDetailCtrl = function($scope, $resource, $modalInstance, localStorageService, $http, profile_user, profileResource) {
     		$scope.message = '';
@@ -394,13 +387,18 @@ define(['app'], function(app) {
     };
     var addCertificationCtrl = function($scope, $resource, $modalInstance, localStorageService, profileResource, profile_user) {
     	$scope.message = '';
-    	$scope.certifications = {
+
+        $scope.certifications = {
     		id : profile_user.id,
     		certification_name1 : profile_user.certification_name1,
     		certification_number1 : profile_user.certification_number1,
     		certification_name2 : profile_user.certification_name2,
     		certification_number2 : profile_user.certification_number2,
-    	}
+    	};
+
+        $scope.closeAlert = function (error) {
+            delete $scope.message[error];
+        };
     	
 		$scope.ok = function(valid) {
             var obj = profileResource.update({id:$scope.certifications.id}, $scope.certifications);
