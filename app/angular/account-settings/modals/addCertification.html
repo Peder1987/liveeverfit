@@ -3,33 +3,28 @@
 </div>
     <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
         <div class="modal-body">
-            <form class="form-horizontal" name="certificationForm">                  
+            <form class="form-horizontal">
                 <label for="certificationName">
                     Certification Name
                 </label>
-                <input type="text" class="form-control" name="name" id="name" placeholder="Certification Name" ng-model="certifications.certification_name1" >
+                <input type="text" class="form-control" name="name" id="certificationName" placeholder="Certification Name" ng-model="certifications.certification_name1" >
                   <p></p>
                 <label for="numberName">
                     Certification Number
                 </label>
-                <input type="text" class="form-control" name="number" id="number" placeholder="Certification Number" ng-model="certifications.certification_number1" >
+                <input type="text" class="form-control" name="number" id="numberName" placeholder="Certification Number" ng-model="certifications.certification_number1" >
                   
                   <p></p>
-                <label for="certificationName">
+                <label for="certificationName2">
                     Certification Name 2
                 </label>
-                <input type="text" class="form-control" name="name" id="name" placeholder="Certification Name" ng-model="certifications.certification_name2">
+                <input type="text" class="form-control" name="name" id="certificationName2" placeholder="Certification Name" ng-model="certifications.certification_name2">
                   <p></p>
-                <label for="numberName">
+                <label for="numberName2">
                     Certification Number 2
                 </label>
-                <input type="text" class="form-control" name="number" id="number" placeholder="Certification Number" ng-model="certifications.certification_number2" ng-required="{{certifications.certification_name2 != ''}}" >
-                  
-                  <p></p>
+                <input type="text" class="form-control" name="number" id="numberName2" placeholder="Certification Number" ng-model="certifications.certification_number2" ng-required="{{certifications.certification_name2 != ''}}" >
 
-
-
-                <hr></hr>
                 <button class="btn btn-primary" type="submit" ng-click="ok(certificationForm.$valid)">OK</button>
                 <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
             </form>  
