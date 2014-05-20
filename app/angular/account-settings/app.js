@@ -69,24 +69,23 @@ define(['app'], function(app) {
 			      
 			    });
 	        };
+
 	        $scope.photoChange = function (size){
-	        	
+	       
 	        	var modalInstance = $modal.open({
 			      templateUrl: 'account-settings/modals/photoChange.html',
-			      controller : photoChangeCtrl,
+			      controller : 'photoChangeCtrl',
 			      size: size,
 			      resolve: {
 					        email: function () {
 					          return  $scope.profile_user.email;
 					        }
 				      }
-			      
 			    });
 			    modalInstance.result.then(function () {
 			      
 			    }, function () {
-			    	
-			      
+			 
 			    });
 	        };
 
@@ -180,11 +179,30 @@ define(['app'], function(app) {
 				//removing image since it isn't required 
 				delete temp['img']
 	        	var obj = resourceType.update({id:$scope.profile_user.id}, temp);
-			    
 	        };
 
-			
     }]);
+
+
+	app.register.controller('photoChangeCtrl', ['$scope', '$resource', '$modalInstance', 'localStorageService', 'email','shareImg',
+        function($scope, $resource, $modalInstance, localStorageService, email,shareImg) {
+   
+            $scope.email = email;
+			
+			var AuthChange =  $resource("http://:url/accounts/change-password", {
+                url: $scope.restURL
+            });
+
+			$scope.ok = function() {
+				console.log('This will be for the uploading');
+				console.log(shareImg);
+			}
+
+			$scope.cancel = function () {
+				$modalInstance.dismiss();
+			};
+        }
+    ]);
 	
 
 	
@@ -245,24 +263,6 @@ define(['app'], function(app) {
 			};
     };
 
-   	var photoChangeCtrl = function($scope, $resource, $modalInstance, localStorageService, email) {
-    		
-    		
-			$scope.email = email;
-			
-			var AuthChange =  $resource("http://:url/accounts/change-password", {
-                url: $scope.restURL
-            });
-
-			$scope.ok = function() {
-				console.log('hello');
-               
-			}
-
-			$scope.cancel = function () {
-				$modalInstance.dismiss();
-			};
-    };
     var paymentDetailCtrl = function($scope, $resource, $modalInstance, localStorageService, $http) {
     		$scope.message = '';
     		$scope.creditcard = {
@@ -389,57 +389,9 @@ define(['app'], function(app) {
 
 
     //This is Jcrop
-    app.register.directive('imgCropped', ['$window',
-        function($window) {
-
-            var bounds = {};
-
-            return {
-                restrict: 'E',
-                replace: true,
-                scope: { src:'=', selected:'&' 
-            },
-            link: function (scope, element, attr){
-                scope.$parent.myImg; 
-                var clear = function() {
-                    if (scope.$parent.myImg) {
-                        scope.$parent.myImg.next().remove();
-                        scope.$parent.myImg.remove();
-                        scope.$parent.myImg = undefined;
-                    }
-                };
-
-                scope.$watch('src', function (nv) {
-                    clear();
-                    // console.log('[src]');
-                    // console.log(nv);
-                    if (!nv) { // newValue
-                        return;
-                    }
-                    element.after('<img style="max-width: 100%;"/>');
-                    scope.$parent.myImg = element.next();
-                    scope.$parent.myImg.attr('src', nv);
-                    $window.jQuery(scope.$parent.myImg).Jcrop({ 
-                        trackDocument: true, 
-                        onSelect: function(cords) {
-                            scope.$apply(function() {
-                                cords.bx = bounds.x;
-                                cords.by = bounds.y;
-                                scope.selected({cords: cords});
-                            });
-                        }, 
-                        aspectRatio: 1.333333333333333333
-                    }, 
-                    function(){
-                        var boundsArr = this.getBounds();
-                        bounds.x = boundsArr[0];
-                        bounds.y = boundsArr[1];
-                    });
-                });
-                scope.$on('$destroy', clear);
-              }
-            };
-
+    app.register.factory('shareImg', ['$rootScope', function ($rootScope) {
+		var data = {};
+		return data;
     }]);
 
 
@@ -485,7 +437,7 @@ define(['app'], function(app) {
     });
 
 
-    app.register.directive('fileselect', [
+	app.register.directive('fileselect', [
         function(){
             return {
                 link: function(scope, element, attributes) {
@@ -498,8 +450,63 @@ define(['app'], function(app) {
     }]);
 
 
-    app.register.controller('ProfilePicCtrl', ['$window', '$timeout', '$scope', 'fileReader',
-        function($window, $timeout, $scope, fileReader) {
+    app.register.directive('imgCropped', ['$window','shareImg',
+        function($window,shareImg) {
+
+            var bounds = {};
+            return {
+                restrict: 'E',
+                replace: true,
+                scope: { src:'=', selected:'&' 
+            },
+            link: function (scope, element, attr){
+                scope.$parent.myImg; 
+                var clear = function() {
+                    if (scope.$parent.myImg) {
+                        scope.$parent.myImg.next().remove();
+                        scope.$parent.myImg.remove();
+                        scope.$parent.myImg = undefined;
+                    }
+                };
+
+                scope.$watch('src', function (nv) {
+                    clear();
+                    // console.log('[src]');
+                    // console.log(nv);
+                    if (!nv) { // newValue
+                        return;
+                    }
+                    element.after('<img style="max-width: 100%;"/>');
+                    scope.$parent.myImg = element.next();
+                    scope.$parent.myImg.attr('src', nv);
+                    $window.jQuery(scope.$parent.myImg).Jcrop({ 
+                        trackDocument: true, 
+                        onSelect: function(cords) {
+                            scope.$apply(function() {
+                                cords.bx = bounds.x;
+                                cords.by = bounds.y;
+                                scope.selected({cords: cords});
+                            });
+                        }, 
+                        aspectRatio: 1.333333333333333333
+                    }, 
+                    function(){
+                        var boundsArr = this.getBounds();
+                        bounds.x = boundsArr[0];
+                        bounds.y = boundsArr[1];
+                        //Shared Factory
+                        shareImg.imgOriginal = scope.$parent.img;
+                    });
+                });
+                scope.$on('$destroy', clear);
+              }
+            };
+
+    }]);
+
+
+    app.register.controller('ProfilePicCtrl', ['$window', '$timeout', '$scope', 'fileReader','shareImg',
+        function($window, $timeout, $scope, fileReader,shareImg) {
 
             $scope.getFile = function(){
                 $scope.progress = 0;
@@ -511,11 +518,9 @@ define(['app'], function(app) {
                 });
             };
 
-
             $scope.$on("fileProgress", function(e, progress) {
                 $scope.progress = progress.loaded / progress.total;
             });
-
 
             $scope.initJcrop = function(){
                 // console.log('init jcrop');
@@ -533,13 +538,8 @@ define(['app'], function(app) {
                 });
             };
 
-            $scope.cropOpts = {
-              ratioW: 1, 
-              ratioH: 1
-            };
             $scope.selected = function (cords) {
               var scale;
-
               $scope.picWidth = cords.w;
               $scope.picHeight = cords.h;
 
