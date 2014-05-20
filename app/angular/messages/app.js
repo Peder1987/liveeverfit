@@ -88,16 +88,21 @@ define(['app', 'videojs'], function (app) {
                             };
                         }
                     };
-                $scope.view = $stateParams.view || 'inbox';
-                if ($stateParams.index != undefined && $scope.list) {
-                    $scope.detailIndex = $stateParams.index;
-                    $scope.detail = $scope.list[$stateParams.index];
+                if($stateParams.view) {
+                    $scope.view =  $stateParams.view;
+                    if ($stateParams.index != undefined && $scope.list) {
+                        $scope.detailIndex = $stateParams.index;
+                        $scope.detail = $scope.list[$stateParams.index];
+                    }
+                    else {
+                        $scope.detailIndex = -1;
+                        $scope.detail = false;
+                        //Run View Function
+                        views[$scope.view]();
+                    }
                 }
                 else {
-                    $scope.detailIndex = -1;
-                    $scope.detail = false;
-                    //Run View Function
-                    views[$scope.view]();
+                    $state.go('messages.view', {view: 'inbox'});
                 }
             });
 
