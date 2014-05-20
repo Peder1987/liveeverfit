@@ -26,16 +26,10 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_native(self, value):
         obj = super(UserSerializer, self).to_native(value)
-            
-
         if Professional.objects.filter(pk=obj['id']).exists():
             pro = Professional.objects.get(pk=obj['id'])
             obj = ProfessionalSerializer(instance=pro).data
-
-            #obj['customer_list'] = pro.user_connections.all()
             obj['shopify_sales'] = pro.shopify_sales()
-            obj['creditcard'] = pro.stripe_get_creditcard()
-            print pro.stripe_get_creditcard()
             obj['type'] = 'professional'
             print obj
         elif obj['is_upgraded']:
@@ -45,7 +39,6 @@ class UserSerializer(serializers.ModelSerializer):
         return obj
 
 class LocationSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = UniqueLocation
         fields = ('location',)
@@ -98,7 +91,12 @@ class ModifyMembershipSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         
+class CreditcardSerializer(serializers.ModelSerializer):
+    creditcard = serializers.Field(source='stripe_get_creditcard')
 
+    class Meta:
+        model = User
+        fields = ('id', 'creditcard',)
 
 class PaymentSerializer(serializers.ModelSerializer):
     #email = serializers.EmailField(source='email', required=False)
