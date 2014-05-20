@@ -10,6 +10,7 @@ define(['app', 'videojs'], function (app) {
         "rest", "tokenError", "localStorageService", "$scope",
         "$anchorScroll", "promiseService", "$http",
         function ($state, $stateParams, $sce, $resource, rest, tokenError, localStorageService, $scope) {
+            $scope.user_id = localStorageService.get('user_id');
             $scope.inboxCollection = $resource(":protocol://:url/messages/inbox/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
@@ -35,14 +36,31 @@ define(['app', 'videojs'], function (app) {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
             });
+            $scope.deleteMessageResource = $resource(":protocol://:url/messages/delete/:id", {
+                id: '@id',
+                protocol: $scope.restProtocol,
+                url: $scope.restURL
+            }, { 
+                update: {
+                    method: 'PUT'
+                }
+            });
             $scope.submitMessage = function () {
                 $scope.newMessageResource.save($scope.newMessage, function () {
                     $state.go('messages.view', {view: 'inbox'});
                 });
             };
-            $scope.deleteMessage = function (index) {
+            $scope.deleteMessage = function (index, msg) {
+                var attrs;
                 $scope.list.splice(index, 1);
+                console.log(msg);
+                msg.view = $scope.view
+                console.log(msg)
+                $scope.deleteMessageResource.update(msg, function(){
+
+                });
                 //$state.go('messages.view', {view: $scope.view});
+
             };
             $scope.$on('$stateChangeSuccess', function () {
                 var success = function (data) {

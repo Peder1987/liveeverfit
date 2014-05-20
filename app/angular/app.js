@@ -7,7 +7,7 @@
 'use strict';
 
 
-define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','angularResource','angularLocalStorage','autoFillEvent','jquery','jqueryui','fullcalendar','ui.calendar','ui.utils','ui.bootstrap.datepicker','ui.bootstrap.timepicker','ui.bootstrap.modal','ui.bootstrap.tabs','ui.bootstrap.carousel','ngTagsInput', 'underscore','angular-google-maps','stripeJS','stripe',"xeditable",'jcrop','angularFileUpload'], function (angularAMD) {
+define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','angularResource','angularLocalStorage','autoFillEvent','jquery','jqueryui','fullcalendar','ui.calendar','ui.utils','ngTagsInput', 'underscore','angular-google-maps','stripeJS','stripe',"xeditable",'jcrop','angularFileUpload'], function (angularAMD) {
     'use strict';
 
     var app = angular.module('app', ['ui.router','ui.route','ui.bootstrap','ui.bootstrap.datepicker','ngTagsInput','ui.bootstrap.timepicker','ui.bootstrap.modal','ui.bootstrap.carousel','routeResolverServices','ngResource','LocalStorageModule','ui.calendar','ui.bootstrap.tabs','google-maps','xeditable','geolocation','angularFileUpload']);
@@ -42,6 +42,7 @@ define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','an
                 .state('workouts', route.resolve('/workouts', 'workouts'))
                 .state('workouts.video', route.resolve('/:id', 'workouts'))
                 .state('fitness-professional', route.resolve('/fitness-professional', 'fitness-professional'))
+                .state('evergreen', route.resolve('/evergreen', 'evergreen'))
                 .state('change-password', route.resolve('/change-password', 'auth/change-password'))
                 .state('logout', route.resolve('/logout', 'auth/logout'));
 
@@ -71,8 +72,8 @@ define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','an
         }
     }]);
 
-    app.controller('NavCtrl', ['localStorageService', '$scope', 
-        function(localStorageService, $scope) {
+    app.controller('NavCtrl', ['localStorageService', '$state', '$scope',
+        function(localStorageService, $state, $scope) {
             $scope.isCollapsed = true;
             $scope.token = localStorageService.get('Authorization');
             $scope.templateNav = {

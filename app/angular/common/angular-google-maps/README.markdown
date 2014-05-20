@@ -2,6 +2,8 @@
 
 > AngularJS directives for Google Maps
 
+[![Dependencies](https://david-dm.org/nlaplante/angular-google-maps.png)](https://david-dm.org/nlaplante/angular-google-maps)&nbsp;
+[![Dependencies](https://david-dm.org/nlaplante/angular-google-maps/dev-status.png)](https://david-dm.org/nlaplante/angular-google-maps)&nbsp;
 [![Build Status](https://travis-ci.org/nlaplante/angular-google-maps.png?branch=r1-dev)](https://travis-ci.org/nlaplante/angular-google-maps)
 
 ## Getting started
@@ -36,6 +38,7 @@ and open your browser on `http://localhost:3000/example.html`.
 The various directives are documented at [official site](http://angular-google-maps.org).
 
 ### Contributing
+
 Pull requests more than welcome! If you're adding new features, it would be appreciated if you would provide some docs about the feature. This can be done either by adding a card to our [Trello board](https://trello.com/b/WwTRrkfh/angular-google-maps), forking the website branch and issuing a PR with the updated documentation page, or by opening an issue for us to add the documentation to the site.
 
 [Branching Model w Git Flow](http://nvie.com/posts/a-successful-git-branching-model/)
