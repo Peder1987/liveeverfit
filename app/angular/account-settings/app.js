@@ -2,7 +2,7 @@
 
 define(['app'], function(app) {
 
-    app.register.controller('account-settingsCtrl', ['$scope', '$resource', '$modal', '$http','localStorageService',"rest","tokenError",
+    app.register.controller('account-settingsCtrl', ['$scope','$resource','$modal','$http','localStorageService','rest','tokenError',
     	function($scope, $resource, $modal, $http,localStorageService, tokenError) {
     		
     		Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
@@ -196,8 +196,8 @@ define(['app'], function(app) {
     }]);
 
 
-	app.register.controller("photoChangeCtrl", ["$scope","$resource","$modalInstance","localStorageService","shareImg","email","id",
-		function($scope,$resource,$modalInstance,localStorageService,shareImg,email,id){
+	app.register.controller('photoChangeCtrl', ['$scope','$resource','$modalInstance','$upload','localStorageService','shareImg','email','id',
+		function($scope,$resource,$modalInstance,$upload,localStorageService,shareImg,email,id){
 
 			$scope.ok = function() {
 				console.log('Uploading');
@@ -416,13 +416,13 @@ define(['app'], function(app) {
 
 
     //JCrop
-    app.register.factory("shareImg", function($rootScope){
+    app.register.factory('shareImg', function($rootScope){
     	var data = {};
     	return data;
     });
 
 
-    app.register.factory("fileReader", function($q){
+    app.register.factory('fileReader', function($q){
     	var onLoad = function (reader, deferred, scope) {
     		return function () {
                 scope.$apply(function () {
@@ -440,7 +440,7 @@ define(['app'], function(app) {
         var onProgress = function (reader, scope) {
             return function (event) {
                 scope.$broadcast(
-                	"fileProgress", 
+                	'fileProgress', 
                 	{ total: event.total,
                 		loaded: event.loaded
                 	});
@@ -463,10 +463,10 @@ define(['app'], function(app) {
     });
 
 
-	app.register.directive("fileselect", function(){
+	app.register.directive('fileselect', function(){
         return {
             link: function(scope, element, attributes) {
-                element.bind("change", function(changeEvent) {
+                element.bind('change', function(changeEvent) {
                     scope.img = changeEvent.target.files[0];
                     scope.getFile();
                 });
@@ -475,7 +475,7 @@ define(['app'], function(app) {
     });
 
 
-    app.register.directive("imgCropped", ["$window","shareImg",
+    app.register.directive('imgCropped', ['$window','shareImg',
     	function($window,shareImg) {
 
             var bounds = {};
@@ -527,7 +527,7 @@ define(['app'], function(app) {
     }]);
 
 
-    app.register.controller('ProfilePicCtrl', ["$window","$timeout","$scope","fileReader","shareImg",
+    app.register.controller('ProfilePicCtrl', ['$window','$timeout','$scope','fileReader','shareImg',
         function($window, $timeout, $scope, fileReader,shareImg) {
 
             $scope.getFile = function(){
@@ -540,7 +540,7 @@ define(['app'], function(app) {
                 });
             };
 
-            $scope.$on("fileProgress", function(e, progress) {
+            $scope.$on('fileProgress', function(e, progress) {
                 $scope.progress = progress.loaded / progress.total;
             });
 
@@ -573,7 +573,7 @@ define(['app'], function(app) {
               $scope.cropped = true;
               var rx = $scope.picWidth / cords.w, 
               		ry = $scope.picHeight / cords.h, 
-                    canvas = document.createElement("canvas"), 
+                    canvas = document.createElement('canvas'), 
                     context = canvas.getContext('2d'), 
                     imageObj = $window.jQuery('img#preview')[0];
               $window.jQuery('img#preview').css({

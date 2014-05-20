@@ -7,10 +7,10 @@
 'use strict';
 
 
-define(['angularAMD', 'uiRouter', "geolocation",'uiBootstrap', 'routeResolver', 'angularResource', 'angularLocalStorage', 'autoFillEvent', 'jquery', 'jqueryui', 'fullcalendar', 'ui.calendar', 'ui.utils', 'ui.bootstrap.datepicker', 'ui.bootstrap.timepicker', 'ui.bootstrap.modal', 'ui.bootstrap.tabs', 'ui.bootstrap.carousel', 'ngTagsInput', 'underscore','angular-google-maps', 'stripeJS', "stripe",  "xeditable", 'jcrop'], function (angularAMD) {
+define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','angularResource','angularLocalStorage','autoFillEvent','jquery','jqueryui','fullcalendar','ui.calendar','ui.utils','ui.bootstrap.datepicker','ui.bootstrap.timepicker','ui.bootstrap.modal','ui.bootstrap.tabs','ui.bootstrap.carousel','ngTagsInput', 'underscore','angular-google-maps','stripeJS','stripe',"xeditable",'jcrop','angularFileUpload'], function (angularAMD) {
     'use strict';
 
-    var app = angular.module('app', ['ui.router', 'ui.route', 'ui.bootstrap', 'ui.bootstrap.datepicker', 'ngTagsInput', 'ui.bootstrap.timepicker', 'ui.bootstrap.modal', 'ui.bootstrap.carousel', 'routeResolverServices', 'ngResource', 'LocalStorageModule', 'ui.calendar', 'ui.bootstrap.tabs', 'google-maps', "xeditable", 'geolocation']);
+    var app = angular.module('app', ['ui.router','ui.route','ui.bootstrap','ui.bootstrap.datepicker','ngTagsInput','ui.bootstrap.timepicker','ui.bootstrap.modal','ui.bootstrap.carousel','routeResolverServices','ngResource','LocalStorageModule','ui.calendar','ui.bootstrap.tabs','google-maps','xeditable','geolocation','angularFileUpload']);
     
     app.run(function ($http, localStorageService, editableOptions) {
         editableOptions.theme = 'bs3';

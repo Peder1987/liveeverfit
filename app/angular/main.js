@@ -65,6 +65,7 @@ require.config({
         'xeditable' : 'common/angular-xeditable/dist/js/xeditable',
         'geolocation' : 'common/angularjs-geolocation/dist/angularjs-geolocation.min',
         'jcrop' : 'common/jcrop/js/jquery.Jcrop.min',
+        'angularFileUpload' : 'common/ng-file-upload/angular-file-upload.min',
         'app' : 'app'
 
     },
@@ -75,11 +76,11 @@ require.config({
                     exports: 'angular'
             },
             'angularAMD': ['angular'],
-            "angularLocalStorage": ['angular'],
-            "angularResource": ['angular'],
-            "uiRouter": ['angular'],
-            "uiBootstrap": ['angular'],
-            "autoFillEvent": ['angular'],
+            'angularLocalStorage': ['angular'],
+            'angularResource': ['angular'],
+            'uiRouter': ['angular'],
+            'uiBootstrap': ['angular'],
+            'autoFillEvent': ['angular'],
             'ui.utils': ['angular'],
             'ui.calendar': ['angular'],
             'ui.bootstrap.datepicker': ['angular'],
@@ -88,16 +89,19 @@ require.config({
             'ui.bootstrap.tabs': ['angular'],
             'ui.bootstrap.carousel': ['angular'],
             'ngTagsInput': ['angular'],
-            'stripe': ['angular', "stripeJS"],
+            'stripe': ['angular', 'stripeJS'],
             'underscore': ['angular'],
-            "jqueryui": ["jquery"],
-            "fullcalendar": ["jquery"],
+            'jqueryui': ['jquery'],
+            'fullcalendar': ['jquery'],
             'angular-google-maps': ['angular','underscore'],
             'footer': ['app'],
             'xeditable': ['angular'],
             'geolocation': ['angular'],
+            'angularFileUpload': ['angular'],
             'jcrop': ['jquery']
     },
     //Kick start application
     deps: ['app']
 });
+
+
