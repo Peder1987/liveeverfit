@@ -42,7 +42,7 @@ require.config({
         'angularAMD': 'common/angularAMD/angularAMD',
         'ngload': 'common/angularAMD/ngload',
         'ngTagsInput': 'common/ng-tags-input/ng-tags-input',
-        'uiRouter': 'common/angular-ui-router/release/angular-ui-router.min',
+        'uiRouter': 'common/angular-ui-router/release/angular-ui-router',
         'uiBootstrap': 'common/angular-bootstrap/ui-bootstrap.min',
         'routeResolver': 'common/router/routeResolver',
         'autoFillEvent': 'common/autofill-event/src/autofill-event',

@@ -9,89 +9,136 @@
             <a class="navbar-brand" ng-class="{active:$uiRoute}" ui-route="/" ui-sref="home">
                 <image src="common/img/navbar/logo.png"/>
             </a>
+
             <div class="visible-xs xs-icon">
-                    <a>
-                        <i class="fa fa-shopping-cart fa-lg"></i>&ZeroWidthSpace;
-                    </a>
-                    <a
-                            ui-sref-active="active"
-                       ui-sref="messages">
-                        <i class="fa fa-envelope fa-lg"></i>&ZeroWidthSpace;
-                    </a>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-user fa-lg"></i> <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <li>
-                            <a>
-                                what do i owe my clients
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                how do i get paid?
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                <i class="fa fa-cog"></i> account settings
-                            </a>
-                        </li>
-                        <li>
-                            <a ng-class="{active:$uiRoute}" ui-sref="logout">
-                                Sign Out
-                            </a>
-                        </li>
-                    </ul>
+                <a>
+                    <i class="fa fa-shopping-cart fa-lg"></i>&ZeroWidthSpace;
+                </a>
+                <a ui-sref-active="active"
+                   ui-sref="messages">
+                    <i class="fa fa-envelope fa-lg"></i>&ZeroWidthSpace;
+                </a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-user fa-lg"></i> <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <li>
+                        <a>
+                            <i class="fa fa-link"></i> what do i owe my clients
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fa fa-money"></i> how do i get paid?
+                        </a>
+                    </li>
+                    <li>
+                        <a ui-sref="account-settings">
+                            <i class="fa fa-cog"></i> account settings
+                        </a>
+                    </li>
+                    <li>
+                        <a ui-sref="logout">
+                            <i class="fa fa-sign-out"></i> sign out
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
         <!--Logged in navbar-->
-        <div  class="navbar-collapse collapse" collapse="isCollapsed">
+        <div class="navbar-collapse collapse" collapse="isCollapsed">
             <ul class="nav navbar-nav">
                 <li>
-                    <a ui-route="/fitness-professional"
-                       ng-class="{active:$uiRoute}"
+                    <a ui-sref-active="active"
                        ui-sref="fitness-professional">
                         FITNESS PROFESSIONALS
                     </a>
                 </li>
                 <li>
-                    <a ui-route="/workouts"
-                       ng-class="{active:$uiRoute}"
+                    <a ui-sref-active="active"
                        ui-sref="workouts">
                         WORKOUTS
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="http://store.liveeverfit.com/" class="dropdown-toggle" data-toggle="dropdown">
                         SHOP <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li>
-                            <a ng-class="{active:$uiRoute}" >
-                                Equipment
+                        <li class="dropdown-submenu" ng-class="{open: equipmentHover}">
+                            <a href="http://store.liveeverfit.com/collections/supplements"
+                               ng-mouseenter="equipmentHover = true;" ng-mouseleave="equipmentHover = false;">
+                                equipment
                             </a>
+                            <ul class="dropdown-menu" style="left: 160px;"
+                                ng-mouseenter="equipmentHover = true;" ng-mouseleave="equipmentHover = false;">
+                                <li><a href="http://store.liveeverfit.com/collections/equipment/benches-weight-racks">
+                                    benchesand weight racks
+                                </a></li>
+                                <li><a href="http://store.liveeverfit.com/collections/equipment/dumbells">
+                                    dumbells
+                                </a>
+                                </li>
+                                <li><a href="http://store.liveeverfit.com/collections/equipment/jumpropes">
+                                    jump ropes
+                                </a></li>
+                                <li><a href="http://store.liveeverfit.com/collections/equipment/kettlebells">
+                                    kettle bells
+                                </a></li>
+                                <li><a href="http://store.liveeverfit.com/collections/equipment/kickboxing">
+                                    kickboxing
+                                </a>
+                                </li>
+                                <li><a href="http://store.liveeverfit.com/collections/equipment/medicine-balls">
+                                    medicine balls
+                                </a></li>
+                                <li><a href="http://store.liveeverfit.com/collections/equipment/metronome-ginometer">
+                                    metronome &amp; ginometer
+                                </a></li>
+                                <li><a href="http://store.liveeverfit.com/collections/equipment/misc">
+                                    misc
+                                </a></li>
+                                <li><a href="http://store.liveeverfit.com/collections/equipment/speed-agility">
+                                    speed &amp; angility
+                                </a></li>
+                                <li><a href="http://store.liveeverfit.com/collections/equipment/stability-balls">
+                                    stability balls
+                                </a></li>
+                                <li><a href="http://store.liveeverfit.com/collections/equipment/step-and-risers">
+                                    step &amp; risers
+                                </a></li>
+                                <li><a href="http://store.liveeverfit.com/collections/equipment/tubing-loop-tubing">
+                                    tubing &amp; lube tubing
+                                </a></li>
+                                <li><a href="http://store.liveeverfit.com/collections/equipment/yoga">
+                                    yoga
+                                </a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu" ng-class="{open: foodsHover}">
+                            <a href="http://beta.liveeverfit.com/f3-foods-home/" data-toggle="dropdown"
+                               ng-mouseenter="foodsHover = true;" ng-mouseleave="foodsHover = false;">
+                                f3 foods
+                            </a>
+                            <ul class="dropdown-menu" style="left: 160px;"
+                                ng-mouseenter="foodsHover = true;" ng-mouseleave="foodsHover = false;">
+                                <li><a href="http://beta.liveeverfit.com/f3-foods-home/#Getfit-Program">
+                                    the get fit program
+                                </a></li>
+                                <li><a href="http://beta.liveeverfit.com/f3-foods-stayfit/">
+                                    the stay fit program
+                                </a>
+                                </li>
+                                <li><a href="http://beta.liveeverfit.com/f3-foods-philosophy/">
+                                    philosophy
+                                </a></li>
+                            </ul>
                         </li>
                         <li>
-                            <a ng-class="{active:$uiRoute}" ui-sref="account-settings">
-                                Settings
-                            </a>
+                            <a href="http://store.liveeverfit.com/collections/featured-products">featured items</a>
                         </li>
                         <li>
-
-                            <a ng-class="{active:$uiRoute}" >
-                                f3 Foods
-                            </a>
-                        </li>
-                        <li>
-                            <a ng-class="{active:$uiRoute}" >
-                                Featured Items
-                            </a>
-                        </li>
-                        <li>
-                            <a ng-class="{active:$uiRoute}" >
-                                Supplements
-                            </a>
+                            <a href="http://store.liveeverfit.com/collections/supplements">supplements</a>
                         </li>
                     </ul>
                 </li>
@@ -101,21 +148,19 @@
                     </a>
                 </li>
                 <li>
-                    <a ui-route="/evergreen"
-                       ng-class="{active:$uiRoute}"
+                    <a ui-sref-active="active"
                        ui-sref="evergreen" class="btn-evergreen">
                     </a>
                 </li>
             </ul>
             <ul class="nav navbar-nav pull-right hidden-xs">
                 <li>
-                    <a>
+                    <a href="http://store.liveeverfit.com/cart">
                         <i class="fa fa-shopping-cart fa-lg"></i>&ZeroWidthSpace;
                     </a>
                 </li>
                 <li>
-                    <a ui-route="/messages"
-                       ng-class="{active:$uiRoute}"
+                    <a ui-sref-active="active"
                        ui-sref="messages">
                         <i class="fa fa-envelope fa-lg"></i>&ZeroWidthSpace;
                     </a>
@@ -127,22 +172,22 @@
                     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dLabel">
                         <li>
                             <a>
-                                what do i owe my clients
+                                <i class="fa fa-link"></i> what do i owe my clients
                             </a>
                         </li>
                         <li>
                             <a>
-                                how do i get paid?
+                                <i class="fa fa-money"></i> how do i get paid?
                             </a>
                         </li>
                         <li>
                             <a ui-sref="account-settings">
-                                account setting's
+                                <i class="fa fa-cog"></i> account settings
                             </a>
                         </li>
                         <li>
                             <a ui-sref="logout">
-                                Sign Out
+                                <i class="fa fa-sign-out"></i> sign out
                             </a>
                         </li>
                     </ul>
