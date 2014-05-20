@@ -1,16 +1,14 @@
 <div class="modal-header">
             <h3 class="modal-title">Edit photo</h3>
 </div>
+
 <div ng-controller="ProfilePicCtrl">
     <h3>Profile Pic</h3>
     <input type="file" accept="image/*" fileselect="img.onFileSelect($files)">
-    <b>Progress:</b>
-    <progressbar max="1" type="success" value="progress"></progressbar>
-    
     <h3>Crop</h3>
     <img-cropped src="imageSrc" selected="selected(cords)"></img-cropped>
     <h3>Div Preview
-      <div id="cropped-image" ng-show="cropped" ng-style="{ width: picWidth + 'px', height: picHeight + 'px', overflow: 'hidden' }"><img id="preview" ng-src="{{ myImg.0.src }}"></div>
+      <div id="cropped-image" ng-show="cropped" ng-style="{ width:picWidth+'px', height:picHeight+'px', overflow:'hidden' }"><img id="preview" ng-src="{{myImg.0.src}}"></div>
     </h3>
 </div>
         
