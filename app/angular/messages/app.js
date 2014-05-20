@@ -6,15 +6,10 @@ define(['app', 'videojs'], function (app) {
             $scope.restricted();
         }]);
 
-    app.register.controller('messagesController', ["$stateParams", "$sce", "$resource",
+    app.register.controller('messagesController', ["$state", "$stateParams", "$sce", "$resource",
         "rest", "tokenError", "localStorageService", "$scope",
         "$anchorScroll", "promiseService", "$http",
-        function ($stateParams, $sce, $resource, rest, tokenError, localStorageService, $scope) {
-            $scope.newMessage = {
-                body: '',
-                recipient: '',
-                subject: ''
-            }
+        function ($state, $stateParams, $sce, $resource, rest, tokenError, localStorageService, $scope) {
             $scope.inboxCollection = $resource(":protocol://:url/messages/inbox/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
@@ -28,77 +23,34 @@ define(['app', 'videojs'], function (app) {
                 url: $scope.restURL
             });
             $scope.clientListCollection = $resource(":protocol://:url/users/professionals/client-list/", {
-                    protocol: $scope.restProtocol,
-                    url: $scope.restURL
-                });
+                protocol: $scope.restProtocol,
+                url: $scope.restURL
+            });
             $scope.newMessageResource = $resource(":protocol://:url/messages/compose/", {
-                    protocol: $scope.restProtocol,
-                    url: $scope.restURL
-                });
+                protocol: $scope.restProtocol,
+                url: $scope.restURL
+            });
             $scope.replyMessageResource = $resource(":protocol://:url/messages/reply/:id", {
-                    id: '@id',
-                    protocol: $scope.restProtocol,
-                    url: $scope.restURL
-                });
-            // initialize first view
-            $scope.view = 'inbox';
-            
-
-            $scope.getClientList = function (query) {
-                var deferred = $scope.q.defer();
-                var filtering = {
-                    search: query,
-                };
-                $scope.clientList =  $scope.clientListCollection.query(filtering, function (data) {
-                    deferred.resolve($scope.clientList);
-                });
-                return deferred.promise;
-            };
-            $scope.inboxClick = function () {
-                
-                $scope.view = 'inbox';
-                var items = $scope.inboxCollection.get({}, function (data){
-                    $scope.list = data.results;
-                });
-
-            };
-            $scope.outboxClick = function () {
-                $scope.view = 'outbox';
-                var items = $scope.sentCollection.get({}, function (data){
-                    $scope.list = data.results;
-                });
-            };
-            $scope.trashClick = function () {
-                $scope.view = 'trash';
-                $scope.title = 'trash';
-                var items = $scope.trashCollection.get({}, function (data){
-                    $scope.list = data.results;
-                });
-            };
-            $scope.newClick = function () {
-                $scope.view = 'newMessage';
-            };
-            $scope.messageOpen = function (data) {
-                $scope.msgView = {
-                    subject: data.subject,
-                    body: data.body,
-                    sender: data.sender,
-                    recipient: data.recipient,
-                }
-            };
+                id: '@id',
+                protocol: $scope.restProtocol,
+                url: $scope.restURL
+            });
             $scope.submitMessage = function () {
-                console.log($scope.newMessage)
-                $scope.newMessageResource.save($scope.newMessage, function (){
-                    
+                $scope.newMessageResource.save($scope.newMessage, function () {
+                    $state.go('messages.view', {view: 'inbox'});
                 });
-                
             };
-            
-
+            $scope.deleteMessage = function (index) {
+                $scope.list.splice(index, 1);
+                //$state.go('messages.view', {view: $scope.view});
+            };
             $scope.$on('$stateChangeSuccess', function () {
                 var success = function (data) {
                         $scope.list = data.results;
-                        if($stateParams.index) $scope.detail = $scope.list[$stateParams.index];
+                        if ($stateParams.index) {
+                            $scope.detailIndex = $stateParams.index;
+                            $scope.detail = $scope.list[$stateParams.index];
+                        }
                     },
                     views = {
                         inbox: function () {
@@ -110,11 +62,21 @@ define(['app', 'videojs'], function (app) {
                         deleted: function () {
                             $scope.trashCollection.get({}, success);
                         },
-                        new: $.noop
+                        new: function () {
+                            $scope.newMessage = {
+                                body: '',
+                                recipient: $stateParams.recipient || '',
+                                subject: ''
+                            };
+                        }
                     };
                 $scope.view = $stateParams.view || 'inbox';
-                if($stateParams.index && $scope.list) $scope.detail = $scope.list[$stateParams.index];
+                if ($stateParams.index && $scope.list) {
+                    $scope.detailIndex = $stateParams.index;
+                    $scope.detail = $scope.list[$stateParams.index];
+                }
                 else {
+                    $scope.detailIndex = -1;
                     $scope.detail = false;
                     //Run View Function
                     views[$scope.view]();

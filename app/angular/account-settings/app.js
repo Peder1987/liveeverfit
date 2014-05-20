@@ -9,19 +9,27 @@ define(['app'], function(app) {
     		
     		$scope.user_id = localStorageService.get('user_id');
     		
-	        $scope.profileResource = $resource(":protocol://:url/users/:id/",{
+	        var userResource = $resource(":protocol://:url/users/:id/",{
 	            protocol: $scope.restProtocol,
 	            url: $scope.restURL,
 	            id: $scope.user_id
 	        },{update: { method: 'PUT' }});
 
-	        $scope.professionalResource = $resource(":protocol://:url/users/professionals/:id/",{
+	        var professionalResource = $resource(":protocol://:url/users/professionals/:id/",{
 	            protocol: $scope.restProtocol,
 	            url: $scope.restURL,
 	            id: $scope.user_id
 	        },{update: { method: 'PUT' }});
 	        
-	        $scope.profile_user = $scope.profileResource.get(function() {console.log($scope.profile_user)},$scope.checkTokenError);
+	        $scope.profile_user = userResource.get(function() {
+	        	if($scope.profile_user.type == "professional"){
+					$scope.profileResource = userResource
+					        
+				}else{
+					$scope.profileResource = professionalResource
+				}
+
+	        },$scope.checkTokenError);
 
 
 	        $scope.passwordChange = function (size){
@@ -52,10 +60,7 @@ define(['app'], function(app) {
 					        	return $scope.profile_user.id;
 					        },
 					        profileResource: function(){
-					        	if($scope.profile_user.type == "professional"){
-					        		
-					        		return $scope.professionalResource
-					        	}
+
 					        	return $scope.profileResource 
 					        }
 				      }
@@ -99,7 +104,13 @@ define(['app'], function(app) {
 			      resolve: {
 					        email: function () {
 					          return  $scope.profile_user.email;
-					        }
+					        },
+					        profile_user: function () {
+					          return  $scope.profile_user;
+					        },
+					        profileResource: function(){
+					        	return $scope.profileResource 
+					        },
 				      }
 			      
 			    });
@@ -122,10 +133,6 @@ define(['app'], function(app) {
 					          return  $scope.profile_user.email;
 					        },
 					        profileResource: function(){
-					        	if($scope.profile_user.type == "professional"){
-					        		
-					        		return $scope.professionalResource
-					        	}
 					        	return $scope.profileResource 
 					        },
 					        profile_user: function () {
@@ -164,23 +171,26 @@ define(['app'], function(app) {
 		    		certification_name2 : $scope.profile_user.certification_name2,
 		    		certification_number2 : $scope.profile_user.certification_number2,
 		    	}
-	        	var obj = $scope.professionalResource.update({id:$scope.profile_user.id}, certifications);
+	        	var obj = $scope.profileResource.update({id:$scope.profile_user.id}, certifications);
 			    
 	        };
 	        $scope.updateProfile = function (){
 	        	var resourceType;
 				var temp = $scope.profile_user
-	        	if($scope.profile_user.type == "professional"){
-					        		
-					resourceType = $scope.professionalResource;
-				}else{
-					resourceType = $scope.profileResource;
-				}
 				//removing image since it isn't required 
 				delete temp['img']
-	        	var obj = resourceType.update({id:$scope.profile_user.id}, temp);
+				var obj = $scope.profileResource.update({id:$scope.profile_user.id}, temp);
+			    
 	        };
-
+	        $scope.cancelMembership = function (){
+	        	console.log('dib');
+			    
+	        };
+	        $scope.modifyTier = function (){
+	        	console.log('dib');
+			    
+	        };
+	        
     }]);
 
 
@@ -263,24 +273,45 @@ define(['app'], function(app) {
 			};
     };
 
-    var paymentDetailCtrl = function($scope, $resource, $modalInstance, localStorageService, $http) {
+
+    var paymentDetailCtrl = function($scope, $resource, $modalInstance, localStorageService, $http, profile_user, profileResource) {
     		$scope.message = '';
-    		$scope.creditcard = {
-				name : '',
-				number : '',
-				cvc : '',
-				exp_month : '',
-				exp_year : '',
-				address_line1 : '',
-				address_line2 : '',
-				address_city : '',
-				address_country : '',
-				address_state : '',
-				address_zip : '',
+
+    		if(profile_user.creditcard){
+	    		$scope.creditcard = {
+					name : profile_user.creditcard.name,
+					number : profile_user.creditcard.number,
+					cvc : profile_user.creditcard.cvc,
+					exp_month : profile_user.creditcard.exp_month,
+					exp_year : profile_user.creditcard.exp_year,
+					address_line1 : profile_user.creditcard.address_line1,
+					address_line2 : profile_user.creditcard.address_line2,
+					address_city : profile_user.creditcard.address_city,
+					address_country : profile_user.creditcard.address_country,
+					address_state : profile_user.creditcard.address_state,
+					address_zip : profile_user.creditcard.address_zip,
+	    		}
+
+    		}else{
+    			$scope.creditcard = {
+					name : "",
+					number : "",
+					cvc : "",
+					exp_month : "",
+					exp_year : "",
+					address_line1 : "",
+					address_line2 : "",
+					address_city : "",
+					address_country : "",
+					address_state : "",
+					address_zip : "",
+	    		}
     		}
+
 			$scope.ok = function() {
 				var stripeToken;
-				var paymentResource = $resource(":protocol://:url/users/modify-payment-details/",{
+				var paymentResource = $resource(":protocol://:url/users/modify-payment-details/:id",{
+					id : profile_user.id,
 		            protocol: $scope.restProtocol,
 		            url: $scope.restURL,
 		        },{update: { method: 'PUT' }});
@@ -313,8 +344,8 @@ define(['app'], function(app) {
                         $scope.$apply()
 
                     	stripeToken = response['id'];
-                    	response = paymentResource.save({stripeToken:stripeToken}, function(){})
-                    	console.log(stripeToken);
+                    	response = paymentResource.update({id:profile_user.id,stripeToken:stripeToken}, function(){})
+                    	$modalInstance.close();
   
                     }
             	});

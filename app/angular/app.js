@@ -37,6 +37,7 @@ define(['angularAMD', 'uiRouter', "geolocation",'uiBootstrap', 'routeResolver', 
                 .state('account-settings', route.resolve('/account-settings', 'account-settings'))
                 .state('messages', route.resolve('/messages', 'messages'))
                 .state('messages.view', route.resolve('/:view', 'messages'))
+                .state('messages.view.reply', route.resolve('/new/:recipient', 'messages'))
                 .state('messages.view.detail', route.resolve('/:index', 'messages'))
                 .state('workouts', route.resolve('/workouts', 'workouts'))
                 .state('workouts.video', route.resolve('/:id', 'workouts'))
