@@ -20,7 +20,12 @@ define(['app'], function(app) {
 	            url: $scope.restURL,
 	            id: $scope.user_id
 	        },{update: { method: 'PUT' }});
-	        
+	        var creditcardResource = $resource(":protocol://:url/users/creditcards/:id/",{
+	            protocol: $scope.restProtocol,
+	            url: $scope.restURL,
+	            id: $scope.user_id
+	        },{update: { method: 'PUT' }});
+	        //init
 	        $scope.profile_user = userResource.get(function() {
 	        	if($scope.profile_user.type == "professional"){
 					$scope.profileResource = userResource
@@ -28,6 +33,12 @@ define(['app'], function(app) {
 				}else{
 					$scope.profileResource = professionalResource
 				}
+				// Lazy load credit card information so delay won't be noticed
+				// to user
+				creditcardResource.get(function(data){
+					console.log(data);
+					$scope.profile_user.creditcard = data.creditcard;
+				})
 
 	        },$scope.checkTokenError);
 
