@@ -1,90 +1,98 @@
-
 <script src="http://beta.liveeverfit.com/static/js/bootstrap3-typeahead.min.js"></script>
 <link rel="stylesheet" type="text/css" href="http://beta.liveeverfit.com/static/css/bootstrap-editable.css"/>
 
-<div class="profile-bg">
-<div class="container">
-<div class="row">
-<div class="col-xs-12 col-md-9 seperate-right">
-<h2 class="ef-header">account settings</h2>
-<td style="width:40%">
-        
-        <form editable-form name="editable" ng-show="editable.$visible" onbeforesave="updateProfile()">
-          <button type="submit" ng-disabled="editable.$waiting" class="btn btn-primary" >
-            save
-          </button>
-          <button type="button" ng-disabled="editable.$waiting" ng-click="editable.$cancel()" class="btn btn-default">
-            cancel
-          </button>
-        </form>  
-        <button class="btn btn-default" ng-show="!editable.$visible" ng-click="editable.$show()">
-          edit
-        </button>
-</td> 
-<div class="row">
-        <div class="col-xs-12 col-sm-7">
-            <div class="row">
-                <div class="col-xs-4 col-sm-4">
-                    <a ng-click="photoChange()" class="thumbnail">
-                        <img ng-src="/common/media/{{ profile_user.img }}" data-toggle="modal"
-                             data-target="#profilePictureModal"/>
-                    </a>
-                </div>
-                <div class="col-xs-12 col-sm-8">
-                    <div class="ef-entry-title" style="font-size: 28px;">
-                        <a href="/profile/view?id={{ profile_user.id }}" editable-text="profile_user.first_name" e-form="editable">
-                            {{ profile_user.first_name }}
+<div id="accountSettingsBg"></div>
+<div id="accountSettingsPage">
+    <div class="container" ng-switch="profile_user.type">
+        <h2 class="ef-header">
+            account settings
+        </h2>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4">
+                        <a ng-click="photoChange()" class="thumbnail">
+                            <img ng-src="/common/media/{{ profile_user.img }}" data-toggle="modal"
+                                 data-target="#profilePictureModal"/>
                         </a>
-                        <a href="/profile/view?id={{ profile_user.id }}" editable-text="profile_user.last_name" e-form="editable">
-                            {{ profile_user.last_name }}
-                        </a>
-                        <div style="font-size: 16px; letter-spacing: 0; ">
-                            Date joined: {{ profile_user.date_joined | date:"MMM dd, yyyy" }}
-                        </div>
                     </div>
-                    <div class="row seperate-bottom">
-                        <div class="col-xs-12">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                                    <span class="bold">
-                                                        <span class="glyphicon glyphicon-envelope"></span> Email:
-                                                    </span>
-                                    <a id="email"
-                                       ng-click='emailChange()'
-                                       class="edit-text"
-                                       data-title="Email"
-                                       data-type="email">{{ profile_user.email }}
-                                    </a>
-                                </div>
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="entry-title">
+                            <div ng-show="editable.$visible">first name</div>
+                            <span editable-text="profile_user.first_name"
+                                  e-form="editable">
+                                {{ profile_user.first_name }}&ZeroWidthSpace;
+                            </span>
+
+                            <div ng-show="editable.$visible">last name</div>
+                            <span editable-text="profile_user.last_name"
+                                  e-form="editable">
+                                {{ profile_user.last_name }}&ZeroWidthSpace;
+                            </span>
+
+                            <div>
+                                Date joined: {{ profile_user.date_joined | date:"MMM dd, yyyy" }}
                             </div>
-                            <div class="row edit-password-info">
-                                <div class="col-xs-12">
+                        </div>
+                        <div class="row seperate-bottom">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <span class="bold">
+                                            <span class="glyphicon glyphicon-envelope"></span> Email:
+                                        </span>
+                                        <a id="email"
+                                           ng-click='emailChange()'
+                                           class="edit-text"
+                                           data-title="Email"
+                                           data-type="email">{{ profile_user.email }}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row edit-password-info">
+                                    <div class="col-xs-12">
                                                     <span class="bold">
                                                         <span class="glyphicon glyphicon-lock"></span> Password:
                                                     </span>
-                                    <span  class="edit-password" ng-click='passwordChange()'>Change</span>
+                                        <span class="edit-password" ng-click='passwordChange()'>Change</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <form editable-form name="editable" ng-show="editable.$visible" onbeforesave="updateProfile()">
+                            <button type="submit" ng-click="" ng-disabled="editable.$waiting" class="btn btn-primary">
+                                save
+                            </button>
+                            <button type="button" ng-disabled="editable.$waiting" ng-click="editable.$cancel()"
+                                    class="btn btn-primary">
+                                cancel
+                            </button>
+                        </form>
+                        <button class="btn btn-primary" ng-show="!editable.$visible" ng-click="editable.$show()">
+                            edit
+                        </button>
                     </div>
                 </div>
             </div>
+            <div class="col-xs-12 col-sm-6"
+                 ng-switch-when="professional">
+                <div ng-include
+                     src="'account-settings/views/socialMedia.html'"></div>
+            </div>
         </div>
-    
-    <div ng-switch="profile_user.type">
-        <div ng-switch-when="professional"> <!--Certifications/Social Media only if user is professional-->
-            <div ng-include src="'account-settings/views/socialMedia.html'"></div>
-            <div ng-include src="'account-settings/views/certifications.html'"></div>
+        <div class="row">
+            <div class="col-xs-12"
+                 ng-switch-when="professional">
+                <div ng-include
+                     src="'account-settings/views/certifications.html'"></div>
+            </div>
         </div>
         <div ng-switch-when="upgraded">
-            
-        </div>
-          
-      
-        
-        <div ng-switch-default></div>
-        </div>
-    </div>
-    <div ng-include src="'account-settings/views/membership.html'"></div>
 
+        </div>
+        <div ng-include src="'account-settings/views/membership.html'"></div>
+    </div>
+
+</div>
 

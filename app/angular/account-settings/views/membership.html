@@ -1,24 +1,23 @@
-<script type="text/javascript"></script>
 <!--<script type="text/javascript">Stripe.setPublishableKey("pk_live_oO497oIjwqYyvE443zBQYrmw");</script> -->
 <div class="row">
-        <div class="col-xs-12 col-sm-6">
-            <h2 class="ef-header">membership</h2>
+    <div class="col-xs-12 col-sm-6">
+        <h2 class="ef-header">membership</h2>
 
-            <div class="row">
-                <div class="col-xs-12">
-                    <div ng-switch="profile_user.type">
-                        <div ng-switch-when="professional">
-                            <span class="bold">Profession:</span>
+        <div class="row">
+            <div class="col-xs-12">
+                <div ng-switch="profile_user.type">
+                    <div ng-switch-when="professional">
+                        <span class="bold">Profession:</span>
 
-                            {{ profile_user.profession }}
-                            <br>
-                            <a ng-click="cancelMembership()">
-                                Cancel membership
-                            </a>
-                        </div>
-                        
-                        <div ng-switch-when="upgraded">
-                            Tier:
+                        {{ profile_user.profession }}
+                        <br>
+                        <a ng-click="cancelMembership()">
+                            Cancel membership
+                        </a>
+                    </div>
+
+                    <div ng-switch-when="upgraded">
+                        Tier:
                             <span class="edit-text"
                                   data-title="Tier"
                                   data-name="tier"
@@ -28,61 +27,60 @@
                                   data-source="{'2': 'Tier 2 - $45 per month.','3': 'Tier 3 - $175 per month.','4': 'Tier 4 - $350 per month.','5': 'Tier 5 - $500 per month.'}">
                                                 {{ profile_user.tier }}
                             </span>
-                            <br>
-                            <a href="/modify-membership/?a=cancel" ng-click="modifyTier();">
-                                Cancel membership
-                            </a>
-                        </div>
-                      <div ng-switch-default>
-                        <a ui-sref=="/client-upgrade/">
-                                <span class="glyphicon glyphicon glyphicon-fire"></span>
-                                Upgrade
+                        <br>
+                        <a href="/modify-membership/?a=cancel" ng-click="modifyTier();">
+                            Cancel membership
                         </a>
-                      </div>
+                    </div>
+                    <div ng-switch-default>
+                        <a ui-sref=="/client-upgrade/">
+                            <span class="glyphicon glyphicon glyphicon-fire"></span>
+                            Upgrade
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="col-xs-12 col-sm-6">
-            <h2 class="ef-header">payment details</h2>
+    <div class="col-xs-12 col-sm-6">
+        <h2 class="ef-header">payment details</h2>
 
-            
-                    
-            <div class="row">
-                <div class="col-xs-12">
-                    <div ng-if="profile_user.creditcard">
-                        <div class="bold">
-                            {{ profile_user.creditcard.name }}
-                        </div>
-                        <div>
-                            {{ profile_user.creditcard.address_line1 }}
-                        </div>
-                        <div>
-                            {{ profile_user.creditcard.address_line2 }}
-                        </div>
-                        <div>
-                            {{ profile_user.creditcard.address_city }}, {{ profile_user.creditcard.address_state }}
-                            {{ profile_user.creditcard.address_zip }}
-                            {{ profile_user.creditcard.address_country }}
-                        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div ng-if="profile_user.creditcard">
+                    <div class="bold">
+                        {{ profile_user.creditcard.name }}
+                    </div>
+                    <div>
+                        {{ profile_user.creditcard.address_line1 }}
+                    </div>
+                    <div>
+                        {{ profile_user.creditcard.address_line2 }}
+                    </div>
+                    <div>
+                        {{ profile_user.creditcard.address_city }}, {{ profile_user.creditcard.address_state }}
+                        {{ profile_user.creditcard.address_zip }}
+                        {{ profile_user.creditcard.address_country }}
+                    </div>
 
                         <span class="bold">
                                             {{ profile_user.creditcard.type }}
                                         </span>
-                        ending in {{ profile_user.creditcard.last4 }}
-                        <br>
+                    ending in {{ profile_user.creditcard.last4 }}
+                    <br>
                         <span class="bold">
                                             Expires:
                                         </span>
-                        {{ profile_user.creditcard.exp_month }}/{{ profile_user.creditcard.exp_year }}
-                    </div>
-                    <div ng-if="!profile_user.creditcard">
-                        No payment details on file.
-                    </div>
-                    <br>
-                    <a ng-click='paymentDetail()'>Change Payment Details</a>
+                    {{ profile_user.creditcard.exp_month }}/{{ profile_user.creditcard.exp_year }}
                 </div>
+                <div ng-if="!profile_user.creditcard">
+                    No payment details on file.
+                </div>
+                <br>
+                <a ng-click='paymentDetail()'>Change Payment Details</a>
             </div>
         </div>
+    </div>
 </div>
