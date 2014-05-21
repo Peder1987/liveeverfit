@@ -77,9 +77,11 @@ define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','an
         function(localStorageService, $state, $scope) {
             $scope.isCollapsed = true;
             $scope.token = localStorageService.get('Authorization');
-            $scope.templateNav = {
-                url: 'navbar/index.html'
-            };
+            if($scope.token) {
+                $scope.templateNav = {
+                    url: 'navbar/index.html'
+                };
+            }
         }]);
 
     app.controller('PageCtrl', ['localStorageService', '$scope',
