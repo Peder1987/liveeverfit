@@ -10,20 +10,19 @@ define(['app', 'videojs'], function (app) {
         "rest", "tokenError", "localStorageService", "$scope",
         "$anchorScroll", "promiseService", "$http", 
         function ($state, $stateParams, $sce, $resource, rest, tokenError, localStorageService, $scope) {
-            $scope.currentPage = 2;
             $scope.user_id = localStorageService.get('user_id');
             $scope.inboxCollection = $resource(":protocol://:url/messages/inbox?page=:page", {
-                page: $scope.page,
+                page: $scope.currentPage,
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
             });
             $scope.sentCollection = $resource(":protocol://:url/messages/sent?page=:page", {
-                page: $scope.page,
+                page: $scope.currentPage,
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
             });
             $scope.trashCollection = $resource(":protocol://:url/messages/trash?page=:page", {
-                page: $scope.page,
+                page: $scope.currentPage,
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
             });
@@ -64,38 +63,10 @@ define(['app', 'videojs'], function (app) {
                 //$state.go('messages.view', {view: $scope.view});
 
             };
-            $scope.pageChanged = function () {
-                //console.log(page)
-                console.log($scope.currentPage);
-                /*var success = function (data) {
-                        
-                        $scope.count = data.count;
-                        
-                        $scope.list = data.results;
-                        if ($stateParams.index) {
-                            $scope.detailIndex = $stateParams.index;
-                            $scope.detail = $scope.list[$stateParams.index];
-                        }
-                    },
-                    views = {
-                        inbox: function () {
-                            $scope.inboxCollection.get({page:$scope.page}, success);
-                        },
-                        sent: function () {
-                            $scope.sentCollection.get({page:$scope.page}, success);
-                        },
-                        deleted: function () {
-                            $scope.trashCollection.get({page:$scope.page}, success);
-                        },
-                        
-                    };*/
-                    //views[$scope.view]();
-
-            };
             $scope.$on('$stateChangeSuccess', function () {
                 var success = function (data) {
-                        $scope.count = data.count;
                         $scope.list = data.results;
+                        $scope.totalItems = data.count;
                         if ($stateParams.index) {
                             $scope.detailIndex = $stateParams.index;
                             $scope.detail = $scope.list[$stateParams.index];
@@ -135,6 +106,10 @@ define(['app', 'videojs'], function (app) {
                 else {
                     $state.go('messages.view', {view: 'inbox'});
                 }
+                $scope.pageChanged = function () {
+                    $scope.currentPage = this.currentPage;
+                    views[$scope.view]();
+                };
             });
 
             $scope.getClientTypeAhead = function (query) {
