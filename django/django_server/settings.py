@@ -55,7 +55,7 @@ NOSE_PLUGINS = [
 ]
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['dev.liveeverfit.com', 'liveeverfit.com']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -136,7 +136,7 @@ MIDDLEWARE_CLASSES = (
 if DEBUG:
     pass
 else:
-    MIDDLEWARE_CLASSES += ('middleware.https_middleware',)
+    MIDDLEWARE_CLASSES += ('middleware.https_middleware.HttpsMiddleware',)
 
 ROOT_URLCONF = 'django_server.urls'
 
