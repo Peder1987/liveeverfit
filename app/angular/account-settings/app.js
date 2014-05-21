@@ -218,7 +218,7 @@ define(['app'], function(app) {
 				console.log(WidthHeight);
 
 				$scope.upload = $upload.upload({
-					url: 'http://localhost:8000/ajax-upload/',
+					url: 'http://localhost:8000/upload-image/',
 					file: shareImg.imgOrig,
 				}).progress(function(evt) {
 					console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
@@ -227,7 +227,7 @@ define(['app'], function(app) {
 					console.log($scope.imgData.id);
 
 					$scope.upload = $upload.upload({
-						url: 'http://localhost:8000/ajax-upload/crop/',
+						url: 'http://localhost:8000/upload-image/crop-profile-picture/',
 						data: {id: $scope.imgData.id, cropping: cords, WidthHeight: WidthHeight},
 					}).progress(function(evt) {
 						console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
