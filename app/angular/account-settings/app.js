@@ -28,15 +28,14 @@ define(['app'], function(app) {
 	        //init
 	        $scope.profile_user = userResource.get(function() {
 	        	if($scope.profile_user.type == "professional"){
-					$scope.profileResource = userResource
+					$scope.profileResource = professionalResource
 					        
 				}else{
-					$scope.profileResource = professionalResource
+					$scope.profileResource = userResource
 				}
-				// Lazy load credit card information so delay won't be noticed
+				// Lazy load credit card information so delay is unnoticed 
 				// to user
 				creditcardResource.get(function(data){
-					console.log(data);
 					$scope.profile_user.creditcard = data.creditcard;
 				})
 
@@ -155,33 +154,29 @@ define(['app'], function(app) {
 			      
 			    });
 			    modalInstance.result.then(function (certs) {
-			    	$scope.profile_user.certification_name1 = certs.certification_name1;
-					$scope.profile_user.certification_number1 = certs.certification_number1;
-					$scope.profile_user.certification_name2 = certs.certification_name2;
-					$scope.profile_user.certification_number2 = certs.certification_number2;
-			      
+			    	var temp = {};
+			      	$scope.profile_user.certifications.push(certs);
+			    	temp["certifications"] = $scope.profile_user.certifications
+					$scope.profileResource.update({id:$scope.profile_user.id,}, temp);			    	
+			    	
+			      	
 			    }, function () {
 			    	
 			      
 			    });
 			    
 	        };
-	        $scope.deleteCertification = function (cert){
-	        	if(cert == 'certification_name1') {
-	        		$scope.profile_user.certification_name1 = '';
-	        		$scope.profile_user.certification_number1 = '';
-	        	} else {
-	        		$scope.profile_user.certification_name2 = '';
-	        		$scope.profile_user.certification_number2 = '';
-	        	}
-	        	var certifications = {
-		    		id : $scope.profile_user.id,
-		    		certification_name1 : $scope.profile_user.certification_name1,
-		    		certification_number1 : $scope.profile_user.certification_number1,
-		    		certification_name2 : $scope.profile_user.certification_name2,
-		    		certification_number2 : $scope.profile_user.certification_number2,
-		    	};
-	            $scope.profileResource.update({id:$scope.profile_user.id}, certifications);
+	        $scope.deleteCertification = function (removeCert){
+	        	var certs = $scope.profile_user.certifications
+	        	var index = certs.indexOf(removeCert);
+	        	var temp = {}
+	        	//remove the cert
+	        	$scope.profile_user.certifications.splice(index, 1);
+	        	// convert to clean format to return back to server
+	        	certs = angular.toJson($scope.profile_user.certifications)
+	        	temp["certifications"] = $scope.profile_user.certifications
+
+	            $scope.profileResource.update({id:$scope.profile_user.id,}, temp);
 			    
 	        };
 	        $scope.updateProfile = function (){
@@ -427,11 +422,8 @@ define(['app'], function(app) {
     	$scope.message = '';
 
         $scope.certifications = {
-    		id : profile_user.id,
-    		certification_name1 : profile_user.certification_name1,
-    		certification_number1 : profile_user.certification_number1,
-    		certification_name2 : profile_user.certification_name2,
-    		certification_number2 : profile_user.certification_number2,
+    		certification_name : "",
+    		certification_number : "",
     	};
 
         $scope.closeAlert = function (error) {
@@ -439,7 +431,6 @@ define(['app'], function(app) {
         };
     	
 		$scope.ok = function(valid) {
-            var obj = profileResource.update({id:$scope.certifications.id}, $scope.certifications);
             $modalInstance.close($scope.certifications);
 		}
 

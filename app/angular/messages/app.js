@@ -10,16 +10,20 @@ define(['app', 'videojs'], function (app) {
         "rest", "tokenError", "localStorageService", "$scope",
         "$anchorScroll", "promiseService", "$http",
         function ($state, $stateParams, $sce, $resource, rest, tokenError, localStorageService, $scope) {
+            $scope.page = 1
             $scope.user_id = localStorageService.get('user_id');
-            $scope.inboxCollection = $resource(":protocol://:url/messages/inbox/", {
+            $scope.inboxCollection = $resource(":protocol://:url/messages/inbox?page=:page", {
+                page: $scope.page,
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
             });
-            $scope.sentCollection = $resource(":protocol://:url/messages/sent/", {
+            $scope.sentCollection = $resource(":protocol://:url/messages/sent?page=:page", {
+                page: $scope.page,
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
             });
-            $scope.trashCollection = $resource(":protocol://:url/messages/trash/", {
+            $scope.trashCollection = $resource(":protocol://:url/messages/trash?page=:page", {
+                page: $scope.page,
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
             });
@@ -53,17 +57,46 @@ define(['app', 'videojs'], function (app) {
             $scope.deleteMessage = function (index, msg) {
                 var attrs;
                 $scope.list.splice(index, 1);
-                console.log(msg);
                 msg.view = $scope.view
-                console.log(msg)
                 $scope.deleteMessageResource.update(msg, function(){
 
                 });
                 //$state.go('messages.view', {view: $scope.view});
 
             };
+            $scope.pageChanged = function () {
+                var success = function (data) {
+                        
+                        $scope.count = data.count;
+                        
+                        $scope.list = data.results;
+                        if ($stateParams.index) {
+                            $scope.detailIndex = $stateParams.index;
+                            $scope.detail = $scope.list[$stateParams.index];
+                        }
+                    },
+                    views = {
+                        inbox: function () {
+                            $scope.inboxCollection.get({page:$scope.page}, success);
+                        },
+                        sent: function () {
+                            $scope.sentCollection.get({page:$scope.page}, success);
+                        },
+                        deleted: function () {
+                            $scope.trashCollection.get({page:$scope.page}, success);
+                        },
+                        
+                    };
+                    console.log($scope.view);
+                    console.log($scope.page);
+                    views[$scope.view]();
+
+            };
             $scope.$on('$stateChangeSuccess', function () {
                 var success = function (data) {
+                        
+                        $scope.count = data.count;
+                        
                         $scope.list = data.results;
                         if ($stateParams.index) {
                             $scope.detailIndex = $stateParams.index;
