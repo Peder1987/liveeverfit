@@ -24,7 +24,7 @@
                 </div>
             </a>
         </div>
-        <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+        <pagination ng-if="totalItems" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
     </div>
     <div ng-if="detail" class="col-xs-7">
         <div class="media">

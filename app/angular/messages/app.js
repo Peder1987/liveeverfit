@@ -63,9 +63,6 @@ define(['app', 'videojs'], function (app) {
                 //$state.go('messages.view', {view: $scope.view});
 
             };
-            $scope.pageChanged = function () {
-                $scope.currentPage = this.currentPage;
-            };
             $scope.$on('$stateChangeSuccess', function () {
                 var success = function (data) {
                         $scope.list = data.results;
@@ -109,6 +106,10 @@ define(['app', 'videojs'], function (app) {
                 else {
                     $state.go('messages.view', {view: 'inbox'});
                 }
+                $scope.pageChanged = function () {
+                    $scope.currentPage = this.currentPage;
+                    views[$scope.view]();
+                };
             });
 
             $scope.getClientTypeAhead = function (query) {
