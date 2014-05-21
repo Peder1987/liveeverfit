@@ -13,9 +13,15 @@ define(['app'], function(app) {
     app.register.controller('BannerCtrl', ['$scope',
         function($scope) {
             var slides = $scope.slides = [{
-                image: 'http://placekitten.com/1170/286'
+                image: '/home/img/slider/1.jpg'
             },{
-                image: 'http://placekitten.com/1171/286'
+                image: '/home/img/slider/2.jpg'
+            },{
+                image: '/home/img/slider/3.jpg'
+            },{
+                image: '/home/img/slider/4.jpg'
+            },{
+                image: '/home/img/slider/5.jpg'
             }];
         }]);
     return app;

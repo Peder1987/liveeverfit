@@ -1,85 +1,53 @@
-#evergreen-wrapper{
-  background: url('../common/img/bckd-evergreen.jpg');
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: cover;
+#evergreen-wrapper {
+  background: url('evergreen/img/bckd-evergreen.jpg');
+  min-height: 100%;
+  width: 100%;
   position: absolute;
   top: 0;
+  left: 0;
   right: 0;
   bottom: 0;
-  left: 0;
-  padding-top: 0px;
-  overflow-y: scroll;
-
-}
-
-
-a {
-  color: #c3c3c3;
-  text-decoration: none;
-}
-
-.evergreen-logos{
-  position: absolute;
-  top: 150%;
-  left: 15%;
-}
-
-.sm-logo-right{
-  position: absolute;
-  top: -250px;
-  left: 60%;
-}
-
-.sm-logo-left{
-  position: absolute;
-  top: 200px;
-}
-
-
-.evergreen-bckd{
-  position: relative;
-  margin: 0 auto;
-  max-width: 700px;
-  height: 690px;
-  -webkit-background-size: cover;
-  -moz-background-size: 100% auto;
-  -o-background-size: cover;
   background-size: cover;
-  margin-bottom: 230px;
-}
 
-
-@media (min-width: 768px){
-  .evergreen-bckd{
+  .evergreen-bckd {
     position: relative;
-    margin: 0 auto;
-    width: auto;
-    max-width: 1076px;
-    height: 1043px;
-    background: url('../common/img/bckd-evergreen-content.png') no-repeat center center;
+    background: url('evergreen/img/bckd-evergreen-content.png');
     -webkit-background-size: cover;
     -moz-background-size: 100% auto;
     -o-background-size: cover;
     background-size: cover;
-    margin-bottom: 70px;
   }
 
-}
+  .evergreen-text {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    right: 10%;
+    transform: rotate(-15deg);
+    -ms-transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    color: #d4e1b2;
+  }
 
+  .first-cap {
+    font-size: 2.5em;
+    font-weight: bold;
+    line-height: 1em;
+  }
 
-.evergreen-text{
-  position: absolute;
-  top: 20%;
-  left: auto;
-  right: 8%;
-  width: 400px;
-  -webkit-transform: rotate(-15deg);
-  color: #d4e1b2;
-}
-
-.evergreen-footer{
-  color: #8e9c6a;
+  .evergreen-logos{
   text-align: center;
-  margin-top: -110px;
+  }
+
+  .evergreen-footer {
+    color: #8e9c6a;
+    text-align: center;
+    margin-bottom:-100px;
+  }
+
+  .float-right {
+    display: block;
+    float: right;
+  }
 }
+

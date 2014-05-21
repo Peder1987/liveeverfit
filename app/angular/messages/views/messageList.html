@@ -7,9 +7,9 @@
                class="list-group-item">
                 <button ng-show="view != 'deleted'" class="close" ng-click="deleteMessage($index, msg)">&times;</button>
                 <div class="media">
-                    <img class="media-object pull-left" data-src="holder.js/64x64" alt="64x64"
+                    <img class="media-object pull-left"
                          src="{{msg.img}}"
-                         style="width: 64px; height: 64px;">
+                         style="width: 36px; height: 36px;">
 
                     <div class="media-body">
                         <div class="col-xs-12 col-sm-9">
@@ -18,7 +18,7 @@
                             <div ng-if="view == 'deleted'"><b>Sender: {{msg.recipient}}</b></div>
                             <div ng-if="view == 'deleted'"><b>Recipient: {{msg.sender}}</b></div>
                             <div>{{msg.subject}}</div>
-                            <div>{{msg.body}}</div>
+                            <!--<div>{{msg.body}}</div>-->
                         </div>
                     </div>
                 </div>
