@@ -87,8 +87,7 @@ define(['app'], function(app) {
 
 
 	        $scope.photoChange = function(size){
-	        	var imgId = 'test',
-	        		modalInstance = $modal.open({
+	        	var modalInstance = $modal.open({
 	        		templateUrl: 'account-settings/modals/photoChange.html',
 	        		controller : 'photoChangeCtrl',
 	        		size: size,
@@ -99,8 +98,6 @@ define(['app'], function(app) {
 	        		data.path = data.path.substring(6);
 	        		$scope.profile_user.img = data.path;
 			    },function(){
-			    	console.log(imgId);
-
 			    });
 	        };
 
@@ -242,10 +239,7 @@ define(['app'], function(app) {
 
 
 			$scope.cancel = function () {
-				var hello= 'yea baby';
-				var hello2= 'yea babyyy';  
-				// $modalInstance.close(hello);
-				$modalInstance.dismiss(hello2);
+				$modalInstance.dismiss();
 			};
 
 	}]);
