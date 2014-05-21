@@ -8,17 +8,17 @@
                 </h3>
                 <div class="form-style">
                     <form class="form-horizontal" action="#" method="post">
-                        <label for="Name">
+                        <label for="Name" ng-module="name">
                             Name
                         </label>
                         <input type="text" class="form-control" name="firstName" id="Name" placeholder="Name" ng-model="user.first_name" required>
                         <p></p>
-                        <label for="Email">
+                        <label for="Email" ng-module="email">
                             Email
                         </label>
                         <input type="email" class="form-control" name="email" id="email" placeholder="Email" ng-model="user.email" required>
                         <p></p>
-                        <label for="msg">Message</label>
+                        <label for="msg" ng-module="message">Message</label>
                         <textarea type="text" class="form-control" name="msg" id="msg" placeholder="Write message" cols="20" rows="10" required></textarea>
                         <p></p>
                         <button class="btn pull-right" type="submit">
