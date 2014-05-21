@@ -132,6 +132,7 @@ def crop_profile_picture(request):
             f = open(pathToFile, mode='rb')
             user.img.save(uploaded_file.file.name, File(f))
             f.close()
+            
             file_img = pathToFile
             os.remove(file_img)
 
