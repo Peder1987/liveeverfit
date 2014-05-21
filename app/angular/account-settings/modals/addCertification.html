@@ -9,29 +9,17 @@
             Certification Name
         </label>
         <input type="text" class="form-control" name="name" id="certificationName" placeholder="Certification Name"
-               ng-model="certifications.certification_name1">
+               ng-model="certifications.certification_name">
 
         <p></p>
         <label for="numberName">
             Certification Number
         </label>
         <input type="text" class="form-control" name="number" id="numberName" placeholder="Certification Number"
-               ng-model="certifications.certification_number1">
+               ng-model="certifications.certification_number">
 
         <p></p>
-        <label for="certificationName2">
-            Certification Name 2
-        </label>
-        <input type="text" class="form-control" name="name" id="certificationName2" placeholder="Certification Name"
-               ng-model="certifications.certification_name2">
-
-        <p></p>
-        <label for="numberName2">
-            Certification Number 2
-        </label>
-        <input type="text" class="form-control" name="number" id="numberName2" placeholder="Certification Number"
-               ng-model="certifications.certification_number2"
-               ng-required="{{certifications.certification_name2 != ''}}">
+        
     </div>
     <div class="modal-footer">
         <button class="btn btn-success" type="submit" ng-click="ok(certificationForm.$valid)">save</button>

@@ -8,7 +8,7 @@ from django.utils.safestring import mark_safe
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail, EmailMessage
 
-from user_app.models import CustomUser, Address, Professional, UniqueLocation
+from user_app.models import CustomUser, Address, Professional, UniqueLocation, Certification
 from user_app.forms import CustomUserChangeForm, CustomUserCreationForm
 
 
@@ -74,3 +74,4 @@ admin.site.register(Professional, ProfessionalAdmin)
 
 admin.site.register(UniqueLocation)
 admin.site.register(Address)
+admin.site.register(Certification)

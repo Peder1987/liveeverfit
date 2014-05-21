@@ -341,7 +341,8 @@ class UniqueLocation(models.Model):
         }
 
 
-class certification(models.Model):
+class Certification(models.Model):
+    user = models.ForeignKey(CustomUser, related_name='certifications', blank=True,null=True)
     certification_name = models.CharField(_('certification name'), max_length=100, blank=True)
     certification_number = models.CharField(_('cetification number'), max_length=100, blank=True)
 
@@ -385,7 +386,7 @@ class Professional(CustomUser):
 
     shopify_sales = shopify_call.customer_sales_to_date
 
-    certifications = models.ManyToManyField(certification, related_name='certification_user', blank=True,null=True)
+    
 
     #Metadata
     def __unicode__(self):
