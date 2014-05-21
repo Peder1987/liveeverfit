@@ -1,12 +1,12 @@
-<div id="contact">
-    <div class="container" style="padding-top:100px;">
+<div id="contact" ng-controller="contactCtrl">
+    <div class="container">
         <div class="col-md-5 hidden-xs hidden-sm"></div>
         <div class="col-md-7">
-            <div class="panel panel-xl">
-                <div class="panel-heading">
-                    <h3>Contact</h3>
+            <div class="panel-xl">
+                <div class="panel-head-sty">
+                    <h3>contact</h3>
                 </div>
-                <div class="panel-body">
+                <div class="form-style">
                     <form class="form-horizontal" action="#" method="post">
                         <label for="Name">
                             Name:
@@ -21,7 +21,7 @@
                         <label for="msg">Message:</label>
                         <textarea type="text" class="form-control" name="msg" id="msg" placeholder="Write message" cols="20" rows="10" required></textarea>
                         <p></p>
-                        <button class="btn btn-primary pull-left" type="submit">
+                        <button class="btn btn-sub-contact pull-right" type="submit">
                             Submit <i class="fa fa-chevron-right"></i>
                         </button>
                     </form>
