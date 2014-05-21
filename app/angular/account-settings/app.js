@@ -204,6 +204,8 @@ define(['app'], function(app) {
 
 			$scope.imgData = {}; 
 
+
+
 			$scope.ok = function() {
 				console.log('Uploading');
 				console.log(shareImg);
@@ -211,26 +213,28 @@ define(['app'], function(app) {
 				var WidthHeight = shareImg.cords.bx + ',' + shareImg.cords.by;
 				console.log(cords);
 				console.log(WidthHeight);
+				console.log($scope.data);
 
-				$scope.upload = $upload.upload({
-					url: 'http://localhost:8000/ajax-upload/',
-					file: shareImg.imgOrig,
-				}).progress(function(evt) {
-					console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-				}).success(function(data, status, headers, config){
-					$scope.imgData =data;
-					console.log($scope.imgData.id);
 
-					$scope.upload = $upload.upload({
-						url: 'http://localhost:8000/ajax-upload/crop/',
-						data: {id: $scope.imgData.id, cropping: cords, WidthHeight: WidthHeight},
-					}).progress(function(evt) {
-						console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-					}).success(function(data, status, headers, config){
-						console.log(data);
-					});
+				// $scope.upload = $upload.upload({
+				// 	url: 'http://localhost:8000/upload-image/',
+				// 	file: shareImg.imgOrig,
+				// }).progress(function(evt) {
+				// 	console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+				// }).success(function(data, status, headers, config){
+				// 	$scope.imgData =data;
+				// 	console.log($scope.imgData.id);
 
-				});
+				// 	$scope.upload = $upload.upload({
+				// 		url: 'http://localhost:8000/upload-image/crop-profile-picture/',
+				// 		data: {id: $scope.imgData.id, cropping: cords, WidthHeight: WidthHeight},
+				// 	}).progress(function(evt) {
+				// 		console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+				// 	}).success(function(data, status, headers, config){
+				// 		console.log(data);
+				// 	});
+
+				// });
 				// $modalInstance.dismiss();
 			}
 
@@ -444,8 +448,9 @@ define(['app'], function(app) {
 
     //JCrop
     app.register.factory('shareImg', function($rootScope){
-    	var data = {};
-    	return data;
+
+    	$rootScope.imgData = {};
+    	return $rootScope.imgData;
     });
 
 
@@ -520,7 +525,6 @@ define(['app'], function(app) {
                         scope.$parent.myImg = undefined;
                     }
                 };
-
                 scope.$watch('src', function (nv) {
                     clear();
                     if (!nv){
@@ -569,6 +573,7 @@ define(['app'], function(app) {
 
             $scope.$on('fileProgress', function(e, progress) {
                 $scope.progress = progress.loaded / progress.total;
+                shareImg.progress = $scope.progress;
             });
 
             $scope.initJcrop = function(){
@@ -602,10 +607,7 @@ define(['app'], function(app) {
 
               $scope.cropped = true;
               var rx = $scope.picWidth / cords.w, 
-              		ry = $scope.picHeight / cords.h,
-              		canvas = document.createElement("canvas"), 
-              		context = canvas.getContext('2d'),
-                    imageObj = $window.jQuery('img#preview')[0];
+              		ry = $scope.picHeight / cords.h;
 
               $window.jQuery('img#preview').css({
               	width: Math.round(rx * cords.bx) + 'px',
@@ -614,13 +616,7 @@ define(['app'], function(app) {
                 marginTop: '-' + Math.round(ry * cords.y) + 'px'
               });
 
-              $window.jQuery('.canvas-preview').children().remove();
-              canvas.width = cords.w;
-              canvas.height = cords.h;
-              context.drawImage(imageObj, cords.x*2, cords.y*2, cords.w*2, cords.h*2, 0, 0, cords.w, cords.h);
-              $window.jQuery('.canvas-preview').append(canvas);
-
-            };
+          	};
 
     }]);
 	//End JCrop
