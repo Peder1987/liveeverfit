@@ -529,7 +529,6 @@ define(['app'], function(app) {
                         scope.$parent.myImg = undefined;
                     }
                 };
-
                 scope.$watch('src', function (nv) {
                     clear();
                     if (!nv){
@@ -578,6 +577,7 @@ define(['app'], function(app) {
 
             $scope.$on('fileProgress', function(e, progress) {
                 $scope.progress = progress.loaded / progress.total;
+                shareImg.progress = $scope.progress;
             });
 
             $scope.initJcrop = function(){
@@ -611,10 +611,7 @@ define(['app'], function(app) {
 
               $scope.cropped = true;
               var rx = $scope.picWidth / cords.w, 
-              		ry = $scope.picHeight / cords.h,
-              		canvas = document.createElement("canvas"), 
-              		context = canvas.getContext('2d'),
-                    imageObj = $window.jQuery('img#preview')[0];
+              		ry = $scope.picHeight / cords.h;
 
               $window.jQuery('img#preview').css({
               	width: Math.round(rx * cords.bx) + 'px',
@@ -623,13 +620,7 @@ define(['app'], function(app) {
                 marginTop: '-' + Math.round(ry * cords.y) + 'px'
               });
 
-              $window.jQuery('.canvas-preview').children().remove();
-              canvas.width = cords.w;
-              canvas.height = cords.h;
-              context.drawImage(imageObj, cords.x*2, cords.y*2, cords.w*2, cords.h*2, 0, 0, cords.w, cords.h);
-              $window.jQuery('.canvas-preview').append(canvas);
-
-            };
+          	};
 
     }]);
 	//End JCrop
