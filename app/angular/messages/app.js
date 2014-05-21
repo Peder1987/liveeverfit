@@ -10,7 +10,7 @@ define(['app', 'videojs'], function (app) {
         "rest", "tokenError", "localStorageService", "$scope",
         "$anchorScroll", "promiseService", "$http", 
         function ($state, $stateParams, $sce, $resource, rest, tokenError, localStorageService, $scope) {
-            $scope.currentPage = 1
+            $scope.currentPage = 2;
             $scope.user_id = localStorageService.get('user_id');
             $scope.inboxCollection = $resource(":protocol://:url/messages/inbox?page=:page", {
                 page: $scope.page,
@@ -65,9 +65,7 @@ define(['app', 'videojs'], function (app) {
 
             };
             $scope.pageChanged = function () {
-
                 //console.log(page)
-                console.log($scope.view);
                 console.log($scope.currentPage);
                 /*var success = function (data) {
                         
@@ -96,9 +94,7 @@ define(['app', 'videojs'], function (app) {
             };
             $scope.$on('$stateChangeSuccess', function () {
                 var success = function (data) {
-                        
                         $scope.count = data.count;
-                        
                         $scope.list = data.results;
                         if ($stateParams.index) {
                             $scope.detailIndex = $stateParams.index;
