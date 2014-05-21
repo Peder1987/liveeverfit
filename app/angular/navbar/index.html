@@ -9,41 +9,7 @@
             <a class="navbar-brand" ng-class="{active:$uiRoute}" ui-route="/" ui-sref="home">
                 <image src="common/img/navbar/logo.png"/>
             </a>
-
-            <div class="visible-xs xs-icon">
-                <a>
-                    <i class="fa fa-shopping-cart fa-lg"></i>&ZeroWidthSpace;
-                </a>
-                <a ui-sref-active="active"
-                   ui-sref="messages">
-                    <i class="fa fa-envelope fa-lg"></i>&ZeroWidthSpace;
-                </a>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-user fa-lg"></i> <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <li>
-                        <a>
-                            <i class="fa fa-link"></i> what do i owe my clients
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            <i class="fa fa-money"></i> how do i get paid?
-                        </a>
-                    </li>
-                    <li>
-                        <a ui-sref="account-settings">
-                            <i class="fa fa-cog"></i> account settings
-                        </a>
-                    </li>
-                    <li>
-                        <a ui-sref="logout">
-                            <i class="fa fa-sign-out"></i> sign out
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <ul class="nav navbar-nav visible-xs xs-icon" ng-include src="'/icons.html'"></ul>
         </div>
         <!--Logged in navbar-->
         <div class="navbar-collapse collapse" collapse="isCollapsed">
@@ -153,52 +119,55 @@
                     </a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav pull-right hidden-xs">
-                <li>
-                    <a href="http://store.liveeverfit.com/cart">
-                        <i class="fa fa-shopping-cart fa-lg"></i>&ZeroWidthSpace;
-                    </a>
-                </li>
-                <li>
-                    <a ui-sref-active="active"
-                       ui-sref="messages">
-                        <i class="fa fa-envelope fa-lg"></i>&ZeroWidthSpace;
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-user fa-lg"></i> <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dLabel">
-                        <li>
-                            <a>
-                                <i class="fa fa-link"></i> what do i owe my clients
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                <i class="fa fa-money"></i> how do i get paid?
-                            </a>
-                        </li>
-                        <li>
-                            <a ui-sref="account-settings">
-                                <i class="fa fa-cog"></i> account settings
-                            </a>
-                        </li>
-                        <li>
-                            <a ui-sref="terms">
-                                <i class="fa fa-book"></i>  Terms & Conditions
-                            </a>
-                        </li>
-                        <li>
-                            <a ui-sref="logout">
-                                <i class="fa fa-sign-out"></i> sign out
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <ul class="nav navbar-nav pull-right hidden-xs" ng-include src="'/icons.html'"></ul>
         </div>
     </div>
 </div>
+
+<script type="text/ng-template" id="/icons.html">
+    <li>
+        <a href="http://store.liveeverfit.com/cart">
+            <i class="fa fa-shopping-cart fa-lg"></i>&ZeroWidthSpace;
+        </a>
+    </li>
+    <li>
+        <a ui-sref-active="active"
+           ui-sref="messages">
+            <i class="fa fa-envelope fa-lg"></i>&ZeroWidthSpace;
+        </a>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-user fa-lg"></i> <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dLabel">
+            <li>
+                <a>
+                    <i class="fa fa-link"></i> what do i owe my clients
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="fa fa-money"></i> how do i get paid?
+                </a>
+            </li>
+            <li>
+                <a ui-sref="account-settings">
+                    <i class="fa fa-cog"></i> account settings
+                </a>
+            </li>
+            <li>
+                <a ui-sref="terms">
+                    <i class="fa fa-book"></i>  terms & conditions
+                </a>
+            </li>
+            <li>
+                <a ui-sref="logout">
+                    <i class="fa fa-sign-out"></i> sign out
+                </a>
+            </li>
+        </ul>
+    </li>
+</script>
+
 

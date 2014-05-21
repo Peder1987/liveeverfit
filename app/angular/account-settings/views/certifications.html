@@ -2,7 +2,7 @@
     certifications
     <button class="btn btn-primary pull-right" data-toggle="modal" ng-click="addCertification()"
             data-target="#certificationModal"><span
-            class="glyphicon glyphicon glyphicon-plus"></span> add/edit certification
+            class="glyphicon glyphicon glyphicon-plus"></span> add certification
     </button>
 </h3>
 <div class="row">
@@ -15,26 +15,16 @@
                         <span class="pull-right">Certification Number</span>
                     </div>
                     <ul id="certifications" class="list-group">
-                            <li ng-show="profile_user.certification_name1 != ''" id="certification-{{ certification.pk }}" class="list-group-item">
+                        <div ng-repeat="certification in profile_user.certifications" 
+                            <li  id="certification-{{ certification.pk }}" class="list-group-item">
                                 <span>
-                                    {{ profile_user.certification_name1 }}
+                                    {{ certification.certification_name }}
                                 </span>
-                                <button type="button" class="close" style="margin-left: 15px;" ng-click="deleteCertification('certification_name1')">
+                                <button type="button" class="close" style="margin-left: 15px;" ng-click="deleteCertification(certification)">
                                     ×
                                 </button>
                                 <span class="badge">
-                                      {{ profile_user.certification_number1 }}
-                                </span>
-                            </li>
-                            <li ng-show="profile_user.certification_name2 != ''" id="certification-2 }}" class="list-group-item">
-                                <span>
-                                    {{ profile_user.certification_name2 }}
-                                </span>
-                                <button type="button" class="close" style="margin-left: 15px;" ng-click="deleteCertification('certification_name2')">
-                                    ×
-                                </button>
-                                <span class="badge">
-                                      {{ profile_user.certification_number2 }}
+                                      {{ certification.certification_number }}
                                 </span>
                             </li>
                        

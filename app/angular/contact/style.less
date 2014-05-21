@@ -1,10 +1,59 @@
 #contact {
-  background: url('contact/img/bckd-contact-page.jpg') no-repeat center center;
-  min-height: 100%;
-  width: 100%;
+  background-image: url("contact/img/bckd-contact-page.jpg");
+  background-repeat: no-repeat;
+  background-position: center top;
   background-size: cover;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding-top: 0px;
+  overflow-y: scroll;
+
 }
 
 .panel-xl{
+  position: relative;
+  margin-bottom: 0px;
+  letter-spacing: -2px;
+  color:#818b94;
+}
+
+.ef-header{
+  line-height: 46px;
+  position: relative;
+  padding-left: 14px;
+  font-weight: bold;
+  margin-bottom: 21px;
+  font-family: 'Helvetica Neue', 'HelveticaNeue', 'Open Sans';
+  letter-spacing: -2px;
+  font-size: 36px;
+  color: #818b94;
+
+  h3{
+    font-size: 36px;
+    letter-spacing: -2px;
+    margin-bottom: -10px;
+  }
+}
+
+
+
+.form-style{
+  font-size: 17px;
+  letter-spacing: 2px;
 
 }
+
+.btn-sub-contact{
+  background-color: @ever-blue;
+  color: #FFFFFF;
+
+  &:hover,
+  &:focus {
+    color: #FFFFFF;
+    text-decoration: none;
+  }
+}
+

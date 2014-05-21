@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 from rest_framework import serializers
-from user_app.models import Professional, UniqueLocation
+from user_app.models import Professional, UniqueLocation, Certification
 
 
 
@@ -68,10 +68,21 @@ class ProfessionalListSerializer(serializers.ModelSerializer):
         fields = ("first_name", "last_name", "profession", "gender", "location", "is_accepting", "img", 'lat', 'lng',)
 
 
+class CertificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Certification
+        exclude = ('user',)
+
 
 class ProfessionalSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='email', required=False)
     img = serializers.ImageField(allow_empty_file=True, required=False)
+    certifications = CertificationSerializer(many=True, allow_add_remove=True)
+
+    def to_native(self, value):
+        obj = super(ProfessionalSerializer, self).to_native(value)
+        print obj
+        return obj
     class Meta:
         model = Professional
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list")
@@ -81,7 +92,6 @@ class ClientListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name',)
-
 
 class ModifyMembershipSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='email', required=False)
