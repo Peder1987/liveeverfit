@@ -135,9 +135,8 @@ def crop_profile_picture(request):
             file_img = pathToFile
             os.remove(file_img)
 
-
             data = {
-                'success': True,
+                'path': user.img.url,
             }
 
             return HttpResponse(simplejson.dumps(data))

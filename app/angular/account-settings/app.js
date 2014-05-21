@@ -87,21 +87,19 @@ define(['app'], function(app) {
 
 
 	        $scope.photoChange = function(size){
-	        	var modalInstance = $modal.open({
+	        	var imgId = 'test',
+	        		modalInstance = $modal.open({
 	        		templateUrl: 'account-settings/modals/photoChange.html',
 	        		controller : 'photoChangeCtrl',
 	        		size: size,
 	        		resolve: {
-	        			id : function(){
-	        				return $scope.profile_user.id;
-	        			},
-	        			email: function () {
-	        				return  $scope.profile_user.email;
-	        			}
 	        		}
 	        	});
-	        	modalInstance.result.then(function(){
+	        	modalInstance.result.then(function(data){
+	        		data.path = data.path.substring(6);
+	        		$scope.profile_user.img = data.path;
 			    },function(){
+			    	console.log(imgId);
 
 			    });
 	        };
@@ -199,9 +197,8 @@ define(['app'], function(app) {
     }]);
 
 
-	app.register.controller('photoChangeCtrl', ['$scope','$resource','$modalInstance','$upload','localStorageService','shareImg','email','id',
-		function($scope,$resource,$modalInstance,$upload,localStorageService,shareImg,email,id){
-
+	app.register.controller('photoChangeCtrl', ['$scope','$resource','$modalInstance','$upload','localStorageService','shareImg',
+		function($scope,$resource,$modalInstance,$upload,localStorageService,shareImg){
 			$scope.returnData;
 			$scope.errors;
 			$scope.user_id = localStorageService.get('user_id');
@@ -237,8 +234,7 @@ define(['app'], function(app) {
 				}).progress(function(evt) {
 					console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
 				}).success(function(data, status, headers, config){
-					location.reload();
-					//Come back and load data.path into image with out reload
+					$modalInstance.close(data);
 				}).error(function(data, status, headers, config){
 					$scope.errors = data;
 				});
@@ -246,7 +242,10 @@ define(['app'], function(app) {
 
 
 			$scope.cancel = function () {
-				$modalInstance.dismiss();
+				var hello= 'yea baby';
+				var hello2= 'yea babyyy';  
+				// $modalInstance.close(hello);
+				$modalInstance.dismiss(hello2);
 			};
 
 	}]);
