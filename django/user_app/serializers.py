@@ -20,9 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',
-
-            )
+        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',)
 
     def to_native(self, value):
         obj = super(UserSerializer, self).to_native(value)

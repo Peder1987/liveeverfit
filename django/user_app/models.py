@@ -81,7 +81,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     plus = models.CharField(_('plus'), max_length=100, blank=True)
 
     #Image field requires the lib pillow
-    img = models.ImageField(_('image'), upload_to="trainers", blank=True, default='default-profile.svg')
+    img = models.ImageField(_('image'), upload_to="user_app/profile", blank=True, default='default-profile.svg')
     bio = models.CharField(_('biography'), max_length=5000, blank=True)
     referred_by = models.ForeignKey('Professional', null=True, related_name='user_reference', blank=True)
     shopify_id = models.IntegerField(default=0, blank=True)

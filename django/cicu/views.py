@@ -1,3 +1,4 @@
+import os
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.utils import simplejson
 from django.views.decorators.csrf import csrf_exempt
@@ -10,6 +11,8 @@ from .models import UploadedFile
 from .settings import IMAGE_CROPPED_UPLOAD_TO
 from django.conf import settings
 import math
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 
@@ -84,11 +87,13 @@ def crop_profile_picture(request):
             box = request.POST.get('cropping', None)
             imageId = request.POST.get('id', None)
             WidthHeight = request.POST.get('WidthHeight', None)
+            user_id = request.POST.get('user_id', None)
             uploaded_file = UploadedFile.objects.get(id=imageId)
             img = Image.open( uploaded_file.file.path, mode='r' )
             values = [int(float(x)) for x in box.split(',')]
             wh_values = [int(float(x)) for x in WidthHeight.split(',')]
             (width_img, height_img) = img.size
+            user = User.objects.get(id = user_id)
 
             width_img=float(width_img);
             scale1 = float(width_img/wh_values[0])
@@ -121,14 +126,15 @@ def crop_profile_picture(request):
             pathToFile = path.join(pathToFile,uploaded_file.file.path.split(sep)[-1])
             croppedImage.save(pathToFile)
 
-            new_file = UploadedFile()
             f = open(pathToFile, mode='rb')
-            new_file.file.save(uploaded_file.file.name, File(f))
+            user.img.save(uploaded_file.file.name, File(f))
             f.close()
+            file_img = pathToFile
+            os.remove(file_img)
+
 
             data = {
-                'path': new_file.file.url,
-                'id' : new_file.id,
+                'success': True,
             }
 
             return HttpResponse(simplejson.dumps(data))
