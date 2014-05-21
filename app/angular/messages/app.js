@@ -8,9 +8,9 @@ define(['app', 'videojs'], function (app) {
 
     app.register.controller('messagesController', ["$state", "$stateParams", "$sce", "$resource",
         "rest", "tokenError", "localStorageService", "$scope",
-        "$anchorScroll", "promiseService", "$http",
+        "$anchorScroll", "promiseService", "$http", 
         function ($state, $stateParams, $sce, $resource, rest, tokenError, localStorageService, $scope) {
-            $scope.page = 1
+            $scope.currentPage = 1
             $scope.user_id = localStorageService.get('user_id');
             $scope.inboxCollection = $resource(":protocol://:url/messages/inbox?page=:page", {
                 page: $scope.page,
@@ -65,7 +65,11 @@ define(['app', 'videojs'], function (app) {
 
             };
             $scope.pageChanged = function () {
-                var success = function (data) {
+
+                //console.log(page)
+                console.log($scope.view);
+                console.log($scope.currentPage);
+                /*var success = function (data) {
                         
                         $scope.count = data.count;
                         
@@ -86,10 +90,8 @@ define(['app', 'videojs'], function (app) {
                             $scope.trashCollection.get({page:$scope.page}, success);
                         },
                         
-                    };
-                    console.log($scope.view);
-                    console.log($scope.page);
-                    views[$scope.view]();
+                    };*/
+                    //views[$scope.view]();
 
             };
             $scope.$on('$stateChangeSuccess', function () {
