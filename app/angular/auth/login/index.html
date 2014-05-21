@@ -1,10 +1,12 @@
+<div id="loginBg"></div>
+    <div id="login">
 <div class="container">
     <div class="col-md-6">
-        <div class="panel panel-default" ng-controller="loginCtrl">
-            <div class="panel-heading">
-                <h3>User Login</h3>
+        <div ng-controller="loginCtrl">
+            <div>
+                <h2 id="workoutsHeader" class="ef-header">login</h2>
             </div>
-            <div class="panel-body">
+            <div>
                 <li ng-repeat="(error, msg) in message">{{msg[0]}}</li>
                 <form class="form-horizontal" role="form" ng-submit="submit()">
                     <label for="email">
@@ -23,4 +25,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
