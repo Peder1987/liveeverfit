@@ -207,17 +207,36 @@ define(['app'], function(app) {
 	app.register.controller('photoChangeCtrl', ['$scope','$resource','$modalInstance','$upload','localStorageService','shareImg','email','id',
 		function($scope,$resource,$modalInstance,$upload,localStorageService,shareImg,email,id){
 
+			$scope.imgData = {}; 
+
 			$scope.ok = function() {
 				console.log('Uploading');
+				console.log(shareImg);
+				var cords = shareImg.cords.x + ',' + shareImg.cords.y + ',' + shareImg.cords.x2 + ',' + shareImg.cords.y2;
+				var WidthHeight = shareImg.cords.bx + ',' + shareImg.cords.by;
+				console.log(cords);
+				console.log(WidthHeight);
+
 				$scope.upload = $upload.upload({
 					url: 'http://localhost:8000/ajax-upload/',
 					file: shareImg.imgOrig,
 				}).progress(function(evt) {
 					console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
 				}).success(function(data, status, headers, config){
-					console.log(data);
+					$scope.imgData =data;
+					console.log($scope.imgData.id);
+
+					$scope.upload = $upload.upload({
+						url: 'http://localhost:8000/ajax-upload/crop/',
+						data: {id: $scope.imgData.id, cropping: cords, WidthHeight: WidthHeight},
+					}).progress(function(evt) {
+						console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+					}).success(function(data, status, headers, config){
+						console.log(data);
+					});
+
 				});
-				$modalInstance.dismiss();
+				// $modalInstance.dismiss();
 			}
 
 			$scope.cancel = function () {
@@ -534,7 +553,7 @@ define(['app'], function(app) {
                         var boundsArr = this.getBounds();
                         bounds.x = boundsArr[0];
                         bounds.y = boundsArr[1];
-                        //Factory
+                        //Factory Share Image File
                         shareImg.imgOrig = scope.$parent.img;
                     });
                 });
@@ -572,8 +591,10 @@ define(['app'], function(app) {
                 });
             };
 
-            $scope.selected = function (cords) {
+            $scope.selected = function(cords){
+
               var scale;
+              shareImg.cords = cords;
               $scope.picWidth = cords.w;
               $scope.picHeight = cords.h;
 
@@ -587,18 +608,27 @@ define(['app'], function(app) {
                 $scope.picHeight *= scale;
                 $scope.picWidth *= scale;
               }
+
               $scope.cropped = true;
               var rx = $scope.picWidth / cords.w, 
-              		ry = $scope.picHeight / cords.h, 
-                    canvas = document.createElement('canvas'), 
-                    context = canvas.getContext('2d'), 
+              		ry = $scope.picHeight / cords.h,
+              		canvas = document.createElement("canvas"), 
+              		context = canvas.getContext('2d'),
                     imageObj = $window.jQuery('img#preview')[0];
+
               $window.jQuery('img#preview').css({
               	width: Math.round(rx * cords.bx) + 'px',
                 height: Math.round(ry * cords.by) + 'px',
                 marginLeft: '-' + Math.round(rx * cords.x) + 'px',
                 marginTop: '-' + Math.round(ry * cords.y) + 'px'
               });
+
+              $window.jQuery('.canvas-preview').children().remove();
+              canvas.width = cords.w;
+              canvas.height = cords.h;
+              context.drawImage(imageObj, cords.x*2, cords.y*2, cords.w*2, cords.h*2, 0, 0, cords.w, cords.h);
+              $window.jQuery('.canvas-preview').append(canvas);
+
             };
 
     }]);
