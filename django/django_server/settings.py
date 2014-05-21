@@ -136,7 +136,7 @@ MIDDLEWARE_CLASSES = (
 if DEBUG:
     pass
 else:
-    MIDDLEWARE_CLASSES += ('middleware.https_middleware')
+    MIDDLEWARE_CLASSES += ('middleware.https_middleware',)
 
 ROOT_URLCONF = 'django_server.urls'
 
