@@ -74,13 +74,13 @@ define(['app', 'videojs'], function (app) {
                     },
                     views = {
                         inbox: function () {
-                            $scope.inboxCollection.get({}, success);
+                            $scope.inboxCollection.get({page:$scope.currentPage}, success);
                         },
                         sent: function () {
-                            $scope.sentCollection.get({}, success);
+                            $scope.sentCollection.get({page:$scope.currentPage}, success);
                         },
                         deleted: function () {
-                            $scope.trashCollection.get({}, success);
+                            $scope.trashCollection.get({page:$scope.currentPage}, success);
                         },
                         new: function () {
                             $scope.newMessage = {
@@ -100,6 +100,7 @@ define(['app', 'videojs'], function (app) {
                         $scope.detailIndex = -1;
                         $scope.detail = false;
                         //Run View Function
+                        $scope.currentPage = 1;
                         views[$scope.view]();
                     }
                 }
@@ -108,6 +109,7 @@ define(['app', 'videojs'], function (app) {
                 }
                 $scope.pageChanged = function () {
                     $scope.currentPage = this.currentPage;
+
                     views[$scope.view]();
                 };
             });
