@@ -1,24 +1,24 @@
 <div id="contact" ng-controller="contactCtrl">
     <div class="container">
-        <div class="col-sm-3 col-md-5 hidden-xs"></div>
-        <div class="col-md-7">
+        <div class="col-sm-3 col-md-5 col-sm-3 hidden-xs"></div>
+        <div class="col-md-7 col-sm-9">
             <div class="panel-xl">
                 <h3 class="ef-header">
                     contact
                 </h3>
                 <div class="form-style">
                     <form class="form-horizontal" action="#" method="post">
-                        <label for="Name" ng-module="name">
+                        <label for="Name" ng-model="name">
                             Name
                         </label>
                         <input type="text" class="form-control" name="firstName" id="Name" placeholder="Name" ng-model="user.first_name" required>
                         <p></p>
-                        <label for="Email" ng-module="email">
+                        <label for="Email" ng-model="email">
                             Email
                         </label>
                         <input type="email" class="form-control" name="email" id="email" placeholder="Email" ng-model="user.email" required>
                         <p></p>
-                        <label for="msg" ng-module="message">Message</label>
+                        <label for="msg" ng-model="message">Message</label>
                         <textarea type="text" class="form-control" name="msg" id="msg" placeholder="Write message" cols="20" rows="10" required></textarea>
                         <p></p>
                         <button class="btn pull-right" type="submit">
