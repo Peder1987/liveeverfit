@@ -9,10 +9,7 @@
             <a class="navbar-brand" ng-class="{active:$uiRoute}" ui-route="/" ui-sref="home">
                 <image src="common/img/navbar/logo.png"/>
             </a>
-
-            <ul class="nav navbar-nav visible-xs xs-icon" ng-include src="'/icons.html'">
-
-            </ul>
+            <ul class="nav navbar-nav visible-xs xs-icon" ng-include src="'navbar/icons.html'"></ul>
         </div>
         <!--Logged in navbar-->
         <div class="navbar-collapse collapse" collapse="isCollapsed">
@@ -122,12 +119,12 @@
                     </a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav pull-right hidden-xs" ng-include src="'/icons.html'"></ul>
+            <ul class="nav navbar-nav pull-right hidden-xs" ng-include src="'navbar/icons.html'"></ul>
         </div>
     </div>
 </div>
 
-<script type="text/ng-template" id="/icons.html">
+<script type="text/ng-template" id="navbar/icons.html">
     <li>
         <a href="http://store.liveeverfit.com/cart">
             <i class="fa fa-shopping-cart fa-lg"></i>&ZeroWidthSpace;

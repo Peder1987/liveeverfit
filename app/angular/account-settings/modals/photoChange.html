@@ -1,8 +1,9 @@
 <div class="modal-header">
-            <h3 class="modal-title">Edit photo</h3>
+    <h3 class="modal-title">Edit photo</h3>
 </div>
 
 <div ng-controller="ProfilePicCtrl">
+    <li ng-repeat="error in errors">{{error}}</li>
     <h3>Profile Pic</h3>
     <input type="file" accept="image/*" fileselect="img.onFileSelect($files)">
     <h3>Crop</h3>

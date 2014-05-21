@@ -202,41 +202,48 @@ define(['app'], function(app) {
 	app.register.controller('photoChangeCtrl', ['$scope','$resource','$modalInstance','$upload','localStorageService','shareImg','email','id',
 		function($scope,$resource,$modalInstance,$upload,localStorageService,shareImg,email,id){
 
-			$scope.imgData = {}; 
+			$scope.returnData;
+			$scope.errors;
+			$scope.user_id = localStorageService.get('user_id');
 
+			$scope.$watch('imgData.imgOrig', function(newValue, oldValue){
+
+				if (newValue !== undefined && newValue !==null) {
+					$scope.upload = $upload.upload({
+						url: 'http://localhost:8000/upload-image/',
+						file: shareImg.imgOrig,
+					}).progress(function(evt) {
+						console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+					}).success(function(data, status, headers, config){
+						shareImg.imgOrig = undefined;
+						$scope.returnData =data;
+					});
+				};
+
+           });
 
 
 			$scope.ok = function() {
-				console.log('Uploading');
-				console.log(shareImg);
-				var cords = shareImg.cords.x + ',' + shareImg.cords.y + ',' + shareImg.cords.x2 + ',' + shareImg.cords.y2;
-				var WidthHeight = shareImg.cords.bx + ',' + shareImg.cords.by;
-				console.log(cords);
-				console.log(WidthHeight);
-				console.log($scope.data);
 
+				try {
+					var cords = shareImg.cords.x + ',' + shareImg.cords.y + ',' + shareImg.cords.x2 + ',' + shareImg.cords.y2;
+					var WidthHeight = shareImg.cords.bx + ',' + shareImg.cords.by;
+				}
+				catch(error) {};
 
-				// $scope.upload = $upload.upload({
-				// 	url: 'http://localhost:8000/upload-image/',
-				// 	file: shareImg.imgOrig,
-				// }).progress(function(evt) {
-				// 	console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-				// }).success(function(data, status, headers, config){
-				// 	$scope.imgData =data;
-				// 	console.log($scope.imgData.id);
-
-				// 	$scope.upload = $upload.upload({
-				// 		url: 'http://localhost:8000/upload-image/crop-profile-picture/',
-				// 		data: {id: $scope.imgData.id, cropping: cords, WidthHeight: WidthHeight},
-				// 	}).progress(function(evt) {
-				// 		console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-				// 	}).success(function(data, status, headers, config){
-				// 		console.log(data);
-				// 	});
-
-				// });
-				// $modalInstance.dismiss();
+				$scope.upload = $upload.upload({
+					url: 'http://localhost:8000/upload-image/crop-profile-picture/',
+					data: {id: $scope.returnData.id, cropping: cords, WidthHeight: WidthHeight, user_id: $scope.user_id},
+				}).progress(function(evt) {
+					console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+				}).success(function(data, status, headers, config){
+					location.reload();
+					//Come back and load data.path into image with out reload
+				}).error(function(data, status, headers, config){
+					$scope.errors = data;
+				});
 			}
+
 
 			$scope.cancel = function () {
 				$modalInstance.dismiss();
@@ -542,7 +549,7 @@ define(['app'], function(app) {
                                 scope.selected({cords: cords});
                             });
                         }, 
-                        aspectRatio: 1.333333333333333333
+                        aspectRatio: 1
                     }, 
                     function(){
                         var boundsArr = this.getBounds();
@@ -562,7 +569,6 @@ define(['app'], function(app) {
         function($window, $timeout, $scope, fileReader,shareImg) {
 
             $scope.getFile = function(){
-                $scope.progress = 0;
                 fileReader.readAsDataUrl($scope.img, $scope).then(function(result) {
                     $scope.imageSrc = result;
                 });
@@ -571,11 +577,6 @@ define(['app'], function(app) {
                 });
             };
 
-            $scope.$on('fileProgress', function(e, progress) {
-                $scope.progress = progress.loaded / progress.total;
-                shareImg.progress = $scope.progress;
-            });
-
             $scope.initJcrop = function(){
                 $window.jQuery('img.aj-crop').Jcrop({
                     onSelect: function(){
@@ -583,7 +584,7 @@ define(['app'], function(app) {
                     onChange: function(){
                     }, 
                     trackDocument: true, 
-                    aspectRatio: 1.333333333333333333
+                    aspectRatio: 1
                 });
             };
 

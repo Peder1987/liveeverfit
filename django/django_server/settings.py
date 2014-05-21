@@ -25,24 +25,37 @@ ADMINS = (
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MANAGERS = ADMINS
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'dev_db.sqlite3',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'dev_db.sqlite3',                      # Or path to database file if using sqlite3.
+            # The following settings are not used with sqlite3:
+            'USER': '',
+            'PASSWORD': '',
+            'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+            'PORT': '',                      # Set to empty string for default.
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'everfit',
+            'USER': 'root',
+            'PASSWORD': 'L00ksyFit',
+            'HOST': 'everfit.cyjyoggmxbrg.us-east-1.rds.amazonaws.com',
+            'PORT': '',
+        }
+    }
+
+
 NOSE_PLUGINS = [
     'widgets.nose_plugins.SilenceSouth',
 ]
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['dev.liveeverfit.com', 'liveeverfit.com']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -123,7 +136,7 @@ MIDDLEWARE_CLASSES = (
 if DEBUG:
     pass
 else:
-    MIDDLEWARE_CLASSES += ('middleware.https_middleware')
+    MIDDLEWARE_CLASSES += ('middleware.https_middleware.HttpsMiddleware',)
 
 ROOT_URLCONF = 'django_server.urls'
 
