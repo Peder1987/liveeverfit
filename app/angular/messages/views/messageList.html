@@ -8,7 +8,7 @@
                 <button ng-show="view != 'deleted'" class="close" ng-click="deleteMessage($index, msg)">&times;</button>
                 <div class="media">
                     <img class="media-object pull-left"
-                         src="{{msg.img}}"
+                         ng-src="{{msg.img}}"
                          style="width: 36px; height: 36px;">
 
                     <div class="media-body">
