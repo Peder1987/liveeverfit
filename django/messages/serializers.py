@@ -51,12 +51,7 @@ class UnDeleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = ('id',)
-    def __init__(self, *args, **kwargs):
-        
-        # Logged in user to be sender
-        user = kwargs['context']['request'].user
-        kwargs['data']['sender'] = user.pk
-        return super(ComposeSerializer, self).__init__(*args, **kwargs)
+
 
     def restore_object(self, attrs, instance=None):
         """
@@ -80,8 +75,11 @@ class ComposeSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
         
         # Logged in user to be sender
-        user = kwargs['context']['request'].user
-        kwargs['data']['sender'] = user.pk
+        try:
+            user = kwargs['context']['request'].user
+            kwargs['data']['sender'] = user.pk
+        except:
+            pass
         return super(ComposeSerializer, self).__init__(*args, **kwargs)
 
 
@@ -96,7 +94,4 @@ class ReplySerializer(serializers.ModelSerializer):
         an existing model instance, or create a new model instance.
         """
         obj = super(ReplySerializer, self).restore_object(attrs, instance)
-
-        print obj
-        obj.save()
         return obj
