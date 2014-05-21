@@ -44,6 +44,7 @@ define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','an
                 .state('fitness-professional', route.resolve('/fitness-professional', 'fitness-professional'))
                 .state('evergreen', route.resolve('/evergreen', 'evergreen'))
                 .state('change-password', route.resolve('/change-password', 'auth/change-password'))
+                .state('terms', route.resolve('/terms', 'terms'))
                 .state('logout', route.resolve('/logout', 'auth/logout'));
 
             $urlRouterProvider.otherwise("/");
