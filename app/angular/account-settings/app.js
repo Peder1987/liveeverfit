@@ -209,6 +209,8 @@ define(['app'], function(app) {
 
 			$scope.imgData = {}; 
 
+
+
 			$scope.ok = function() {
 				console.log('Uploading');
 				console.log(shareImg);
@@ -216,26 +218,28 @@ define(['app'], function(app) {
 				var WidthHeight = shareImg.cords.bx + ',' + shareImg.cords.by;
 				console.log(cords);
 				console.log(WidthHeight);
+				console.log($scope.data);
 
-				$scope.upload = $upload.upload({
-					url: 'http://localhost:8000/upload-image/',
-					file: shareImg.imgOrig,
-				}).progress(function(evt) {
-					console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-				}).success(function(data, status, headers, config){
-					$scope.imgData =data;
-					console.log($scope.imgData.id);
 
-					$scope.upload = $upload.upload({
-						url: 'http://localhost:8000/upload-image/crop-profile-picture/',
-						data: {id: $scope.imgData.id, cropping: cords, WidthHeight: WidthHeight},
-					}).progress(function(evt) {
-						console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-					}).success(function(data, status, headers, config){
-						console.log(data);
-					});
+				// $scope.upload = $upload.upload({
+				// 	url: 'http://localhost:8000/upload-image/',
+				// 	file: shareImg.imgOrig,
+				// }).progress(function(evt) {
+				// 	console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+				// }).success(function(data, status, headers, config){
+				// 	$scope.imgData =data;
+				// 	console.log($scope.imgData.id);
 
-				});
+				// 	$scope.upload = $upload.upload({
+				// 		url: 'http://localhost:8000/upload-image/crop-profile-picture/',
+				// 		data: {id: $scope.imgData.id, cropping: cords, WidthHeight: WidthHeight},
+				// 	}).progress(function(evt) {
+				// 		console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+				// 	}).success(function(data, status, headers, config){
+				// 		console.log(data);
+				// 	});
+
+				// });
 				// $modalInstance.dismiss();
 			}
 
@@ -453,8 +457,9 @@ define(['app'], function(app) {
 
     //JCrop
     app.register.factory('shareImg', function($rootScope){
-    	var data = {};
-    	return data;
+
+    	$rootScope.imgData = {};
+    	return $rootScope.imgData;
     });
 
 
