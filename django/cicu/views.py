@@ -115,6 +115,9 @@ def crop_profile_picture(request):
             width = abs(values[2] - values[0])
             height = abs(values[3] - values[1])
 
+            if width< 500 and height< 500:
+                return HttpResponseBadRequest(simplejson.dumps({'errors': 'resolution requirements not met, minumum requirements 500x500'}))
+
             if width and height and (width <= img.size[0] or height <= img.size[1]):
                 croppedImage = img.crop(values).resize((500,500),Image.ANTIALIAS)
             else:
