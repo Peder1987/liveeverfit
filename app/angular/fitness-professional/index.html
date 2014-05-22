@@ -2,13 +2,15 @@
     <marker ng-repeat="professional in professionals" coords="professional.marker.coords"
             icon="professional.marker.icon" options="professional.marker.options" events="professional.marker.events">
         <window show="professional.marker.window.show" options="professional.marker.window.options">
-            <div class="closeBg"></div>
-            <img class="img" ng-src="/media/{{professional.img}}"/>
+            <div>
+                <div class="closeBg"></div>
+                <img class="img" ng-src="/media/{{professional.img}}"/>
 
-            <div class="pro-overlay" ng-click="alert()">
-                <div class="pro-overlay-text">
-                    <div class="name">{{professional.first_name}} {{professional.last_name}}</div>
-                    <span class="location">{{professional.location}}</span> <span class="profession">{{professional.profession}}</span>
+                <div class="pro-overlay" ng-click="alert()">
+                    <div class="pro-overlay-text">
+                        <div class="name">{{professional.first_name}} {{professional.last_name}}</div>
+                        <span class="location">{{professional.location}}</span> <span class="profession">{{professional.profession}}</span>
+                    </div>
                 </div>
             </div>
         </window>
