@@ -9,7 +9,7 @@
             <a class="navbar-brand" ng-class="{active:$uiRoute}" ui-route="/" ui-sref="home">
                 <image src="common/img/navbar/logo.png"/>
             </a>
-            <ul class="nav navbar-nav visible-xs xs-icon" ng-include src="'navbar/icons.html'"></ul>
+            <ul class="nav nav-xs-icon visible-xs" ng-include src="'navbar/icons.html'"></ul>
         </div>
         <!--Logged in navbar-->
         <div class="navbar-collapse collapse" collapse="isCollapsed">
@@ -127,43 +127,43 @@
 <script type="text/ng-template" id="navbar/icons.html">
     <li>
         <a href="http://store.liveeverfit.com/cart">
-            <i class="fa fa-shopping-cart fa-lg"></i>&ZeroWidthSpace;
+            <i class="fa fa-shopping-cart fa-lg xs-i-down"></i>&ZeroWidthSpace;
         </a>
     </li>
     <li>
         <a ui-sref-active="active"
            ui-sref="messages">
-            <i class="fa fa-envelope fa-lg"></i>&ZeroWidthSpace;
+            <i class="fa fa-envelope fa-lg xs-i-down"></i>&ZeroWidthSpace;
         </a>
     </li>
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-user fa-lg"></i> <b class="caret"></b>
+            <i class="fa fa-user fa-lg xs-i-down"></i> <b class="caret"></b>
         </a>
         <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dLabel">
             <li>
                 <a ui-sref="faq">
-                    <i class="fa fa-user"></i> profile
+                    <i class="fa fa-user"></i> Profile
                 </a>
             </li>
             <li>
                 <a ui-sref="faq">
-                    <i class="fa fa-question-circle"></i> faq
+                    <i class="fa fa-question-circle"></i> FAQ
                 </a>
             </li>
             <li>
                 <a ui-sref="terms">
-                    <i class="fa fa-book"></i>  terms
+                    <i class="fa fa-book"></i>  Terms
                 </a>
             </li>
             <li>
                 <a ui-sref="settings">
-                    <i class="fa fa-cog"></i> settings
+                    <i class="fa fa-cog"></i> Settings
                 </a>
             </li>
             <li>
                 <a ui-sref="logout">
-                    <i class="fa fa-sign-out"></i> sign out
+                    <i class="fa fa-sign-out"></i> Sign Out
                 </a>
             </li>
         </ul>
