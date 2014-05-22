@@ -8118,3 +8118,28 @@ MarkerWithLabel.prototype.setMap = function (theMap) {
   // ... then deal with the label:
   this.label.setMap(theMap);
 };
+
+// Quick Fix.
+if(window.InfoBox) {
+    window.InfoBox.prototype._open = window.InfoBox.prototype.open;
+    window.InfoBox.prototype._close = window.InfoBox.prototype.close;
+    window.InfoBox.prototype._isOpen = false;
+    window.InfoBox.prototype.open = function(map, anchor) {
+        this._isOpen = true;
+        this._open(map, anchor);
+    };
+    window.InfoBox.prototype.close = function() {
+        this._isOpen = false;
+        this._close();
+    };
+    window.InfoBox.prototype.isOpen = function(val) {
+        if (val == null) {
+            val = void 0;
+        }
+        if (val == null) {
+            return this._isOpen;
+        } else {
+            return this._isOpen = val;
+        }
+    };
+}
