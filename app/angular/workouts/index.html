@@ -152,6 +152,16 @@
                                     <span class="blue">Description: </span>
                                     {{ video.description }}
                                 </div>
+                                <div class="lead">
+                                    <span class="blue">Comments: </span>
+                                     <div ng-repeat="comment in comments">
+                                        <b>user:</b>{{comment.user}} <br>
+                                        <b>comment:</b>{{comment.comment}} <br>
+                                        <br>
+                                     </div>
+                                     <div ng-hide="comments.length">No comments found</div>
+                                </div>
+                                <button ng-show="commentNext" id="showMore" type="button" class="btn btn-primary btn-lg btn-block" ng-click="getComments()">Show More</button>
                             </div>
                         </div>
                     </div>

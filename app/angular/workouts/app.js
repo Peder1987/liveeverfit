@@ -19,7 +19,9 @@ define(['app', 'videojs'], function (app) {
             $scope.videoSearch = ''; // this is the search bar string
             $scope.videoTitles = [] // for typeahead
             $scope.next = true;
-                       
+            $scope.comments = []  
+            $scope.commentPage = 1;
+            $scope.commentNext = false;
             var tagCollection = $resource(":protocol://:url/tags/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
@@ -36,6 +38,11 @@ define(['app', 'videojs'], function (app) {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
                 }),
+                commentCollection = $resource(":protocol://:url/workouts/video/comments/:id/", {
+                    protocol: $scope.restProtocol,
+                    url: $scope.restURL,
+                    id: '@id'
+                }),
                 videoResource = $resource(":protocol://:url/workouts/video/:id/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL,
@@ -51,6 +58,11 @@ define(['app', 'videojs'], function (app) {
                             $scope.video.rtmp_url = $sce.trustAsResourceUrl("rtmp://206.225.86.237:1935/vod/_definst_/mp4:" + $scope.video.url_video);
                             $scope.video.http_url = $sce.trustAsResourceUrl("http://206.225.86.237:1935/vod/content/" + $scope.video.url_video + "/playlist.m3u8");
                             $scope.videoStatus = 'difficultySelected';
+                            commentCollection.get({id: $stateParams.id}, function(data){
+                                $scope.commentNext = data.next;
+                                $scope.comments = data.results;
+
+                            });
                             setTimeout(function () {
                                 $scope.videojs = videojs('selectedVideo', {
                                     techOrder: [ "flash", "html5"]
@@ -112,6 +124,15 @@ define(['app', 'videojs'], function (app) {
                 });
                 //$scope.videos = ;
             };
+            $scope.getComments = function (){
+                $scope.commentPage = $scope.commentPage + 1;
+                
+                var newComments = commentCollection.get({page:$scope.commentPage, id:$stateParams.id}, function () {
+                    $scope.comments = $scope.comments.concat(newComments.results);
+                    $scope.commentNext = newComments.next;
+                });
+                //$scope.videos = ;
+            };
 
             
             window.handleIframe = function(iframe) {
@@ -143,7 +164,7 @@ define(['app', 'videojs'], function (app) {
             };
             $scope.filter = function () {
                 $scope.page = 1
-
+                $scope.commentPage = 1;
                 $scope.filtering = {
                     difficulty: $scope.difficulty,
                     tags: $scope.tagSelected,
