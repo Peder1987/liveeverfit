@@ -9,6 +9,7 @@ from django.utils.timezone import utc, now
 #Write code after this
 ##############################################
 
+
 from user_app.models import Professional
 from workouts.models import Video
 
@@ -20,5 +21,10 @@ pro = Professional.objects.get(email='pro2@test.com')
 
 # print Professional.objects.filter(pk=user.id).exists()
 # print Professional.objects.filter(pk=pro.id).exists()
-print pro.user_connections.all()
+#print pro.user_connections.all()
+
+
+for user in Professional.objects.all():
+	user.queue = True
+	user.save()
 

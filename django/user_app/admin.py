@@ -40,6 +40,16 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(CustomUser, CustomUserAdmin)
 
+def make_active(modeladmin, request, queryset):
+    for obj in queryset:
+        obj.queue = False
+        obj.save()
+        
+
+def make_inactive(modeladmin, request, queryset):
+    for obj in queryset:
+        obj.queue = True
+        obj.save()
 
 class ProfessionalAdmin(UserAdmin):
     # The forms to add and change user instances
@@ -65,9 +75,10 @@ class ProfessionalAdmin(UserAdmin):
             'fields': ('email', 'password1', 'password2')}
         ),
     )
-    list_display = ('email', 'first_name', 'last_name', 'is_upgraded')
+    list_display = ('email', 'first_name', 'last_name', 'queue')
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
+    actions = [make_active, make_inactive] 
 
 admin.site.register(Professional, ProfessionalAdmin)
 
