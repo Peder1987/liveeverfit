@@ -26,6 +26,7 @@ class VideoObjectView(generics.RetrieveUpdateDestroyAPIView):
     model = Video
     permission_classes = (IsAuthenticated,)
     serializer_class = VideoSerializer
+    
 
 class CommentListView(generics.ListAPIView):
     paginate_by = 5
