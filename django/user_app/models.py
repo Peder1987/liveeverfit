@@ -341,7 +341,7 @@ class UniqueLocation(models.Model):
         }
 
 
-class Certification(models.Model):
+class Certifications(models.Model):
     user = models.ForeignKey(CustomUser, related_name='certifications', blank=True,null=True)
     certification_name = models.CharField(_('certification name'), max_length=100, blank=True)
     certification_number = models.CharField(_('cetification number'), max_length=100, blank=True)

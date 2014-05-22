@@ -37,7 +37,7 @@ define(['app'], function(app) {
 				// to user
 				creditcardResource.get(function(data){
 					$scope.profile_user.creditcard = data.creditcard;
-				})
+				});
 
 	        },$scope.checkTokenError);
 
@@ -182,8 +182,24 @@ define(['app'], function(app) {
 				var obj = $scope.profileResource.update({id:$scope.profile_user.id}, temp);
 			    
 	        };
-	        $scope.cancelMembership = function (){
-	        	console.log('dib');
+	        $scope.cancelMembership = function (size){
+	        	var modalInstance = $modal.open({
+			      templateUrl: 'account-settings/modals/cancelMembership.html',
+			      controller : cancelMembershipCtrl,
+			      size: size,
+			      resolve: {
+					        email: function () {
+					          return  $scope.profile_user.email;
+					        },
+					        profileResource: function(){
+					        	return $scope.profileResource 
+					        },
+					        profile_user: function () {
+					          return  $scope.profile_user;
+					        }
+				      }
+			      
+			    });
 			    
 	        };
 	        $scope.modifyTier = function (){
@@ -443,7 +459,28 @@ define(['app'], function(app) {
 		};
     };
 
+	var cancelMembershipCtrl = function($scope, $resource, $modalInstance, localStorageService, profileResource, profile_user) {
 
+        $scope.closeAlert = function (error) {
+            delete $scope.message[error];
+        };
+    	
+		$scope.ok = function(valid) {
+			var membershipResource = $resource(":protocol://:url/users/modify-membership/:id",{
+					id : profile_user.id,
+		            protocol: $scope.restProtocol,
+		            url: $scope.restURL,
+		        },{update: { method: 'PUT' }});
+			membershipResource.get(function(data){
+					console.log(data)
+			})
+            $modalInstance.close();
+		}
+
+		$scope.cancel = function () {
+			$modalInstance.dismiss();
+		};
+    };
 
 
     //JCrop
