@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly, I
 from rest_framework import generics
 
 from .filters import UserFilter, GenderFilterBackend, ProfessionFilterBackend, LocationFilterBackend, AcceptingFilterBackend, TagFilterBackend
-from .filters import OwnerFilterBackend
+from .filters import OwnerFilterBackend, QueueFilterBackend
 from .serializers import UserSerializer, PasswordSerializer, GroupSerializer, ProfessionalListSerializer, LocationSerializer, ClientListSerializer
 from .serializers import PaymentSerializer, ModifyMembershipSerializer, CreditcardSerializer, ProfessionalSerializer
 from .permissions import IsAdminOrSelf
@@ -41,7 +41,7 @@ class ProfessionalListView(generics.ListAPIView):
     model = Professional
     permission_classes = (IsAuthenticated,)
     serializer_class = ProfessionalListSerializer
-    filter_backends = (GenderFilterBackend,ProfessionFilterBackend,LocationFilterBackend,AcceptingFilterBackend, TagFilterBackend)
+    filter_backends = (GenderFilterBackend,ProfessionFilterBackend,LocationFilterBackend,AcceptingFilterBackend, TagFilterBackend, QueueFilterBackend)
 
     def get_queryset(self):
         return Professional.objects.all()
