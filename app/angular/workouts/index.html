@@ -80,7 +80,7 @@
                     <div class="col-xs-6 col-lg-4" ng-repeat="video in videos">
                         <div class="ef-workout-video">
                             <a ui-sref="workouts.video(video)"><img
-                                    src="http://beta.liveeverfit.com/media/{{ video.img }}" /></a>
+                                    ng-src="http://beta.liveeverfit.com/media/{{ video.img }}" /></a>
                         </div>
                         <a ui-sref="workouts.video(video)">
                             <div class="workout-title">
@@ -112,9 +112,9 @@
                                            preload="auto"
                                            poster="http://beta.liveeverfit.com/media/{{video.img}}"
                                            data-setup='{"techOrder": ["flash", "html5"]}'>
-                                        <source src='{{video.rtmp_url}}'
+                                        <source ng-src='{{video.rtmp_url}}'
                                                 type='rtmp/mp4'/>
-                                        <source src='{{video.http_url}}'
+                                        <source ng-src='{{video.http_url}}'
                                                 type='video/mp4'/>
                                     </video>
                                 </div>
