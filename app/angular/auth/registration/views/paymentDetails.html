@@ -1,10 +1,10 @@
-<div ng-switch-when="registration">
+<div ng-switch-when="payment">
+    <form class="form-horizontal" name="registrationForm">    
     <div class="row">
         <div class="col-xs-12 col-md-6 col-md-offset-3">
             <div class="page-header">
                 <h2 class="entry-title">basic information</h2>
-            </div>
-            <form class="form-horizontal" name="registrationForm">                  
+            </div>              
                 <label for="nameName">
                     CARD NAME
                 </label>
@@ -59,19 +59,29 @@
                 <label for="Address">
                     ADDRESS
                 </label>
-                <input type="text" class="form-control" name="address_line1" id="address_line1" placeholder="Address" ng-model="creditcard.address_line1" required>
+                <input id="address" type="text" ng-model="tempAddressPay.formatted_address"
+                       placeholder="Primary Address"
+                       typeahead="address for address in getLocation($viewValue)"
+                       typeahead-loading="loadingLocations"
+                       ng-change="setAddressPay()" typeahead-on-select="setAddressPay()" class="form-control"
+                       required>
+
+                <input type="text" class="form-control" name="firstName" id="firstName"
+                       placeholder="P.O. Box, Apartment, Suite, Unit, Building, Floor, Etc."
+                       ng-change="setAddressPay()"
+                       ng-model="tempAddressPay.street_line2">
                   <p></p>
 
 
                 <hr></hr>
-            </form> 
         </div>
     </div>
     <br>
 
     <div class="row">
         <button type="submit" class="btn btn-primary col-xs-offset-10"
-                ng-click="setCurrentStepForm('choice', registrationForm.$valid)">Next
+                ng-click="check()">Next
         </button>
     </div>
+    </form> 
 </div>

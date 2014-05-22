@@ -7,8 +7,11 @@ define(['app'], function(app) {
 		function(localStorageService, $resource, $http, $scope) {
 
 			$scope.step = 'registration';
-			$scope.addressesInputs = {};
 			$scope.tempAddress = {
+				formatted_address:'',
+				street_line2:'',
+			};
+			$scope.tempAddressPay = {
 				formatted_address:'',
 				street_line2:'',
 			};
@@ -53,13 +56,7 @@ define(['app'], function(app) {
 				number : '',
 				cvc : '',
 				exp_month : '',
-				exp_year : '',
-				address_line1 : '',
-				address_line2 : '',
-				address_city : '',
-				address_country : '',
-				address_state : '',
-				address_zip : '',
+				exp_year : ''
     		}
 
     		var AuthToken =  $resource("http://:url/accounts/register/", {
@@ -80,6 +77,7 @@ define(['app'], function(app) {
 			};
 
 			$scope.setCurrentStepForm = function(step, valid){
+				$scope.step = 'payment'
 				if(valid == true){$scope.step = step;};
 			};
 
@@ -93,14 +91,6 @@ define(['app'], function(app) {
 				$scope.user.tier = tier;
 				$scope.step = step;
 			};
-			$scope.preProSubmit = function(){
-				angular.forEach($scope.user, function(value, key){
-					$scope.pro[key] = value;
-				});
-				$scope.pro.primary_address = $scope.address;
-				$scope.proSubmit();
-			};
-
 			$scope.ifPromoter = function(){	
 				if($scope.pro.profession == 'Promoter'){
 					return false;
@@ -109,6 +99,17 @@ define(['app'], function(app) {
 					return true;
 				};
 			};
+			$scope.preProSubmit = function(){
+				angular.forEach($scope.user, function(value, key){
+					$scope.pro[key] = value;
+				});
+				$scope.pro.primary_address = $scope.address;
+				$scope.proSubmit();
+			};
+			$scope.check = function(){
+				console.log($scope.creditcard);
+			};
+
 
 
 			$scope.submit = function() {
@@ -139,6 +140,32 @@ define(['app'], function(app) {
 				});
 			}
 
+
+			//Set Adress From Google GeoLocation
+			$scope.setAddress = function() {
+				if ($scope.tempAddress.formatted_address !== "undefined")
+				{
+					$scope.address = $scope.addressesInputs[$scope.tempAddress.formatted_address];
+					if ($scope.address !== undefined){
+						$scope.address.street_line2 = (!($scope.tempAddress.street_line2 === undefined)?$scope.tempAddress.street_line2 + ' ':'');
+					}
+				}
+			};
+			$scope.setAddressPay = function() {
+				if ($scope.tempAddressPay.formatted_address !== "undefined")
+				{
+					angular.forEach($scope.addressesInputs[$scope.tempAddressPay.formatted_address], function(value, key){
+						$scope.creditcard[key] = value;
+					});
+
+					if ($scope.creditcard !== undefined){
+						$scope.creditcard.street_line2 = (!($scope.tempAddressPay.street_line2 === undefined)?$scope.tempAddressPay.street_line2 + ' ':'');
+					}
+				}
+			};
+
+			//$Google GeoLocation
+			$scope.addressesInputs = {};
 			$scope.getLocation = function(val) {
 				delete $http.defaults.headers.common['Authorization']
 
@@ -160,24 +187,19 @@ define(['app'], function(app) {
 						addresses.push(item.formatted_address);
 						for (var i = 0; i < item.address_components.length; i++) {
 							$scope.addressesInputs[item.formatted_address] = {
+								street_line1: (!(types['street_number'] === undefined)?item.address_components[types['street_number']]['short_name'] + ' ':'') + (!(types['route'] === undefined)?item.address_components[types['route']]['long_name'] + ' ':''),
 								city: (!(types['locality'] === undefined)?item.address_components[types['locality']]['short_name']:!(types['sublocality'] === undefined)?item.address_components[types['sublocality']]['short_name']:!(types['neighborhood'] === undefined)?item.address_components[types['neighborhood']]['short_name'] + ' ':''),
-								state: (!(types['administrative_area_level_1'] === undefined)?item.address_components[types['administrative_area_level_1']]['short_name'] + ' ':'')
+								state: (!(types['administrative_area_level_1'] === undefined)?item.address_components[types['administrative_area_level_1']]['short_name'] + ' ':''),
+								country: (!(types['country'] === undefined)?item.address_components[types['country']]['long_name'] + ' ':''),
+								zipcode: (!(types['postal_code'] === undefined || item.address_components[types['postal_code']] === undefined)?item.address_components[types['postal_code']]['short_name'] + ' ':''),
+								lat: item.geometry.location.lat,
+								lng: item.geometry.location.lng
 							};
 						};
 					});
 					return addresses;
 				});
 				$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
-			};
-	
-			$scope.setAddress = function() {
-				if ($scope.tempAddress.formatted_address !== "undefined")
-				{
-					$scope.address = $scope.addressesInputs[$scope.tempAddress.formatted_address];
-					if ($scope.address !== undefined){
-						$scope.address.street_line2 = (!($scope.tempAddress.street_line2 === undefined)?$scope.tempAddress.street_line2 + ' ':'');
-					}
-				}
 			};
 	
 
