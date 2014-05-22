@@ -2,7 +2,7 @@
 
 define(['app'], function(app) {
 
-    app.register.controller('account-settingsCtrl', ['$scope','$resource','$modal','$http','localStorageService','rest','tokenError',
+    app.register.controller('settingsCtrl', ['$scope','$resource','$modal','$http','localStorageService','rest','tokenError',
     	function($scope, $resource, $modal, $http,localStorageService, tokenError) {
     		
     		Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
@@ -45,7 +45,7 @@ define(['app'], function(app) {
 	        $scope.passwordChange = function (size){
 	        	
 	        	var modalInstance = $modal.open({
-			      templateUrl: 'account-settings/modals/passwordChange.html',
+			      templateUrl: 'settings/modals/passwordChange.html',
 			      controller : passwordInstanceCtrl,
 			      size: size,
 			    });
@@ -59,7 +59,7 @@ define(['app'], function(app) {
 	        $scope.emailChange = function (size){
 	        	
 	        	var modalInstance = $modal.open({
-			      templateUrl: 'account-settings/modals/emailChange.html',
+			      templateUrl: 'settings/modals/emailChange.html',
 			      controller : emailChangeCtrl,
 			      size: size,
 			      resolve: {
@@ -88,7 +88,7 @@ define(['app'], function(app) {
 
 	        $scope.photoChange = function(size){
 	        	var modalInstance = $modal.open({
-	        		templateUrl: 'account-settings/modals/photoChange.html',
+	        		templateUrl: 'settings/modals/photoChange.html',
 	        		controller : 'photoChangeCtrl',
 	        		size: size,
 	        		resolve: {
@@ -105,7 +105,7 @@ define(['app'], function(app) {
 	        $scope.paymentDetail = function (size){
 	        	
 	        	var modalInstance = $modal.open({
-			      templateUrl: 'account-settings/modals/paymentDetail.html',
+			      templateUrl: 'settings/modals/paymentDetail.html',
 			      controller : paymentDetailCtrl,
 			      size: size,
 			      resolve: {
@@ -132,7 +132,7 @@ define(['app'], function(app) {
 	        $scope.addCertification = function (size){
 	        	
 	        	var modalInstance = $modal.open({
-			      templateUrl: 'account-settings/modals/addCertification.html',
+			      templateUrl: 'settings/modals/addCertification.html',
 			      controller : addCertificationCtrl,
 			      size: size,
 			      resolve: {
@@ -184,7 +184,7 @@ define(['app'], function(app) {
 	        };
 	        $scope.cancelMembership = function (size){
 	        	var modalInstance = $modal.open({
-			      templateUrl: 'account-settings/modals/cancelMembership.html',
+			      templateUrl: 'settings/modals/cancelMembership.html',
 			      controller : cancelMembershipCtrl,
 			      size: size,
 			      resolve: {

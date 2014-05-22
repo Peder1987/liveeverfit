@@ -34,7 +34,7 @@ define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','an
                 .state('login', route.resolve('/login', 'auth/login'))
 
                 //LoggedIN
-                .state('account-settings', route.resolve('/account-settings', 'account-settings'))
+                .state('settings', route.resolve('/settings', 'settings'))
                 .state('messages', route.resolve('/messages', 'messages'))
                 .state('messages.view', route.resolve('/:view', 'messages'))
                 .state('messages.view.reply', route.resolve('/new/:recipient', 'messages'))
@@ -45,6 +45,7 @@ define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','an
                 .state('evergreen', route.resolve('/evergreen', 'evergreen'))
                 .state('change-password', route.resolve('/change-password', 'auth/change-password'))
                 .state('terms', route.resolve('/terms', 'terms'))
+                .state('faq', route.resolve('/faq', 'faq'))
                 .state('logout', route.resolve('/logout', 'auth/logout'));
 
             $urlRouterProvider.otherwise("/");
