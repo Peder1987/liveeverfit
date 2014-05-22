@@ -6,6 +6,10 @@ define(['app'], function(app) {
 	app.register.controller('registrationCtrl', ["localStorageService","$resource","$http","$scope","rest",
 		function(localStorageService, $resource, $http, $scope) {
 
+			Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
+
+			$scope.profile_user = null;
+
 			$scope.step = 'registration';
 			$scope.tempAddress = {
 				formatted_address:'',
@@ -16,12 +20,12 @@ define(['app'], function(app) {
 				street_line2:'',
 			};
     		$scope.user = {
-				first_name: '',
-				last_name: '',
-				email: '',
-				password: '',
-				password2: '',
-				gender: '',
+				first_name: 'miguel',
+				last_name: 'vazquez',
+				email: 'migueldv90@yahoo.com',
+				password: '123456789',
+				password2: '123456789',
+				gender: 'M',
 				tier: 1
 			};
 			$scope.pro = {
@@ -52,11 +56,17 @@ define(['app'], function(app) {
 			};
 
 			$scope.creditcard = {
-				name : '',
-				number : '',
-				cvc : '',
-				exp_month : '',
-				exp_year : ''
+				name : 'miguel vazquez',
+				number : '4242424242424242',
+				cvc : '512',
+				exp_month : '8',
+				exp_year : '2014',
+				address_line1 : "",
+				address_line2 : "",
+				address_city : "",
+				address_country : "",
+				address_state : "",
+				address_zip : "",
     		}
 
     		var AuthToken =  $resource("http://:url/accounts/register/", {
@@ -77,7 +87,6 @@ define(['app'], function(app) {
 			};
 
 			$scope.setCurrentStepForm = function(step, valid){
-				$scope.step = 'payment'
 				if(valid == true){$scope.step = step;};
 			};
 
@@ -106,8 +115,49 @@ define(['app'], function(app) {
 				$scope.pro.primary_address = $scope.address;
 				$scope.proSubmit();
 			};
-			$scope.check = function(){
-				console.log($scope.creditcard);
+			$scope.stipeAccount = function(){
+
+				var stripeToken;
+				var paymentResource = $resource(":protocol://:url/users/modify-payment-details/:id",{
+					id : $scope.profile_user,
+		            protocol: $scope.restProtocol,
+		            url: $scope.restURL,
+		        },{update: { method: 'PUT' }});
+				$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
+                Stripe.createToken({
+                    name: $scope.creditcard.name,
+                    number: $scope.creditcard.number,
+                    cvc: $scope.creditcard.cvc,
+                    exp_month: $scope.creditcard.exp_month,
+                    exp_year: $scope.creditcard.exp_year,
+                    address_line1: $scope.creditcard.address_line1,
+                    address_line2: $scope.creditcard.address_line2,
+                    address_city: $scope.creditcard.address_city,
+                    address_country: $scope.creditcard.address_country,
+                    address_state: $scope.creditcard.address_state,
+                    address_zip: $scope.creditcard.address_zip,
+                }, function (status, response) {
+                	console.log('stripeee');
+                	
+                	console.log(response);
+                	console.log(status);
+                    if (response.error) {
+                        
+                        $scope.message = response.error.message;
+                        
+                        $scope.$apply()
+                    }
+                    else {
+                    	$scope.message = '';
+                        $scope.$apply()
+
+                    	var stripeToken = response['id'];
+                    	console.log(stripeToken);
+                    	response = paymentResource.update({id:$scope.profile_user,stripeToken:stripeToken}, function(){
+                    		window.location = "/";
+                    	});
+                    };
+                });
 			};
 
 
@@ -129,12 +179,17 @@ define(['app'], function(app) {
 			$scope.proSubmit = function() {
                 // AutoFill Fix
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
+                console.log($scope.creditcard);
+                console.log($scope.pro);
 				
 				$scope.proAuthToken = ProAuthToken.save($scope.pro, function() {
 					localStorageService.add('Authorization', 'Token ' + $scope.proAuthToken.token);
 					localStorageService.add('rest_token', $scope.proAuthToken.token);
 					localStorageService.add('user_id', $scope.proAuthToken.id);
-					window.location = "/";
+					$scope.profile_user = $scope.proAuthToken.id;
+					console.log($scope.proAuthToken);
+					$scope.stipeAccount();
+					// window.location = "/";
 				},function(error) {
 					$scope.message = error.data;
 				});
@@ -154,12 +209,14 @@ define(['app'], function(app) {
 			$scope.setAddressPay = function() {
 				if ($scope.tempAddressPay.formatted_address !== "undefined")
 				{
-					angular.forEach($scope.addressesInputs[$scope.tempAddressPay.formatted_address], function(value, key){
-						$scope.creditcard[key] = value;
-					});
+					$scope.creditcard.address_line1 = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].street_line1 + ' ':'');
+					$scope.creditcard.address_city = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].city + ' ':'');
+					$scope.creditcard.address_country = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].country + ' ':'');
+					$scope.creditcard.address_state = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].state + ' ':'');
+					$scope.creditcard.address_zip = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].zipcode + ' ':'');
 
 					if ($scope.creditcard !== undefined){
-						$scope.creditcard.street_line2 = (!($scope.tempAddressPay.street_line2 === undefined)?$scope.tempAddressPay.street_line2 + ' ':'');
+						$scope.creditcard.address_line2 = (!($scope.tempAddressPay.street_line2 === undefined)?$scope.tempAddressPay.street_line2 + ' ':'');
 					}
 				}
 			};
