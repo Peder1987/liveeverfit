@@ -13,6 +13,7 @@ class TitleSerializer(serializers.ModelSerializer):
         fields = ('title',)
 
 class CommentSerializer(serializers.ModelSerializer):
+	user = serializers.SlugRelatedField(slug_field="email", required=False)  
 	class Meta:
 		model = VideoComment
 
