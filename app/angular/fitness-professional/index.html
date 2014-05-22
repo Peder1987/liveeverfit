@@ -168,7 +168,7 @@
         <!-- /.search-filters -->
         <div id="trainer-results">
             <div class="row">
-                <div class="col-sm-6 col-md-4"
+                <div class="col-sm-6 col-md-2"
                      ng-repeat="professional in professionals" ng-mouseover="proMouseOver(professional)"
                      ng-mouseleave="proMouseOut(professional)">
                     <div class="thumbnail">
@@ -177,10 +177,10 @@
                         <div class="caption">
                             {{professional.first_name}} {{professional.last_name}}<br/>
                             {{professional.profession}}<br>
-                            {{professional.gender}}<br>
+                            <!--{{professional.gender}}<br>-->
                             {{professional.location}}<br>
                             Accepting Clients: {{professional.is_accepting}}<br/>
-                            Biography: {{professional.bio}}<br/>
+                            <!--Biography: {{professional.bio}}<br/>-->
                         </div>
                     </div>
                 </div>
