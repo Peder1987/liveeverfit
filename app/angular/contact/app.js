@@ -12,6 +12,7 @@ define(['app'], function(app) {
             $scope.email = "";
             $scope.message = "";
 
+
             $scope.submit = function(valid){
             	if(valid == true){
             		console.log($scope.name);
