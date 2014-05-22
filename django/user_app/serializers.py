@@ -65,7 +65,7 @@ class ProfessionalListSerializer(serializers.ModelSerializer):
     img = serializers.ImageField(allow_empty_file=True, required=False)
     class Meta:
         model = Professional
-        fields = ("first_name", "last_name", "profession", "gender", "location", "is_accepting", "img", 'lat', 'lng',)
+        fields = ("first_name", "last_name", "profession", "gender", "location", "is_accepting", "img", 'lat', 'lng', 'queue',)
 
 
 class CertificationSerializer(serializers.ModelSerializer):
@@ -98,6 +98,13 @@ class ModifyMembershipSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
+    def to_native(self, value):
+        # no need to return anything
+        obj = super(ModifyMembershipSerializer,self).to_native(value)
+        
+        value.stripe_cancel_subscription()
+        print value
+        value.cancel_professional()
         
 class CreditcardSerializer(serializers.ModelSerializer):
     creditcard = serializers.Field(source='stripe_get_creditcard')
