@@ -93,14 +93,6 @@ define(['app'], function(app) {
 				$scope.user.tier = tier;
 				$scope.step = step;
 			};
-			$scope.preProSubmit = function(){
-				angular.forEach($scope.user, function(value, key){
-					$scope.pro[key] = value;
-				});
-				$scope.pro.primary_address = $scope.address;
-				$scope.proSubmit();
-			};
-
 			$scope.ifPromoter = function(){	
 				if($scope.pro.profession == 'Promoter'){
 					return false;
@@ -108,6 +100,13 @@ define(['app'], function(app) {
 				else{
 					return true;
 				};
+			};
+			$scope.preProSubmit = function(){
+				angular.forEach($scope.user, function(value, key){
+					$scope.pro[key] = value;
+				});
+				$scope.pro.primary_address = $scope.address;
+				$scope.proSubmit();
 			};
 
 
@@ -160,8 +159,13 @@ define(['app'], function(app) {
 						addresses.push(item.formatted_address);
 						for (var i = 0; i < item.address_components.length; i++) {
 							$scope.addressesInputs[item.formatted_address] = {
+								street_line1: (!(types['street_number'] === undefined)?item.address_components[types['street_number']]['short_name'] + ' ':'') + (!(types['route'] === undefined)?item.address_components[types['route']]['long_name'] + ' ':''),
 								city: (!(types['locality'] === undefined)?item.address_components[types['locality']]['short_name']:!(types['sublocality'] === undefined)?item.address_components[types['sublocality']]['short_name']:!(types['neighborhood'] === undefined)?item.address_components[types['neighborhood']]['short_name'] + ' ':''),
-								state: (!(types['administrative_area_level_1'] === undefined)?item.address_components[types['administrative_area_level_1']]['short_name'] + ' ':'')
+								state: (!(types['administrative_area_level_1'] === undefined)?item.address_components[types['administrative_area_level_1']]['short_name'] + ' ':''),
+								country: (!(types['country'] === undefined)?item.address_components[types['country']]['long_name'] + ' ':''),
+								zipcode: (!(types['postal_code'] === undefined || item.address_components[types['postal_code']] === undefined)?item.address_components[types['postal_code']]['short_name'] + ' ':''),
+								lat: item.geometry.location.lat,
+								lng: item.geometry.location.lng
 							};
 						};
 					});
