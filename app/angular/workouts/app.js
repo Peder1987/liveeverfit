@@ -44,7 +44,14 @@ define(['app', 'videojs'], function (app) {
                     update: { method: 'PUT' }
                 }),
                 getVideo = function () {
-                    if ($scope.videojs) $scope.videojs.dispose();
+                    if ($scope.videojs && typeof $scope.videojs.dispose === 'function') {
+                        try {
+                            $scope.videojs.dispose();
+                        }
+                        catch(error) {
+
+                        }
+                    }
                     if ($stateParams.id) {
                         $scope.videoStatus = 'loading';
                         $scope.video = videoResource.get({id: $stateParams.id}, function () {
@@ -53,7 +60,8 @@ define(['app', 'videojs'], function (app) {
                             $scope.videoStatus = 'difficultySelected';
                             setTimeout(function () {
                                 $scope.videojs = videojs('selectedVideo', {
-                                    techOrder: [ "flash", "html5"]
+                                    techOrder: [ "flash", "html5"], 
+                                    poster: 'http://beta.liveeverfit.com/media/'+ $scope.video.img
                                 });
                                 $scope.videojs.height($scope.videojs.el().offsetWidth * 0.75);
                                 $(window).resize(function () {
