@@ -13,6 +13,13 @@ class UserFilter(django_filters.FilterSet):
         model = User
         fields = ['email', 'first_name', 'last_name', 'gender',]
 
+class QueueFilterBackend(filters.BaseFilterBackend):
+	def filter_queryset(self, request, queryset, view):
+		return queryset.filter(queue=False)
+
+	class Meta:
+		model = Professional
+
 
 class GenderFilterBackend(filters.BaseFilterBackend):
 
