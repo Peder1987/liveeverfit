@@ -59,17 +59,17 @@
                 <label for="Address">
                     ADDRESS
                 </label>
-                <input id="address" type="text" ng-model="tempAddress.formatted_address"
+                <input id="address" type="text" ng-model="tempAddressPay.formatted_address"
                        placeholder="Primary Address"
                        typeahead="address for address in getLocation($viewValue)"
                        typeahead-loading="loadingLocations"
-                       ng-change="setAddress()" typeahead-on-select="setAddress()" class="form-control"
+                       ng-change="setAddressPay()" typeahead-on-select="setAddressPay()" class="form-control"
                        required>
 
                 <input type="text" class="form-control" name="firstName" id="firstName"
                        placeholder="P.O. Box, Apartment, Suite, Unit, Building, Floor, Etc."
-                       ng-change="setAddress()"
-                       ng-model="tempAddress.street_line2">
+                       ng-change="setAddressPay()"
+                       ng-model="tempAddressPay.street_line2">
                   <p></p>
 
 
