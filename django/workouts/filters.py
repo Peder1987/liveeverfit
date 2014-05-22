@@ -1,7 +1,7 @@
 import django_filters
 from rest_framework import viewsets, status, filters
 
-from .models import Video
+from .models import Video, VideoComment
 
 class DifficultyFilterBackend(filters.BaseFilterBackend):
 
@@ -17,6 +17,16 @@ class DifficultyFilterBackend(filters.BaseFilterBackend):
 
 	class Meta:
 		model = Video
+
+
+class VideoFilter(filters.BaseFilterBackend):
+	def filter_queryset(self, request, queryset, view):
+		if 'video' in request.QUERY_PARAMS:
+			pass
+		return queryset.filter(video=False)
+
+	class Meta:
+		model = VideoComment
 
 
 class WorkoutTagFilterBackend(filters.BaseFilterBackend):
