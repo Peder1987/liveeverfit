@@ -42,16 +42,14 @@ class Video(models.Model):
 
 #Video Model
 class VideoComment(models.Model):
-    video_id = models.CharField(max_length = 50, blank=True,null=True)
     user = models.ForeignKey(User, blank=True,null=True)
+    video =  models.ForeignKey(Video, related_name="comments")
     comment = models.TextField('description', null=True, blank=True)
-    pub_date = models.DateTimeField('date published', default=datetime.datetime.now, null=True, blank=True)
+    pub_date = models.DateTimeField('date published', default=now, null=True, blank=True)
 
 
     #Metadata
-    def __unicode__(self):
-        return self.video_id
- 
+    
 
  
 
