@@ -9,7 +9,7 @@
             <a class="navbar-brand" ng-class="{active:$uiRoute}" ui-route="/" ui-sref="home">
                 <image src="common/img/navbar/logo.png"/>
             </a>
-            <ul class="nav nav-xs-icon visible-xs" ng-include src="'navbar/icons-xs.html'"></ul>
+            <ul class="nav nav-xs-icon visible-xs" ng-include src="'navbar/icons.html'"></ul>
         </div>
         <!--Logged in navbar-->
         <div class="navbar-collapse collapse" collapse="isCollapsed">
@@ -125,15 +125,15 @@
 </div>
 
 
-
-<script type="text/ng-template" id="navbar/icons-xs.html">
+<script type="text/ng-template" id="navbar/icons.html">
     <li>
         <a href="http://store.liveeverfit.com/cart">
             <i class="fa fa-shopping-cart fa-lg xs-i-help"></i>&ZeroWidthSpace;
         </a>
     </li>
     <li>
-        <a ui-sref-active="active" ui-sref="messages">
+        <a ui-sref-active="active"
+           ui-sref="messages">
             <i class="fa fa-envelope fa-lg xs-i-help"></i>&ZeroWidthSpace;
         </a>
     </li>
@@ -141,75 +141,30 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-user fa-lg xs-i-help"></i> <b class="caret"></b>
         </a>
-        <ul class="dropdown-menu dropdown-menu-right xs-dropdown" role="menu" aria-labelledby="dLabel">
-            <li>
-                <a ui-sref="faq">
-                    <i class="fa fa-user xs-i-help2"></i> Profile
-                </a>
-            </li>
-            <li>
-                <a ui-sref="faq">
-                    <i class="fa fa-question-circle xs-i-help2"></i> FAQ
-                </a>
-            </li>
-            <li>
-                <a ui-sref="terms">
-                    <i class="fa fa-book xs-i-help2"></i>  Terms
-                </a>
-            </li>
-            <li>
-                <a ui-sref="settings">
-                    <i class="fa fa-cog xs-i-help2"></i> Settings
-                </a>
-            </li>
-            <li>
-                <a ui-sref="logout">
-                    <i class="fa fa-sign-out xs-i-help2"></i> Sign Out
-                </a>
-            </li>
-        </ul>
-    </li>
-</script>
-<script type="text/ng-template" id="navbar/icons.html">
-    <li>
-        <a href="http://store.liveeverfit.com/cart">
-            <i class="fa fa-shopping-cart fa-lg"></i>&ZeroWidthSpace;
-        </a>
-    </li>
-    <li>
-        <a ui-sref-active="active"
-           ui-sref="messages">
-            <i class="fa fa-envelope fa-lg"></i>&ZeroWidthSpace;
-        </a>
-    </li>
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-user fa-lg"></i> <b class="caret"></b>
-        </a>
         <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dLabel">
             <li>
-                <a ui-sref="faq">
-                    <i class="fa fa-user"></i> Profile
+                <a ui-sref="faq" class="xs-i">
+                    <i class="fa fa-user"></i> profile
                 </a>
             </li>
             <li>
                 <a ui-sref="faq">
-                    <i class="fa fa-question-circle"></i> FAQ
+                    <i class="fa fa-question-circle"></i> faq
                 </a>
             </li>
             <li>
                 <a ui-sref="terms">
-                    <i class="fa fa-book"></i>  Terms
+                    <i class="fa fa-book"></i>  terms
                 </a>
             </li>
             <li>
                 <a ui-sref="settings">
-                    <i class="fa fa-cog"></i> Settings
+                    <i class="fa fa-cog"></i> settings
                 </a>
             </li>
             <li>
                 <a ui-sref="logout">
-                    <i class="fa fa-sign-out"></i> Sign Out
+                    <i class="fa fa-sign-out"></i> sign out
                 </a>
             </li>
         </ul>
