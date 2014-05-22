@@ -10,6 +10,7 @@ from django.utils.timezone import utc, now
 ##############################################
 
 
+
 from user_app.models import Professional
 from workouts.models import Video
 
