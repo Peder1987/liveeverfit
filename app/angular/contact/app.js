@@ -2,25 +2,35 @@
 
 define(['app'], function(app) {
 
-    app.register.controller('contactCtrl', ['$scope',
+    app.register.controller('contactCtrl', ['$scope','restricted',
     	function($scope) {
+    		$scope.restricted();
     }]);
 
-    app.register.controller('contactCtrl', ['$scope','$state',
-        function($scope,$state) {
+
+    app.register.controller('contactFormCtrl', ['$scope','$state','$resource','rest',
+        function($scope,$state,$resource) {
+
             $scope.name = "";
             $scope.email = "";
             $scope.message = "";
 
+            var contactResource =  $resource("http://:url/contact/contact/", {
+                url: $scope.restURL
+            });
+
 
             $scope.submit = function(valid){
             	if(valid == true){
-            		console.log($scope.name);
-            		console.log($scope.email);
-            		console.log($scope.message);
-            		// $state.go('home');
+            		$scope.contact = contactResource.save({name: $scope.name, email: $scope.email, message: $scope.message}, function() {
+            		},function(error){
+            			$scope.errMessage = error.data;
+            		});
+            		$state.go('home');
             	}
             };
+
     }]);
+
     
 });

@@ -7,7 +7,6 @@ gettext = lambda s: s
 DJANGO_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 # Go up 2 directories to get to main project path
 PROJECT_PATH = os.path.abspath(os.path.join(DJANGO_PATH, os.pardir))
-
 # Project path contains media and angular path
 MEDIA_PATH = os.path.join(PROJECT_PATH, 'app/angular/media')
 
@@ -167,6 +166,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 
     #My Apps
+    'contact',
     
     #Imported Apps
     'south',
@@ -184,8 +184,6 @@ INSTALLED_APPS = (
     'feed',
     'model_utils',
     'cicu',
-    # 'board',
-    # 'registration',
     # 'ws4redis',
     # 'websocketsredis',
     # 'chatserver',

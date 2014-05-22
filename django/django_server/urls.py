@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^workouts/', include('workouts.urls')),
     url(r'^messages/', include('messages.urls')),
     url(r'^upload-image/', include('cicu.urls')),
+    url(r'^contact/', include('contact.urls')),
 )
 
 
