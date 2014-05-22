@@ -161,6 +161,9 @@ define(['app'], function(app) {
 			};
 
 
+			//the credit card has to pass first, then crate user and then stripe
+			//also use state change for home
+
 
 			$scope.submit = function() {
                 // AutoFill Fix
