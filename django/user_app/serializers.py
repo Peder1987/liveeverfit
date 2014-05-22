@@ -98,6 +98,13 @@ class ModifyMembershipSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
+    def to_native(self, value):
+        # no need to return anything
+        obj = super(ModifyMembershipSerializer,self).to_native(value)
+        
+        value.stripe_cancel_subscription()
+        print value
+        value.cancel_professional()
         
 class CreditcardSerializer(serializers.ModelSerializer):
     creditcard = serializers.Field(source='stripe_get_creditcard')

@@ -18,6 +18,7 @@ urlpatterns = patterns('',
 	url(r'^/(?P<pk>[0-9]+)$', UserViewSet.as_view()),
 	# view to modify payment details
 	url(r'^/modify-payment-details/(?P<pk>[0-9]+)$', PaymentView.as_view()),
+	url(r'^/modify-membership/(?P<pk>[0-9]+)$', ModifyMembershipView.as_view()),
 	# view to retrieve creditcards
 	url(r'^/creditcards/(?P<pk>[0-9]+)$', CreditcardView.as_view()),
 	url(r'^/professionals$', ProfessionalListView.as_view()),

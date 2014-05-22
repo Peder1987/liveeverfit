@@ -68,7 +68,7 @@ class ClientListView(generics.ListAPIView):
     search_fields = ('email', 'first_name', 'last_name')
 
 
-class ModifyMembershipView(generics.RetrieveUpdateDestroyAPIView):
+class ModifyMembershipView(generics.RetrieveAPIView):
     model = User
     permission_classes = (IsAuthenticated,)
     serializer_class = ModifyMembershipSerializer
