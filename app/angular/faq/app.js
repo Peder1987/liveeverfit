@@ -2,7 +2,7 @@
 
 define(['app'], function(app) {
 
-    app.register.controller('termsCtrl', ['$scope',
+    app.register.controller('faqCtrl', ['$scope',
     	function($scope) {
     }]);
     
