@@ -14,3 +14,4 @@ class VideoAdmin(admin.ModelAdmin):
 
 #admin.site.register(Invitation, InvitationAdmin)
 admin.site.register(Video, VideoAdmin)
+admin.site.register(VideoComment)
