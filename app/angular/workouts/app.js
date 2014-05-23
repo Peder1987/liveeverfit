@@ -82,11 +82,14 @@ define(['app', 'videojs'], function (app) {
                                     $scope.videojs.height($scope.videojs.el().offsetWidth * 0.75);
                                 });
                             }, 10);
-                            if($scope.video.likes_user.indexOf(parseInt(localStorageService.get("user_id"))) >= 0) {
-                                $scope.video.like = "unlike";
+
+                            if($scope.video.user_likes) {
+                                // user already likes this video
+                                $scope.video.like = true;
                             }
                             else {
-                                $scope.video.like = "like";
+                                //user can like this video
+                                $scope.video.like = false;
                             }
                         })
                     }
@@ -120,6 +123,29 @@ define(['app', 'videojs'], function (app) {
                 return deferred.promise;
             };
 
+            $scope.likeVideo = function () {
+                var obj = {
+                    id: $stateParams.id,
+                    user_email : localStorageService.get("user_email")
+
+                }
+                console.log(obj)
+                var likeResource = $resource(":protocol://:url/workouts/video/likes/:id/", {
+                    protocol: $scope.restProtocol,
+                    url: $scope.restURL,
+                    id: '@id'
+                }, {update: { method: 'PUT' }});
+                likeResource.update(obj, function(data){
+                    $scope.video.like = data.user_likes
+                    if(data.user_likes){
+                        $scope.video.likes +=  1;
+                    }else{
+                        $scope.video.likes -=  1;
+                    }
+                });
+
+            };
+            
             $scope.getPros = function (){
                 $scope.page = $scope.page + 1;
                 $scope.filtering = {
