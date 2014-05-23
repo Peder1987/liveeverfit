@@ -93,7 +93,7 @@ def upload_profile_picture(request):
         if width_img< 500 and height_img< 500:
             uploaded_file.file.delete(False)
             uploaded_file.delete()
-            return HttpResponseBadRequest(simplejson.dumps({'errors': ['resolution requirements not met, minumum requirements 500x500']}))
+            return HttpResponseBadRequest(simplejson.dumps({'errors': ['Minimum resolution requirement 500x500 not met']}))
        
         # get the image's width and height in pixels
         width, height = img.size

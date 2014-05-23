@@ -1,19 +1,35 @@
 <div class="modal-header">
     <h3 class="modal-title">Edit photo</h3>
 </div>
-
-<div ng-controller="ProfilePicCtrl">
-    <li ng-repeat="error in errors">{{error}}</li>
-    <h3>Profile Pic</h3>
-    <input type="file" accept="image/*" fileselect="img.onFileSelect($files)">
-    <h3>Crop</h3>
-    <img-cropped src="imageSrc" selected="selected(cords)"></img-cropped>
-    <h3>Div Preview
-      <div id="cropped-image" ng-show="cropped" ng-style="{ width:picWidth+'px', height:picHeight+'px', overflow:'hidden' }"><img id="preview" ng-src="{{myImg.0.src}}"></div>
-    </h3>
+<div class="modal-body">
+    <alert ng-repeat="(error, msg) in message"
+           type="danger" close="closeAlert(error)">
+        {{msg[0]}}
+    </alert>
+    <label for="upload">
+        Profile Pic
+    </label>
+    <div class="modal-body image-body-modal">
+        <div ng-if="!imgSrc&&!percent" class="upload">
+            <div class="well well-lg" ng-file-drop="onFileSelect($files)"
+                 ng-file-drag-over-class="over">
+                <i class="fa fa-arrow-down fa-2x"></i>
+                <br>
+                <div>drag & drop</div>
+            </div>
+            <span class="btn btn-primary">
+                 upload from computer
+                <input id="upload" type="file" accept="image/*"  class="upload"
+                       ng-file-select="onFileSelect($files)">
+            </span>
+        </div>
+        <h3 ng-if="percent">Loading...</h3>
+        <progressbar ng-if="percent" class="progress-striped active" value="percent">{{percent}}%</progressbar>
+        <crop-img src="imgSrc"></crop-img>
+    </div>
 </div>
-        
+
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">OK</button>
-    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="ok()">change</button>
+    <button class="btn btn-danger" ng-click="cancel()">cancel</button>
 </div>

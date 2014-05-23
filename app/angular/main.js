@@ -61,6 +61,7 @@ require.config({
         'geolocation' : 'common/angularjs-geolocation/dist/angularjs-geolocation.min',
         'jcrop' : 'common/jcrop/js/jquery.Jcrop.min',
         'angularFileUpload' : 'common/ng-file-upload/angular-file-upload.min',
+        'angularFileUploadShim' : 'common/ng-file-upload/angular-file-upload-shim.min',
         'app' : 'app'
 
     },
@@ -68,7 +69,8 @@ require.config({
     //Angular does not support AMD out of the box, put it in a shim
     shim: {
             'angular': {
-                    exports: 'angular'
+                    exports: 'angular',
+                deps: ['angularFileUploadShim'],
             },
             'angularAMD': ['angular'],
             'angularLocalStorage': ['angular'],
