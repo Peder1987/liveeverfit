@@ -1,7 +1,7 @@
 <div id="homeBg"></div>
 <div id="homePage">
     <div class="container">
-        <div ng-controller="BannerCtrl" style="height: 286px">
+        <div ng-controller="BannerCtrl">
             <carousel interval="3000">
                 <slide ng-repeat="slide in slides" active="slide.active">
                     <img ng-src="{{slide.image}}" style="margin:auto;">
@@ -9,19 +9,19 @@
             </carousel>
         </div>
 
-        <div class="homePageButtons">
+        <div class="homePageButtons xs-up">
         	
         	<div class="row">
         		
-        		<div class="col-md-4">
+        		<div class="col-lg-4 col-md-4 col-sm-4">
         			<img src="../home/img/find-a-pro.png" />
         		</div>
         		
-        		<div class="col-md-4">
+        		<div class="col-lg-4 col-md-4 col-sm-4">
         			<img src="../home/img/workouts.png" />
         		</div>
         		
-        		<div class="col-md-4">
+        		<div class="col-lg-4 col-md-4 col-sm-4">
         			<img src="../home/img/the-shop.png" />
         		</div>
         	
