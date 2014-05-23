@@ -93,7 +93,7 @@ def upload_profile_picture(request):
         if width_img< 500 and height_img< 500:
             uploaded_file.file.delete(False)
             uploaded_file.delete()
-            return HttpResponseBadRequest(simplejson.dumps({'errors': 'resolution requirements not met, minumum requirements 500x500'}))
+            return HttpResponseBadRequest(simplejson.dumps({'errors': ['resolution requirements not met, minumum requirements 500x500']}))
        
         # get the image's width and height in pixels
         width, height = img.size
@@ -105,7 +105,7 @@ def upload_profile_picture(request):
         }
         return HttpResponse(simplejson.dumps(data))
     else:
-        return HttpResponseBadRequest(simplejson.dumps({'errors': form.errors}))
+        return HttpResponseBadRequest(simplejson.dumps({'errors': [form.errors]}))
 
 
 @csrf_exempt
@@ -145,7 +145,7 @@ def crop_profile_picture(request):
             height = abs(values[3] - values[1])
 
             if width< 500 and height< 500:
-                return HttpResponseBadRequest(simplejson.dumps({'errors': 'resolution requirements not met, minumum requirements 500x500'}))
+                return HttpResponseBadRequest(simplejson.dumps({'errors': ['resolution requirements not met, minumum requirements 500x500']}))
 
             if width and height and (width <= img.size[0] or height <= img.size[1]):
                 croppedImage = img.crop(values).resize((500,500),Image.ANTIALIAS)
@@ -172,4 +172,4 @@ def crop_profile_picture(request):
             return HttpResponse(simplejson.dumps(data))
 
     except Exception:
-       return HttpResponseBadRequest(simplejson.dumps({'errors': 'illegal request test'}))
+       return HttpResponseBadRequest(simplejson.dumps({'errors': ['illegal request test']}))
