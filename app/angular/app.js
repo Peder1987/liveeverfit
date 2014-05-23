@@ -46,7 +46,8 @@ define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','an
                 .state('change-password', route.resolve('/change-password', 'auth/change-password'))
                 .state('terms', route.resolve('/terms', 'terms'))
                 .state('faq', route.resolve('/faq', 'faq'))
-                .state('logout', route.resolve('/logout', 'auth/logout'));
+                .state('logout', route.resolve('/logout', 'auth/logout'))
+                .state('profile', route.resolve('/profile', 'profile'));
 
             $urlRouterProvider.otherwise("/");
         }

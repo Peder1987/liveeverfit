@@ -26,7 +26,6 @@ from rest_framework import renderers
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import serializers
@@ -90,8 +89,6 @@ def register_professional(request):
         temp_address = user_data['primary_address']
         del user_data['password2']
         del user_data['primary_address']
-
-        ##use a try to get through the bug of primary key
 
         city = temp_address['city']
         city = str(city)

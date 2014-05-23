@@ -81,6 +81,35 @@ def crop(request):
 
 @csrf_exempt
 @require_POST
+def upload_profile_picture(request):
+    form = UploadedFileForm(data=request.POST, files=request.FILES)
+    if form.is_valid():
+        uploaded_file = form.save()
+        # pick an image file you have in the working directory
+        # (or give full path name)
+        img = Image.open(uploaded_file.file.path, mode='r')
+        (width_img, height_img) = img.size
+
+        if width_img< 500 and height_img< 500:
+            uploaded_file.file.delete(False)
+            uploaded_file.delete()
+            return HttpResponseBadRequest(simplejson.dumps({'errors': ['Minimum resolution requirement 500x500 not met']}))
+       
+        # get the image's width and height in pixels
+        width, height = img.size
+        data = {
+            'path': uploaded_file.file.url,
+            'id' : uploaded_file.id,
+            'width' : width,
+            'height' : height,
+        }
+        return HttpResponse(simplejson.dumps(data))
+    else:
+        return HttpResponseBadRequest(simplejson.dumps({'errors': [form.errors]}))
+
+
+@csrf_exempt
+@require_POST
 def crop_profile_picture(request):
     try:
         if request.method == 'POST':
@@ -116,7 +145,7 @@ def crop_profile_picture(request):
             height = abs(values[3] - values[1])
 
             if width< 500 and height< 500:
-                return HttpResponseBadRequest(simplejson.dumps({'errors': 'resolution requirements not met, minumum requirements 500x500'}))
+                return HttpResponseBadRequest(simplejson.dumps({'errors': ['resolution requirements not met, minumum requirements 500x500']}))
 
             if width and height and (width <= img.size[0] or height <= img.size[1]):
                 croppedImage = img.crop(values).resize((500,500),Image.ANTIALIAS)
@@ -143,4 +172,4 @@ def crop_profile_picture(request):
             return HttpResponse(simplejson.dumps(data))
 
     except Exception:
-       return HttpResponseBadRequest(simplejson.dumps({'errors': 'illegal request test'}))
+       return HttpResponseBadRequest(simplejson.dumps({'errors': ['illegal request test']}))

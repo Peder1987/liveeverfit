@@ -54,12 +54,11 @@ define(['app'], function(app) {
 				lat: '',
 				lng: ''
 			};
-
 			$scope.creditcard = {
-				name : 'miguel vazquez',
+				name : 'miguel',
 				number : '4242424242424242',
-				cvc : '512',
-				exp_month : '8',
+				cvc : '123',
+				exp_month : '5',
 				exp_year : '2014',
 				address_line1 : "",
 				address_line2 : "",
@@ -72,29 +71,29 @@ define(['app'], function(app) {
     		var AuthToken =  $resource("http://:url/accounts/register/", {
                 url: $scope.restURL
             });
-
             var ProAuthToken =  $resource("http://:url/accounts/register-professional/", {
                 url: $scope.restURL
             });
+            var paymentResource = $resource(":protocol://:url/users/modify-payment-details/:id",{
+            	id : '@id',
+            	protocol: $scope.restProtocol,
+            	url: $scope.restURL,
+            },{update: { method: 'PUT' }});
 
 
 			$scope.getCurrentStep = function() {
 				return $scope.step;
 			};	
-
 			$scope.setCurrentStep = function(step){
 				$scope.step = step;
 			};
-
 			$scope.setCurrentStepForm = function(step, valid){
 				if(valid == true){$scope.step = step;};
 			};
-
 			$scope.membership = function(step, tier){
 				$scope.user.tier = tier;
 				$scope.step = step;
 			};
-
 			$scope.professionals = function(step, tier, pro){
 				$scope.pro.profession = pro;
 				$scope.user.tier = tier;
@@ -108,6 +107,37 @@ define(['app'], function(app) {
 					return true;
 				};
 			};
+			$scope.paymentCheck = function(step, valid){
+				$scope.stripeToken;
+				if(valid == true){
+
+	                Stripe.createToken({
+	                    name: $scope.creditcard.name,
+	                    number: $scope.creditcard.number,
+	                    cvc: $scope.creditcard.cvc,
+	                    exp_month: $scope.creditcard.exp_month,
+	                    exp_year: $scope.creditcard.exp_year,
+	                    address_line1: $scope.creditcard.address_line1,
+	                    address_line2: $scope.creditcard.address_line2,
+	                    address_city: $scope.creditcard.address_city,
+	                    address_country: $scope.creditcard.address_country,
+	                    address_state: $scope.creditcard.address_state,
+	                    address_zip: $scope.creditcard.address_zip,
+	                }, function (status, response) {
+	                    if (response.error) {
+	                        $scope.message = [response.error.message];
+	                        $scope.$apply();
+	                    }
+	                    else {
+	                    	$scope.message = null;
+	                    	$scope.stripeToken = response['id'];
+	                    	$scope.step = step;
+	                    	$scope.$apply();
+	                    };
+	                });
+
+				};
+			};
 			$scope.preProSubmit = function(){
 				angular.forEach($scope.user, function(value, key){
 					$scope.pro[key] = value;
@@ -115,54 +145,7 @@ define(['app'], function(app) {
 				$scope.pro.primary_address = $scope.address;
 				$scope.proSubmit();
 			};
-			$scope.stipeAccount = function(){
-
-				var stripeToken;
-				var paymentResource = $resource(":protocol://:url/users/modify-payment-details/:id",{
-					id : $scope.profile_user,
-		            protocol: $scope.restProtocol,
-		            url: $scope.restURL,
-		        },{update: { method: 'PUT' }});
-				$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
-                Stripe.createToken({
-                    name: $scope.creditcard.name,
-                    number: $scope.creditcard.number,
-                    cvc: $scope.creditcard.cvc,
-                    exp_month: $scope.creditcard.exp_month,
-                    exp_year: $scope.creditcard.exp_year,
-                    address_line1: $scope.creditcard.address_line1,
-                    address_line2: $scope.creditcard.address_line2,
-                    address_city: $scope.creditcard.address_city,
-                    address_country: $scope.creditcard.address_country,
-                    address_state: $scope.creditcard.address_state,
-                    address_zip: $scope.creditcard.address_zip,
-                }, function (status, response) {
-                	console.log('stripeee');
-                	
-                	console.log(response);
-                	console.log(status);
-                    if (response.error) {
-                        
-                        $scope.message = response.error.message;
-                        
-                        $scope.$apply()
-                    }
-                    else {
-                    	$scope.message = '';
-                        $scope.$apply()
-
-                    	var stripeToken = response['id'];
-                    	console.log(stripeToken);
-                    	response = paymentResource.update({id:$scope.profile_user,stripeToken:stripeToken}, function(){
-                    		window.location = "/";
-                    	});
-                    };
-                });
-			};
-
-
-			//the credit card has to pass first, then crate user and then stripe
-			//also use state change for home
+		
 
 
 			$scope.submit = function() {
@@ -173,7 +156,17 @@ define(['app'], function(app) {
 					localStorageService.add('Authorization', 'Token ' + $scope.authToken.token);
 					localStorageService.add('rest_token', $scope.authToken.token);
 					localStorageService.add('user_id', $scope.authToken.id);
-					window.location = "/";
+					if($scope.user.tier == 1){
+						window.location = "/";
+					}
+					else{
+						$scope.profile_user = $scope.authToken.id;
+						$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
+						$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
+							window.location = "/";
+						});
+
+					};
 				},function(error) {
 					$scope.message = error.data;
 				});
@@ -182,17 +175,16 @@ define(['app'], function(app) {
 			$scope.proSubmit = function() {
                 // AutoFill Fix
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
-                console.log($scope.creditcard);
-                console.log($scope.pro);
 				
 				$scope.proAuthToken = ProAuthToken.save($scope.pro, function() {
 					localStorageService.add('Authorization', 'Token ' + $scope.proAuthToken.token);
 					localStorageService.add('rest_token', $scope.proAuthToken.token);
 					localStorageService.add('user_id', $scope.proAuthToken.id);
 					$scope.profile_user = $scope.proAuthToken.id;
-					console.log($scope.proAuthToken);
-					$scope.stipeAccount();
-					// window.location = "/";
+					$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
+					$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
+						window.location = "/";
+					});
 				},function(error) {
 					$scope.message = error.data;
 				});
