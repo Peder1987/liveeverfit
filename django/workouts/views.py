@@ -11,7 +11,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from workouts.models import Video, VideoComment
 from workouts.filters import DifficultyFilterBackend, WorkoutTagFilterBackend
-from workouts.serializers import TitleSerializer, VideoSerializer, VideoCommentSerializer, CommentSerializer
+from workouts.serializers import TitleSerializer, VideoSerializer, VideoCommentSerializer, CommentSerializer, VideoLikeSerializer
 from workouts.permissions import IsAdminOrSelf
 
 
@@ -26,6 +26,11 @@ class VideoObjectView(generics.RetrieveUpdateDestroyAPIView):
     model = Video
     permission_classes = (IsAuthenticated,)
     serializer_class = VideoSerializer
+
+class VideoLikeView(generics.UpdateAPIView, generics.DestroyAPIView):
+    model = Video
+    permission_classes = (IsAuthenticated,)
+    serializer_class = VideoLikeSerializer
     
 
 class CommentListView(generics.ListCreateAPIView):

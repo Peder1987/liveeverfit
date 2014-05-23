@@ -138,10 +138,12 @@
                                         </span>
                                     </div>
                                     <div class=" col-xs-3">
-                                        <button type="button" class="btn btn-primary" style="width: 100%">
-                                            {{video.like}}
+                                        <button type="button" class="btn btn-primary" style="width: 100%" ng-click="likeVideo()">
+                                            
+                                            <div ng-show="!video.like">like</div>
+                                            <div ng-show="video.like">unlike</div>
                                             <span class="fa"
-                                                  ng-class="{'fa-thumbs-o-up': (video.like == 'like'), 'fa-thumbs-o-down': (video.like == 'unlike')}">
+                                                  ng-class="{'fa-thumbs-o-up': (video.like == false), 'fa-thumbs-o-down': (video.like == true)}">
 
                                                   </span>
                                         </button>
