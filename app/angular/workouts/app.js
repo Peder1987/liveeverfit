@@ -19,9 +19,11 @@ define(['app', 'videojs'], function (app) {
             $scope.videoSearch = ''; // this is the search bar string
             $scope.videoTitles = [] // for typeahead
             $scope.next = true;
+            // make this into 
             $scope.comments = []  
             $scope.commentPage = 1;
             $scope.commentNext = false;
+            $scope.commentText = '';
             var tagCollection = $resource(":protocol://:url/tags/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
@@ -140,6 +142,20 @@ define(['app', 'videojs'], function (app) {
                     $scope.commentNext = newComments.next;
                 });
                 //$scope.videos = ;
+            };
+            $scope.submitComment =  function (){
+                var temp = {
+                    id: $stateParams.id,
+                    video : $stateParams.id,
+                    user:localStorageService.get("user_email"),
+                    comment : this.commentText
+                };
+
+                commentCollection.save(temp, function(data){
+                    console.log(data)
+                    $scope.comments.unshift(data)
+                });
+                
             };
 
             

@@ -12,7 +12,14 @@ class TitleSerializer(serializers.ModelSerializer):
 		model = Video
         fields = ('title',)
 
+class CommentSerializer(serializers.ModelSerializer):
+	user = serializers.SlugRelatedField(slug_field="email", required=False)  
+	class Meta:
+		model = VideoComment
+
 class VideoSerializer(serializers.ModelSerializer):
+	comments = CommentSerializer(many=True)
+	img = serializers.ImageField(allow_empty_file=True, required=False)
 	class Meta:
 		model = Video
 	def to_native(self, obj):
@@ -23,10 +30,6 @@ class VideoSerializer(serializers.ModelSerializer):
 		return temp
 
         
-class CommentSerializer(serializers.ModelSerializer):
-	user = serializers.SlugRelatedField(slug_field="email", required=False)  
-	class Meta:
-		model = VideoComment
 
 
 class VideoCommentSerializer(serializers.ModelSerializer):
