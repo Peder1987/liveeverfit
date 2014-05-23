@@ -90,8 +90,6 @@ def register_professional(request):
         del user_data['password2']
         del user_data['primary_address']
 
-        ##use a try to get through the bug of primary key
-
         city = temp_address['city']
         city = str(city)
         city = city.strip()
