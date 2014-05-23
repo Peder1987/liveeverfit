@@ -183,12 +183,13 @@ class ObtainExpiringAuthToken(ObtainAuthToken):
         if serializer.is_valid():
             token, created =  Token.objects.get_or_create(user=serializer.object['user'])
             id = serializer.object['user'].id
+            email = serializer.object['user'].email
             if not created:
                 # update the created time of the token to keep it valid
                 token.created = datetime.datetime.utcnow().replace(tzinfo=utc)
                 token.save()
 
-            return Response({'token': token.key, 'id': id})
+            return Response({'token': token.key, 'id': id, 'email':email })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 obtain_expiring_auth_token = ObtainExpiringAuthToken.as_view()

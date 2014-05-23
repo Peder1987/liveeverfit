@@ -14,4 +14,12 @@ class VideoAdmin(admin.ModelAdmin):
 
 #admin.site.register(Invitation, InvitationAdmin)
 admin.site.register(Video, VideoAdmin)
-admin.site.register(VideoComment)
+
+
+class VideoCommentAdmin(admin.ModelAdmin):
+    """Admin for invitation code"""
+    
+    list_display = ('user','video','comment',)
+
+
+admin.site.register(VideoComment, VideoCommentAdmin)

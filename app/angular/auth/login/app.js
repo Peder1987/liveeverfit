@@ -22,6 +22,7 @@ define(['app'], function(app) {
 					localStorageService.add('Authorization', 'Token ' + $scope.authToken.token);
 					localStorageService.add('rest_token', $scope.authToken.token);
 					localStorageService.add('user_id', $scope.authToken.id);
+					localStorageService.add('user_email', $scope.authToken.email);
 					window.location = "/";
 				},function(error) {
 					$scope.message = error.data;

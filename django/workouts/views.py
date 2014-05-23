@@ -28,12 +28,13 @@ class VideoObjectView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = VideoSerializer
     
 
-class CommentListView(generics.ListAPIView):
+class CommentListView(generics.ListCreateAPIView):
     paginate_by = 5
     model = VideoComment
     permission_classes = (IsAuthenticated,)
     filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
     serializer_class = CommentSerializer
+    ordering = ('-pub_date',)
     def get_queryset(self):
         video_id = self.kwargs['pk']        
         return VideoComment.objects.filter(video=video_id)
