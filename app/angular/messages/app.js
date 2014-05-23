@@ -6,6 +6,7 @@ define(['app', 'videojs'], function (app) {
             $scope.restricted();
         }]);
 
+
     app.register.controller('messagesController', ["$state", "$stateParams", "$sce", "$resource",
         "rest", "tokenError", "localStorageService", "$scope",
         "$anchorScroll", "promiseService", "$http", 

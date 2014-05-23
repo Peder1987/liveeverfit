@@ -2,13 +2,20 @@
 
 define(['app'], function(app) {
 
+	app.register.controller('registrationCtrl', ['$scope', 'restricted',
+        function ($scope) {
 
-	app.register.controller('registrationCtrl', ["localStorageService","$resource","$http","$scope","rest",
-		function(localStorageService, $resource, $http, $scope) {
+    }]);
+
+
+	app.register.controller('registrationController', ["localStorageService",'$stateParams',"$resource","$http","$scope","rest",
+		function(localStorageService,$stateParams,$resource,$http,$scope) {
 
 			Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
 
 			$scope.profile_user = null;
+			$scope.urlTier = $stateParams.test;
+			$scope.urlPro = $stateParams.pro;
 
 			$scope.step = 'registration';
 			$scope.tempAddress = {
@@ -86,6 +93,22 @@ define(['app'], function(app) {
 			};	
 			$scope.setCurrentStep = function(step){
 				$scope.step = step;
+			};
+			$scope.setCurrentStepFormPar = function(step, valid){
+				if($scope.urlTier == 7 && $scope.urlPro !== undefined && $scope.urlPro != ''){
+					if($scope.urlPro == 'Trainer' || $scope.urlPro == 'Nutritionist' || $scope.urlPro == 'Promoter' ){
+						$scope.user.tier = $scope.urlTier;
+						$scope.pro.profession = $scope.urlPro;
+						$scope.step = 'professionals';
+					};
+				}
+				else if($scope.urlTier >= 1 && $scope.urlTier <= 5){
+					$scope.user.tier = $scope.urlTier;
+					$scope.step = 'user';
+				}
+				else{
+					$scope.step = 'choice';
+				};
 			};
 			$scope.setCurrentStepForm = function(step, valid){
 				if(valid == true){$scope.step = step;};
