@@ -1,5 +1,5 @@
 <div id="registrationBg"></div>
-<div id="registration">
+<div id="registration" ng-controller="registrationController">
 <div class="container" ng-switch="getCurrentStep()" class="slide-frame">
 <div class="row">
 <div class="col-xs-12">
@@ -90,7 +90,7 @@
 
     <div class="row">
         <button type="submit" class="btn btn-primary col-xs-offset-10"
-                ng-click="setCurrentStepForm('choice', registrationForm.$valid)">Next
+                ng-click="setCurrentStepFormPar('choice', registrationForm.$valid)">Next
         </button>
     </div>
     </form>
