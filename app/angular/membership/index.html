@@ -1,0 +1,119 @@
+<div id="registrationBg"></div>
+<div id="registration" ng-controller="registrationController">
+<div class="container" ng-switch="getCurrentStep()" class="slide-frame">
+<div class="row">
+<div class="col-xs-12">
+<h2 id="workoutsHeader" class="ef-header">
+    registration
+</h2>
+<div ng-switch-when="registration">
+    <form class="form-horizontal" name="registrationForm">
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-md-offset-3">
+                <div class="page-header">
+                    <h2 class="entry-title">basic information</h2>
+                </div>
+                <div class="form-group">
+                    <label for="gender" class="col-sm-2 control-label">
+                        Gender
+                    </label>
+
+                    <div class="col-sm-10">
+                        <select ng-model="user.gender" id="gender" type="text" class="form-control">
+                            <option value="">None</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="firstName" class="col-sm-2 control-label">
+                        First Name
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="firstName"
+                               placeholder="First Name"
+                               ng-model="user.first_name" required>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="lastName" class="col-sm-2 control-label">
+                        Last Name
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="lastName"
+                               placeholder="Last Name"
+                               ng-model="user.last_name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-sm-2 control-label">
+                        Email
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="email"
+                               placeholder="Email"
+                               ng-model="user.email" required>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-sm-2 control-label">
+                        Password
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="password"
+                               placeholder="Password"
+                               ng-model="user.password" required>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="password2" class="col-sm-2 control-label">
+                        Confirm Password:
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="password2"
+                               placeholder="Password"
+                               ng-model="user.password2" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+    <div class="row">
+        <button type="submit" class="btn btn-primary col-xs-offset-10"
+                ng-click="setCurrentStepFormPar('choice', registrationForm.$valid)">Next
+        </button>
+    </div>
+    </form>
+</div>
+<!--end registration-->
+<div ng-include src="'auth/registration/views/choice.html'"></div>
+<!--end choice-->
+<div ng-include src="'auth/registration/views/user.html'"></div>
+<!--end user-->
+<div ng-include src="'auth/registration/views/membership/membershipUpgrade.html'"></div>
+<!--end membership-->
+<div ng-include src="'auth/registration/views/professional/professional.html'"></div>
+<!--end professionals-->
+<div ng-include src="'auth/registration/views/professional/professionalExperience.html'"></div>
+<!--end experience-->
+<div ng-include src="'auth/registration/views/professional/professionalCertification.html'"></div>
+<!--end certifications-->
+<div ng-include src="'auth/registration/views/membership/membershipSubmit.html'"></div>
+<!--end membershipSubmit-->
+<div ng-include src="'auth/registration/views/professional/professionalSubmit.html'"></div>
+<!--end membershipSubmit-->
+<div ng-include src="'auth/registration/views/paymentDetails.html'"></div>
+<!--end payment-->
+</div>
+</div>
+</div>

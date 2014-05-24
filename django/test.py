@@ -9,23 +9,45 @@ from django.utils.timezone import utc, now
 #Write code after this
 ##############################################
 
+# text
+# picture
+# video
+# event
+# blog
 
+# TextEntry
+# PictureEntry
+# VideoEntry
+# EventEntry
+# BlogEntry
 
 from user_app.models import Professional
-from workouts.models import Video
+from feed.models import Entry, TextEntry, PictureEntry, VideoEntry, EventEntry, BlogEntry
 
-users = User.objects.all()
-pros = Professional.objects.all()
+text = TextEntry.objects.all()
+picture = PictureEntry.objects.all()
+video = VideoEntry.objects.all()
+event = EventEntry.objects.all()
+blog = BlogEntry.objects.all()
 
-user =  User.objects.get(email='admin@test.com')
-pro = Professional.objects.get(email='pro2@test.com')
-
-# print Professional.objects.filter(pk=user.id).exists()
-# print Professional.objects.filter(pk=pro.id).exists()
-#print pro.user_connections.all()
+entry = Entry.objects.all().select_subclasses()
+# print entry
 
 
-for user in Professional.objects.all():
-	user.queue = True
-	user.save()
-
+for instance in entry:
+	print instance
+	filename= 'random'
+	print instance.type
+	now_time = now().strftime("%m_%d_%Y_%H_%M_%S_%f_")
+	print os.path.join(
+          "users","%d" % instance.user.id, instance.type, now_time+filename )
+	
+	
+	
+	
+	
+# print text
+# print picture
+# print video
+# print event
+# print blog
