@@ -1,6 +1,6 @@
 import os
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.utils import simplejson
+import json
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.core.files import File
@@ -33,9 +33,9 @@ def upload(request):
             'width' : width,
             'height' : height,
         }
-        return HttpResponse(simplejson.dumps(data))
+        return HttpResponse(json.dumps(data))
     else:
-        return HttpResponseBadRequest(simplejson.dumps({'errors': form.errors}))
+        return HttpResponseBadRequest(json.dumps({'errors': form.errors}))
 
 
 @csrf_exempt
@@ -73,10 +73,10 @@ def crop(request):
                 'id' : new_file.id,
             }
 
-            return HttpResponse(simplejson.dumps(data))
+            return HttpResponse(json.dumps(data))
 
     except Exception:
-       return HttpResponseBadRequest(simplejson.dumps({'errors': 'illegal request test'}))
+       return HttpResponseBadRequest(json.dumps({'errors': 'illegal request test'}))
 
 
 @csrf_exempt
@@ -93,7 +93,7 @@ def upload_profile_picture(request):
         if width_img< 500 and height_img< 500:
             uploaded_file.file.delete(False)
             uploaded_file.delete()
-            return HttpResponseBadRequest(simplejson.dumps({'errors': ['Minimum resolution requirement 500x500 not met']}))
+            return HttpResponseBadRequest(json.dumps({'errors': ['Minimum resolution requirement 500x500 not met']}))
        
         # get the image's width and height in pixels
         width, height = img.size
@@ -103,9 +103,9 @@ def upload_profile_picture(request):
             'width' : width,
             'height' : height,
         }
-        return HttpResponse(simplejson.dumps(data))
+        return HttpResponse(json.dumps(data))
     else:
-        return HttpResponseBadRequest(simplejson.dumps({'errors': [form.errors]}))
+        return HttpResponseBadRequest(json.dumps({'errors': [form.errors]}))
 
 
 @csrf_exempt
@@ -145,7 +145,7 @@ def crop_profile_picture(request):
             height = abs(values[3] - values[1])
 
             if width< 500 and height< 500:
-                return HttpResponseBadRequest(simplejson.dumps({'errors': ['resolution requirements not met, minumum requirements 500x500']}))
+                return HttpResponseBadRequest(json.dumps({'errors': ['resolution requirements not met, minumum requirements 500x500']}))
 
             if width and height and (width <= img.size[0] or height <= img.size[1]):
                 croppedImage = img.crop(values).resize((500,500),Image.ANTIALIAS)
@@ -169,7 +169,7 @@ def crop_profile_picture(request):
                 'path': user.img.url,
             }
 
-            return HttpResponse(simplejson.dumps(data))
+            return HttpResponse(json.dumps(data))
 
     except Exception:
-       return HttpResponseBadRequest(simplejson.dumps({'errors': ['illegal request test']}))
+       return HttpResponseBadRequest(json.dumps({'errors': ['illegal request test']}))

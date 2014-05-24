@@ -15,7 +15,11 @@ urlpatterns = patterns('',
     url(r'^messages/', include('messages.urls')),
     url(r'^upload-image/', include('cicu.urls')),
     url(r'^contact/', include('contact.urls')),
+<<<<<<< HEAD
     url(r'^membership/', include('membership.urls')),
+=======
+    url(r'^feed/', include('feed.urls')),
+>>>>>>> f6adfabe41b843433bbac13a9221e11a3afbce47
 )
 
 

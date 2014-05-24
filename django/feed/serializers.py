@@ -1,34 +1,54 @@
 import ast, json
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
-from schedule.models import Calendar, Event
+from feed.models import Entry, TextEntry, PictureEntry, VideoEntry, EventEntry, BlogEntry
 
 
 
-# class EventSerializer(serializers.ModelSerializer):
-# 	end = serializers.DateTimeField(required=False)
- 
-# 	class Meta:
-# 		model = Event
-# 		fields = ('id', 'start', 'end', 'title', 'description', 'creator', 'calendar', 'created_on')
+class TextEntrySerializer(serializers.ModelSerializer):
+	class Meta:
+		model = TextEntry
 
-# 	def validate_end(self, attrs, source):
-# 		end = attrs['end']
-# 		if end is None:
-# 			attrs['end'] = attrs['start']
-# 			return attrs
-# 		else:
-# 			return attrs
+class PictureEntrySerializer(serializers.ModelSerializer):
+	class Meta:
+		model = PictureEntry
 
-# 	def validate_calendar(self, attrs, source):
-# 		creator = attrs['creator']
-# 		attrs['calendar'] = Calendar.objects.get(user = creator)
-# 		return attrs
+class VideoEntrySerializer(serializers.ModelSerializer):
+	class Meta:
+		model = VideoEntry
+
+class EventEntrySerializer(serializers.ModelSerializer):
+	class Meta:
+		model = EventEntry
+
+class BlogEntrySerializer(serializers.ModelSerializer):
+	class Meta:
+		model = BlogEntry
 
 
-# class CalendarSerializer(serializers.ModelSerializer):
-# 	events = EventSerializer(many=True, required=False)
+class EntrySerializer(serializers.ModelSerializer):
+	
+	def to_native(self, value):
+		class_type = value.__class__.__name__
+		if class_type == 'TextEntry':
+			obj = TextEntrySerializer(instance=value).data
+			obj['type'] = 'text'
+		elif class_type == 'PictureEntry':
+			obj = PictureEntrySerializer(instance=value).data
+			obj['type'] = 'picture'
+		elif class_type == 'VideoEntry':
+			obj = VideoEntrySerializer(instance=value).data
+			obj['type'] = 'video'
+		elif class_type == 'EventEntry':
+			obj = EventEntrySerializer(instance=value).data
+			obj['type'] = 'event'
+		elif class_type == 'BlogEntry':
+			obj = BlogEntrySerializer(instance=value).data
+			obj['type'] = 'blog'
+		else:
+			obj = super(EntrySerializer, self).to_native(value)
+			obj['type'] = 'entry'
+		return obj
 
-# 	class Meta:
-# 		model = Calendar
-# 		fields = ('events',)
+	class Meta:
+		model = Entry
