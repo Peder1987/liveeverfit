@@ -36,7 +36,7 @@
                                             class="col-xs-12 btn toggle proffesional"
                                             ng-class="{selected: professionSelected['Trainer']}"
                                             ng-click="professionOnClick('Trainer')">
-                                        Trainers <span class="fa fa-user pull-right"></span>
+                                        <span class="fa fa-user pull-right"></span>Trainers
                                     </button>
                                 </div>
                                 <div class="col-sm-6 col-lg-6 col-">
@@ -44,8 +44,7 @@
                                             class="col-xs-12 btn toggle proffesional"
                                             ng-class="{selected: professionSelected['Nutritionist']}"
                                             ng-click="professionOnClick('Nutritionist')">
-                                        Nutritionists
-                                        <span class="fa fa-heart pull-right"></span>
+                                        <span class="fa fa-heart pull-right"></span>Nutritionists
                                     </button>
                                 </div>
                             </div>
@@ -88,8 +87,8 @@
                                     <div class="form-space">
                                         <button id="M" type="button" class="col-xs-12 btn toggle gender"
                                                 ng-class="{selected: genderSelected['M']}"
-                                                ng-click="genderOnClick('M')">Male
-                                            <span class="fa fa-male pull-right"></span>
+                                                ng-click="genderOnClick('M')">
+                                            <span class="fa fa-male pull-right"></span>Male
                                         </button>
                                     </div>
                                 </div>
@@ -97,8 +96,8 @@
                                     <div class="form-space">
                                         <button id="F" type="button" class="col-xs-12 btn toggle gender"
                                                 ng-class="{selected: genderSelected['F']}"
-                                                ng-click="genderOnClick('F')">Female
-                                            <span class="fa fa-female pull-right"></span>
+                                                ng-click="genderOnClick('F')">
+                                            <span class="fa fa-female pull-right"></span>Female
                                         </button>
                                     </div>
                                 </div>
@@ -185,10 +184,15 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button ng-show="next" id="showMore" type="button" class="btn btn-primary btn-lg btn-block"
+                            ng-click="getPros()">Show More
+                    </button>
+                </div>
+            </div>
         </div>
-        <button ng-show="next" id="showMore" type="button" class="btn btn-primary btn-lg btn-block"
-                ng-click="getPros()">Show More
-        </button>
+
         <!-- /.trainer-results -->
     </div>
 </div><!-- /.sidebar-->

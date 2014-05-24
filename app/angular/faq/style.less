@@ -6,10 +6,24 @@
   bottom: 0;
   left: 0;
   overflow-y: scroll;
-  &.container {
+  padding-top: 30px;
+  .container {
     background-color: rgba(250, 250, 250, .89);
     min-height: 100%;
-    padding: 21px;
+    padding: 34px;
+    margin: 34px auto;
+    margin-bottom: 55px;
+    text-align: justify;
+    p {
+      padding: 3px 5px;
+    }
+  }
+  .container:before {
+    background-image: url("common/img/container-logo.png");
+    width: 145px;
+    height: 27px;
+    position: absolute;
+    top: 30px;
   }
 }
 #faqBg {
