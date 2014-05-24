@@ -54,6 +54,8 @@ def register(request):
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
         response['id'] = user.id
+        response['email'] = user.email
+        response['img'] = user.img.url
         user.shopify_create(user_data['password'])
         return Response(response, status=status.HTTP_201_CREATED)
     else:
@@ -113,6 +115,8 @@ def register_professional(request):
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
         response['id'] = user.id
+        response['email'] = user.email
+        response['img'] = user.img.url
         pro.shopify_create(user_data['password'])
         return Response(response, status=status.HTTP_201_CREATED)
     else:
