@@ -167,6 +167,7 @@ INSTALLED_APPS = (
 
     #My Apps
     'contact',
+    'membership',
     
     #Imported Apps
     'south',
