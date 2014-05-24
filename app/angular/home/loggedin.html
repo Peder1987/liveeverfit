@@ -1,5 +1,5 @@
 <div id="homeBg"></div>
-<div id="homePage">
+<div id="homePage" ng-controller="homeController">
     <div class="container">
         <div ng-controller="BannerCtrl">
             <carousel interval="3000">
@@ -34,7 +34,6 @@
         	<div class="row">
 
         		<div class="col-md-4">
-	        	
 		        	<div class="post-outer status-update-box">
 		        		<div class="post-inner">
 			                <textarea class="form-control" placeholder="Encourage, motivate, persevere. succeed..." rows="3"></textarea>
@@ -49,15 +48,15 @@
 			                </div>
 		            	</div>
 		        	</div>
-
+                </div>
+                <div class="col-md-4"><!--NgRepeat-->
 		        	<div class="post-outer">
 	            		<div class="post-inner">
-	                        
 	                        <div class="post-header">
 			                    <a class="post-settings" href="#"><i class="fa fa-cog fa-lg pull-right"></i></a>
 			                    <div class="row">
 			                    	<div class="col-md-2">
-			                    		<img src="../home/img/ashley.jpg" alt="" class="img-rounded" style="width:67px;height:67px;">
+			                    		<img ng-src class="img-rounded">
 			                    	</div>
 			                    	<div class="col-md-10">
 			                    		<span class="posted-by"><a href="#">Ashley Seeger</a></span><br>
@@ -65,9 +64,8 @@
 			                    	</div>
 			                    </div>
 			                </div>
-
 	                        <div class="videoWrapper">
-	                        <iframe width="560" height="315" src="http://www.youtube.com/embed/9yYKH9K3xdQ" frameborder="0" allowfullscreen=""></iframe>
+	                            <iframe width="560" height="315" src="http://www.youtube.com/embed/9yYKH9K3xdQ" frameborder="0" allowfullscreen=""></iframe>
 	                        </div>
 	                        
 	                        <div class="post-social">
@@ -88,95 +86,8 @@
 			                </div><!-- ./comments -->
                     	</div>
                 	</div><!-- /.post-outer -->
-	        	
 	        	</div>
-
-	        	<div class="col-md-4">
-		        	<div class="post-outer">
-		        		<div class="post-inner">
-			                
-			                <div class="post-header">
-			                    <a class="post-settings" href="#"><i class="fa fa-cog fa-lg pull-right"></i></a>
-			                    <div class="row">
-			                    	<div class="col-md-2">
-			                    		<img src="../home/img/ashley.jpg" alt="" class="img-rounded" style="width:67px;height:67px;">
-			                    	</div>
-			                    	<div class="col-md-10">
-			                    		<span class="posted-by"><a href="#">Ashley Seeger</a></span><br>
-			                    		<span class="timestamp">shared Feb 8, 20414</span>
-			                    	</div>
-			                    </div>
-			                </div>
-			                
-			                <div class="post-media">
-			                <img src="../home/img/katie-jones.jpg" alt="...">
-			                </div>
-
-			                <div class="post-social">
-			                	<i class="fa fa-thumbs-up fa pull-right">7</i>
-			                </div>
-
-			                <div class="comments">
-			                    <div class="comment-form row">
-			                        <div class="col-md-2 col-xs-2">
-			                            <img src="../home/img/jason.jpg" class="img-rounded">
-			                        </div>
-			                        <div class="col-md-10 col-xs-10">
-			                            <div class="form-group">
-			                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Encourage, motivate, inspire">
-			                          </div>
-			                        </div>
-			                    </div>
-			                </div><!-- ./comments -->
-
-		            	</div><!-- /.post-inner -->
-	        		</div>
-	        	</div>
-
-	            <div class="col-md-4">
-
-	            	<div class="post-outer">
-	            		<div class="post-inner">
-	                        
-	                        <div class="post-header">
-			                    <a class="post-settings" href="#"><i class="fa fa-cog fa-lg pull-right"></i></a>
-			                    <div class="row">
-			                    	<div class="col-md-2">
-			                    		<img src="../home/img/ashley.jpg" alt="" class="img-rounded" style="width:67px;height:67px;">
-			                    	</div>
-			                    	<div class="col-md-10">
-			                    		<span class="posted-by"><a href="#">Ashley Seeger</a></span><br>
-			                    		<span class="timestamp">shared Feb 8, 20414</span>
-			                    	</div>
-			                    </div>
-			                </div>
-
-	                        <div class="videoWrapper">
-	                        <iframe width="560" height="315" src="http://www.youtube.com/embed/vC_ykM5MkfI" frameborder="0" allowfullscreen=""></iframe>
-	                        </div>
-	                        
-	                        <div class="post-social">
-			                	<i class="fa fa-thumbs-up fa pull-right">2</i>
-			                </div>
-
-	                        <div class="comments">
-			                    <div class="comment-form row">
-			                        <div class="col-md-2 col-xs-2">
-			                            <img src="../home/img/jason.jpg" class="img-rounded">
-			                        </div>
-			                        <div class="col-md-10 col-xs-10">
-			                            <div class="form-group">
-			                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Encourage, motivate, inspire">
-			                          </div>
-			                        </div>
-			                    </div>
-			                </div><!-- ./comments -->
-                    	</div>
-                	</div><!-- /.post-outer -->
-	            
-	            </div><!-- ./col-md-4 -->
         	</div><!-- /row-fluid -->
-        
         </div>
     </div>
 </div>
