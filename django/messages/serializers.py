@@ -8,15 +8,22 @@ from django.utils.timezone import now
 class InboxSerializer(serializers.ModelSerializer):
     sender = serializers.IntegerField(source='sender.email', required=True)  
     recipient = serializers.IntegerField(source='recipient.email', required=True)  
-    img = serializers.IntegerField(source='sender.img.url', required=True)  
+    img = serializers.IntegerField(source='sender.img.url', required=True)
     #recipient = serializers.CharField(source='recipient.email', required=False)
     
     class Meta:
         model = Message
     
     
-class SentSerializer(InboxSerializer):
-    pass
+class SentSerializer(serializers.ModelSerializer):
+    sender = serializers.IntegerField(source='sender.email', required=True)
+    recipient = serializers.IntegerField(source='recipient.email', required=True)
+    img = serializers.IntegerField(source='recipient.img.url', required=True)
+    #recipient = serializers.CharField(source='recipient.email', required=False)
+
+    class Meta:
+        model = Message
+
         
 class TrashSerializer(InboxSerializer):
     pass
