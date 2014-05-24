@@ -99,15 +99,21 @@ define(['app'], function(app) {
 					if($scope.urlPro == 'Trainer' || $scope.urlPro == 'Nutritionist' || $scope.urlPro == 'Promoter' ){
 						$scope.user.tier = $scope.urlTier;
 						$scope.pro.profession = $scope.urlPro;
-						$scope.step = 'professionals';
+						if(valid == true){
+							$scope.step = 'professionals';
+						};
 					};
 				}
 				else if($scope.urlTier >= 1 && $scope.urlTier <= 5){
 					$scope.user.tier = $scope.urlTier;
-					$scope.step = 'user';
+					if(valid == true){
+						$scope.step = 'user';
+					};
 				}
 				else{
-					$scope.step = 'choice';
+					if(valid == true){
+						$scope.step = 'choice';
+					};
 				};
 			};
 			$scope.setCurrentStepForm = function(step, valid){
