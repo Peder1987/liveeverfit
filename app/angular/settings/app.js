@@ -81,6 +81,7 @@ define(['app'], function (app) {
                 modalInstance.result.then(function (data) {
                     data.path = data.path.substring(6);
                     $scope.profile_user.img = data.path;
+                    localStorageService.add('user_img',"/media" + $scope.profile_user.img);
                 }, $.noop());
             };
             $scope.paymentDetail = function (size) {
@@ -428,7 +429,7 @@ define(['app'], function (app) {
                     delete $scope.uploadImg;
                     $scope.returnData = data;
                 }).error(function (data) {
-                    $scope.percent = undefined;
+                    $scope.percent = false;
                     angular.extend($scope.message, data);
                 });
             };
