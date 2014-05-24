@@ -2,7 +2,7 @@
     <head>
         <script>
             if(window.location.hash.indexOf('#/?referral=') > -1) {
-                localStorage['referral'] = location.hash.replace("#/?","");
+                localStorage['referral'] = location.hash.replace("#/?referral=","");
                 window.location = '/landing/';
             }
             if(window.location.href == "http://dev.liveeverfit.com/" && !localStorage['ls.Authorization']) window.location = '/landing/';
