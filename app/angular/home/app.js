@@ -27,11 +27,8 @@ define(['app'], function(app) {
 
     app.register.controller('homeController', ['localStorageService','$scope',
     function(localStorageService,$scope) {
-        $scope.token = localStorageService.get('Authorization');
-        if ($scope.token === null) {
-            $scope.homeTemplate = {name: 'loggedout.html', url: 'home/loggedout.html'};
-        } else {
-            $scope.homeTemplate = {name: 'loggedin.html', url: 'home/loggedin.html'};
+        $scope.entrySubmit = function() {
+            alert();
         }
     }]);
 

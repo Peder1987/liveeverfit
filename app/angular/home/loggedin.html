@@ -34,19 +34,20 @@
         	<div class="row">
 
         		<div class="col-md-4">
-		        	<div class="post-outer status-update-box">
-		        		<div class="post-inner">
-			                <textarea class="form-control" placeholder="Encourage, motivate, persevere. succeed..." rows="3"></textarea>
-			                
-			                <div class="status-update-buttons">
-			                	<div class="row">
-				                    <div class="col-md-3 col-xs-3"><i class="fa fa-pencil fa-lg"></i></div>
-				                    <div class="col-md-3 col-xs-3"><i class="fa fa-camera-retro fa-lg"></i></div>
-				                    <div class="col-md-3 col-xs-3"><i class="fa fa-play-circle fa-lg"></i></div>
-				                    <div class="col-md-3 col-xs-3"><i class="fa fa-calendar fa-lg"></i></div>
-			                	</div>
-			                </div>
-		            	</div>
+		        	<div class="post-outer ">
+                        <div class="status-update-box">
+                            <div class="form-control"
+                                 role="textbox"
+                                 contenteditable="plaintext-only"
+                                 ng-enter="entrySubmit()"
+                                 placeholder="Encourage, motivate, persevere. succeed"></div>
+                            <div class="row">
+                                <div class="col-md-3 col-xs-3"><i class="fa fa-pencil fa-lg"></i></div>
+                                <div class="col-md-3 col-xs-3"><i class="fa fa-camera-retro fa-lg"></i></div>
+                                <div class="col-md-3 col-xs-3"><i class="fa fa-play-circle fa-lg"></i></div>
+                                <div class="col-md-3 col-xs-3"><i class="fa fa-calendar fa-lg"></i></div>
+                            </div>
+                        </div>
 		        	</div>
                 </div>
                 <div class="col-md-4"><!--NgRepeat-->
