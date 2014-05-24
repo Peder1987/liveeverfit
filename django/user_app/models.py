@@ -41,6 +41,9 @@ class CustomUserManager(BaseUserManager):
         return u
 
 
+def default_ref():
+    return Professional.objects.get(email='pro@test.com').id
+
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     """
@@ -83,7 +86,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     #Image field requires the lib pillow
     img = models.ImageField(_('image'), upload_to="user_app/profile", blank=True, default='default-profile.svg')
     bio = models.CharField(_('biography'), max_length=5000, blank=True)
-    referred_by = models.ForeignKey('Professional', null=True, related_name='user_reference', blank=True)
+    referred_by = models.ForeignKey('Professional', null=True, related_name='user_reference', blank=True, default=default_ref)
     shopify_id = models.IntegerField(default=0, blank=True)
     chargify_id = models.IntegerField(default=0, blank=True)
     stripe_id = models.CharField(max_length=50, blank=True, default='')

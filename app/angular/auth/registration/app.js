@@ -27,12 +27,13 @@ define(['app'], function(app) {
 				street_line2:'',
 			};
     		$scope.user = {
-				first_name: '',
-				last_name: '',
-				email: '',
-				password: '',
-				password2: '',
-				gender: '',
+				first_name: 'miguel',
+				last_name: 'vazquez',
+				email: 'migueldv90@yahoo.com',
+				password: '123456789',
+				password2: '123456789',
+				gender: 'M',
+				referred_by: localStorageService.get('referral'),
 				tier: 1
 			};
 			$scope.pro = {
@@ -62,11 +63,11 @@ define(['app'], function(app) {
 				lng: ''
 			};
 			$scope.creditcard = {
-				name : '',
-				number : '',
-				cvc : '',
-				exp_month : '',
-				exp_year : '',
+				name : 'miguel',
+				number : '4242424242424241',
+				cvc : '123',
+				exp_month : '8',
+				exp_year : '2014',
 				address_line1 : "",
 				address_line2 : "",
 				address_city : "",
@@ -211,8 +212,8 @@ define(['app'], function(app) {
 					localStorageService.add('Authorization', 'Token ' + $scope.proAuthToken.token);
 					localStorageService.add('rest_token', $scope.proAuthToken.token);
 					localStorageService.add('user_id', $scope.proAuthToken.id);
-					localStorageService.add('user_email', $scope.authToken.email);
-                    localStorageService.add('user_img', $scope.authToken.img);
+					localStorageService.add('user_email', $scope.proAuthToken.email);
+                    localStorageService.add('user_img', $scope.proAuthToken.img);
 					$scope.profile_user = $scope.proAuthToken.id;
 					$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
 					$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){

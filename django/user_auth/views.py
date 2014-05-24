@@ -42,14 +42,20 @@ def token_generator(size=5, chars=string.ascii_uppercase + string.ascii_lowercas
 @permission_classes((AllowAny,))
 def register(request):
     serialized = CreateUserSerializer(data=request.DATA)
-
     if serialized.is_valid():
         user_data = {field: data for (field, data) in request.DATA.items()}
+        pro_referred_by = user_data['referred_by']
         del user_data['password2']
-        
+        del user_data['referred_by']
+
         user = User.objects.create_user(
             **user_data
         )
+
+        if Professional.objects.filter(email = pro_referred_by).exists():
+            pro_ref = Professional.objects.get(email = pro_referred_by)
+            user.referred_by = pro_ref
+            user.referred_by.save()
 
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
@@ -68,6 +74,7 @@ def register_professional(request):
     serialized = CreateUserSerializer(data=request.DATA)
     if serialized.is_valid():
         user_data = {field: data for (field, data) in request.DATA.items()}
+        del user_data['referred_by']
         del user_data['password2']
         del user_data['profession']
         del user_data['education']
@@ -87,9 +94,12 @@ def register_professional(request):
 
         user = User.objects.create_user(**user_data)
         pro = Professional.objects.create_prof(user)
+
         user_data = {field: data for (field, data) in request.DATA.items()}
         temp_address = user_data['primary_address']
+        pro_referred_by = user_data['referred_by']
         del user_data['password2']
+        del user_data['referred_by']
         del user_data['primary_address']
 
         city = temp_address['city']
@@ -107,6 +117,10 @@ def register_professional(request):
         pro.location = temp_location
         pro.lat = temp_address['lat']
         pro.lng = temp_address['lng']
+        if Professional.objects.filter(email = pro_referred_by).exists():
+            pro_ref = Professional.objects.get(email = pro_referred_by)
+            pro.referred_by = pro_ref
+            pro.referred_by.save()
         pro.save()
         address = Address.objects.get(id = user.primary_address.id)
         address.__dict__.update(**temp_address)
