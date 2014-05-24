@@ -428,7 +428,7 @@ define(['app'], function (app) {
                     delete $scope.uploadImg;
                     $scope.returnData = data;
                 }).error(function (data) {
-                    $scope.percent = undefined;
+                    $scope.percent = false;
                     angular.extend($scope.message, data);
                 });
             };
