@@ -27,12 +27,12 @@ define(['app'], function(app) {
 				street_line2:'',
 			};
     		$scope.user = {
-				first_name: 'miguel',
-				last_name: 'vazquez',
-				email: 'migueldv90@yahoo.com',
-				password: '123456789',
-				password2: '123456789',
-				gender: 'M',
+				first_name: '',
+				last_name: '',
+				email: '',
+				password: '',
+				password2: '',
+				gender: '',
 				referred_by: localStorageService.get('referral'),
 				tier: 1
 			};
@@ -63,11 +63,11 @@ define(['app'], function(app) {
 				lng: ''
 			};
 			$scope.creditcard = {
-				name : 'miguel',
-				number : '4242424242424241',
-				cvc : '123',
-				exp_month : '8',
-				exp_year : '2014',
+				name : '',
+				number : '',
+				cvc : '',
+				exp_month : '',
+				exp_year : '',
 				address_line1 : "",
 				address_line2 : "",
 				address_city : "",
