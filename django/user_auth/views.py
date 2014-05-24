@@ -102,25 +102,32 @@ def register_professional(request):
         del user_data['referred_by']
         del user_data['primary_address']
 
-        city = temp_address['city']
-        city = str(city)
-        city = city.strip()
-        state = temp_address['state']
-        state = str(state)
-        state = state.strip()
-        temp_location = city + ', ' + state
-        location = UniqueLocation.objects.get_or_create(location = temp_location)
-        location[0].counter += 1
-        location[0].save()
+
+        try:
+            city = temp_address['city']
+            city = str(city)
+            city = city.strip()
+            state = temp_address['state']
+            state = str(state)
+            state = state.strip()
+            temp_location = city + ', ' + state
+            location = UniqueLocation.objects.get_or_create(location = temp_location)
+            location[0].counter += 1
+            location[0].save()
+        except:
+            pass
 
         pro.__dict__.update(**user_data)
-        pro.location = temp_location
-        pro.lat = temp_address['lat']
-        pro.lng = temp_address['lng']
         if Professional.objects.filter(email = pro_referred_by).exists():
             pro_ref = Professional.objects.get(email = pro_referred_by)
             pro.referred_by = pro_ref
             pro.referred_by.save()
+        try:
+            pro.location = temp_location
+            pro.lat = temp_address['lat']
+            pro.lng = temp_address['lng']
+        except:
+            pass
         pro.save()
         address = Address.objects.get(id = user.primary_address.id)
         address.__dict__.update(**temp_address)
