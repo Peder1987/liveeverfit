@@ -23,6 +23,7 @@ define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','an
             $stateProvider
                 //LoggedIn and LoggedOut
                 .state('home', route.resolve('/', 'home'))
+                .state('home.referred', route.resolve('/:email', 'home'))
                 .state('footer', route.resolve('/', 'footer'))
 
                 //LoggedOut
