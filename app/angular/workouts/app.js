@@ -8,34 +8,46 @@ define(['app', 'videojs'], function (app) {
 
     app.register.controller('workoutsController', ["$sce", "$stateParams", "$resource", "rest", "tokenError", "localStorageService", "$scope", "$anchorScroll", "promiseService",
         function ($sce, $stateParams, $resource, rest, tokenError, localStorageService, $scope) {
-            $scope.page = 1
+            $scope.usrImg = localStorageService.get('user_img');
+
+            $scope.page = 1;
             $scope.difficulty = [];
             $scope.videoSelected = [];
             $scope.tagSelected = [];
             $scope.iframeHidden = true;
-            $scope.difficultySelected = {}; 
+            $scope.difficultySelected = {};
             $scope.video = {}; // for 1 video
             $scope.videos = []; //for video list
             $scope.videoSearch = ''; // this is the search bar string
             $scope.videoTitles = [] // for typeahead
             $scope.next = true;
             // make this into 
-            $scope.comments = []  
+            $scope.comments = []
             $scope.commentPage = 1;
             $scope.commentNext = false;
             $scope.commentText = '';
             var tagCollection = $resource(":protocol://:url/tags/", {
-                protocol: $scope.restProtocol,
-                url: $scope.restURL
-            });
-            var tagResource = $resource(":protocol://:url/tags/:id/", {
-                protocol: $scope.restProtocol,
-                url: $scope.restURL,
-                id: '@id'
-            }, {update: { method: 'PUT' }});
-
-            
-            
+                    protocol: $scope.restProtocol,
+                    url: $scope.restURL
+                }),
+                tagResource = $resource(":protocol://:url/tags/:id/", {
+                    protocol: $scope.restProtocol,
+                    url: $scope.restURL,
+                    id: '@id'
+                }, {
+                    update: {
+                        method: 'PUT'
+                    }
+                }),
+                likeResource = $resource(":protocol://:url/workouts/video/likes/:id/", {
+                    protocol: $scope.restProtocol,
+                    url: $scope.restURL,
+                    id: '@id'
+                }, {
+                    update: {
+                        method: 'PUT'
+                    }
+                });
             var videoCollection = $resource(":protocol://:url/workouts/video/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
@@ -57,7 +69,7 @@ define(['app', 'videojs'], function (app) {
                         try {
                             $scope.videojs.dispose();
                         }
-                        catch(error) {
+                        catch (error) {
 
                         }
                     }
@@ -67,30 +79,21 @@ define(['app', 'videojs'], function (app) {
                             $scope.video.rtmp_url = $sce.trustAsResourceUrl("rtmp://206.225.86.237:1935/vod/_definst_/mp4:" + $scope.video.url_video);
                             $scope.video.http_url = $sce.trustAsResourceUrl("http://206.225.86.237:1935/vod/content/" + $scope.video.url_video + "/playlist.m3u8");
                             $scope.videoStatus = 'difficultySelected';
-                            commentCollection.get({id: $stateParams.id}, function(data){
+                            commentCollection.get({id: $stateParams.id}, function (data) {
                                 $scope.commentNext = data.next;
                                 $scope.comments = data.results;
 
                             });
                             setTimeout(function () {
                                 $scope.videojs = videojs('selectedVideo', {
-                                    techOrder: [ "flash", "html5"], 
-                                    poster: 'http://beta.liveeverfit.com/media/'+ $scope.video.img
+                                    techOrder: [ "flash", "html5"],
+                                    poster: 'http://beta.liveeverfit.com/media/' + $scope.video.img
                                 });
                                 $scope.videojs.height($scope.videojs.el().offsetWidth * 0.75);
                                 $(window).resize(function () {
                                     $scope.videojs.height($scope.videojs.el().offsetWidth * 0.75);
                                 });
                             }, 10);
-
-                            if($scope.video.user_likes) {
-                                // user already likes this video
-                                $scope.video.like = true;
-                            }
-                            else {
-                                //user can like this video
-                                $scope.video.like = false;
-                            }
                         })
                     }
                     else {
@@ -108,7 +111,7 @@ define(['app', 'videojs'], function (app) {
                 $scope.videos = initVideos.results;
             });
 
-            $scope.videoTitleCollection =  $resource("http://:url/workouts/titles",{
+            $scope.videoTitleCollection = $resource("http://:url/workouts/titles", {
                 url: $scope.restURL
             });
             $scope.loadVideoTitles = function (query) {
@@ -116,7 +119,7 @@ define(['app', 'videojs'], function (app) {
                 var filtering = {
                     search: query,
                 };
-                $scope.videoTitles =  $scope.videoTitleCollection.query(filtering, function () {
+                $scope.videoTitles = $scope.videoTitleCollection.query(filtering, function () {
                     deferred.resolve($scope.videoTitles);
                 });
 
@@ -124,35 +127,26 @@ define(['app', 'videojs'], function (app) {
             };
 
             $scope.likeVideo = function () {
-                var obj = {
+                likeResource.update({
                     id: $stateParams.id,
-                    user_email : localStorageService.get("user_email")
-
-                }
-                console.log(obj)
-                var likeResource = $resource(":protocol://:url/workouts/video/likes/:id/", {
-                    protocol: $scope.restProtocol,
-                    url: $scope.restURL,
-                    id: '@id'
-                }, {update: { method: 'PUT' }});
-                likeResource.update(obj, function(data){
-                    $scope.video.like = data.user_likes
-                    if(data.user_likes){
-                        $scope.video.likes +=  1;
-                    }else{
-                        $scope.video.likes -=  1;
+                    user_email: localStorageService.get("user_email")
+                }, function (data) {
+                    $scope.video.user_likes = data.user_likes;
+                    if (data.user_likes) {
+                        $scope.video.likes += 1;
+                    } else {
+                        $scope.video.likes -= 1;
                     }
                 });
-
             };
-            
-            $scope.getPros = function (){
+
+            $scope.getPros = function () {
                 $scope.page = $scope.page + 1;
                 $scope.filtering = {
                     difficulty: $scope.difficulty,
                     tags: $scope.tagSelected,
-                    search : $scope.videoSelected,
-                    page : $scope.page
+                    search: $scope.videoSelected,
+                    page: $scope.page
                 };
                 var newVideos = filterVideoCollection.get($scope.filtering, function () {
                     $scope.videos = $scope.videos.concat(newVideos.results);
@@ -160,32 +154,32 @@ define(['app', 'videojs'], function (app) {
                 });
                 //$scope.videos = ;
             };
-            $scope.getComments = function (){
+
+            $scope.getComments = function () {
                 $scope.commentPage = $scope.commentPage + 1;
-                
-                var newComments = commentCollection.get({page:$scope.commentPage, id:$stateParams.id}, function () {
-                    $scope.comments = $scope.comments.concat(newComments.results);
-                    $scope.commentNext = newComments.next;
+                commentCollection.get({
+                    page: $scope.commentPage,
+                    id: $stateParams.id
+                    }, function (newComments) {
+                        $scope.comments = $scope.comments.concat(newComments.results);
+                        $scope.commentNext = newComments.next;
                 });
-                //$scope.videos = ;
             };
-            $scope.submitComment =  function (){
-                var temp = {
+
+            $scope.submitComment = function () {
+                var scope = this;
+                commentCollection.save({
                     id: $stateParams.id,
-                    video : $stateParams.id,
-                    user:localStorageService.get("user_email"),
-                    comment : this.commentText
-                };
-
-                commentCollection.save(temp, function(data){
-                    console.log(data)
+                    video: $stateParams.id,
+                    user: localStorageService.get("user_email"),
+                    comment: scope.commentText
+                }, function (data) {
                     $scope.comments.unshift(data)
+                    scope.commentText = "";
                 });
-                
             };
 
-            
-            window.handleIframe = function(iframe) {
+            window.handleIframe = function (iframe) {
                 var $iframe = $(iframe);
                 $iframe.height($iframe.width() * 0.75);
                 $(window).resize(function () {
@@ -197,9 +191,8 @@ define(['app', 'videojs'], function (app) {
             videojs.options.flash.swf = "common/videojs/dist/video-js/video-js.swf";
 
             $scope.$on('$stateChangeSuccess', getVideo);
-            
 
-            
+
             $scope.difficultyOnClick = function (value) {
                 if ($scope.difficulty.indexOf(value) == -1) {
                     $scope.difficultySelected[value] = true;
@@ -218,18 +211,18 @@ define(['app', 'videojs'], function (app) {
                 $scope.filtering = {
                     difficulty: $scope.difficulty,
                     tags: $scope.tagSelected,
-                    search : $scope.videoSelected
+                    search: $scope.videoSelected
                 };
                 var vids = filterVideoCollection.get($scope.filtering, function () {
                     $scope.videos = vids.results;
                     $scope.next = vids.next;
                 });
 
-                
+
             };
 
-             /*ANYTHING TAG RELATED, kept it in same scope in order make things less complicated
-              on review decide on how to do this*/
+            /*ANYTHING TAG RELATED, kept it in same scope in order make things less complicated
+             on review decide on how to do this*/
 
             $scope.tags = tagCollection.get(function () {
             }, $scope.checkTokenError);
@@ -238,60 +231,60 @@ define(['app', 'videojs'], function (app) {
             $scope.addTag = function (tag) {
 
 
-                if($scope.videoSearch.indexOf(tag) == -1){
-                 $scope.videoSearch.push(tag);
-                 $scope.tagSelected.push(tag.name);
-                 }
-                 else {
-                 var temp = $scope.videoSearch.indexOf(tag);
-                 $scope.videoSearch.splice(temp, 1);
-                 $scope.tagSelected.splice(temp, 1);
-                 }
+                if ($scope.videoSearch.indexOf(tag) == -1) {
+                    $scope.videoSearch.push(tag);
+                    $scope.tagSelected.push(tag.name);
+                }
+                else {
+                    var temp = $scope.videoSearch.indexOf(tag);
+                    $scope.videoSearch.splice(temp, 1);
+                    $scope.tagSelected.splice(temp, 1);
+                }
 
-                 
-                 
+
                 $scope.filter()
             }
-            $scope.onTagAdd = function(tag) {         
+            $scope.onTagAdd = function (tag) {
                 $scope.names = [];
-                
-                $scope.tags.results.forEach(function(obj) {
+
+                $scope.tags.results.forEach(function (obj) {
                     $scope.names.push(obj.name);
                 });
-                
-                if($scope.names.indexOf(tag.name) == -1){
-                    $scope.videoSelected.push(tag.name);
-                 }
-                 else{
-                    $scope.tagSelected.push(tag.name);  
-                 }
 
-                
+                if ($scope.names.indexOf(tag.name) == -1) {
+                    $scope.videoSelected.push(tag.name);
+                }
+                else {
+                    $scope.tagSelected.push(tag.name);
+                }
+
+
                 $scope.filter()
 
             }
-            $scope.onDeleteTag = function(tag) {
-                if($scope.tagSelected.indexOf(tag.name) != -1){
+            $scope.onDeleteTag = function (tag) {
+                if ($scope.tagSelected.indexOf(tag.name) != -1) {
                     var temp = $scope.tagSelected.indexOf(tag.name);
 
                     $scope.tagSelected.splice(temp, 1);
                     $scope.filter()
 
-                };
-                if($scope.videoSelected.indexOf(tag.name) != -1);
-                    var temp = $scope.videoSelected.indexOf(tag.name);
+                }
+                ;
+                if ($scope.videoSelected.indexOf(tag.name) != -1);
+                var temp = $scope.videoSelected.indexOf(tag.name);
 
-                    $scope.videoSelected.splice(temp, 1);
-                    $scope.filter()
+                $scope.videoSelected.splice(temp, 1);
+                $scope.filter()
 
-                };
+            };
 
 
         }]);
 
-    app.register.service('promiseService', function($q, $rootScope) {
+    app.register.service('promiseService', function ($q, $rootScope) {
 
-      $rootScope.q = $q
-      
+        $rootScope.q = $q
+
     });
 });

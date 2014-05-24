@@ -15,8 +15,8 @@
                         <div class="col-xs-12 col-sm-9">
                             <div ng-if="view == 'sent'"><b>{{msg.recipient}}</b></div>
                             <div ng-if="view == 'inbox'"><b>{{msg.sender}}</b></div>
-                            <div ng-if="view == 'deleted'"><b>Sender: {{msg.recipient}}</b></div>
-                            <div ng-if="view == 'deleted'"><b>Recipient: {{msg.sender}}</b></div>
+                            <div ng-if="view == 'deleted'"><b>Sender: {{msg.sender}}</b></div>
+                            <div ng-if="view == 'deleted'"><b>Recipient: {{msg.recipient}}</b></div>
                             <div>{{msg.subject}}</div>
                             <!--<div>{{msg.body}}</div>-->
                         </div>

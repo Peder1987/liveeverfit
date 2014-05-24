@@ -54,6 +54,8 @@ def register(request):
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
         response['id'] = user.id
+        response['email'] = user.email
+        response['img'] = user.img.url
         user.shopify_create(user_data['password'])
         return Response(response, status=status.HTTP_201_CREATED)
     else:
@@ -113,6 +115,8 @@ def register_professional(request):
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
         response['id'] = user.id
+        response['email'] = user.email
+        response['img'] = user.img.url
         pro.shopify_create(user_data['password'])
         return Response(response, status=status.HTTP_201_CREATED)
     else:
@@ -181,12 +185,13 @@ class ObtainExpiringAuthToken(ObtainAuthToken):
             token, created =  Token.objects.get_or_create(user=serializer.object['user'])
             id = serializer.object['user'].id
             email = serializer.object['user'].email
+            img = serializer.object['user'].img.url
             if not created:
                 # update the created time of the token to keep it valid
                 token.created = datetime.datetime.utcnow().replace(tzinfo=utc)
                 token.save()
 
-            return Response({'token': token.key, 'id': id, 'email':email })
+            return Response({'token': token.key, 'id': id, 'email':email, 'img': img, })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 obtain_expiring_auth_token = ObtainExpiringAuthToken.as_view()

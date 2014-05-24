@@ -99,15 +99,21 @@ define(['app'], function(app) {
 					if($scope.urlPro == 'Trainer' || $scope.urlPro == 'Nutritionist' || $scope.urlPro == 'Promoter' ){
 						$scope.user.tier = $scope.urlTier;
 						$scope.pro.profession = $scope.urlPro;
-						$scope.step = 'professionals';
+						if(valid == true){
+							$scope.step = 'professionals';
+						};
 					};
 				}
 				else if($scope.urlTier >= 1 && $scope.urlTier <= 5){
 					$scope.user.tier = $scope.urlTier;
-					$scope.step = 'user';
+					if(valid == true){
+						$scope.step = 'user';
+					};
 				}
 				else{
-					$scope.step = 'choice';
+					if(valid == true){
+						$scope.step = 'choice';
+					};
 				};
 			};
 			$scope.setCurrentStepForm = function(step, valid){
@@ -179,6 +185,8 @@ define(['app'], function(app) {
 					localStorageService.add('Authorization', 'Token ' + $scope.authToken.token);
 					localStorageService.add('rest_token', $scope.authToken.token);
 					localStorageService.add('user_id', $scope.authToken.id);
+					localStorageService.add('user_email', $scope.authToken.email);
+                    localStorageService.add('user_img', $scope.authToken.img);
 					if($scope.user.tier == 1){
 						window.location = "/";
 					}
@@ -203,6 +211,8 @@ define(['app'], function(app) {
 					localStorageService.add('Authorization', 'Token ' + $scope.proAuthToken.token);
 					localStorageService.add('rest_token', $scope.proAuthToken.token);
 					localStorageService.add('user_id', $scope.proAuthToken.id);
+					localStorageService.add('user_email', $scope.authToken.email);
+                    localStorageService.add('user_img', $scope.authToken.img);
 					$scope.profile_user = $scope.proAuthToken.id;
 					$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
 					$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
