@@ -33,6 +33,7 @@ define(['app'], function(app) {
 				password: '',
 				password2: '',
 				gender: '',
+				referred_by: localStorageService.get('referral'),
 				tier: 1
 			};
 			$scope.pro = {
@@ -211,8 +212,8 @@ define(['app'], function(app) {
 					localStorageService.add('Authorization', 'Token ' + $scope.proAuthToken.token);
 					localStorageService.add('rest_token', $scope.proAuthToken.token);
 					localStorageService.add('user_id', $scope.proAuthToken.id);
-					localStorageService.add('user_email', $scope.authToken.email);
-                    localStorageService.add('user_img', $scope.authToken.img);
+					localStorageService.add('user_email', $scope.proAuthToken.email);
+                    localStorageService.add('user_img', $scope.proAuthToken.img);
 					$scope.profile_user = $scope.proAuthToken.id;
 					$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
 					$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
