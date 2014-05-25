@@ -14,7 +14,7 @@ define(['app'], function(app) {
 			Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
 
 			$scope.profile_user = null;
-			$scope.urlTier = $stateParams.test;
+			$scope.urlTier = $stateParams.tier;
 			$scope.urlPro = $stateParams.pro;
 
 			$scope.step = 'registration';
