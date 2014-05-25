@@ -4,50 +4,14 @@
 <div class="row">
 <div class="col-xs-12">
 <h2 id="workoutsHeader" class="ef-header">
-    registration
+    membership
 </h2>
 <div ng-switch-when="registration">
     <form class="form-horizontal" name="registrationForm">
         <div class="row">
             <div class="col-xs-12 col-md-6 col-md-offset-3">
                 <div class="page-header">
-                    <h2 class="entry-title">basic information</h2>
-                </div>
-                <div class="form-group">
-                    <label for="gender" class="col-sm-2 control-label">
-                        Gender
-                    </label>
-
-                    <div class="col-sm-10">
-                        <select ng-model="user.gender" id="gender" type="text" class="form-control">
-                            <option value="">None</option>
-                            <option value="M">Male</option>
-                            <option value="F">Female</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="firstName" class="col-sm-2 control-label">
-                        First Name
-                    </label>
-
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="firstName"
-                               placeholder="First Name"
-                               ng-model="user.first_name" required>
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label for="lastName" class="col-sm-2 control-label">
-                        Last Name
-                    </label>
-
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="lastName"
-                               placeholder="Last Name"
-                               ng-model="user.last_name" required>
-                    </div>
+                    <h2 class="entry-title">authenticate</h2>
                 </div>
                 <div class="form-group">
                     <label for="email" class="col-sm-2 control-label">
@@ -72,17 +36,6 @@
                                ng-model="user.password" required>
                     </div>
 
-                </div>
-                <div class="form-group">
-                    <label for="password2" class="col-sm-2 control-label">
-                        Confirm Password:
-                    </label>
-
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="password2"
-                               placeholder="Password"
-                               ng-model="user.password2" required>
-                    </div>
                 </div>
             </div>
         </div>

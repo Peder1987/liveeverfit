@@ -32,7 +32,7 @@ define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','an
                 .state('forgot-password', route.resolve('/forgot-password', 'auth/forgot-password'))
                 .state('reset-password', route.resolve('/reset-password/:change_password_token/:email', 'auth/reset-password'))
                 .state('registration', route.resolve('/registration', 'auth/registration'))
-                .state('registration.tier', route.resolve('/:test', 'auth/registration'))
+                .state('registration.tier', route.resolve('/:tier', 'auth/registration'))
                 .state('registration.tier.profession', route.resolve('/:pro', 'auth/registration'))
                 .state('login', route.resolve('/login', 'auth/login'))
 
