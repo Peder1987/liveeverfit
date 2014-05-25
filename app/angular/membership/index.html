@@ -1,19 +1,20 @@
 <div id="registrationBg"></div>
-<div id="registration" ng-controller="registrationController">
+<div id="registration" ng-controller="membershipController">
 <div class="container" ng-switch="getCurrentStep()" class="slide-frame">
 <div class="row">
 <div class="col-xs-12">
 <h2 id="workoutsHeader" class="ef-header">
     membership
 </h2>
-<div ng-switch-when="registration">
-    <form class="form-horizontal" name="registrationForm">
+<div ng-switch-when="auth">
+    <form class="form-horizontal" name="membershipForm">
         <div class="row">
             <div class="col-xs-12 col-md-6 col-md-offset-3">
                 <div class="page-header">
                     <h2 class="entry-title">authenticate</h2>
                 </div>
                 <div class="form-group">
+                    <alert ng-repeat="(error, msg) in message">{{msg[0]}}</alert>         
                     <label for="email" class="col-sm-2 control-label">
                         Email
                     </label>
@@ -43,7 +44,7 @@
 
     <div class="row">
         <button type="submit" class="btn btn-primary col-xs-offset-10"
-                ng-click="setCurrentStepFormPar('choice', registrationForm.$valid)">Next
+                ng-click="authenticate('choice', membershipForm.$valid)">Next
         </button>
     </div>
     </form>
