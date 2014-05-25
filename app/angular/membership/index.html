@@ -22,7 +22,7 @@
                     <div class="col-sm-10">
                         <input type="email" class="form-control" id="email"
                                placeholder="Email"
-                               ng-model="user.email" required>
+                               ng-model="auth.email" required>
                     </div>
 
                 </div>
@@ -34,7 +34,7 @@
                     <div class="col-sm-10">
                         <input type="password" class="form-control" id="password"
                                placeholder="Password"
-                               ng-model="user.password" required>
+                               ng-model="auth.password" required>
                     </div>
 
                 </div>
@@ -49,24 +49,22 @@
     </div>
     </form>
 </div>
-<!--end registration-->
-<div ng-include src="'auth/registration/views/choice.html'"></div>
+<!--end auth-->
+<div ng-include src="'membership/views/choice.html'"></div>
 <!--end choice-->
-<div ng-include src="'auth/registration/views/user.html'"></div>
-<!--end user-->
-<div ng-include src="'auth/registration/views/membership/membershipUpgrade.html'"></div>
+<div ng-include src="'membership/views/membership/membershipUpgrade.html'"></div>
 <!--end membership-->
-<div ng-include src="'auth/registration/views/professional/professional.html'"></div>
+<div ng-include src="'membership/views/professional/professional.html'"></div>
 <!--end professionals-->
-<div ng-include src="'auth/registration/views/professional/professionalExperience.html'"></div>
+<div ng-include src="'membership/views/professional/professionalExperience.html'"></div>
 <!--end experience-->
-<div ng-include src="'auth/registration/views/professional/professionalCertification.html'"></div>
+<div ng-include src="'membership/views/professional/professionalCertification.html'"></div>
 <!--end certifications-->
-<div ng-include src="'auth/registration/views/membership/membershipSubmit.html'"></div>
+<div ng-include src="'membership/views/membership/membershipSubmit.html'"></div>
 <!--end membershipSubmit-->
-<div ng-include src="'auth/registration/views/professional/professionalSubmit.html'"></div>
+<div ng-include src="'membership/views/professional/professionalSubmit.html'"></div>
 <!--end membershipSubmit-->
-<div ng-include src="'auth/registration/views/paymentDetails.html'"></div>
+<div ng-include src="'membership/views/paymentDetails.html'"></div>
 <!--end payment-->
 </div>
 </div>

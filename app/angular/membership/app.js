@@ -13,7 +13,7 @@ define(['app'], function(app) {
 
 			Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
 
-			$scope.user = {
+			$scope.auth = {
 				email: 'pro2@test.com',
 				password: 'admin123'
 			};
@@ -33,6 +33,16 @@ define(['app'], function(app) {
 			$scope.tempAddressPay = {
 				formatted_address:'',
 				street_line2:'',
+			};
+			$scope.user = {
+				first_name: '',
+				last_name: '',
+				email: '',
+				password: '',
+				password2: '',
+				gender: '',
+				referred_by: localStorageService.get('referral'),
+				tier: 1
 			};
 			$scope.pro = {
 				profession: '',
@@ -95,12 +105,18 @@ define(['app'], function(app) {
 
 
 
+            $scope.getCurrentStep = function() {
+				return $scope.step;
+			};	
+			$scope.setCurrentStep = function(step){
+				$scope.step = step;
+			};
             $scope.authenticate = function(step, valid) {
             	if(valid == true){
             		//AutoFill Fix
 	                angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
 		
-					$scope.authToken = AuthToken.save($scope.user, function() {
+					$scope.authToken = AuthToken.save($scope.auth, function() {
 						if($scope.authToken.email == localStorageService.get('user_email')){
 							$scope.step = step;
 						};
@@ -113,12 +129,6 @@ define(['app'], function(app) {
 
 
 
-			$scope.getCurrentStep = function() {
-				return $scope.step;
-			};	
-			$scope.setCurrentStep = function(step){
-				$scope.step = step;
-			};
 			$scope.setCurrentStepFormPar = function(step, valid){
 				if($scope.urlTier == 7 && $scope.urlPro !== undefined && $scope.urlPro != ''){
 					if($scope.urlPro == 'Trainer' || $scope.urlPro == 'Nutritionist' || $scope.urlPro == 'Promoter' ){
