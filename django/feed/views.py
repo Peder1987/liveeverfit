@@ -13,8 +13,8 @@ from feed.permissions import IsOwnerOrReadOnly
 # from feed.serializers import CalendarSerializer, EventSerializer
 # from feed.filters import EventFilter, IsCalendarOwnerFilterBackend
 # from feed.filters import DatetimeFilterBackend, NowFilterBackend
-from feed.serializers import EntrySerializer, TextEntrySerializer, PictureEntrySerializer, VideoEntrySerializer, EventEntrySerializer, BlogEntrySerializer
-from feed.models import TextEntry, PictureEntry, VideoEntry, EventEntry, BlogEntry, Entry
+from feed.serializers import EntrySerializer, TextEntrySerializer, PictureEntrySerializer, VideoEntrySerializer, EventEntrySerializer, BlogEntrySerializer, CommentSerializer
+from feed.models import TextEntry, PictureEntry, VideoEntry, EventEntry, BlogEntry, Entry, Comment
 
 
 class EntryListView(generics.ListAPIView):
@@ -23,8 +23,11 @@ class EntryListView(generics.ListAPIView):
 	filter_backends = (filters.OrderingFilter,)
 	ordering = ('-created',)
 	def get_queryset(self):
-		pk = self.kwargs.get('pk', self.request.user)
-		return Entry.objects.filter(user=pk).select_subclasses()
+		pk = self.kwargs.get('pk', None)
+		if pk:
+			return Entry.objects.filter(user=pk).select_subclasses()
+		else:
+			return Entry.objects.all().select_subclasses()
 
 class TextEntryViewSet(viewsets.ModelViewSet):
 	model = TextEntry
@@ -47,6 +50,12 @@ class EventEntryViewSet(viewsets.ModelViewSet):
 	serializer_class = EventEntrySerializer
 
 class BlogEntryViewSet(viewsets.ModelViewSet):
+	model = BlogEntry
+	permission_classes = (IsOwnerOrReadOnly,)
+	serializer_class = BlogEntrySerializer
+
+
+class CommentViewSet(viewsets.ModelViewSet):
 	model = BlogEntry
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = BlogEntrySerializer

@@ -42,7 +42,7 @@ class CustomUserManager(BaseUserManager):
 
 
 def default_ref():
-    return Professional.objects.get(email='pro@test.com').id
+    return Professional.objects.get(email='rory@heavenly-homes.com').id
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):

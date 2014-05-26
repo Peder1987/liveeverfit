@@ -8,141 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'CustomUser'
-        db.create_table(u'user_app_customuser', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('password', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('last_login', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('is_superuser', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('email', self.gf('django.db.models.fields.EmailField')(unique=True, max_length=50, db_index=True)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('tier', self.gf('django.db.models.fields.IntegerField')(default=1, max_length=1, null=True, blank=True)),
-            ('gender', self.gf('django.db.models.fields.CharField')(max_length=1, blank=True)),
-            ('location', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('lat', self.gf('django.db.models.fields.CharField')(default='29.760193', max_length=30, blank=True)),
-            ('lng', self.gf('django.db.models.fields.CharField')(default='-95.369390', max_length=30, blank=True)),
-            ('twitter', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('facebook', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('instagram', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('youtube', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('linkedin', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('plus', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('img', self.gf('django.db.models.fields.files.ImageField')(default='default-profile.svg', max_length=100, blank=True)),
-            ('bio', self.gf('django.db.models.fields.CharField')(max_length=5000, blank=True)),
-            ('referred_by', self.gf('django.db.models.fields.related.ForeignKey')(default=2, related_name='user_reference', null=True, blank=True, to=orm['user_app.Professional'])),
-            ('shopify_id', self.gf('django.db.models.fields.IntegerField')(default=0, blank=True)),
-            ('chargify_id', self.gf('django.db.models.fields.IntegerField')(default=0, blank=True)),
-            ('stripe_id', self.gf('django.db.models.fields.CharField')(default='', max_length=50, blank=True)),
-            ('profile_img_id', self.gf('django.db.models.fields.CharField')(default='', max_length=50, blank=True)),
-            ('url', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('phone', self.gf('django.db.models.fields.CharField')(default='', max_length=20, blank=True)),
-            ('connection', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='user_connections', null=True, to=orm['user_app.Professional'])),
-            ('primary_address', self.gf('django.db.models.fields.related.OneToOneField')(related_name='owner', null=True, on_delete=models.SET_NULL, to=orm['user_app.Address'], blank=True, unique=True)),
-            ('is_professional', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_upgraded', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_staff', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('date_joined', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-        ))
-        db.send_create_signal(u'user_app', ['CustomUser'])
-
-        # Adding M2M table for field groups on 'CustomUser'
-        m2m_table_name = db.shorten_name(u'user_app_customuser_groups')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('customuser', models.ForeignKey(orm[u'user_app.customuser'], null=False)),
-            ('group', models.ForeignKey(orm[u'auth.group'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['customuser_id', 'group_id'])
-
-        # Adding M2M table for field user_permissions on 'CustomUser'
-        m2m_table_name = db.shorten_name(u'user_app_customuser_user_permissions')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('customuser', models.ForeignKey(orm[u'user_app.customuser'], null=False)),
-            ('permission', models.ForeignKey(orm[u'auth.permission'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['customuser_id', 'permission_id'])
-
-        # Adding model 'Address'
-        db.create_table(u'user_app_address', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('type', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
-            ('firstname', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-            ('lastname', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-            ('department', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-            ('corporation', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('street_line1', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('street_line2', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('zipcode', self.gf('django.db.models.fields.CharField')(max_length=5, blank=True)),
-            ('city', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('state', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('postal_box', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
-            ('country', self.gf('django.db.models.fields.CharField')(default='US', max_length=100, blank=True)),
-            ('lat', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('lng', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-        ))
-        db.send_create_signal(u'user_app', ['Address'])
-
-        # Adding model 'UniqueLocation'
-        db.create_table(u'user_app_uniquelocation', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('location', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('counter', self.gf('django.db.models.fields.IntegerField')(default=0)),
-        ))
-        db.send_create_signal(u'user_app', ['UniqueLocation'])
-
-        # Adding model 'Certification'
-        db.create_table(u'user_app_certification', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='certifications', null=True, to=orm['user_app.CustomUser'])),
-            ('certification_name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('certification_number', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-        ))
-        db.send_create_signal(u'user_app', ['Certification'])
-
-        # Adding model 'Professional'
-        db.create_table(u'user_app_professional', (
-            (u'customuser_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['user_app.CustomUser'], unique=True, primary_key=True)),
-            ('profession', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('is_accepting', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('queue', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('fitness_sales_experience', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('education', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('group_fitness_experience', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('nutritionist_experience', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('certified_nutritionist', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('certified_group_fitness', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('certification_name1', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('certification_number1', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('certification_name2', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('certification_number2', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-        ))
-        db.send_create_signal(u'user_app', ['Professional'])
+        # Deleting field 'CustomUser.profile_img_id'
+        db.delete_column(u'user_app_customuser', 'profile_img_id')
 
 
     def backwards(self, orm):
-        # Deleting model 'CustomUser'
-        db.delete_table(u'user_app_customuser')
-
-        # Removing M2M table for field groups on 'CustomUser'
-        db.delete_table(db.shorten_name(u'user_app_customuser_groups'))
-
-        # Removing M2M table for field user_permissions on 'CustomUser'
-        db.delete_table(db.shorten_name(u'user_app_customuser_user_permissions'))
-
-        # Deleting model 'Address'
-        db.delete_table(u'user_app_address')
-
-        # Deleting model 'UniqueLocation'
-        db.delete_table(u'user_app_uniquelocation')
-
-        # Deleting model 'Certification'
-        db.delete_table(u'user_app_certification')
-
-        # Deleting model 'Professional'
-        db.delete_table(u'user_app_professional')
+        # Adding field 'CustomUser.profile_img_id'
+        db.add_column(u'user_app_customuser', 'profile_img_id',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=50, blank=True),
+                      keep_default=False)
 
 
     models = {
@@ -220,8 +94,7 @@ class Migration(SchemaMigration):
             'phone': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '20', 'blank': 'True'}),
             'plus': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'primary_address': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'owner'", 'null': 'True', 'on_delete': 'models.SET_NULL', 'to': u"orm['user_app.Address']", 'blank': 'True', 'unique': 'True'}),
-            'profile_img_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '50', 'blank': 'True'}),
-            'referred_by': ('django.db.models.fields.related.ForeignKey', [], {'default': '2', 'related_name': "'user_reference'", 'null': 'True', 'blank': 'True', 'to': u"orm['user_app.Professional']"}),
+            'referred_by': ('django.db.models.fields.related.ForeignKey', [], {'default': '85', 'related_name': "'user_reference'", 'null': 'True', 'blank': 'True', 'to': u"orm['user_app.Professional']"}),
             'shopify_id': ('django.db.models.fields.IntegerField', [], {'default': '0', 'blank': 'True'}),
             'stripe_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '50', 'blank': 'True'}),
             'tier': ('django.db.models.fields.IntegerField', [], {'default': '1', 'max_length': '1', 'null': 'True', 'blank': 'True'}),

@@ -27,6 +27,7 @@ class Entry(TimeStampedModel):
     type = "entry"
     user = models.ForeignKey(User)
     text = models.CharField(_('text'), max_length=300, blank=False)
+    likes = models.ManyToManyField(User, related_name='entries_liked', blank=True,null=True)
     objects = InheritanceManager()
 
 class TextEntry(Entry):
@@ -39,7 +40,7 @@ class PictureEntry(Entry):
 
 class VideoEntry(Entry):
     type = 'video'
-    img = models.ImageField(_('image'), upload_to=get_upload_path, blank=False)
+    video = models.ImageField(_('image'), upload_to=get_upload_path, blank=False)
 
 class EventEntry(Entry, TimeFramedModel):
     type= 'event'
@@ -48,3 +49,9 @@ class EventEntry(Entry, TimeFramedModel):
 class BlogEntry(Entry):
     type = 'blog'
     pass
+
+
+class Comment(TimeStampedModel):
+    entry = models.ForeignKey(Entry)
+    user = models.ForeignKey(User)
+    comment = models.TextField('description', null=True, blank=True)
