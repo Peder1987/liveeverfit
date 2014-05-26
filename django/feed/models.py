@@ -26,6 +26,9 @@ class Entry(TimeStampedModel):
     likes = models.ManyToManyField(User, related_name='entries_liked', blank=True,null=True)
     objects = InheritanceManager()
 
+class TextEntry(Entry):
+    type = 'text'
+    
 
 class PictureEntry(Entry):
     type = 'picture'

@@ -1,7 +1,7 @@
 import ast, json
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
-from feed.models import Entry, PictureEntry, VideoEntry, EventEntry, BlogEntry, Comment
+from feed.models import Entry, TextEntry, PictureEntry, VideoEntry, EventEntry, BlogEntry, Comment
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -17,6 +17,12 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
 
+class TextEntrySerializer(serializers.ModelSerializer):
+	comments = CommentSerializer(source="comments")
+	likes = serializers.Field(source="likes.count")
+	user = FeedUserSerializer()
+	class Meta:
+		model = TextEntry
 
 class PictureEntrySerializer(serializers.ModelSerializer):
 	comments = CommentSerializer(source="comments")
@@ -67,9 +73,12 @@ class EntrySerializer(serializers.ModelSerializer):
 		elif class_type == 'BlogEntry':
 			obj = BlogEntrySerializer(instance=value).data
 			obj['type'] = 'blog'
+		elif class_type == 'BlogEntry':
+			obj = TextEntrySerializer(instance=value).data
+			obj['type'] = 'text'
 		else:
-			obj = super(EntrySerializer, self).to_native(value)
-			obj['type'] = 'entry'
+			obj = TextEntrySerializer(instance=value).data
+			obj['type'] = 'text'
 		return obj
 
 	class Meta:

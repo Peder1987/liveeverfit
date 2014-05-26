@@ -9,8 +9,8 @@ from rest_framework import generics
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from feed.permissions import IsOwnerOrReadOnly
-from feed.serializers import EntrySerializer, PictureEntrySerializer, VideoEntrySerializer, EventEntrySerializer, BlogEntrySerializer, CommentSerializer
-from feed.models import PictureEntry, VideoEntry, EventEntry, BlogEntry, Entry, Comment
+from feed.serializers import EntrySerializer, TextEntrySerializer, PictureEntrySerializer, VideoEntrySerializer, EventEntrySerializer, BlogEntrySerializer, CommentSerializer
+from feed.models import PictureEntry, VideoEntry, EventEntry, BlogEntry, Entry, Comment, TextEntry
 
 
 class EntryListView(generics.ListAPIView):
@@ -24,6 +24,11 @@ class EntryListView(generics.ListAPIView):
 			return Entry.objects.filter(user=pk).select_subclasses()
 		else:
 			return Entry.objects.all().select_subclasses()
+
+class TextEntryViewSet(viewsets.ModelViewSet):
+	model = TextEntry
+	permission_classes = (IsOwnerOrReadOnly,)
+	serializer_class = TextEntrySerializer
 
 class PictureEntryViewSet(viewsets.ModelViewSet):
 	model = PictureEntry
