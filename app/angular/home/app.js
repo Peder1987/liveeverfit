@@ -5,9 +5,9 @@ define(['app'], function(app) {
     	function(localStorageService,$scope) {
     		$scope.token = localStorageService.get('Authorization');
             if ($scope.token === null) {
-              $scope.homeTemplate = {name: 'loggedout.html', url: 'home/loggedout.html'};
+              $scope.homeTemplate = {name: 'loggedout.html', url: 'home/views/loggedout.html'};
             } else {
-              $scope.homeTemplate = {name: 'loggedin.html', url: 'home/loggedin.html'};
+              $scope.homeTemplate = {name: 'loggedin.html', url: 'home/views/loggedin.html'};
             }
     }]);
     app.register.controller('BannerCtrl', ['$scope',
@@ -29,10 +29,27 @@ define(['app'], function(app) {
     function(localStorageService,$scope) {
         $scope.token = localStorageService.get('Authorization');
         if ($scope.token === null) {
-            $scope.homeTemplate = {name: 'loggedout.html', url: 'home/loggedout.html'};
+            $scope.homeTemplate = {name: 'loggedout.html', url: 'home/views/loggedout.html'};
         } else {
-            $scope.homeTemplate = {name: 'loggedin.html', url: 'home/loggedin.html'};
+            $scope.homeTemplate = {name: 'loggedin.html', url: 'home/views/loggedin.html'};
         }
+    }]);
+    app.register.controller('feedController', ['localStorageService','$scope', '$resource', 'rest',
+    function(localStorageService,$scope, $resource) {
+        $scope.feedList = []
+
+        $scope.feedCollection = $resource(":protocol://:url/feed", {
+            protocol: $scope.restProtocol,
+            url: $scope.restURL
+        }, {
+            update: { method: 'PUT' }
+        });
+
+        $scope.feedCollection.get({}, function(data){
+            $scope.feedList = data.results
+            console.log($scope.feedList)
+        });
+
     }]);
 
 

@@ -1,0 +1,61 @@
+<div class="col-md-4" ng-repeat="entry in feedList"><!--NgRepeat-->
+	<div class="post-outer">
+		<div class="post-inner">
+	        <div class="post-header">
+	            <a class="post-settings" href="#"><i class="fa fa-cog fa-lg pull-right"></i></a>
+	            <div class="row">
+	            	<div class="col-md-2">
+	            		<img ng-src class="img-rounded">
+	            	</div>
+	            	<div class="col-md-10">
+	            		<span class="posted-by"><a href="#">{{entry.user.first_name}} {{entry.user.last_name}}</a></span><br>
+	            		<span class="timestamp">shared {{entry.created |  date : longDate }}</span>
+	            	</div>
+	            </div>
+	        </div>
+	        <div ng-switch="entry.type">
+				
+				<div ng-switch-when="picture"> 
+					picture
+					<img ng-src="/media/{{entry.img}}" >
+				</div>
+				<div ng-switch-when="video"> 
+					video
+					<!-- <div class="videoWrapper">
+			            <iframe width="560" height="315" src="/media/{{entry.video}}" frameborder="0" allowfullscreen=""></iframe>
+			        </div> -->
+				</div>
+				<div ng-switch-when="event"> 
+					event
+				</div>
+				<div ng-switch-when="blog"> 
+					blog
+				</div>
+	            <div ng-switch-when="entry"> 
+					entry
+				</div>
+	            
+	        </div>
+	        
+	        
+	        
+	        <div class="post-social">
+	        	<i class="fa fa-thumbs-up fa pull-right">{{entry.likes}}</i>
+	        </div>
+
+
+	        <div class="comments">
+	            <div class="comment-form row">
+	                <div class="col-md-2 col-xs-2">
+	                    <img src="../home/img/jason.jpg" class="img-rounded">
+	                </div>
+	                <div class="col-md-10 col-xs-10">
+	                    <div class="form-group">
+	                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Encourage, motivate, inspire">
+	                  </div>
+	                </div>
+	            </div>
+	        </div><!-- ./comments -->
+		</div>
+	</div><!-- /.post-outer -->
+</div>
