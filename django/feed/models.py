@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 User = get_user_model()
-
+import os
 # FOR MORE INFORMATION REFER TO THIS
 # https://django-model-utils.readthedocs.org/en/latest/managers.html
 from model_utils.models import TimeStampedModel, TimeFramedModel
@@ -15,6 +15,7 @@ from model_utils.managers import InheritanceManager
     
 
 def get_upload_path(instance, filename):
+    now_time = now().strftime("%m_%d_%Y_%H_%M_%S_%f_")
     os.path.join(
           "users","%d" % instance.user.id, instance.type, now_time+filename )
 
