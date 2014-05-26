@@ -1,7 +1,7 @@
 import ast, json
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
-from feed.models import Entry, TextEntry, PictureEntry, VideoEntry, EventEntry, BlogEntry, Comment
+from feed.models import Entry, PictureEntry, VideoEntry, EventEntry, BlogEntry, Comment
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -17,49 +17,45 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
 
-class TextEntrySerializer(serializers.ModelSerializer):
-	likes = serializers.Field(source="likes.count")
-	user = FeedUserSerializer()
-	class Meta:
-		model = TextEntry
 
 class PictureEntrySerializer(serializers.ModelSerializer):
+	comments = CommentSerializer(source="comments")
 	likes = serializers.Field(source="likes.count")
 	user = FeedUserSerializer()
 	class Meta:
 		model = PictureEntry
 
 class VideoEntrySerializer(serializers.ModelSerializer):
+	comments = CommentSerializer(source="comments")
 	likes = serializers.Field(source="likes.count")
 	user = FeedUserSerializer()
 	class Meta:
 		model = VideoEntry
 
 class EventEntrySerializer(serializers.ModelSerializer):
+	comments = CommentSerializer(source="comments")
 	likes = serializers.Field(source="likes.count")
 	user = FeedUserSerializer()
 	class Meta:
 		model = EventEntry
 
 class BlogEntrySerializer(serializers.ModelSerializer):
+	comments = CommentSerializer(source="comments")
 	likes = serializers.Field(source="likes.count")
 	user = FeedUserSerializer()
 	class Meta:
 		model = BlogEntry
 
-class CommentSerializer(serializers.ModelSerializer):
-	likes = serializers.Field(source="likes.count")
-	class Meta:
-		model = Comment
 
 class EntrySerializer(serializers.ModelSerializer):
+	comments = CommentSerializer(source="comments")
+	likes = serializers.Field(source="likes.count")
+	user = FeedUserSerializer()
 	
 	def to_native(self, value):
 		class_type = value.__class__.__name__
-		if class_type == 'TextEntry':
-			obj = TextEntrySerializer(instance=value).data
-			obj['type'] = 'text'
-		elif class_type == 'PictureEntry':
+
+		if class_type == 'PictureEntry':
 			obj = PictureEntrySerializer(instance=value).data
 			obj['type'] = 'picture'
 		elif class_type == 'VideoEntry':

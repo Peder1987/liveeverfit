@@ -9,11 +9,6 @@ import os
 from model_utils.models import TimeStampedModel, TimeFramedModel
 from model_utils.managers import InheritanceManager
 
-# class Feed(TimeStampedModel):
-    
-#     entries = models.ForeignKey(Entry)
-    
-
 def get_upload_path(instance, filename):
     now_time = now().strftime("%m_%d_%Y_%H_%M_%S_%f_")
     os.path.join(
@@ -31,9 +26,6 @@ class Entry(TimeStampedModel):
     likes = models.ManyToManyField(User, related_name='entries_liked', blank=True,null=True)
     objects = InheritanceManager()
 
-class TextEntry(Entry):
-    type = 'text'
-    pass
 
 class PictureEntry(Entry):
     type = 'picture'
@@ -53,6 +45,6 @@ class BlogEntry(Entry):
 
 
 class Comment(TimeStampedModel):
-    entry = models.ForeignKey(Entry)
+    entry = models.ForeignKey(Entry, related_name='comments')
     user = models.ForeignKey(User)
-    comment = models.TextField('description', null=True, blank=True)
+    text = models.TextField('description', null=True, blank=True)

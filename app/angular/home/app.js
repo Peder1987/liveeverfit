@@ -40,7 +40,10 @@ define(['app'], function(app) {
     }]);
     app.register.controller('feedController', ['localStorageService','$scope', '$resource', 'rest',
     function(localStorageService,$scope, $resource) {
-        $scope.feedList = []
+        $scope.feedList = [];
+        $scope.commentInput = '';
+        $scope.user_id = localStorageService.get('user_id');
+        $scope.user_email = localStorageService.get('user_email');
 
         $scope.feedCollection = $resource(":protocol://:url/feed", {
             protocol: $scope.restProtocol,
@@ -48,11 +51,33 @@ define(['app'], function(app) {
         }, {
             update: { method: 'PUT' }
         });
-
+        $scope.commentResource = $resource(":protocol://:url/feed/comment", {
+            protocol: $scope.restProtocol,
+            url: $scope.restURL
+        }, {
+            update: { method: 'PUT' }
+        });
+        //init feed
         $scope.feedCollection.get({}, function(data){
             $scope.feedList = data.results
             console.log($scope.feedList)
         });
+
+        $scope.submitComment = function (obj) {
+            var scope = this;
+            var commentObj = { 
+                text : scope.commentInput,
+                user : $scope.user_email,
+                entry : obj.id
+
+
+            }
+            $scope.commentResource.save(commentObj, function(data){
+                obj.comments.push(data)
+            });
+
+        };
+
 
     }]);
 
