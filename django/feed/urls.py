@@ -6,7 +6,7 @@ from feed.views import CommentViewSet
 
 router = routers.SimpleRouter(trailing_slash=False)
 router.register('/text', TextEntryViewSet)
-router.register('/picture', PictureEntryViewSet)
+router.register('/photo', PictureEntryViewSet)
 router.register('/video', VideoEntryViewSet)
 router.register('/event', EventEntryViewSet)
 router.register('/blog', BlogEntryViewSet)
