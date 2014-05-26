@@ -38,11 +38,11 @@
                                 <div ng-show="!entryInputText" class="place-holder">
                                     Encourage, motivate, persevere, succeed...
                                 </div>
-                                <div class="input"
+                                <div ng-input
+                                     class="input"
                                      role="textbox"
                                      contenteditable
                                      ng-model="entryInputText"
-                                     ng-input
                                      ng-enter="entrySubmit()"></div>
                                 <div ng-if="entryInputType=='photo'&&!entryImgSrc&&!percent" class="upload">
                                     <div class="well well-lg" ng-file-drop="onFileSelect($files)"

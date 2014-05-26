@@ -40,13 +40,65 @@ define(['app'], function (app) {
                 $scope.homeTemplate = {name: 'loggedin.html', url: 'home/views/loggedin.html'};
             }
         }]);
-    app.register.controller('feedController', ['localStorageService', '$scope', '$resource', 'rest', 'fileReader',
-        function (localStorageService, $scope, $resource, rest, fileReader) {
+    app.register.controller('feedController', ['localStorageService', '$scope', '$resource', 'rest', 'fileReader', '$upload',
+        function (localStorageService, $scope, $resource, rest, fileReader, $upload) {
             angular.extend($scope, {
                 entryInputText: "",
                 entryInputType: "text",
                 entrySubmit: function () {
-                    alert();
+                    var scope = this,
+                        runEntrySubmit = {
+                            entryCollection: $resource(":protocol://:url/feed/:type", {
+                                type: $scope.entryInputType,
+                                protocol: $scope.restProtocol,
+                                url: $scope.restURL
+                            }, {
+                                update: {
+                                    method: 'PUT'
+                                }
+                            }),
+                            text: function () {
+                                this.entryCollection.save({
+                                    text: $scope.entryInputText
+                                }, function (data) {
+                                    $scope.feedList.push(data)
+                                });
+                            },
+                            photo: function () {
+                                if($scope.uploadImg && $scope.entryInputText) {
+                                    $scope.upload = $upload.upload({
+                                        url: $scope.restProtocol + '://' + $scope.restURL + '/feed/picture',
+                                        img: $scope.uploadImg,
+                                        text: $scope.entryInputText
+                                    }).progress(function (evt) {
+                                        $scope.percent = parseInt(100.0 * evt.loaded / evt.total);
+                                    }).success(function (data) {
+                                        delete $scope.uploadImg;
+                                    }).error(function (data) {
+                                        $scope.percent = false;
+                                        console.log("Upload photo error.")
+                                    });
+                                }
+                                else {
+                                    // Some sort of error.
+                                    console.log("No file selected.")
+                                }
+
+                            },
+                            video: function () {
+
+                            },
+                            event: function () {
+
+                            },
+                            blog: function() {
+
+                            },
+                            comment: function() {
+
+                            }
+                        };
+                    runEntrySubmit[$scope.entryInputType]();
                 },
                 selectEntryInputType: function (type) {
                     this.entryInputType = type;
@@ -57,18 +109,6 @@ define(['app'], function (app) {
                         $scope.entryImgSrc = result;
                         $scope.percent = undefined;
                     });
-//                    $scope.upload = $upload.upload({
-//                        url: $scope.restProtocol + '://' + $scope.restURL + '/upload-image/upload-profile-picture/',
-//                        file: $scope.uploadImg
-//                    }).progress(function (evt) {
-//                        $scope.percent = parseInt(100.0 * evt.loaded / evt.total);
-//                    }).success(function (data) {
-//                        delete $scope.uploadImg;
-//                        $scope.returnData = data;
-//                    }).error(function (data) {
-//                        $scope.percent = false;
-//                        angular.extend($scope.message, data);
-//                    });
                 }
             });
             $scope.user_id = localStorageService.get('user_id');
@@ -96,7 +136,7 @@ define(['app'], function (app) {
                         text: scope.commentInput,
                         user: $scope.user_email,
                         entry: obj.id
-                };
+                    };
                 $scope.commentResource.save(commentObj, function (data) {
                     obj.comments.push(data)
                 });
