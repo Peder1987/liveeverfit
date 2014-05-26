@@ -4,9 +4,34 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 from rest_framework import serializers
-from user_app.models import Professional, UniqueLocation, Certification
+from user_app.models import Professional, UniqueLocation, Certification, Address
 
 
+
+class CertificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Certification
+        exclude = ('user',)
+
+
+class ProfessionalSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source='email', required=False)
+    img = serializers.ImageField(allow_empty_file=True, required=False)
+    certifications = CertificationSerializer(many=True, allow_add_remove=True)
+
+    def to_native(self, value):
+        obj = super(ProfessionalSerializer, self).to_native(value)
+        print obj
+        return obj
+    class Meta:
+        model = Professional
+        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list")
+
+
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ('city', 'state')
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -17,6 +42,8 @@ class UserSerializer(serializers.ModelSerializer):
     last_login_on = serializers.DateTimeField(source='last_login',read_only=True)
     joined_on = serializers.DateTimeField(source='date_joined', read_only=True)
     img = serializers.ImageField(allow_empty_file=True, required=False)
+    referred_by = ProfessionalSerializer(required=False)
+    primary_address = AddressSerializer(required=False)
 
     class Meta:
         model = User
@@ -36,11 +63,11 @@ class UserSerializer(serializers.ModelSerializer):
             obj['type'] = 'user'
         return obj
 
+
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = UniqueLocation
         fields = ('location',)
-
 
 
 class PasswordSerializer(serializers.Serializer):
@@ -68,30 +95,11 @@ class ProfessionalListSerializer(serializers.ModelSerializer):
         fields = ("first_name", "last_name", "profession", "gender", "location", "is_accepting", "img", 'lat', 'lng', 'queue',)
 
 
-class CertificationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Certification
-        exclude = ('user',)
-
-
-class ProfessionalSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(source='email', required=False)
-    img = serializers.ImageField(allow_empty_file=True, required=False)
-    certifications = CertificationSerializer(many=True, allow_add_remove=True)
-
-    def to_native(self, value):
-        obj = super(ProfessionalSerializer, self).to_native(value)
-        print obj
-        return obj
-    class Meta:
-        model = Professional
-        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list")
-
-
 class ClientListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name',)
+
 
 class ModifyMembershipSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='email', required=False)
@@ -105,6 +113,7 @@ class ModifyMembershipSerializer(serializers.ModelSerializer):
         value.stripe_cancel_subscription()
         print value
         value.cancel_professional()
+
         
 class CreditcardSerializer(serializers.ModelSerializer):
     creditcard = serializers.Field(source='stripe_get_creditcard')
@@ -112,6 +121,7 @@ class CreditcardSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'creditcard',)
+
 
 class PaymentSerializer(serializers.ModelSerializer):
     #email = serializers.EmailField(source='email', required=False)
