@@ -283,9 +283,9 @@ define(['app'], function(app) {
 							};
 						};
 					});
+					$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
 					return addresses;
 				});
-				$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
 			};
 	
 
