@@ -67,7 +67,7 @@ define(['app'], function (app) {
                             photo: function () {
                                 if($scope.uploadImg && $scope.entryInputText) {
                                     $scope.upload = $upload.upload({
-                                        url: $scope.restProtocol + '://' + $scope.restURL + '/feed/picture',
+                                        url: $scope.restProtocol + '://' + $scope.restURL + '/feed/photo',
                                         img: $scope.uploadImg,
                                         text: $scope.entryInputText
                                     }).progress(function (evt) {
