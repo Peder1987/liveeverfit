@@ -43,15 +43,6 @@
 .post-inner {
   background-color:#fff;
   margin:10px;
-
-  .form-control{
-    border-radius: 0;
-
-    .placeholder{
-      color: #000;
-    }
-  }
-
 }
 
 .post-inner .post-header .timestamp {
@@ -88,17 +79,23 @@ height: 100%;
 }
 
 .status-update-box {
-  text-align:center;
-  background-color: #000;
-}
-
-.status-update-buttons {
-  padding:10px;
-
-  .fa{
-    color: @ever-blue;
+  margin: 13px;
+  .form-control {
+    color: #999999;
+    text-align: left;
+    background: rgba(250, 250, 250, 0.8);
+    max-height: 178px;
+    min-height: 58px;
+    word-wrap: break-word;
+    cursor: text;
   }
-
+  .row {
+    text-align:center;
+    padding-top: 13px;
+    .fa {
+      color: @ever-blue;
+    }
+  }
 }
 
 .post-settings {

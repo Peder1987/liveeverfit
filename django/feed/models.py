@@ -40,7 +40,7 @@ class PictureEntry(Entry):
 
 class VideoEntry(Entry):
     type = 'video'
-    video = models.ImageField(_('image'), upload_to=get_upload_path, blank=False)
+    video = models.FileField(_('Video'), upload_to=get_upload_path, blank=False)
 
 class EventEntry(Entry, TimeFramedModel):
     type= 'event'

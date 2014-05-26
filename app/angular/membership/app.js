@@ -8,16 +8,24 @@ define(['app'], function(app) {
     }]);
 
 
-	app.register.controller('registrationController', ["localStorageService",'$stateParams',"$resource","$http","$scope","rest",
+	app.register.controller('membershipController', ["localStorageService",'$stateParams',"$resource","$http","$scope","rest",
 		function(localStorageService,$stateParams,$resource,$http,$scope) {
 
 			Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
+
+			$scope.auth = {
+				email: 'pro2@test.com',
+				password: 'admin123'
+			};
+
+
+
 
 			$scope.profile_user = null;
 			$scope.urlTier = $stateParams.test;
 			$scope.urlPro = $stateParams.pro;
 
-			$scope.step = 'registration';
+			$scope.step = 'auth';
 			$scope.tempAddress = {
 				formatted_address:'',
 				street_line2:'',
@@ -26,7 +34,7 @@ define(['app'], function(app) {
 				formatted_address:'',
 				street_line2:'',
 			};
-    		$scope.user = {
+			$scope.user = {
 				first_name: '',
 				last_name: '',
 				email: '',
@@ -76,12 +84,19 @@ define(['app'], function(app) {
 				address_zip : "",
     		}
 
-    		var AuthToken =  $resource("http://:url/accounts/register/", {
+    		var AuthToken =  $resource("http://:url/membership/auth/", {
                 url: $scope.restURL
             });
-            var ProAuthToken =  $resource("http://:url/accounts/register-professional/", {
-                url: $scope.restURL
-            });
+    		var userResource = $resource(":protocol://:url/users/:id/", {
+                protocol: $scope.restProtocol,
+                url: $scope.restURL,
+                id: $scope.user_id
+            },{update: { method: 'PUT' }});
+            var professionalResource = $resource(":protocol://:url/users/professionals/:id/", {
+                protocol: $scope.restProtocol,
+                url: $scope.restURL,
+                id: $scope.user_id
+            },{update: { method: 'PUT' }});
             var paymentResource = $resource(":protocol://:url/users/modify-payment-details/:id",{
             	id : '@id',
             	protocol: $scope.restProtocol,
@@ -89,12 +104,31 @@ define(['app'], function(app) {
             },{update: { method: 'PUT' }});
 
 
-			$scope.getCurrentStep = function() {
+
+            $scope.getCurrentStep = function() {
 				return $scope.step;
 			};	
 			$scope.setCurrentStep = function(step){
 				$scope.step = step;
 			};
+            $scope.authenticate = function(step, valid) {
+            	if(valid == true){
+            		//AutoFill Fix
+	                angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
+		
+					$scope.authToken = AuthToken.save($scope.auth, function() {
+						if($scope.authToken.email == localStorageService.get('user_email')){
+							$scope.step = step;
+						};
+					},function(error) {
+						$scope.message = error.data;
+					});
+            	};
+			};
+
+
+
+
 			$scope.setCurrentStepFormPar = function(step, valid){
 				if($scope.urlTier == 7 && $scope.urlPro !== undefined && $scope.urlPro != ''){
 					if($scope.urlPro == 'Trainer' || $scope.urlPro == 'Nutritionist' || $scope.urlPro == 'Promoter' ){

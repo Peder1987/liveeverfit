@@ -1,8 +1,8 @@
+from django import forms
 from rest_framework import serializers
 
 
 
 class ContactSerializer(serializers.Serializer):
-    name = serializers.CharField()
-    email = serializers.CharField()
-    message = serializers.CharField()
+    email = serializers.EmailField()
+    password = serializers.CharField(widget=forms.PasswordInput())

@@ -33,6 +33,10 @@ define(['app'], function(app) {
         } else {
             $scope.homeTemplate = {name: 'loggedin.html', url: 'home/views/loggedin.html'};
         }
+        $scope.entrySubmit = function() {
+            alert();
+
+        }
     }]);
     app.register.controller('feedController', ['localStorageService','$scope', '$resource', 'rest',
     function(localStorageService,$scope, $resource) {
