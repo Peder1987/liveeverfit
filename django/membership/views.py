@@ -24,8 +24,8 @@ def upgrade(request):
     serialized = AuthSerializer(data = request.DATA)
     if serialized.is_valid():
         data = {field: data for (field, data) in request.DATA.items()}
-        email = data['email']
-        password = data['password']
+        email = data.get('email')
+        password = data.get('password')
 
         user = authenticate(email = email, password = password)
         if user is not None:
@@ -44,30 +44,52 @@ def upgrade(request):
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+def user_tier(request):
+    serialized = UserSerializer(data=request.DATA)
+    if serialized.is_valid():
+        user_data = {field: data for (field, data) in request.DATA.items()}
+        user_id = user_data.get('id')
+        user_data.pop('id', None)
+
+        if User.objects.filter(id = user_id).exists():
+            user = User.objects.get(id = user_id)
+        else:
+            return Response({'error': ['User does not exists']}, status=status.HTTP_400_BAD_REQUEST)
+
+        if user.tier == 6 or user.tier == 7:
+            return Response({'error': ['Already a profesional']}, status=status.HTTP_400_BAD_REQUEST)
+        
+        user.__dict__.update(
+            **user_data
+        )
+        user.save()
+
+        return Response({'details': 'success'}, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def upgrade_to_professional(request):
-    print 'Works'
     serialized = UserSerializer(data=request.DATA)
     if serialized.is_valid():
         user_data = {field: data for (field, data) in request.DATA.items()}
-        print user_data
-        user_id = user_data['id']
-        print user_id
+        user_id = user_data.get('id')
+        temp_address = user_data.get('primary_address')
+        user_data.pop('primary_address', None)
 
         if User.objects.filter(id = user_id).exists:
             user = User.objects.get(id = user_id)
-            print user
         else:
             return Response({'error':['Can not upgrade']}, status=status.HTTP_400_BAD_REQUEST)
 
-        pro = Professional.objects.create_prof(user)
-        print pro
+        if user.tier == 6 or user.tier == 7:
+            return Response({'error': ['Already a profesional']}, status=status.HTTP_400_BAD_REQUEST)
 
-        user_data = {field: data for (field, data) in request.DATA.items()}
-        temp_address = user_data['primary_address']
-        del user_data['primary_address']
+        pro = Professional.objects.create_prof(user)
 
         try:
             city = temp_address['city']
@@ -83,7 +105,6 @@ def upgrade_to_professional(request):
         except:
             pass
 
-        print 'here yea'
         pro.__dict__.update(**user_data)
         try:
             pro.location = temp_location
@@ -95,11 +116,25 @@ def upgrade_to_professional(request):
         address = Address.objects.get(id = user.primary_address.id)
         address.__dict__.update(**temp_address)
         address.save()
-        print 'maaa'
 
-        
-        print user.password
-        pro.shopify_create(user.password)
+        return Response({'details': 'success'}, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+def cancel(request):
+    serialized = UserSerializer(data=request.DATA)
+    if serialized.is_valid():
+        user_data = {field: data for (field, data) in request.DATA.items()}
+        user_id = user_data.get('id')
+    
+        if User.objects.filter(id = user_id).exists():
+            user = User.objects.get(id = user_id)
+            user.tier = 1
+            user.save()
+
         return Response({'details': 'success'}, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)

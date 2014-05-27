@@ -21,7 +21,6 @@ class ProfessionalSerializer(serializers.ModelSerializer):
 
     def to_native(self, value):
         obj = super(ProfessionalSerializer, self).to_native(value)
-        print obj
         return obj
     class Meta:
         model = Professional
@@ -51,13 +50,15 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_native(self, value):
         obj = super(UserSerializer, self).to_native(value)
-        if Professional.objects.filter(pk=obj['id']).exists():
-            pro = Professional.objects.get(pk=obj['id'])
-            obj = ProfessionalSerializer(instance=pro).data
-            obj['shopify_sales'] = pro.shopify_sales()
+        user_tier = obj.get('tier')
+        user_id = obj.get('id')
+        if user_tier == 7 or user_tier == 6:
+            if Professional.objects.filter(pk = user_id).exists():
+                pro = Professional.objects.get(pk=user_id)
+                obj = ProfessionalSerializer(instance=pro).data
+                obj['shopify_sales'] = pro.shopify_sales()
             obj['type'] = 'professional'
-            print obj
-        elif obj['is_upgraded']:
+        elif user_tier <= 5 and user_tier >= 2:
             obj['type'] = 'upgraded'
         else:
             obj['type'] = 'user'
@@ -111,7 +112,6 @@ class ModifyMembershipSerializer(serializers.ModelSerializer):
         obj = super(ModifyMembershipSerializer,self).to_native(value)
         
         value.stripe_cancel_subscription()
-        print value
         value.cancel_professional()
 
         

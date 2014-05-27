@@ -20,7 +20,7 @@ class Entry(TimeStampedModel):
 	Entry class will be abstracted in order to 
 	define the types of entries
 	"""
-    type = "entry"
+    type = "text"
     user = models.ForeignKey(User)
     text = models.CharField(_('text'), max_length=300, blank=False)
     likes = models.ManyToManyField(User, related_name='entries_liked', blank=True,null=True)

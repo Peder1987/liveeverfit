@@ -13,20 +13,10 @@ define(['app'], function(app) {
 
 			Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
 
-			$scope.auth = {
-				email: 'migueldv90@yahoo.com',
-				password: '123456789'
-			};
-
 			$scope.step = 'auth';
-			$scope.profile_user = null;
-			$scope.tempAddress = {
-				formatted_address:'',
-				street_line2:'',
-			};
-			$scope.tempAddressPay = {
-				formatted_address:'',
-				street_line2:'',
+			$scope.auth = {
+				email: '',
+				password: ''
 			};
 			$scope.user = {
 				id: localStorageService.get('user_id'),
@@ -59,11 +49,11 @@ define(['app'], function(app) {
 				lng: ''
 			};
 			$scope.creditcard = {
-				name : 'miguel vazquez',
-				number : '4242424242424242',
-				cvc : '123',
-				exp_month : '9',
-				exp_year : '2014',
+				name : '',
+				number : '',
+				cvc : '',
+				exp_month : '',
+				exp_year : '',
 				address_line1 : "",
 				address_line2 : "",
 				address_city : "",
@@ -72,16 +62,20 @@ define(['app'], function(app) {
 				address_zip : "",
     		};
 
+
     		var AuthToken =  $resource(":protocol://:url/membership/auth/", {
     			protocol: $scope.restProtocol,
                 url: $scope.restURL
             });
-    		var userResource = $resource(":protocol://:url/users/:id/", {
+    		var userResource = $resource(":protocol://:url/membership/upgrade-tier/", {
                 protocol: $scope.restProtocol,
-                url: $scope.restURL,
-                id: $scope.user.id
+                url: $scope.restURL
             },{update: { method: 'PUT' }});
             var professionalResource = $resource(":protocol://:url/membership/upgrade-pro/", {
+                protocol: $scope.restProtocol,
+                url: $scope.restURL
+            },{update: { method: 'PUT' }});
+            var cancelResource = $resource(":protocol://:url/membership/cancel/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
             },{update: { method: 'PUT' }});
@@ -178,28 +172,41 @@ define(['app'], function(app) {
                 // AutoFill Fix
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
 
-				$scope.userUpdate = userResource.update($scope.user, function() {
+				$scope.userUpdate = userResource.save($scope.user, function() {
 					window.location = '/';
 				},function(error) {
 					$scope.message = error.data;
 				});
 
 			};
-
 			$scope.proSubmit = function(){
                 // AutoFill Fix
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
 
-				console.log($scope.pro);
 				$scope.proUpdate = professionalResource.save($scope.pro, function() {
-					
+					window.location = '/';
+				},function(error) {
+					$scope.message = error.data;
+				});
+			};
+			$scope.cancelSubmit = function(){
+                // AutoFill Fix
+                angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
+
+				$scope.cancelMembership = cancelResource.save($scope.user, function() {
+					window.location = '/';
 				},function(error) {
 					$scope.message = error.data;
 				});
 			};
 
 
+
 			//Set Adress From Google GeoLocation
+			$scope.tempAddress = {
+				formatted_address:'',
+				street_line2:'',
+			};
 			$scope.setAddress = function() {
 				if ($scope.tempAddress.formatted_address !== "undefined")
 				{
@@ -208,6 +215,10 @@ define(['app'], function(app) {
 						$scope.address.street_line2 = (!($scope.tempAddress.street_line2 === undefined)?$scope.tempAddress.street_line2 + ' ':'');
 					}
 				}
+			};
+			$scope.tempAddressPay = {
+				formatted_address:'',
+				street_line2:'',
 			};
 			$scope.setAddressPay = function() {
 				if ($scope.tempAddressPay.formatted_address !== "undefined")
