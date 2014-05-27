@@ -1,5 +1,5 @@
 <ul class="dropdown-menu" ng-style="{display: (isOpen && 'block') || 'none', top: position.top+'px', left: position.left+'px'}" ng-keydown="keydown($event)">
-	<li ng-transclude></li>
+	<li ng-transclude style="padding: 0 5px;"></li>
 	<li ng-if="showButtonBar" style="padding:10px 9px 2px">
 		<span class="btn-group">
 			<button type="button" class="btn btn-sm btn-info" ng-click="select('today')">{{ getText('current') }}</button>
