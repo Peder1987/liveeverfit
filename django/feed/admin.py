@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from feed.models import Entry, PictureEntry, VideoEntry, EventEntry, BlogEntry, TextEntry, Comment
+from feed.models import Entry, PhotoEntry, VideoEntry, EventEntry, BlogEntry, TextEntry, Comment
 
 
 class FeedAdmin(admin.ModelAdmin):
@@ -12,7 +12,7 @@ class EntryAdmin(admin.ModelAdmin):
 class TextEntryAdmin(admin.ModelAdmin):
 	pass
 
-class PictureEntryAdmin(admin.ModelAdmin):
+class PhotoEntryAdmin(admin.ModelAdmin):
 	pass
 class VideoEntryAdmin(admin.ModelAdmin):
 	pass
@@ -24,7 +24,7 @@ class CommentAdmin(admin.ModelAdmin):
 	pass
 admin.site.register(Entry, EntryAdmin)
 admin.site.register(TextEntry, TextEntryAdmin)
-admin.site.register(PictureEntry, PictureEntryAdmin)
+admin.site.register(PhotoEntry, PhotoEntryAdmin)
 admin.site.register(VideoEntry, VideoEntryAdmin)
 admin.site.register(EventEntry, EventEntryAdmin)
 admin.site.register(BlogEntry, BlogEntryAdmin)
