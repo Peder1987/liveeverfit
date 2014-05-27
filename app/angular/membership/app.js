@@ -13,20 +13,10 @@ define(['app'], function(app) {
 
 			Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
 
+			$scope.step = 'auth';
 			$scope.auth = {
 				email: 'migueldv90@yahoo.com',
 				password: '123456789'
-			};
-
-			$scope.step = 'auth';
-			$scope.profile_user = null;
-			$scope.tempAddress = {
-				formatted_address:'',
-				street_line2:'',
-			};
-			$scope.tempAddressPay = {
-				formatted_address:'',
-				street_line2:'',
 			};
 			$scope.user = {
 				id: localStorageService.get('user_id'),
@@ -72,14 +62,14 @@ define(['app'], function(app) {
 				address_zip : "",
     		};
 
+
     		var AuthToken =  $resource(":protocol://:url/membership/auth/", {
     			protocol: $scope.restProtocol,
                 url: $scope.restURL
             });
-    		var userResource = $resource(":protocol://:url/users/:id/", {
+    		var userResource = $resource(":protocol://:url/membership/upgrade-tier/", {
                 protocol: $scope.restProtocol,
-                url: $scope.restURL,
-                id: $scope.user.id
+                url: $scope.restURL
             },{update: { method: 'PUT' }});
             var professionalResource = $resource(":protocol://:url/membership/upgrade-pro/", {
                 protocol: $scope.restProtocol,
@@ -178,7 +168,7 @@ define(['app'], function(app) {
                 // AutoFill Fix
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
 
-				$scope.userUpdate = userResource.update($scope.user, function() {
+				$scope.userUpdate = userResource.save($scope.user, function() {
 					window.location = '/';
 				},function(error) {
 					$scope.message = error.data;
@@ -192,14 +182,19 @@ define(['app'], function(app) {
 
 				console.log($scope.pro);
 				$scope.proUpdate = professionalResource.save($scope.pro, function() {
-					
+					window.location = '/';
 				},function(error) {
 					$scope.message = error.data;
 				});
 			};
 
 
+
 			//Set Adress From Google GeoLocation
+			$scope.tempAddress = {
+				formatted_address:'',
+				street_line2:'',
+			};
 			$scope.setAddress = function() {
 				if ($scope.tempAddress.formatted_address !== "undefined")
 				{
@@ -208,6 +203,10 @@ define(['app'], function(app) {
 						$scope.address.street_line2 = (!($scope.tempAddress.street_line2 === undefined)?$scope.tempAddress.street_line2 + ' ':'');
 					}
 				}
+			};
+			$scope.tempAddressPay = {
+				formatted_address:'',
+				street_line2:'',
 			};
 			$scope.setAddressPay = function() {
 				if ($scope.tempAddressPay.formatted_address !== "undefined")
