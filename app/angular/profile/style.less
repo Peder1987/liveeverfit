@@ -26,27 +26,34 @@
 
     h2{
       color: #FFFFFF;
+
+      small{
+        font-size: 15px;
+        color: #FFFFFF;
+        letter-spacing: 1px;
+      }
+    }
+
+    .container:after {
+      background-image: url("common/img/container-logo.png");
+      width: 145px;
+      height: 27px;
+      position: absolute;
+      top: 21px;
+      content: '';
+      margin-left: 0px;
     }
 
     .container {
       min-height: 80%;
-      padding: 21px;
+      padding: 0px;
       margin: 34px auto;
       background-color: rgba(250, 250, 250, 0.0);
     }
 
-    .panel-default {
-      height: 80px;
-
-    }
-    .panel-heading {
-      height: 80px;
-    }
-    @panel-bg: rgba(250, 250, 250, 0.0);
-
     .ef-from {
       margin-top: 40px;
-      padding-left: 10px;
+      margin-left: 10px;
     }
 
     .red {
@@ -79,11 +86,11 @@
     .header {
       background: rgba(0, 0, 0, .3);
       line-height: 20px;
-      padding: 0 10px;
+      padding: 0 0;
     }
 
     .header p {
-      padding: 0 20px;
+      padding: 0 0px;
     }
 
     .meta-banner {
@@ -112,7 +119,7 @@
       padding: 20px;
       position: absolute;
       bottom: 0px;
-      width: 96.2%;
+      width: 96.3%;
     }
 
     .image-overlay a {
@@ -124,19 +131,28 @@
       padding: 10px;
     }
 
+    .report{
+
+      .stat-report{
+        color: @ever-blue;
+        background-color: rgba(250, 250, 250, 0.89);
+      }
+    }
+
     .filters ul {
       list-style: none;
       padding: 0px;
       margin: 0px;
     }
 
-    .filters li {
+    .filters a {
       display: inline-block;
       background: rgba(255, 255, 255, .7);
       width: 10.8%;
       margin: 0;
       text-align: center;
       line-height: 50px;
+      text-decoration: none;
     }
 
     .newsFeed {
