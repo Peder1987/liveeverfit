@@ -127,7 +127,14 @@ def register_professional(request):
         address = Address.objects.get(id = user.primary_address.id)
         address.__dict__.update(**temp_address)
         address.save()
-        return Response({'details':'success'}, status=status.HTTP_201_CREATED)
+        
+        response = ReturnUserSerializer(instance=user).data
+        response['token'] = user.auth_token.key
+        response['id'] = user.id
+        response['email'] = user.email
+        response['img'] = user.img.url
+        user.shopify_create(user_data['password'])
+        return Response(response, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
 

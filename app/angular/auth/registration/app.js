@@ -18,12 +18,12 @@ define(['app'], function(app) {
 			$scope.urlPro = $stateParams.pro;
 
     		$scope.user = {
-				first_name: 'miguel',
-				last_name: 'Vazquez',
-				email: 'migueldv90@yahoo.com',
-				password: '123456789',
-				password2: '123456789',
-				gender: 'M',
+				first_name: '',
+				last_name: '',
+				email: '',
+				password: '',
+				password2: '',
+				gender: '',
 				referred_by: localStorageService.get('referral'),
 				tier: 1
 			};
@@ -31,8 +31,8 @@ define(['app'], function(app) {
 				profession: '',
 				education: '',
 				experience: '',
-				certification_name1: '12',
-				certification_number1: '12',
+				certification_name1: '',
+				certification_number1: '',
 				certification_name2: '',
 				certification_number2: '',
 				phone: '',
@@ -54,11 +54,11 @@ define(['app'], function(app) {
 				lng: ''
 			};
 			$scope.creditcard = {
-				name : 'miguel',
-				number : '4242424242424242',
-				cvc : '123',
-				exp_month : '8',
-				exp_year : '2014',
+				name : '',
+				number : '',
+				cvc : '',
+				exp_month : '',
+				exp_year : '',
 				address_line1 : "",
 				address_line2 : "",
 				address_city : "",
