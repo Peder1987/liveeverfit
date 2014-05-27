@@ -81,7 +81,7 @@ define(['app'], function (app) {
                                     text: $scope.entryInputText,
                                     user: $scope.user_id
                                 }, function (data) {
-                                    $scope.feedList.push(data);
+                                    $scope.feedList.unshift(data);
                                     $scope.entryInputText = '';
                                 });
                             },
@@ -171,6 +171,14 @@ define(['app'], function (app) {
             }, {
                 update: { method: 'PUT' }
             });
+            $scope.entryResource = $resource(":protocol://:url/feed/:type/:id", {
+                id : "@id",
+                type: "@type",
+                protocol: $scope.restProtocol,
+                url: $scope.restURL
+            }, {
+                update: { method: 'PUT' }
+            });
             $scope.commentResource = $resource(":protocol://:url/feed/comment/:id", {
                 id: '@id',
                 protocol: $scope.restProtocol,
@@ -182,6 +190,17 @@ define(['app'], function (app) {
             $scope.feedCollection.get({}, function (data) {
                 $scope.feedList = data.results;
             });
+            $scope.deleteEntry = function (index, entry){
+                var entryObj = {
+                    id : entry.id,
+                    type : entry.type
+
+                }
+                $scope.feedList.splice(index, 1);
+                $scope.entryResource.delete(entryObj, function(){
+
+                });
+            };
 
             $scope.submitComment = function (obj) {
                 var scope = this,
