@@ -44,7 +44,7 @@ def register(request):
     serialized = CreateUserSerializer(data=request.DATA)
     if serialized.is_valid():
         user_data = {field: data for (field, data) in request.DATA.items()}
-        pro_referred_by = user_data['referred_by']
+        pro_referred_by = user_data.get('referred_by')
         user_data.pop('password2', None)
         user_data.pop('referred_by', None)
         user_data.pop('profession', None)
@@ -78,7 +78,7 @@ def register(request):
         response['id'] = user.id
         response['email'] = user.email
         response['img'] = user.img.url
-        user.shopify_create(user_data['password'])
+        user.shopify_create(user_data.get('password'))
         return Response(response, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
@@ -133,7 +133,6 @@ def register_professional(request):
         response['id'] = user.id
         response['email'] = user.email
         response['img'] = user.img.url
-        user.shopify_create(user_data['password'])
         return Response(response, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
