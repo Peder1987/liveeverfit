@@ -14,18 +14,12 @@ define(['app'], function(app) {
 			Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
 
 			$scope.auth = {
-				email: 'pro2@test.com',
-				password: 'admin123'
+				email: 'migueldv90@yahoo.com',
+				password: '123456789'
 			};
 
-
-
-
-			$scope.profile_user = null;
-			$scope.urlTier = $stateParams.test;
-			$scope.urlPro = $stateParams.pro;
-
 			$scope.step = 'auth';
+			$scope.profile_user = null;
 			$scope.tempAddress = {
 				formatted_address:'',
 				street_line2:'',
@@ -35,13 +29,7 @@ define(['app'], function(app) {
 				street_line2:'',
 			};
 			$scope.user = {
-				first_name: '',
-				last_name: '',
-				email: '',
-				password: '',
-				password2: '',
-				gender: '',
-				referred_by: localStorageService.get('referral'),
+				id: localStorageService.get('user_id'),
 				tier: 1
 			};
 			$scope.pro = {
@@ -71,31 +59,31 @@ define(['app'], function(app) {
 				lng: ''
 			};
 			$scope.creditcard = {
-				name : '',
-				number : '',
-				cvc : '',
-				exp_month : '',
-				exp_year : '',
+				name : 'miguel vazquez',
+				number : '4242424242424242',
+				cvc : '123',
+				exp_month : '9',
+				exp_year : '2014',
 				address_line1 : "",
 				address_line2 : "",
 				address_city : "",
 				address_country : "",
 				address_state : "",
 				address_zip : "",
-    		}
+    		};
 
-    		var AuthToken =  $resource("http://:url/membership/auth/", {
+    		var AuthToken =  $resource(":protocol://:url/membership/auth/", {
+    			protocol: $scope.restProtocol,
                 url: $scope.restURL
             });
     		var userResource = $resource(":protocol://:url/users/:id/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
-                id: $scope.user_id
+                id: $scope.user.id
             },{update: { method: 'PUT' }});
-            var professionalResource = $resource(":protocol://:url/users/professionals/:id/", {
+            var professionalResource = $resource(":protocol://:url/membership/upgrade-pro/", {
                 protocol: $scope.restProtocol,
-                url: $scope.restURL,
-                id: $scope.user_id
+                url: $scope.restURL
             },{update: { method: 'PUT' }});
             var paymentResource = $resource(":protocol://:url/users/modify-payment-details/:id",{
             	id : '@id',
@@ -124,32 +112,6 @@ define(['app'], function(app) {
 						$scope.message = error.data;
 					});
             	};
-			};
-
-
-
-
-			$scope.setCurrentStepFormPar = function(step, valid){
-				if($scope.urlTier == 7 && $scope.urlPro !== undefined && $scope.urlPro != ''){
-					if($scope.urlPro == 'Trainer' || $scope.urlPro == 'Nutritionist' || $scope.urlPro == 'Promoter' ){
-						$scope.user.tier = $scope.urlTier;
-						$scope.pro.profession = $scope.urlPro;
-						if(valid == true){
-							$scope.step = 'professionals';
-						};
-					};
-				}
-				else if($scope.urlTier >= 1 && $scope.urlTier <= 5){
-					$scope.user.tier = $scope.urlTier;
-					if(valid == true){
-						$scope.step = 'user';
-					};
-				}
-				else{
-					if(valid == true){
-						$scope.step = 'choice';
-					};
-				};
 			};
 			$scope.setCurrentStepForm = function(step, valid){
 				if(valid == true){$scope.step = step;};
@@ -212,51 +174,29 @@ define(['app'], function(app) {
 		
 
 
-			$scope.submit = function() {
+			$scope.submit = function(){
                 // AutoFill Fix
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
-				
-				$scope.authToken = AuthToken.save($scope.user, function() {
-					localStorageService.add('Authorization', 'Token ' + $scope.authToken.token);
-					localStorageService.add('rest_token', $scope.authToken.token);
-					localStorageService.add('user_id', $scope.authToken.id);
-					localStorageService.add('user_email', $scope.authToken.email);
-                    localStorageService.add('user_img', $scope.authToken.img);
-					if($scope.user.tier == 1){
-						window.location = "/";
-					}
-					else{
-						$scope.profile_user = $scope.authToken.id;
-						$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
-						$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
-							window.location = "/";
-						});
 
-					};
+				$scope.userUpdate = userResource.update($scope.user, function() {
+					window.location = '/';
+				},function(error) {
+					$scope.message = error.data;
+				});
+
+			};
+
+			$scope.proSubmit = function(){
+                // AutoFill Fix
+                angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
+
+				console.log($scope.pro);
+				$scope.proUpdate = professionalResource.save($scope.pro, function() {
+					
 				},function(error) {
 					$scope.message = error.data;
 				});
 			};
-
-			$scope.proSubmit = function() {
-                // AutoFill Fix
-                angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
-				
-				$scope.proAuthToken = ProAuthToken.save($scope.pro, function() {
-					localStorageService.add('Authorization', 'Token ' + $scope.proAuthToken.token);
-					localStorageService.add('rest_token', $scope.proAuthToken.token);
-					localStorageService.add('user_id', $scope.proAuthToken.id);
-					localStorageService.add('user_email', $scope.proAuthToken.email);
-                    localStorageService.add('user_img', $scope.proAuthToken.img);
-					$scope.profile_user = $scope.proAuthToken.id;
-					$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
-					$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
-						window.location = "/";
-					});
-				},function(error) {
-					$scope.message = error.data;
-				});
-			}
 
 
 			//Set Adress From Google GeoLocation
@@ -288,7 +228,6 @@ define(['app'], function(app) {
 			$scope.addressesInputs = {};
 			$scope.getLocation = function(val) {
 				delete $http.defaults.headers.common['Authorization']
-
 				return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
 					params: {
 				    address: val,
@@ -317,9 +256,9 @@ define(['app'], function(app) {
 							};
 						};
 					});
+					$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
 					return addresses;
 				});
-				$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
 			};
 	
 

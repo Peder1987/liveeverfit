@@ -1,29 +1,15 @@
+#Django Libs
 from django import forms
-from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group, Permission
+#DRF Libs
 from rest_framework.authtoken.models import Token
 from rest_framework import serializers
-User = get_user_model()
+#Models
 from user_app.models import Professional
+from django.contrib.auth.models import Group, Permission
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
-
-class PasswordSerializer(serializers.Serializer):
-    password = serializers.CharField(
-        widget=forms.PasswordInput(),
-        required=False
-    )
-
-
-class EmailSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-
-
-class ReturnUserSerializer(serializers.ModelSerializer):  
-    class Meta:
-        model = User
-        fields = ('email', 'first_name', 'last_name', 'id')
-        
 
 class CreateUserSerializer(serializers.ModelSerializer):  
     password2 = serializers.CharField(write_only=True)
@@ -31,7 +17,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'password', 'password2', 'gender', 'tier')
-        write_only_fields = ('password', )  # Note: Password field is write-only
+        write_only_fields = ('password', )
 
     def validate_password(self, attrs, source):
         password = attrs['password']
@@ -54,6 +40,27 @@ class CreateUserSerializer(serializers.ModelSerializer):
         tags = attrs.pop('password2', None)
         obj = super(CreateUserSerializer, self).restore_object(attrs, instance)
         return obj
+
+
+class CreateProSerializer(serializers.Serializer):  
+    email = serializers.EmailField()
+ 
+
+class PasswordSerializer(serializers.Serializer):
+    password = serializers.CharField(
+        widget=forms.PasswordInput(),
+        required=False
+    )
+
+
+class EmailSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+
+class ReturnUserSerializer(serializers.ModelSerializer):  
+    class Meta:
+        model = User
+        fields = ('email', 'first_name', 'last_name', 'id')
 
 
 class LogoutSerializer(serializers.ModelSerializer):  

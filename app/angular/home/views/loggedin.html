@@ -10,48 +10,87 @@
         </div>
 
         <div class="homePageButtons xs-up">
-        	
-        	<div class="row">
-        		
-        		<div class="col-lg-4 col-md-4 col-sm-4">
-        			<img src="../home/img/find-a-pro.png" />
-        		</div>
-        		
-        		<div class="col-lg-4 col-md-4 col-sm-4">
-        			<img src="../home/img/workouts.png" />
-        		</div>
-        		
-        		<div class="col-lg-4 col-md-4 col-sm-4">
-        			<img src="../home/img/the-shop.png" />
-        		</div>
-        	
-        	</div>
-        
-        </div><!-- /.homePageButtons -->
+
+            <div class="row">
+
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <img src="../home/img/find-a-pro.png"/>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <img src="../home/img/workouts.png"/>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <img src="../home/img/the-shop.png"/>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.homePageButtons -->
 
         <div class="newsFeed" ng-controller="feedController">
-        	
-        	<div class="row">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="post-outer ">
+                        <div class="status-update">
+                            <div class="input-box {{entryInputType}}">
+                                <div ng-show="!entryInputText" class="place-holder">
+                                    Encourage, motivate, persevere, succeed...
+                                </div>
+                                <div ng-input
+                                     class="input"
+                                     role="textbox"
+                                     contenteditable
+                                     ng-model="entryInputText"
+                                     ng-enter="entrySubmit()"></div>
+                                <div ng-if="entryInputType=='photo'&&!entryImgSrc&&!percent" class="upload">
+                                    <div class="well well-lg" ng-file-drop="onFileSelect($files)"
+                                         ng-file-drag-over-class="over">
+                                        <i class="fa fa-arrow-down fa-2x"></i>
+                                        <br>
 
-        		<div class="col-md-4">
-		        	<div class="post-outer status-update-box">
-		        		<div class="post-inner">
-			                <textarea class="form-control" placeholder="Encourage, motivate, persevere. succeed..." rows="3"></textarea>
-			                
-			                <div class="status-update-buttons">
-			                	<div class="row">
-				                    <div class="col-md-3 col-xs-3"><i class="fa fa-pencil fa-lg"></i></div>
-				                    <div class="col-md-3 col-xs-3"><i class="fa fa-camera-retro fa-lg"></i></div>
-				                    <div class="col-md-3 col-xs-3"><i class="fa fa-play-circle fa-lg"></i></div>
-				                    <div class="col-md-3 col-xs-3"><i class="fa fa-calendar fa-lg"></i></div>
-			                	</div>
-			                </div>
-		            	</div>
-		        	</div>
+                                        <div>drag & drop</div>
+                                    </div>
+                                    <span class="btn btn-primary">
+                                         upload from computer
+                                        <input id="upload" type="file" accept="image/*" class="upload"
+                                               ng-file-select="onFileSelect($files)">
+                                    </span>
+                                </div>
+                                <h3 ng-if="percent">Loading...</h3>
+                                <progressbar ng-if="percent" class="progress-striped active" value="percent">
+                                    {{percent}}%
+                                </progressbar>
+                                <img ng-src="{{entryImgSrc}}" />
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <a href ng-click="selectEntryInputType('text')">
+                                        <i class="fa fa-pencil fa-2x"></i><br>Text
+                                    </a>
+                                </div>
+                                <div class="col-xs-3">
+                                    <a href ng-click="selectEntryInputType('photo')">
+                                        <i class="fa fa-camera-retro fa-2x"></i><br>Photo
+                                    </a>
+                                </div>
+                                <div class="col-xs-3">
+                                    <a href ng-click="selectEntryInputType('video')">
+                                        <i class="fa fa-play-circle fa-2x"></i><br>Video
+                                    </a>
+                                </div>
+                                <div class="col-xs-3">
+                                    <a href ng-click="selectEntryInputType('event')">
+                                        <i class="fa fa-calendar fa-2x"></i><br>Event
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-	        	<div ng-include src="'home/views/feed.html'"> </div>
-                
-        	</div><!-- /row-fluid -->
+                <div ng-include src="'home/views/feed.html'"></div>
+            </div>
         </div>
     </div>
 </div>

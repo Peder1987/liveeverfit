@@ -1,17 +1,17 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from rest_framework import routers
-from feed.views import TextEntryViewSet, PictureEntryViewSet, VideoEntryViewSet, EventEntryViewSet, BlogEntryViewSet, EntryListView
+from feed.views import PictureEntryViewSet, VideoEntryViewSet, EventEntryViewSet, BlogEntryViewSet, EntryListView, TextEntryViewSet
 from feed.views import CommentViewSet
 
 router = routers.SimpleRouter(trailing_slash=False)
-#router.register('', EntryViewSet)
 router.register('/text', TextEntryViewSet)
-router.register('/picture', PictureEntryViewSet)
+router.register('/photo', PictureEntryViewSet)
 router.register('/video', VideoEntryViewSet)
 router.register('/event', EventEntryViewSet)
 router.register('/blog', BlogEntryViewSet)
 router.register('/comment', CommentViewSet)
+
 
 urlpatterns = patterns('',
 	url(r'^', include(router.urls)),
