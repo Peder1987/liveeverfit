@@ -13,11 +13,6 @@ import json
 import string
 import random
 import datetime
-#Models
-from rest_framework.authtoken.models import Token
-from user_app.models import Professional, Address, UniqueLocation
-from django.contrib.auth import get_user_model
-User = get_user_model()
 #Rest Framework
 from rest_framework.views import APIView
 from rest_framework import status
@@ -30,7 +25,12 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import serializers
 #Serializers
-from .serializers import EmailSerializer, CreateUserSerializer, ReturnUserSerializer, LogoutSerializer, PasswordSerializer, ForgotPasswordSerializer, ChangePasswordSerializer, ResetPasswordSerializer
+from .serializers import EmailSerializer, CreateUserSerializer, ReturnUserSerializer, LogoutSerializer, PasswordSerializer, ForgotPasswordSerializer, ChangePasswordSerializer, ResetPasswordSerializer, CreateProSerializer
+#Models
+from rest_framework.authtoken.models import Token
+from user_app.models import Professional, Address, UniqueLocation
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 
@@ -45,8 +45,24 @@ def register(request):
     if serialized.is_valid():
         user_data = {field: data for (field, data) in request.DATA.items()}
         pro_referred_by = user_data['referred_by']
-        del user_data['password2']
-        del user_data['referred_by']
+        user_data.pop('password2', None)
+        user_data.pop('referred_by', None)
+        user_data.pop('profession', None)
+        user_data.pop('education', None)
+        user_data.pop('experience', None)
+        user_data.pop('certification_name1', None)
+        user_data.pop('certification_number1', None)
+        user_data.pop('certification_name2', None)
+        user_data.pop('certification_number2', None)
+        user_data.pop('phone', None)
+        user_data.pop('twitter', None)
+        user_data.pop('facebook', None) 
+        user_data.pop('instagram', None) 
+        user_data.pop('youtube', None) 
+        user_data.pop('linkedin', None)
+        user_data.pop('plus', None)
+        user_data.pop('primary_address', None)
+
 
         user = User.objects.create_user(
             **user_data
@@ -71,37 +87,20 @@ def register(request):
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def register_professional(request):
-    serialized = CreateUserSerializer(data=request.DATA)
+    serialized = CreateProSerializer(data=request.DATA)
     if serialized.is_valid():
         user_data = {field: data for (field, data) in request.DATA.items()}
-        del user_data['referred_by']
-        del user_data['password2']
-        del user_data['profession']
-        del user_data['education']
-        del user_data['experience']
-        del user_data['certification_name1']
-        del user_data['certification_number1']
-        del user_data['certification_name2']
-        del user_data['certification_number2']
-        del user_data['phone']
-        del user_data['twitter']
-        del user_data['facebook'] 
-        del user_data['instagram'] 
-        del user_data['youtube'] 
-        del user_data['linkedin']
-        del user_data['plus']
-        del user_data['primary_address']
+        email = user_data.get('email')
+        temp_address = user_data.get('primary_address')
+        user_data.pop('password2', None)
+        user_data.pop('referred_by', None)
+        user_data.pop('primary_address', None)
 
-        user = User.objects.create_user(**user_data)
-        pro = Professional.objects.create_prof(user)
-
-        user_data = {field: data for (field, data) in request.DATA.items()}
-        temp_address = user_data['primary_address']
-        pro_referred_by = user_data['referred_by']
-        del user_data['password2']
-        del user_data['referred_by']
-        del user_data['primary_address']
-
+        if User.objects.filter(email = email).exists():
+            user = User.objects.get(email = email)
+            pro = Professional.objects.create_prof(user)
+        else:
+            return Response({'error': 'User could not be created'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             city = temp_address['city']
@@ -118,10 +117,6 @@ def register_professional(request):
             pass
 
         pro.__dict__.update(**user_data)
-        if Professional.objects.filter(email = pro_referred_by).exists():
-            pro_ref = Professional.objects.get(email = pro_referred_by)
-            pro.referred_by = pro_ref
-            pro.referred_by.save()
         try:
             pro.location = temp_location
             pro.lat = temp_address['lat']
@@ -132,14 +127,7 @@ def register_professional(request):
         address = Address.objects.get(id = user.primary_address.id)
         address.__dict__.update(**temp_address)
         address.save()
-
-        response = ReturnUserSerializer(instance=user).data
-        response['token'] = user.auth_token.key
-        response['id'] = user.id
-        response['email'] = user.email
-        response['img'] = user.img.url
-        pro.shopify_create(user_data['password'])
-        return Response(response, status=status.HTTP_201_CREATED)
+        return Response({'details':'success'}, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -179,9 +167,6 @@ class AuthTokenSerializer(serializers.Serializer):
 
 
 class ObtainAuthToken(APIView):
-    """
-    Restfuls ObtainAuthToken function
-    """
     throttle_classes = ()
     permission_classes = ()
     parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)

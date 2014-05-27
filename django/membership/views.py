@@ -46,7 +46,7 @@ def upgrade(request):
 
 
 @api_view(['POST'])
-@permission_classes((AllowAny,))
+@permission_classes((IsAuthenticated,))
 def upgrade_to_professional(request):
     print 'Works'
     serialized = UserSerializer(data=request.DATA)
