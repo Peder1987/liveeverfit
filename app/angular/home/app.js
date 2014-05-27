@@ -47,7 +47,7 @@ define(['app'], function (app) {
                 entryInputText: "",
                 entryVideoURL: "",
                 entryBlogBody: "",
-                entryInputType: "blog",
+                entryInputType: "text",
                 entryEvent: {
                     start: "",
                     end: "",
