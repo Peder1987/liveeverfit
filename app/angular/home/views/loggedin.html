@@ -1,6 +1,5 @@
-<div id="homeBg"></div>
-<div id="homePage" ng-controller="homeController">
-    <div class="container">
+
+    <div class="container" ng-controller="homeController">
         <div ng-controller="BannerCtrl">
             <carousel interval="3000">
                 <slide ng-repeat="slide in slides" active="slide.active">
@@ -36,7 +35,7 @@
                         <div class="status-update">
                             <div class="input-box {{entryInputType}}">
                                 <div ng-show="!entryInputText" class="place-holder">
-                                    Encourage, motivate, persevere, succeed...
+                                    {{entryInputPlaceHolder}}
                                 </div>
                                 <div ng-input
                                      class="input"
@@ -62,7 +61,73 @@
                                 <progressbar ng-if="percent" class="progress-striped active" value="percent">
                                     {{percent}}%
                                 </progressbar>
-                                <img ng-src="{{entryImgSrc}}" />
+                                <img ng-if="entryImgSrc" ng-src="{{entryImgSrc}}"/>
+
+                                <div class="video" ng-if="entryInputType=='video'">
+                                    <div class="form-group">
+                                        <label>Paste YouTube URL here</label>
+                                        <input ng-model="entryVideoURL" class="form-control" type="text"
+                                               placeholder=""/>
+                                    </div>
+                                </div>
+                                <div class="event" ng-if="entryInputType=='event'">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div class="form-group">
+                                                <label for="eventStart">Start</label>
+
+                                                <div class="input-group">
+                                                    <input id="eventStart" type="text" class="form-control"
+                                                           datepicker-popup="MM/dd/yyyy"
+                                                           ng-model="entryEvent.start" min
+                                                           is-open="fromDatePickerOpened"
+                                                           date-disabled="disabled(date, mode)"
+                                                           show-button-bar="false"/>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary" ng-click="openFromDatePicker($event)">
+                                                            <i class="fa fa-calendar"></i>&ZeroWidthSpace;
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div collapse="entryEvent.allDay">
+                                                <div ng-model="entryEvent.start" ng-change="changed()">
+                                                    <timepicker></timepicker>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <div class="form-group">
+                                                <label for="eventEnd">End</label>
+
+                                                <div class="input-group">
+                                                    <input id="eventEnd" type="text" class="form-control"
+                                                           datepicker-popup="MM/dd/yyyy"
+                                                           ng-model="entryEvent.end"
+                                                           is-open="untilDatePickerOpened"
+                                                           date-disabled="disabled(date, mode)"
+                                                           show-button-bar="false"/>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary" ng-click="openUntilDatePicker($event)">
+                                                            <i class="fa fa-calendar"></i>&ZeroWidthSpace;
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div collapse="entryEvent.allDay">
+                                                <div ng-model="entryEvent.end" ng-change="changed()">
+                                                    <timepicker></timepicker>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>
+                                            <input type="checkbox" ng-model="entryEvent.allDay">
+                                            All-Day
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-3">
@@ -93,4 +158,3 @@
             </div>
         </div>
     </div>
-</div>

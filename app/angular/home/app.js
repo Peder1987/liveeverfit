@@ -43,8 +43,27 @@ define(['app'], function (app) {
     app.register.controller('feedController', ['localStorageService', '$scope', '$resource', 'rest', 'fileReader', '$upload',
         function (localStorageService, $scope, $resource, rest, fileReader, $upload) {
             angular.extend($scope, {
+                entryInputPlaceHolder: "Encourage, motivate, persevere, succeed...",
                 entryInputText: "",
+                entryVideoURL: "",
                 entryInputType: "text",
+                entryEvent: {
+                    start: "",
+                    end: "",
+                    allDay: false
+                },
+                fromDatePickerOpened: false,
+                untilDatePickerOpened: false,
+                openFromDatePicker: function ($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+                    this.fromDatePickerOpened = !this.fromDatePickerOpened;
+                },
+                openUntilDatePicker: function ($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+                    this.untilDatePickerOpened = !this.untilDatePickerOpened;
+                },
                 entrySubmit: function () {
                     var scope = this,
                         runEntrySubmit = {
@@ -59,19 +78,19 @@ define(['app'], function (app) {
                             }),
                             text: function () {
                                 this.entryCollection.save({
-                                    text: $scope.entryInputText
+                                    text: $scope.entryInputText,
+                                    user: $scope.user_id
                                 }, function (data) {
-                                    $scope.feedList.push(data)
+                                    $scope.feedList.push(data);
+                                    $scope.entryInputText = '';
                                 });
                             },
                             photo: function () {
-
-
-                                if($scope.uploadImg && $scope.entryInputText) {
+                                if ($scope.uploadImg && $scope.entryInputText) {
                                     $scope.upload = $upload.upload({
                                         url: $scope.restProtocol + '://' + $scope.restURL + '/feed/photo',
                                         data: {
-                                            user: $scope.user_email,
+                                            user: $scope.user_id,
                                             text: $scope.entryInputText
                                         },
                                         file: $scope.uploadImg,
@@ -82,6 +101,8 @@ define(['app'], function (app) {
                                         $scope.feedList.unshift(data);
                                         $scope.entryInputText = '';
                                         delete $scope.uploadImg;
+                                        delete scope.entryImgSrc;
+                                        $scope.percent = false;
                                     }).error(function (data) {
                                         $scope.percent = false;
                                         console.log("Upload photo error.")
@@ -94,22 +115,45 @@ define(['app'], function (app) {
 
                             },
                             video: function () {
-
+                                this.entryCollection.save({
+                                    text: $scope.entryInputText,
+                                    url: $scope.entryVideoURL
+                                }, function (data) {
+                                    $scope.feedList.push(data);
+                                    $scope.entryInputText = '';
+                                });
                             },
                             event: function () {
+                                this.entryCollection.save({
+                                    text: $scope.entryInputText,
+                                    start: $scope.entryEvent.start,
+                                    end: $scope.entryEvent.end,
+                                    allDay: $scope.entryEvent.allDay
+                                }, function (data) {
+                                    $scope.feedList.push(data);
+                                    $scope.entryInputText = '';
+                                });
+                            },
+                            blog: function () {
 
                             },
-                            blog: function() {
-
-                            },
-                            comment: function() {
+                            comment: function () {
 
                             }
                         };
                     runEntrySubmit[$scope.entryInputType]();
                 },
                 selectEntryInputType: function (type) {
-                    this.entryInputType = type;
+                    var scope = this;
+                    scope.entryInputType = type;
+                    if (type == 'event') {
+                        $scope.entryInputPlaceHolder = "Title or Description";
+                        $scope.entryInputText = '';
+                    }
+                    else {
+                        $scope.entryInputPlaceHolder = "Encourage, motivate, persevere, succeed...";
+
+                    }
                 },
                 onFileSelect: function ($files) {
                     $scope.uploadImg = $files[0];
@@ -153,18 +197,18 @@ define(['app'], function (app) {
 
             $scope.deleteComment = function (index, comment, entry) {
                 var commentObj = {
-                    id:comment.id
+                    id: comment.id
                 };
                 entry.comments.splice(index, 1);
                 console.log(commentObj)
-                
-                $scope.commentResource.delete(commentObj, function(){
+
+                $scope.commentResource.delete(commentObj, function () {
 
                 });
             };
             $scope.editComment = function (index, comment) {
                 var attrs;
-                $scope.commentResource.update(comment, function(){
+                $scope.commentResource.update(comment, function () {
 
                 });
             };
@@ -203,7 +247,6 @@ define(['app'], function (app) {
             }
         };
     });
-
 
     return app;
 });

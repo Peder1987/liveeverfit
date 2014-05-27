@@ -1,21 +1,12 @@
-#homePage {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding-top: 89px;
-  overflow-y: scroll;
-  .container:before {
-    background-image: url("common/img/container-logo.png");
-    width: 145px;
-    height: 27px;
-    position: absolute;
-    top: 49px;
+#page #homePage {
+  .container {
+    background: transparent!important;
+    padding: 0;
+  }
+  .container:after {
+    margin-left: 0px;
   }
 }
-
-
 .homePageButtons {
   margin: 25px 0;
 }
@@ -27,7 +18,6 @@
 .newsFeed .post-outer {
   padding: 1px 0;
   background: rgba(255, 255, 255, .3);
-
 }
 
 .post-inner {
@@ -157,7 +147,7 @@
 
 .comment-form {
   width: 100%;
-
+  height: 60px;
 }
 
 .post-header {
@@ -169,8 +159,4 @@
     width: 32px;
     height: 32px;
   }
-}
-
-.comments{
-  height: auto;
 }

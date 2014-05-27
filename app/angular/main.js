@@ -70,7 +70,7 @@ require.config({
     shim: {
             'angular': {
                     exports: 'angular',
-                deps: ['angularFileUploadShim'],
+                deps: ['angularFileUploadShim']
             },
             'angularAMD': ['angular'],
             'angularLocalStorage': ['angular'],
