@@ -17,38 +17,35 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
 
-class TextEntrySerializer(serializers.ModelSerializer):
-	comments = CommentSerializer(source="comments")
+class AbstractEntrySerializer(serializers.ModelSerializer):
+	type = serializers.Field(source="type")
+	comments = CommentSerializer(source="comments", required=False)
 	likes = serializers.Field(source="likes.count")
 	user = FeedUserSerializer()
+
+class TextEntrySerializer(AbstractEntrySerializer):
+	
 	class Meta:
 		model = TextEntry
 
-class PictureEntrySerializer(serializers.ModelSerializer):
-	comments = CommentSerializer(source="comments")
-	likes = serializers.Field(source="likes.count")
-	user = FeedUserSerializer()
+class PictureEntrySerializer(AbstractEntrySerializer):
+	user = serializers.SlugRelatedField(slug_field="email")
 	class Meta:
 		model = PictureEntry
 
-class VideoEntrySerializer(serializers.ModelSerializer):
-	comments = CommentSerializer(source="comments")
-	likes = serializers.Field(source="likes.count")
-	user = FeedUserSerializer()
+class CreatePictureEntrySerializer(serializers.ModelSerializer):
+	class Meta:
+		model = PictureEntry
+
+class VideoEntrySerializer(AbstractEntrySerializer):
 	class Meta:
 		model = VideoEntry
 
-class EventEntrySerializer(serializers.ModelSerializer):
-	comments = CommentSerializer(source="comments")
-	likes = serializers.Field(source="likes.count")
-	user = FeedUserSerializer()
+class EventEntrySerializer(AbstractEntrySerializer):
 	class Meta:
 		model = EventEntry
 
-class BlogEntrySerializer(serializers.ModelSerializer):
-	comments = CommentSerializer(source="comments")
-	likes = serializers.Field(source="likes.count")
-	user = FeedUserSerializer()
+class BlogEntrySerializer(AbstractEntrySerializer):
 	class Meta:
 		model = BlogEntry
 
@@ -63,22 +60,16 @@ class EntrySerializer(serializers.ModelSerializer):
 
 		if class_type == 'PictureEntry':
 			obj = PictureEntrySerializer(instance=value).data
-			obj['type'] = 'picture'
 		elif class_type == 'VideoEntry':
 			obj = VideoEntrySerializer(instance=value).data
-			obj['type'] = 'video'
 		elif class_type == 'EventEntry':
 			obj = EventEntrySerializer(instance=value).data
-			obj['type'] = 'event'
 		elif class_type == 'BlogEntry':
 			obj = BlogEntrySerializer(instance=value).data
-			obj['type'] = 'blog'
 		elif class_type == 'BlogEntry':
 			obj = TextEntrySerializer(instance=value).data
-			obj['type'] = 'text'
 		else:
 			obj = TextEntrySerializer(instance=value).data
-			obj['type'] = 'text'
 		return obj
 
 	class Meta:
