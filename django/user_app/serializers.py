@@ -51,9 +51,10 @@ class UserSerializer(serializers.ModelSerializer):
     def to_native(self, value):
         obj = super(UserSerializer, self).to_native(value)
         user_tier = obj.get('tier')
+        user_id = obj.get('id')
         if user_tier == 7 or user_tier == 6:
-            if Professional.objects.filter(pk = user_tier).exists():
-                pro = Professional.objects.get(pk=user_tier)
+            if Professional.objects.filter(pk = user_id).exists():
+                pro = Professional.objects.get(pk=user_id)
                 obj = ProfessionalSerializer(instance=pro).data
                 obj['shopify_sales'] = pro.shopify_sales()
             obj['type'] = 'professional'
