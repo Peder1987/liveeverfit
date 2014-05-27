@@ -75,6 +75,10 @@ define(['app'], function(app) {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
             },{update: { method: 'PUT' }});
+            var cancelResource = $resource(":protocol://:url/membership/cancel/", {
+                protocol: $scope.restProtocol,
+                url: $scope.restURL
+            },{update: { method: 'PUT' }});
             var paymentResource = $resource(":protocol://:url/users/modify-payment-details/:id",{
             	id : '@id',
             	protocol: $scope.restProtocol,
@@ -175,13 +179,21 @@ define(['app'], function(app) {
 				});
 
 			};
-
 			$scope.proSubmit = function(){
                 // AutoFill Fix
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
 
-				console.log($scope.pro);
 				$scope.proUpdate = professionalResource.save($scope.pro, function() {
+					window.location = '/';
+				},function(error) {
+					$scope.message = error.data;
+				});
+			};
+			$scope.cancelSubmit = function(){
+                // AutoFill Fix
+                angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
+
+				$scope.cancelMembership = cancelResource.save($scope.user, function() {
 					window.location = '/';
 				},function(error) {
 					$scope.message = error.data;
