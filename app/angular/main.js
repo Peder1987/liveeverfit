@@ -46,7 +46,7 @@ require.config({
         'uiBootstrap': 'common/angular-bootstrap/ui-bootstrap',
         'routeResolver': 'common/router/routeResolver',
         'autoFillEvent': 'common/autofill-event/src/autofill-event',
-        'jquery': 'common/jquery/jquery',
+        'jquery': 'common/jquery/dist/jquery.min',
         'jqueryui': 'common/jquery-ui/ui/jquery-ui',
         'fullcalendar': 'common/fullcalendar/fullcalendar',
         'ui.calendar': 'common/angular-ui-calendar/src/calendar',
@@ -57,40 +57,47 @@ require.config({
         'stripeJS': 'common/stripe/stripe',
         'underscore': 'common/underscore/underscore',
         'angular-google-maps': 'common/angular-google-maps/dist/angular-google-maps',
-        'xeditable' : 'common/angular-xeditable/dist/js/xeditable',
-        'geolocation' : 'common/angularjs-geolocation/dist/angularjs-geolocation.min',
-        'jcrop' : 'common/jcrop/js/jquery.Jcrop.min',
-        'angularFileUpload' : 'common/ng-file-upload/angular-file-upload.min',
-        'angularFileUploadShim' : 'common/ng-file-upload/angular-file-upload-shim.min',
-        'app' : 'app'
+        'xeditable': 'common/angular-xeditable/dist/js/xeditable',
+        'geolocation': 'common/angularjs-geolocation/dist/angularjs-geolocation.min',
+        'jcrop': 'common/jcrop/js/jquery.Jcrop.min',
+        'angularFileUpload': 'common/ng-file-upload/angular-file-upload.min',
+        'angularFileUploadShim': 'common/ng-file-upload/angular-file-upload-shim.min',
+        'bootstrap.wysihtml5': 'common/bootstrap3-wysihtml5-bower/dist/amd/bootstrap3-wysihtml5.all',
+        'bootstrap.wysihtml5.en-US': 'common/bootstrap3-wysihtml5-bower/dist/locales/bootstrap-wysihtml5.en-US',
+        'bootstrap.modal': 'common/bootstrap/js/modal', // I needed this to get the wysihtml5 image and link modals working
+        'rangy': 'common/rangy-1.3/rangy-core',
+        'app': 'app'
 
     },
 
     //Angular does not support AMD out of the box, put it in a shim
     shim: {
-            'angular': {
-                    exports: 'angular',
-                deps: ['angularFileUploadShim']
-            },
-            'angularAMD': ['angular'],
-            'angularLocalStorage': ['angular'],
-            'angularResource': ['angular'],
-            'uiRouter': ['angular'],
-            'uiBootstrap': ['angular'],
-            'autoFillEvent': ['angular'],
-            'ui.utils': ['angular'],
-            'ui.calendar': ['angular'],
-            'ngTagsInput': ['angular'],
-            'stripe': ['angular', 'stripeJS'],
-            'underscore': ['angular'],
-            'jqueryui': ['jquery'],
-            'fullcalendar': ['jquery'],
-            'angular-google-maps': ['angular','underscore'],
-            'footer': ['app'],
-            'xeditable': ['angular'],
-            'geolocation': ['angular'],
-            'angularFileUpload': ['angular'],
-            'jcrop': ['jquery']
+        'angular': {
+            exports: 'angular',
+            deps: ['angularFileUploadShim']
+        },
+        'angularAMD': ['angular'],
+        'angularLocalStorage': ['angular'],
+        'angularResource': ['angular'],
+        'uiRouter': ['angular'],
+        'uiBootstrap': ['angular'],
+        'autoFillEvent': ['angular'],
+        'ui.utils': ['angular'],
+        'ui.calendar': ['angular'],
+        'ngTagsInput': ['angular'],
+        'stripe': ['angular', 'stripeJS'],
+        'underscore': ['angular'],
+        'jqueryui': ['jquery'],
+        'fullcalendar': ['jquery'],
+        'angular-google-maps': ['angular', 'underscore'],
+        'footer': ['app'],
+        'xeditable': ['angular'],
+        'geolocation': ['angular'],
+        'angularFileUpload': ['angular'],
+        'jcrop': ['jquery'],
+        'bootstrap.modal': ['jquery'],
+        'bootstrap.wysihtml5': ['jquery', 'rangy','bootstrap.modal'],
+        'bootstrap.wysihtml5.en-US': ['bootstrap.wysihtml5']
     },
     //Kick start application
     deps: ['app']

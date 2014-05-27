@@ -7,7 +7,7 @@
 'use strict';
 
 
-define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','angularResource','angularLocalStorage','autoFillEvent','jquery','jqueryui','fullcalendar','ui.calendar','ui.utils','ngTagsInput', 'underscore','angular-google-maps','stripeJS','stripe',"xeditable",'jcrop','angularFileUpload'], function (angularAMD) {
+define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','angularResource','angularLocalStorage','autoFillEvent','jquery','jqueryui','fullcalendar','ui.calendar','ui.utils','ngTagsInput', 'underscore','angular-google-maps','stripeJS','stripe',"xeditable",'jcrop','angularFileUpload', 'bootstrap.wysihtml5.en-US'], function (angularAMD) {
     'use strict';
 
     var app = angular.module('app', ['ui.router','ui.route','ui.bootstrap','ui.bootstrap.datepicker','ngTagsInput','ui.bootstrap.timepicker','ui.bootstrap.modal','ui.bootstrap.carousel','routeResolverServices','ngResource','LocalStorageModule','ui.calendar','ui.bootstrap.tabs','ui.bootstrap.pagination','google-maps','xeditable','geolocation','angularFileUpload']);
@@ -49,7 +49,6 @@ define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','an
                 .state('change-password', route.resolve('/change-password', 'auth/change-password'))
                 .state('terms', route.resolve('/terms', 'terms'))
                 .state('faq', route.resolve('/faq', 'faq'))
-                .state('logout', route.resolve('/logout', 'auth/logout'))
                 .state('membership', route.resolve('/membership', 'membership'))
                 .state('profile', route.resolve('/profile', 'profile'));
 
@@ -87,6 +86,10 @@ define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','an
                 $scope.templateNav = {
                     url: 'navbar/index.html'
                 };
+                $scope.signOut = function() {
+                    localStorageService.clearAll();
+                    window.location = "/";
+                }
             }
         }]);
 

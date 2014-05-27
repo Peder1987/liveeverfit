@@ -74,6 +74,19 @@
       max-height: 300px;
       margin: auto 0;
     }
+    iframe {
+      border: none!important;
+      height: 233px;
+      width: 100%!important;
+    }
+    .wysihtml5-toolbar {
+      a.btn {
+        text-align: center;
+      }
+      .dropdown-menu > li > a {
+        text-align: left;
+      }
+    }
     &:after {
       content: '';
       border-top: 13px solid rgba(250, 250, 250, 0.8);
@@ -86,16 +99,19 @@
       width: 0;
       margin-left: -6.5px;
       bottom: -13px;
-      left: 7%;
+      left: 14%;
     }
     &.photo:after {
-      left: 35%;
+      left: 31%;
     }
     &.video:after {
-      left: 62%;
+      left: 49%;
+    }
+    &.blog:after {
+      left: 65%;
     }
     &.event:after {
-      left: 89%;
+      left: 83%;
     }
     .place-holder {
       position: absolute;
