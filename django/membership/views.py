@@ -59,7 +59,7 @@ def user_tier(request):
             return Response({'error': ['User does not exists']}, status=status.HTTP_400_BAD_REQUEST)
 
         if user.tier == 6 or user.tier == 7:
-            return Response({'error': ['User is profesional']}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': ['Already a profesional']}, status=status.HTTP_400_BAD_REQUEST)
         
         user.__dict__.update(
             **user_data
