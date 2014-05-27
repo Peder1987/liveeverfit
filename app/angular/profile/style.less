@@ -1,165 +1,205 @@
-#profile {
-  .panel-default{
-    height: 80px;
+#page{
+  #profileBg{
 
   }
-  .panel-heading{
-    height: 80px;
+
+  #profile {
+
+    .meta-data{
+      padding-left: 20px;
+
+      i{
+        padding: 5px;
+      }
+    }
+
+    .status-profile{
+      width: 100px;
+      height: auto;
+      margin-top: 15px;
+
+      br {
+        line-height: -10px;
+      }
+
+    }
+
+    h2{
+      color: #FFFFFF;
+    }
+
+    .container {
+      min-height: 80%;
+      padding: 21px;
+      margin: 34px auto;
+      background-color: rgba(250, 250, 250, 0.0);
+    }
+
+    .panel-default {
+      height: 80px;
+
+    }
+    .panel-heading {
+      height: 80px;
+    }
+    @panel-bg: rgba(250, 250, 250, 0.0);
+
+    .ef-from {
+      margin-top: 40px;
+      padding-left: 10px;
+    }
+
+    .red {
+      color: #e80c0c;
+    }
+
+    .green {
+      color: #40f60e;
+    }
+
+    #profile h2, .header {
+      color: #fff;
+    }
+
+    #profile h3.ef-header {
+      font-size: 23px;
+      color: #fff;
+    }
+
+    .ef-header:after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 23px;
+      top: 10px;
+      left: 0;
+      background-color: #178aff;
+    }
+
+    .header {
+      background: rgba(0, 0, 0, .3);
+      line-height: 20px;
+      padding: 0 10px;
+    }
+
+    .header p {
+      padding: 0 20px;
+    }
+
+    .meta-banner {
+      background: rgba(255, 255, 255, .7);
+      margin-bottom: 25px;
+    }
+
+    .profile-left {
+      padding: 15px;
+    }
+
+    .profile-banner {
+      background-image: url('profile/img/profile-banner.jpg');
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: cover;
+      width: 100%;
+      height: 320px;
+    }
+
+    .image-overlay {
+      background: rgba(0, 0, 0, .3);
+      color: #fff;
+      height: 80px;
+      line-height: 50px;
+      padding: 20px;
+      position: absolute;
+      bottom: 0px;
+      width: 96.2%;
+    }
+
+    .image-overlay a {
+      color: #fff;
+      text-decoration: none;
+      background: #178aff;
+      height: 30px;
+      line-height: 30px;
+      padding: 10px;
+    }
+
+    .filters ul {
+      list-style: none;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .filters li {
+      display: inline-block;
+      background: rgba(255, 255, 255, .7);
+      width: 10.8%;
+      margin: 0;
+      text-align: center;
+      line-height: 50px;
+    }
+
+    .newsFeed {
+      margin: 25px 0;
+    }
+
+    .newsFeed .post-outer {
+      padding: 1px 0;
+      background: rgba(255, 255, 255, .3);
+    }
+
+    .post-inner {
+      background-color: #fff;
+      margin: 10px;
+    }
+
+    .post-inner .post-header .timestamp {
+      font-size: .7em;
+    }
+
+    .post-inner .post-social {
+      min-height: 30px;
+      line-height: 30px;
+      padding: 5px;
+    }
+
+    .post-inner .comment-form {
+      padding: 10px 0;
+    }
+
+    .post-inner img, .homePageButtons img {
+      width: 100%;
+    }
+
+    .post-inner .videoWrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      padding-top: 25px;
+      height: 0;
+    }
+
+    .post-inner .videoWrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .status-update-box {
+      text-align: center;
+    }
+
+    .status-update-buttons {
+      padding: 10px;
+    }
+
+    .post-settings {
+      display: block;
+      padding: 5px 5px 0 0;
+    }
+
   }
-  @panel-bg: rgba(250,250,250,0.0);
 
 }
 
-.ef-from{
- margin-top: 7px;
-}
-
-.red {
-  color:#e80c0c;
-}
-
-.green {
-  color:#40f60e;
-}
-
-#profile h2, .header {
-  color:#fff;
-}
-
-#profile h3.ef-header {
-  font-size:23px;
-  color:#fff;
-}
-
-.ef-header:after {
-content: '';
-position: absolute;
-width: 8px;
-height: 23px;
-top: 10px;
-left: 0;
-background-color: #178aff;
-}
-
-.header {
-  background: rgba(0, 0, 0, .3);
-  line-height:87px;
-  padding:0 10px;
-}
-
-.header p {
-  padding:0 20px;
-}
-
-.meta-banner {
-  background: rgba(255, 255, 255, .7);
-  margin-bottom:25px;
-}
-
-.profile-left {
-  padding:15px;
-}
-
-.profile-banner {
-  background-image:url('profile/img/profile-banner.jpg');
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: cover;
-  width:100%;
-  height:320px;
-}
-
-.image-overlay {
-  background: rgba(0, 0, 0, .3);
-  color:#fff;
-  height:80px;
-  line-height:50px;
-  padding:20px;
-  position: absolute;
-  bottom: 0px;
-  width: 96.2%;
-}
-
-.image-overlay a {
-  color:#fff;
-  text-decoration:none;
-  background:#178aff;
-  height:30px;
-  line-height:30px;
-  padding:10px;
-}
-
-.filters ul {
-  list-style:none;
-  padding:0px;
-  margin:0px;
-}
-
-.filters li {
-  display:inline-block;
-  background: rgba(255, 255, 255, .7);
-  width:10.8%;
-  margin:0;
-  text-align:center;
-  line-height:50px;
-}
-
-.newsFeed {
-  margin:25px 0;
-}
-
-.newsFeed .post-outer {
-  padding:1px 0;
-  background: rgba(255, 255, 255, .3);
-}
-
-.post-inner {
-  background-color:#fff;
-  margin:10px;
-}
-
-.post-inner .post-header .timestamp {
-  font-size:.7em;
-}
-
-.post-inner .post-social {
-  min-height:30px;
-  line-height:30px;
-  padding:5px;
-}
-
-.post-inner .comment-form {
-  padding:10px 0;
-}
-
-.post-inner img, .homePageButtons img {
-  width:100%;
-}
-
-.post-inner .videoWrapper {
-position: relative;
-padding-bottom: 56.25%;
-padding-top: 25px;
-height: 0;
-}
-
-.post-inner .videoWrapper iframe {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-}
-
-.status-update-box {
-  text-align:center;
-}
-
-.status-update-buttons {
-  padding:10px;
-}
-
-.post-settings {
-  display:block;
-  padding:5px 5px 0 0;
-}
