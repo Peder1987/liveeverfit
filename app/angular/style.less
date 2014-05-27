@@ -59,6 +59,14 @@
 
 @badge-bg: @ever-blue;
 
+
+@list-group-bg: rgba(216, 213, 213, 0.32);
+@list-group-border: transparent;
+@list-group-hover-bg: rgba(199, 197, 197, 0.32);
+@list-group-link-color: #a1a1a1;
+@list-group-active-bg: fade(@component-active-bg, 30%);
+@list-group-active-border: transparent;
+
 *:focus {
   outline: 0!important;
 }
@@ -68,6 +76,44 @@
   top: 65px;
   bottom: 0px;
   width: 100%;
+  > div:not(.exclude) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    &:nth-child(1) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      background-image: url('home/img/home_bg.jpg');
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: cover;
+    }
+    &:nth-child(2) {
+      overflow-y: scroll;
+      padding-top: 30px;
+      .container {
+        background-color: rgba(250, 250, 250, .89);
+        min-height: 80%;
+        padding: 21px;
+        margin: 34px auto;
+      }
+      .container:before {
+        background-image: url("common/img/container-logo.png");
+        width: 145px;
+        height: 27px;
+        position: absolute;
+        top: 30px;
+      }
+    }
+
+  }
+
 }
 #page.no-nav {
   top: 0px;

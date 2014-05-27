@@ -29,22 +29,22 @@ class Entry(TimeStampedModel):
 class TextEntry(Entry):
     type = 'text'
     
-
-class PictureEntry(Entry):
+class PhotoEntry(Entry):
     type = 'photo'
     img = models.ImageField(_('image'), upload_to=get_upload_path, blank=False)
 
 class VideoEntry(Entry):
     type = 'video'
-    video = models.FileField(_('Video'), upload_to=get_upload_path, blank=False)
+    url = models.FileField(_('Video'), upload_to=get_upload_path, blank=False, default=True)
 
 class EventEntry(Entry, TimeFramedModel):
     type= 'event'
-    pass
+    allday = models.BooleanField(_('All day'), default=False)
 
 class BlogEntry(Entry):
     type = 'blog'
-    pass
+    body = models.CharField(_('Body'), max_length=500, default='')
+    
 
 
 class Comment(TimeStampedModel):

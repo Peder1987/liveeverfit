@@ -78,7 +78,8 @@ define(['app'], function (app) {
                             }),
                             text: function () {
                                 this.entryCollection.save({
-                                    text: $scope.entryInputText
+                                    text: $scope.entryInputText,
+                                    user: $scope.user_id
                                 }, function (data) {
                                     $scope.feedList.push(data);
                                     $scope.entryInputText = '';
@@ -89,7 +90,7 @@ define(['app'], function (app) {
                                     $scope.upload = $upload.upload({
                                         url: $scope.restProtocol + '://' + $scope.restURL + '/feed/photo',
                                         data: {
-                                            user: $scope.user_email,
+                                            user: $scope.user_id,
                                             text: $scope.entryInputText
                                         },
                                         file: $scope.uploadImg,
