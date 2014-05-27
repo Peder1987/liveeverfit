@@ -65,14 +65,22 @@ define(['app'], function (app) {
                                 });
                             },
                             photo: function () {
+
+
                                 if($scope.uploadImg && $scope.entryInputText) {
                                     $scope.upload = $upload.upload({
                                         url: $scope.restProtocol + '://' + $scope.restURL + '/feed/photo',
-                                        img: $scope.uploadImg,
-                                        text: $scope.entryInputText
+                                        data: {
+                                            user: $scope.user_email,
+                                            text: $scope.entryInputText
+                                        },
+                                        file: $scope.uploadImg,
+                                        fileFormDataName: 'img'
                                     }).progress(function (evt) {
                                         $scope.percent = parseInt(100.0 * evt.loaded / evt.total);
                                     }).success(function (data) {
+                                        $scope.feedList.unshift(data);
+                                        $scope.entryInputText = '';
                                         delete $scope.uploadImg;
                                     }).error(function (data) {
                                         $scope.percent = false;
@@ -119,7 +127,8 @@ define(['app'], function (app) {
             }, {
                 update: { method: 'PUT' }
             });
-            $scope.commentResource = $resource(":protocol://:url/feed/comment", {
+            $scope.commentResource = $resource(":protocol://:url/feed/comment/:id", {
+                id: '@id',
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
             }, {
@@ -141,6 +150,25 @@ define(['app'], function (app) {
                     obj.comments.push(data)
                 });
             };
+
+            $scope.deleteComment = function (index, comment, entry) {
+                var commentObj = {
+                    id:comment.id
+                };
+                entry.comments.splice(index, 1);
+                console.log(commentObj)
+                
+                $scope.commentResource.delete(commentObj, function(){
+
+                });
+            };
+            $scope.editComment = function (index, comment) {
+                var attrs;
+                $scope.commentResource.update(comment, function(){
+
+                });
+            };
+
         }]);
 
     app.register.directive('ngInput', function () {

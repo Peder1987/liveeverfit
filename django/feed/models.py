@@ -31,7 +31,7 @@ class TextEntry(Entry):
     
 
 class PictureEntry(Entry):
-    type = 'picture'
+    type = 'photo'
     img = models.ImageField(_('image'), upload_to=get_upload_path, blank=False)
 
 class VideoEntry(Entry):

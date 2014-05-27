@@ -15,8 +15,9 @@
 	        </div>
 	        <div ng-switch="entry.type">
 				
-				<div ng-switch-when="picture"> 
-					picture
+				<div ng-switch-when="photo"> 
+					photo
+					{{entry.text}}
 					<img ng-src="/media/{{entry.img}}" >
 				</div>
 				<div ng-switch-when="video"> 
@@ -51,14 +52,16 @@
 	        <div class="comments">
 	            <div class="comment-form row">
 	                <div class="col-md-2 col-xs-2">
-	                    <img src="../home/img/jason.jpg" class="img-rounded">
+	                    <img ng-src="/media/{{entry.user.img}}" class="img-rounded">
 	                </div>
 	                <div class="col-md-10 col-xs-10">
 	                    <div >
 	                        <input  class="form-control" ng-enter="submitComment(entry)" placeholder="Encourage, motivate, inspire" ng-model="commentInput">
 	                  	</div>
 	                  	<div ng-hide="entry.comments.length">No comments found</div>
-						<div ng-repeat="comment in entry.comments" >
+						<div ng-repeat="comment in entry.comments" class="list-group-item" >
+							<button class="close" ng-click="deleteComment($index, comment, entry)">x</button>
+							
                             <div class="media">
                                 <img class="media-object pull-left"
                                      ng-src="{{comment.img}}"
