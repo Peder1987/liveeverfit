@@ -1,15 +1,15 @@
 import ast, json
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
-from feed.models import Entry, TextEntry, PictureEntry, VideoEntry, EventEntry, BlogEntry, Comment
+from feed.models import Entry, TextEntry, PhotoEntry, VideoEntry, EventEntry, BlogEntry, Comment
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class FeedUserSerializer(serializers.ModelSerializer):
-	likes = serializers.Field(source="likes.count")
 	class Meta:
 		model = User
 		fields = ("first_name", "last_name", "id", "img")
+		read_only_fields = ('first_name', 'last_name', 'img')
 
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(slug_field="email", required=False)
@@ -21,21 +21,21 @@ class AbstractEntrySerializer(serializers.ModelSerializer):
 	type = serializers.Field(source="type")
 	comments = CommentSerializer(source="comments", required=False)
 	likes = serializers.Field(source="likes.count")
-	user = FeedUserSerializer()
+	#nesting causes problems in creation of a entry, explicit calls made cleaner code
+	profile_img = serializers.CharField(source='user.img.url', required=False)
+	first_name = serializers.CharField(source='user.first_name', required=False)
+	last_name = serializers.CharField(source='user.last_name', required=False)
+
 
 class TextEntrySerializer(AbstractEntrySerializer):
 	
 	class Meta:
 		model = TextEntry
 
-class PictureEntrySerializer(AbstractEntrySerializer):
-	user = serializers.SlugRelatedField(slug_field="email")
+class PhotoEntrySerializer(AbstractEntrySerializer):
+	
 	class Meta:
-		model = PictureEntry
-
-class CreatePictureEntrySerializer(serializers.ModelSerializer):
-	class Meta:
-		model = PictureEntry
+		model = PhotoEntry	
 
 class VideoEntrySerializer(AbstractEntrySerializer):
 	class Meta:
@@ -53,13 +53,13 @@ class BlogEntrySerializer(AbstractEntrySerializer):
 class EntrySerializer(serializers.ModelSerializer):
 	comments = CommentSerializer(source="comments")
 	likes = serializers.Field(source="likes.count")
-	user = FeedUserSerializer()
+	#user = FeedUserSerializer()
 	
 	def to_native(self, value):
 		class_type = value.__class__.__name__
 
-		if class_type == 'PictureEntry':
-			obj = PictureEntrySerializer(instance=value).data
+		if class_type == 'PhotoEntry':
+			obj = PhotoEntrySerializer(instance=value).data
 		elif class_type == 'VideoEntry':
 			obj = VideoEntrySerializer(instance=value).data
 		elif class_type == 'EventEntry':

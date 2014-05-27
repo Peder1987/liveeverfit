@@ -9,9 +9,9 @@ from rest_framework import generics
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from feed.permissions import IsOwnerOrReadOnly
-from feed.serializers import EntrySerializer, TextEntrySerializer, PictureEntrySerializer, VideoEntrySerializer, EventEntrySerializer
-from feed.serializers import CreatePictureEntrySerializer, BlogEntrySerializer, CommentSerializer
-from feed.models import PictureEntry, VideoEntry, EventEntry, BlogEntry, Entry, Comment, TextEntry
+from feed.serializers import EntrySerializer, TextEntrySerializer, PhotoEntrySerializer, VideoEntrySerializer, EventEntrySerializer
+from feed.serializers import BlogEntrySerializer, CommentSerializer
+from feed.models import PhotoEntry, VideoEntry, EventEntry, BlogEntry, Entry, Comment, TextEntry
 
 
 class EntryListView(generics.ListAPIView):
@@ -31,14 +31,13 @@ class TextEntryViewSet(viewsets.ModelViewSet):
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = TextEntrySerializer
 
-class PictureEntryViewSet(viewsets.ModelViewSet):
-	model = PictureEntry
+class PhotoEntryViewSet(viewsets.ModelViewSet):
+	model = PhotoEntry
 	permission_classes = (IsOwnerOrReadOnly,)
-	serializer_class = PictureEntrySerializer
+	serializer_class = PhotoEntrySerializer
 	def get_serializer_class(self):
-		if self.request.method == 'POST':
-			print 'posting'
-		return PictureEntrySerializer
+		
+		return PhotoEntrySerializer
 
 
 class VideoEntryViewSet(viewsets.ModelViewSet):

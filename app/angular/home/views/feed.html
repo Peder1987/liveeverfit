@@ -5,16 +5,21 @@
 	            <a class="post-settings" href="#"><i class="fa fa-cog fa-lg pull-right"></i></a>
 	            <div class="row">
 	            	<div class="col-md-2">
-	            		<img ng-src="/media/{{entry.user.img}}" class="img-rounded">
+	            		<img ng-src="{{entry.profile_img}}" class="img-rounded">
 	            	</div>
 	            	<div class="col-md-10">
-	            		<span class="posted-by"><a href="#">{{entry.user.first_name}} {{entry.user.last_name}}</a></span><br>
+	            		<span class="posted-by"><a href="#">{{entry.first_name}} {{entry.last_name}}</a></span><br>
 	            		<span class="timestamp">shared {{entry.created |  date : longDate }}</span>
 	            	</div>
 	            </div>
 	        </div>
 	        <div ng-switch="entry.type">
 				
+				<div ng-switch-when="text"> 
+					Text
+					{{entry.text}}
+				
+				</div>
 				<div ng-switch-when="photo"> 
 					photo
 					{{entry.text}}
@@ -52,7 +57,7 @@
 	        <div class="comments">
 	            <div class="comment-form row">
 	                <div class="col-md-2 col-xs-2">
-	                    <img ng-src="/media/{{entry.user.img}}" class="img-rounded">
+	                    <img ng-src="{{entry.profile_img}}" class="img-rounded">
 	                </div>
 	                <div class="col-md-10 col-xs-10">
 	                    <div >
