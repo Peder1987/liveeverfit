@@ -15,8 +15,8 @@ define(['app'], function(app) {
 
 			$scope.step = 'auth';
 			$scope.auth = {
-				email: 'migueldv90@yahoo.com',
-				password: '123456789'
+				email: '',
+				password: ''
 			};
 			$scope.user = {
 				id: localStorageService.get('user_id'),
@@ -49,11 +49,11 @@ define(['app'], function(app) {
 				lng: ''
 			};
 			$scope.creditcard = {
-				name : 'miguel vazquez',
-				number : '4242424242424242',
-				cvc : '123',
-				exp_month : '9',
-				exp_year : '2014',
+				name : '',
+				number : '',
+				cvc : '',
+				exp_month : '',
+				exp_year : '',
 				address_line1 : "",
 				address_line2 : "",
 				address_city : "",
