@@ -50,7 +50,8 @@ define(['angularAMD', 'uiRouter','geolocation','uiBootstrap','routeResolver','an
                 .state('terms', route.resolve('/terms', 'terms'))
                 .state('faq', route.resolve('/faq', 'faq'))
                 .state('membership', route.resolve('/membership', 'membership'))
-                .state('profile', route.resolve('/profile', 'profile'));
+                .state('profile', route.resolve('/profile', 'profile'))
+                .state('profile.view', route.resolve('/:view', 'profile'));
 
             $urlRouterProvider.otherwise("/");
         }

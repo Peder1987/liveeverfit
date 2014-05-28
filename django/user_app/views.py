@@ -10,9 +10,9 @@ from rest_framework import generics
 
 from .filters import UserFilter, GenderFilterBackend, ProfessionFilterBackend, LocationFilterBackend, AcceptingFilterBackend, TagFilterBackend
 from .filters import OwnerFilterBackend, QueueFilterBackend
-from .serializers import UserSerializer, PasswordSerializer, GroupSerializer, ProfessionalListSerializer, LocationSerializer, ClientListSerializer
-from .serializers import PaymentSerializer, ModifyMembershipSerializer, CreditcardSerializer, ProfessionalSerializer
-from .permissions import IsAdminOrSelf
+from .serializers import SettingsSerializer, PasswordSerializer, GroupSerializer, ProfessionalListSerializer, LocationSerializer, ClientListSerializer
+from .serializers import PaymentSerializer, ModifyMembershipSerializer, CreditcardSerializer, SettingsProfessionalSerializer, ProfileSerializer
+from .permissions import IsAdminOrSelf, IsOwnerOrReadOnly, AuthenticatedReadOnly
 from .models import Professional, UniqueLocation
 
 
@@ -20,9 +20,14 @@ from .models import Professional, UniqueLocation
 class UserViewSet(generics.RetrieveUpdateDestroyAPIView):
     model = User
     permission_classes = (IsAdminOrSelf,)
-    serializer_class = UserSerializer
+    serializer_class = SettingsSerializer
     filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
 
+class ProfileView(generics.RetrieveAPIView):
+    model = User
+    permission_classes = (AuthenticatedReadOnly,)
+    serializer_class = ProfileSerializer
+    filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
 
 class GroupViewSet(viewsets.ModelViewSet):
     model = Group
@@ -49,7 +54,7 @@ class ProfessionalListView(generics.ListAPIView):
 
 class ProfessionalObjView(generics.RetrieveUpdateDestroyAPIView):
     model = Professional
-    serializer_class = ProfessionalSerializer
+    serializer_class = SettingsProfessionalSerializer
     permission_classes = (IsAdminOrSelf,)
     filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
 

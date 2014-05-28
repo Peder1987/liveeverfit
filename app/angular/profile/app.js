@@ -1,22 +1,32 @@
 'use strict';
 
 define(['app'], function(app) {
+    app.register.controller('profileCtrl', ['$scope', 'restricted',
+        function ($scope) {
+            $scope.restricted();
+    }]);
 
-    app.register.controller('profileCtrl', ['$scope', '$resource', '$modal', '$http', 'localStorageService', 'rest', 'tokenError',
-        function ($scope, $resource, $modal, $http, localStorageService, tokenError) {
+    app.register.controller('profileController', ['$scope', "$stateParams", '$resource', '$modal', '$http', 'localStorageService', 'rest', 'tokenError',
+        function ($scope, $stateParams, $resource, $modal, $http, localStorageService, tokenError) {
             $scope.user_id = localStorageService.get('user_id');
             var userResource = $resource(":protocol://:url/users/:id/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
                 id: $scope.user_id
-            }, {update: { method: 'PUT' }});
-
-            var professionalResource = $resource(":protocol://:url/users/professionals/:id/", {
+            }, {update: { method: 'PUT' }}),
+            professionalResource = $resource(":protocol://:url/users/professionals/:id/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
                 id: $scope.user_id
-            }, {update: { method: 'PUT' }});
-            //init
+            }, {update: { method: 'PUT' }}),
+            getProfile = function(){
+                console.log($stateParams)
+                if($stateParams.view){
+                    console.log('id!')
+                }
+
+            };
+            //init and assign which resource
             $scope.profile_user = userResource.get(function () {
                 if ($scope.profile_user.type == "professional") {
                     $scope.profileResource = professionalResource
@@ -25,6 +35,9 @@ define(['app'], function(app) {
                     $scope.profileResource = userResource
                 }
             }, $scope.checkTokenError);
+
+
+            $scope.$on('$stateChangeSuccess', getProfile);
 
 
             

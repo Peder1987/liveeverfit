@@ -13,27 +13,24 @@ class CertificationSerializer(serializers.ModelSerializer):
         model = Certification
         exclude = ('user',)
 
-
-class ProfessionalSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(source='email', required=False)
-    img = serializers.ImageField(allow_empty_file=True, required=False)
-    certifications = CertificationSerializer(many=True, allow_add_remove=True)
-    tags = serializers.Field(source='tags.all')
-    def to_native(self, value):
-        obj = super(ProfessionalSerializer, self).to_native(value)
-        return obj
-    class Meta:
-        model = Professional
-        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list")
-
-
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = ('city', 'state')
 
+class SettingsProfessionalSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source='email', required=False)
+    img = serializers.ImageField(allow_empty_file=True, required=False)
+    certifications = CertificationSerializer(many=True, allow_add_remove=True)
+    tags = serializers.Field(source='tags.all')
+    def to_native(self, value):
+        obj = super(SettingsProfessionalSerializer, self).to_native(value)
+        return obj
+    class Meta:
+        model = Professional
+        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list")
 
-class UserSerializer(serializers.ModelSerializer):
+class SettingsSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(source='id', required=True)  
     first_name = serializers.CharField(source='first_name', required=False)
     last_name = serializers.CharField(source='last_name', required=False)
@@ -41,7 +38,7 @@ class UserSerializer(serializers.ModelSerializer):
     last_login_on = serializers.DateTimeField(source='last_login',read_only=True)
     joined_on = serializers.DateTimeField(source='date_joined', read_only=True)
     img = serializers.ImageField(allow_empty_file=True, required=False)
-    referred_by = ProfessionalSerializer(required=False)
+    referred_by = SettingsProfessionalSerializer(required=False)
     primary_address = AddressSerializer(required=False)
 
     class Meta:
@@ -49,14 +46,61 @@ class UserSerializer(serializers.ModelSerializer):
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',)
 
     def to_native(self, value):
-        obj = super(UserSerializer, self).to_native(value)
+        obj = super(SettingsSerializer, self).to_native(value)
         user_tier = obj.get('tier')
         user_id = obj.get('id')
         if user_tier == 7 or user_tier == 6:
             if Professional.objects.filter(pk = user_id).exists():
                 pro = Professional.objects.get(pk=user_id)
-                obj = ProfessionalSerializer(instance=pro).data
+                obj = SettingsProfessionalSerializer(instance=pro).data
                 obj['shopify_sales'] = pro.shopify_sales()
+            obj['type'] = 'professional'
+        elif user_tier <= 5 and user_tier >= 2:
+            obj['type'] = 'upgraded'
+        else:
+            obj['type'] = 'user'
+        return obj
+
+
+class ProfileProfessionalSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source='email', required=False)
+    img = serializers.ImageField(allow_empty_file=True, required=False)
+    certifications = CertificationSerializer(many=True, allow_add_remove=True)
+    tags = serializers.Field(source='tags.all')
+    def to_native(self, value):
+        obj = super(ProfileProfessionalSerializer, self).to_native(value)
+        return obj
+    class Meta:
+        model = Professional
+        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list",
+                    'tier', 'referred_by', 'shopify_id', 'chargify_id', 'stripe_id', 'phone', 'is_professional',
+                    'is_upgraded', 'is_superuser', 'primary_address', 'is_staff', 'queue',)                    
+
+    
+class ProfileSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(source='id', required=True)  
+    first_name = serializers.CharField(source='first_name', required=False)
+    last_name = serializers.CharField(source='last_name', required=False)
+    last_login_on = serializers.DateTimeField(source='last_login',read_only=True)
+    joined_on = serializers.DateTimeField(source='date_joined', read_only=True)
+    img = serializers.ImageField(allow_empty_file=True, required=False)
+    
+
+
+    class Meta:
+        model = User
+        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', 'primary_address'
+
+                    )
+
+    def to_native(self, value):
+        obj = super(ProfileSerializer, self).to_native(value)
+        user_tier = obj.get('tier')
+        user_id = obj.get('id')
+        if user_tier == 7 or user_tier == 6:
+            if Professional.objects.filter(pk = user_id).exists():
+                pro = Professional.objects.get(pk=user_id)
+                obj = ProfileProfessionalSerializer(instance=pro).data
             obj['type'] = 'professional'
         elif user_tier <= 5 and user_tier >= 2:
             obj['type'] = 'upgraded'
@@ -137,4 +181,4 @@ class PaymentSerializer(serializers.ModelSerializer):
         stripe_token = obj['stripeToken']
         value.stripe_edit_creditcard(stripe_token)
 
-    
+
