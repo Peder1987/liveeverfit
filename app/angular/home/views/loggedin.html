@@ -7,7 +7,6 @@
                 </slide>
             </carousel>
         </div>
-
         <div class="homePageButtons xs-up">
 
             <div class="row">
@@ -30,7 +29,7 @@
 
         <div class="newsFeed" ng-controller="feedController">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-xs-12 col-md-8">
                     <div class="post-outer ">
                         <div class="status-update">
                             <div class="input-box {{entryInputType}}">
@@ -128,24 +127,30 @@
                                         </label>
                                     </div>
                                 </div>
+                                <div class="blog" ng-show="entryInputType=='blog'" rich-text-editor ng-model="$parent.entryBlogBody"></div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-xs-offset-1 col-xs-2">
                                     <a href ng-click="selectEntryInputType('text')">
                                         <i class="fa fa-pencil fa-2x"></i><br>Text
                                     </a>
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
                                     <a href ng-click="selectEntryInputType('photo')">
                                         <i class="fa fa-camera-retro fa-2x"></i><br>Photo
                                     </a>
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
                                     <a href ng-click="selectEntryInputType('video')">
                                         <i class="fa fa-play-circle fa-2x"></i><br>Video
                                     </a>
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
+                                    <a href ng-click="selectEntryInputType('blog')">
+                                        <i class="fa fa-edit fa-2x"></i><br>Blog
+                                    </a>
+                                </div>
+                                <div class="col-xs-2">
                                     <a href ng-click="selectEntryInputType('event')">
                                         <i class="fa fa-calendar fa-2x"></i><br>Event
                                     </a>

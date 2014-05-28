@@ -46,6 +46,7 @@ define(['app'], function (app) {
                 entryInputPlaceHolder: "Encourage, motivate, persevere, succeed...",
                 entryInputText: "",
                 entryVideoURL: "",
+                entryBlogBody: "",
                 entryInputType: "text",
                 entryEvent: {
                     start: "",
@@ -135,7 +136,15 @@ define(['app'], function (app) {
                                 });
                             },
                             blog: function () {
-
+                                this.entryCollection.save({
+                                    text: $scope.entryInputText,
+                                    body: $scope.entryBlogBody,
+                                    user: $scope.user_id
+                                }, function (data) {
+                                    $scope.feedList.push(data);
+                                    $scope.entryInputText = '';
+                                    $scope.entryBlogBody = '';
+                                });
                             },
                             comment: function () {
 
@@ -146,13 +155,12 @@ define(['app'], function (app) {
                 selectEntryInputType: function (type) {
                     var scope = this;
                     scope.entryInputType = type;
-                    if (type == 'event') {
+                    if (type == 'event' || type == 'blog') {
                         $scope.entryInputPlaceHolder = "Title or Description";
                         $scope.entryInputText = '';
                     }
                     else {
                         $scope.entryInputPlaceHolder = "Encourage, motivate, persevere, succeed...";
-
                     }
                 },
                 onFileSelect: function ($files) {
@@ -233,6 +241,34 @@ define(['app'], function (app) {
             };
 
         }]);
+
+    app.register.directive('richTextEditor', function () {
+        return {
+            restrict: "A",
+            require: '?ngModel',
+            replace: true,
+            transclude : true,
+            template: '<div><textarea></textarea></div>',
+            link: function (scope, element, attrs, ngModel) {
+                if (!ngModel) return; // do nothing if no ng-model
+                var textarea = $(element.find('textarea')).wysihtml5(),
+                    editor = textarea.data('wysihtml5').editor;
+                // view -> model
+                editor.on('change', function () {
+                    if (editor.getValue())
+                        scope.$apply(function () {
+                            ngModel.$setViewValue(editor.getValue());
+                        });
+                });
+                // model -> view
+                ngModel.$render = function () {
+                    textarea.html(ngModel.$viewValue);
+                    editor.setValue(ngModel.$viewValue);
+                };
+                ngModel.$render();
+            }
+        };
+    });
 
     app.register.directive('ngInput', function () {
         return {

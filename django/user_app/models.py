@@ -89,7 +89,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     referred_by = models.ForeignKey('Professional', null=True, related_name='user_reference', blank=True, default=default_ref)
     shopify_id = models.IntegerField(default=0, blank=True)
     chargify_id = models.IntegerField(default=0, blank=True)
-    stripe_id = models.CharField(max_length=50, blank=True, default='')
+    stripe_id = models.CharField(max_length=255, blank=True, default='')
 
     url = models.CharField(_('url'), max_length=100, blank=True)
     phone = models.CharField(max_length=20, blank=True, default='')

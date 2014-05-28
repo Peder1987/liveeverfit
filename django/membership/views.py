@@ -120,3 +120,21 @@ def upgrade_to_professional(request):
         return Response({'details': 'success'}, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+def cancel(request):
+    serialized = UserSerializer(data=request.DATA)
+    if serialized.is_valid():
+        user_data = {field: data for (field, data) in request.DATA.items()}
+        user_id = user_data.get('id')
+    
+        if User.objects.filter(id = user_id).exists():
+            user = User.objects.get(id = user_id)
+            user.tier = 1
+            user.save()
+
+        return Response({'details': 'success'}, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
