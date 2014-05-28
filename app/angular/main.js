@@ -66,6 +66,7 @@ require.config({
         'bootstrap.wysihtml5.en-US': 'common/bootstrap3-wysihtml5-bower/dist/locales/bootstrap-wysihtml5.en-US',
         'bootstrap.modal': 'common/bootstrap/js/modal', // I needed this to get the wysihtml5 image and link modals working
         'rangy': 'common/rangy-1.3/rangy-core',
+        'masonry': 'common/masonry/dist/masonry.pkgd',
         'app': 'app'
 
     },
@@ -95,6 +96,7 @@ require.config({
         'geolocation': ['angular'],
         'angularFileUpload': ['angular'],
         'jcrop': ['jquery'],
+        'masonry': ['jquery'],
         'bootstrap.modal': ['jquery'],
         'bootstrap.wysihtml5': ['jquery', 'rangy','bootstrap.modal'],
         'bootstrap.wysihtml5.en-US': ['bootstrap.wysihtml5']
