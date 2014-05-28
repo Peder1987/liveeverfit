@@ -29,6 +29,10 @@ define(['app'], function(app) {
 					$scope.message = error.data;
 				});
 			}
+
+            $scope.closeAlert = function (error) {
+                delete $scope.message[error];
+            };
 	
 	
 	}]);
