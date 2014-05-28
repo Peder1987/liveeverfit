@@ -42,12 +42,33 @@ define(['app', 'masonry'], function (app, Masonry) {
     app.register.controller('feedController', ['localStorageService', '$scope', '$resource', 'rest', 'fileReader', '$upload', '$sce',
         function (localStorageService, $scope, $resource, rest, fileReader, $upload, $sce) {
             angular.extend($scope, {
+                usrImg: localStorageService.get('user_img'),
                 entryInputPlaceHolder: $sce.trustAsHtml("Encourage, motivate, persevere, succeed..."),
                 entryInputText: "",
                 entryVideoURL: "",
                 entryBlogBody: "",
                 entryVideoURLID: "",
                 entryInputType: "text",
+                likeEntry: function(entry) {
+                    //Some Functionality to like
+                    $scope.likeResource.update({
+                        id: entry.id,
+                        user: $scope.user_id
+                    }, function (data) {
+                        entry.user_likes = data.user_likes;
+                        if (data.user_likes) {
+                            entry.likes += 1;
+                        } else {
+                            entry.likes -= 1;
+                        }
+                    });
+                },
+                getTrustedURL: function(url) {
+                    return $sce.trustAsResourceUrl(url);
+                },
+                getTrustedHtml: function (html) {
+                    return $sce.trustAsHtml(html);
+                },
                 runMasonry: function() {
                     if($scope.msnry)$scope.msnry.destroy();
                     setTimeout(function() {
@@ -56,9 +77,15 @@ define(['app', 'masonry'], function (app, Masonry) {
                             itemSelector: '.item',
                             transitionDuration: '0.2s'
                         });
-                    }, 10);
+                    }, 3);
+                },
+                refreshMasonry: function() {
+                    setTimeout(function() {
+                        $scope.msnry.layout();
+                    });
                 },
                 entryYouTubeChange: function () {
+                    $scope.refreshMasonry();
                     if ($scope.entryVideoURL) {
                         if ($scope.entryVideoURL.indexOf("watch?v=") > -1) {
                             $scope.entryVideoURLID = '//www.youtube.com/embed/' + this.entryVideoURL.slice(this.entryVideoURL.indexOf("watch?v=") + 8)
@@ -221,6 +248,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                 selectEntryInputType: function (type) {
                     var scope = this;
                     scope.entryInputType = type;
+                    scope.refreshMasonry();
                     scope.entryImgSrc = '';
                     if (type == 'event' || type == 'blog') {
                         $scope.entryInputPlaceHolder = $sce.trustAsHtml("Title or Description");
@@ -232,14 +260,25 @@ define(['app', 'masonry'], function (app, Masonry) {
                 },
                 onFileSelect: function ($files) {
                     $scope.uploadImg = $files[0];
+                    $scope.refreshMasonry();
                     fileReader.readAsDataUrl($scope.uploadImg, $scope).then(function (result) {
                         $scope.entryImgSrc = result;
                         $scope.percent = undefined;
+                        $scope.refreshMasonry();
                     });
                 }
             });
             $scope.user_id = localStorageService.get('user_id');
             $scope.user_email = localStorageService.get('user_email');
+            $scope.likeResource = $resource(":protocol://:url/feed/likes/:id/", {
+                protocol: $scope.restProtocol,
+                url: $scope.restURL,
+                id: '@id'
+            }, {
+                update: {
+                    method: 'PUT'
+                }
+            });
             $scope.feedCollection = $resource(":protocol://:url/feed", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
@@ -281,27 +320,27 @@ define(['app', 'masonry'], function (app, Masonry) {
                 $scope.entryResource.delete(entryObj, $.noop());
             };
             $scope.flagEntry = function (entry){
-                console.log(entry.id)
-                var entryObj = {
+                $scope.flagResource.save({
                     entry : entry.id,
                     reporter : $scope.user_id
-
-                }
-                
-                $scope.flagResource.save(entryObj, function(){
+                }, function(){
 
                 });
             };
 
-            $scope.submitComment = function (obj) {
+            $scope.submitComment = function (entry) {
                 var scope = this,
                     commentObj = {
-                        text: scope.commentInput,
+                        text: entry.commentInput,
                         user: $scope.user_email,
-                        entry: obj.id
+                        entry: entry.id
                     };
                 $scope.commentResource.save(commentObj, function (data) {
-                    obj.comments.push(data)
+                    entry.comments.unshift(data);
+                    setTimeout(function() {
+                        $scope.msnry.layout();
+                    });
+                    entry.commentInput = '';
                 });
             };
 
