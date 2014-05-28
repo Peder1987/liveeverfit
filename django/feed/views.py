@@ -10,8 +10,8 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from feed.permissions import IsOwnerOrReadOnly
 from feed.serializers import EntrySerializer, TextEntrySerializer, PhotoEntrySerializer, VideoEntrySerializer, EventEntrySerializer
-from feed.serializers import BlogEntrySerializer, CommentSerializer
-from feed.models import PhotoEntry, VideoEntry, EventEntry, BlogEntry, Entry, Comment, TextEntry
+from feed.serializers import BlogEntrySerializer, CommentSerializer, FlaggedSerializer
+from feed.models import PhotoEntry, VideoEntry, EventEntry, BlogEntry, Entry, Comment, TextEntry, Flagged
 
 
 class EntryListView(generics.ListAPIView):
@@ -61,3 +61,9 @@ class CommentViewSet(viewsets.ModelViewSet):
 	model = Comment
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = CommentSerializer
+
+
+class FlaggedCreateView(generics.CreateAPIView):
+	model = Flagged
+	permission_classes = (IsOwnerOrReadOnly,)
+	serializer_class = FlaggedSerializer

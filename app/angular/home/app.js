@@ -194,6 +194,10 @@ define(['app'], function (app) {
             }, {
                 update: { method: 'PUT' }
             });
+            $scope.flagResource = $resource(":protocol://:url/feed/flag", {
+                protocol: $scope.restProtocol,
+                url: $scope.restURL
+            });
             //init feed
             $scope.feedCollection.get({}, function (data) {
                 $scope.feedList = data.results;
@@ -206,6 +210,18 @@ define(['app'], function (app) {
                 }
                 $scope.feedList.splice(index, 1);
                 $scope.entryResource.delete(entryObj, function(){
+
+                });
+            };
+            $scope.flagEntry = function (entry){
+                console.log(entry.id)
+                var entryObj = {
+                    entry : entry.id,
+                    reporter : $scope.user_id
+
+                }
+                
+                $scope.flagResource.save(entryObj, function(){
 
                 });
             };

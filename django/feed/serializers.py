@@ -1,7 +1,7 @@
 import ast, json
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
-from feed.models import Entry, TextEntry, PhotoEntry, VideoEntry, EventEntry, BlogEntry, Comment
+from feed.models import Entry, TextEntry, PhotoEntry, VideoEntry, EventEntry, BlogEntry, Comment, Flagged
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -49,6 +49,9 @@ class BlogEntrySerializer(AbstractEntrySerializer):
 	class Meta:
 		model = BlogEntry
 
+class FlaggedSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Flagged
 
 class EntrySerializer(serializers.ModelSerializer):
 	comments = CommentSerializer(source="comments")

@@ -13,7 +13,8 @@
 	            	</div>
 	            </div>
 	        </div>
-	        <button ng-if="entry.user == user_id" class="close" ng-click="deleteEntry($index, entry)">x</button>
+	        <button ng-if="entry.user == user_id" class="close" ng-click="deleteEntry($index, entry)">x</button><br>
+	        <button class="close" ng-click="flagEntry(entry)">flag</button>
 	        <div ng-switch="entry.type">
 				
 				<div ng-switch-when="text"> 
