@@ -8,3 +8,10 @@ from django.utils.timezone import utc, now
 #from schedule.models import Calendar, Event
 #Write code after this
 ##############################################
+
+
+from user_app.models import Professional
+
+
+for pro in Professional.objects.all():
+	print pro.tier
