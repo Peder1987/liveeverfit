@@ -1,0 +1,95 @@
+<div ng-repeat="entry in feedList">
+	<div class="post-outer">
+		<div class="post-inner">
+	        <div class="post-header">
+	            <a class="post-settings" href="#"><i class="fa fa-cog fa-lg pull-right"></i></a>
+	            <div class="row">
+	            	<div class="col-md-2">
+	            		<img ng-src="{{entry.profile_img}}" class="img-rounded">
+	            	</div>
+	            	<div class="col-md-10">
+	            		<span class="posted-by"><a href="#">{{entry.first_name}} {{entry.last_name}}</a></span><br>
+	            		<span class="timestamp">shared {{entry.created |  date : longDate }}</span>
+	            	</div>
+	            </div>
+	        </div>
+	        <button ng-if="entry.user == user_id" class="close" ng-click="deleteEntry($index, entry)">x</button><br>
+	        <button class="close" ng-click="flagEntry(entry)">flag</button>
+	        <div ng-switch="entry.type">
+				
+				<div ng-switch-when="text"> 
+					Text
+					{{entry.text}}
+				
+				</div>
+				<div ng-switch-when="photo"> 
+					photo
+					{{entry.text}}
+					<img ng-src="/media/{{entry.img}}" >
+				</div>
+				<div ng-switch-when="video"> 
+					video
+					{{entry.video}}
+					<!-- <div class="videoWrapper">
+			            <iframe width="560" height="315" src="/media/{{entry.video}}" frameborder="0" allowfullscreen=""></iframe>
+			        </div> -->
+				</div>
+				<div ng-switch-when="event"> 
+					event
+					Text: {{entry.text}}<br>
+					Start time:{{entry.start}}<br>
+					Stop time:{{entry.end}}<br>
+				</div>
+				<div ng-switch-when="blog"> 
+					blog
+				</div>
+	            <div ng-switch-when="entry"> 
+					Text: {{entry.text}}<br>
+				</div>
+	            
+	        </div>
+	        
+	        
+	        
+	        <div class="post-social">
+	        	<i class="fa fa-thumbs-up fa pull-right">{{entry.likes}}</i>
+	        </div>
+
+
+	        <div class="comments">
+	            <div class="comment-form row">
+	                <div class="col-md-2 col-xs-2">
+	                    <img ng-src="{{entry.profile_img}}" class="img-rounded">
+	                </div>
+	                <div class="col-md-10 col-xs-10">
+	                    <div >
+	                        <input  class="form-control" ng-enter="submitComment(entry)" placeholder="Encourage, motivate, inspire" ng-model="commentInput">
+	                  	</div>
+	                  	<div ng-hide="entry.comments.length">No comments found</div>
+						<div ng-repeat="comment in entry.comments" class="list-group-item" >
+							<button class="close" ng-click="deleteComment($index, comment, entry)">x</button>
+							
+                            <div class="media">
+                                <img class="media-object pull-left"
+                                     ng-src="{{comment.img}}"
+                                     style="width: 36px; height: 36px;">
+
+                                <div class="media-body">
+                                    <div class="col-xs-12 col-sm-9">
+                                        <b class="blue">{{comment.first_name}} {{comment.last_name}}</b><br>
+                                         {{comment.text}}
+                                        <div style="color: #FFFFFF">
+                                            {{ comment.created | date:'fullDate'}}
+                                            at {{comment.created | date: 'shortTime'}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+	                </div>
+	            </div>
+	        </div><!-- ./comments -->
+		</div>
+	</div><!-- /.post-outer -->
+</div>

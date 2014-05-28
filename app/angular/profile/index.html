@@ -8,8 +8,8 @@
 				<div class="col-md-4">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-                            <h2 class="ef-header pull-left">Ashley Seeger
-                            <small> / Austin, TX</small></h2>
+                            <h2 class="ef-header pull-left">{{profile_user.first_name}} {{profile_user.last_name}}
+                            <small> / {{profile_user.location}}</small></h2>
                         </div>
                     </div>
 				</div>
@@ -41,23 +41,20 @@
 								</div><!-- /.profile-picture -->
 							</div><!-- /.col-md-6 -->
 							<div class="col-md-6">
-								<div class="meta-data">
-                                    <i class="fa fa-youtube fa-lg"></i><br>
-                                    <i class="fa fa-twitter fa-lg"></i><br>
-									<i class="fa fa-facebook fa-lg"></i><br>
-                                    <i class="fa fa-google-plus fa-lg"></i><br>
-                                    <i class="fa fa-instagram fa-lg"></i><br>
-                                    <i class="fa fa-linkedin fa-lg"></i>
+								<div class="meta-data" >
+                                    <i class="fa fa-youtube fa-lg">{{profile_user.youtube}}</i><br>
+                                    <i class="fa fa-twitter fa-lg">{{profile_user.twitter}}</i><br>
+									<i class="fa fa-facebook fa-lg">{{profile_user.facebook}}</i><br>
+                                    <i class="fa fa-google-plus fa-lg">{{profile_user.plus}}</i><br>
+                                    <i class="fa fa-instagram fa-lg">{{profile_user.instagram}}</i><br>
+                                    <i class="fa fa-linkedin fa-lg">{{profile_user.linkedin}}</i>
 								</div><!-- /.meta-data -->
 							</div><!-- /.col-md-6 -->
 						</div><!-- /.row -->
 
 						<div class="specialties">
-							<h3 class="ef-header">specialties</h3>
-							<span class="tag tag-blue tag-click">fitness</span>
-							<span class="tag tag-blue tag-click">fitness</span>
-							<span class="tag tag-blue tag-click">fitness</span>
-							<span class="tag tag-blue tag-click">fitness</span>
+							<h3 class="ef-header" >specialties</h3>
+							<span class="tag tag-blue tag-click" ng-repeat="tag in profile_user.tags">{{tag}}</span>
 						</div><!-- /.specialties-->
 					</div><!-- /.profile-left -->
 
@@ -104,165 +101,151 @@
 
 		<div class="content">
 
-			<div class="newsFeed">
+			<div class="newsFeed" ng-controller="feedController">
 	        	<div class="row">
 	        		<div class="col-md-4">
-			        	<div class="post-outer status-update-box">
-			        		<div class="post-inner">
-				                <textarea class="form-control" placeholder="Encourage, motivate, persevere. succeed..." rows="3"></textarea>
-				                
-				                <div class="status-update-buttons">
-				                	<div class="row">
-					                    <div class="col-md-3"><i class="fa fa-pencil fa-2x"></i></div>
-					                    <div class="col-md-3"><i class="fa fa-camera-retro fa-2x"></i></div>
-					                    <div class="col-md-3"><i class="fa fa-play-circle fa-2x"></i></div>
-					                    <div class="col-md-3"><i class="fa fa-calendar fa-2x"></i></div>
-				                	</div>
-				                </div>
-			            	</div>
-			        	</div>
+			        	<div class="status-update">
+                            <form class="input-box {{entryInputType}}">
+                                <div ng-show="!entryInputText" class="place-holder" ng-bind-html="entryInputPlaceHolder"></div>
+                                <div ng-input
+                                     class="input"
+                                     role="textbox"
+                                     contenteditable
+                                     ng-model="entryInputText"
+                                     ng-enter="entrySubmit()"></div>
+                                <div class="photo" ng-if="entryInputType=='photo'">
+                                    <div ng-if="!entryImgSrc&&!percent" class="upload">
+                                        <div class="well well-lg" ng-file-drop="onFileSelect($files)"
+                                             ng-file-drag-over-class="over">
+                                            <i class="fa fa-arrow-down fa-2x"></i>
+                                            <br>
 
-			        	<div class="post-outer">
-		            		<div class="post-inner">
-		                        
-		                        <div class="post-header">
-				                    <a class="post-settings" href="#"><i class="fa fa-cog fa-lg pull-right"></i></a>
-				                    <div class="row">
-				                    	<div class="col-md-2">
-				                    		<img src="../home/img/ashley.jpg" alt="" class="img-rounded" style="width:67px;height:67px;">
-				                    	</div>
-				                    	<div class="col-md-10">
-				                    		<span class="posted-by"><a href="#">Ashley Seeger</a></span><br>
-				                    		<span class="timestamp">shared Feb 8, 20414</span>
-				                    	</div>
-				                    </div>
-				                </div>
+                                            <div>drag & drop</div>
+                                        </div>
+                                    <span class="btn btn-primary">
+                                         upload from computer
+                                        <input id="upload" type="file" accept="image/*" class="upload"
+                                               ng-file-select="onFileSelect($files)">
+                                    </span>
+                                    </div>
+                                    <h3 ng-if="percent">Loading...</h3>
+                                    <progressbar ng-if="percent" class="progress-striped active" value="percent">
+                                        {{percent}}%
+                                    </progressbar>
+                                    <img ng-if="entryImgSrc" ng-src="{{entryImgSrc}}"/>
+                                </div>
+                                <div class="video" ng-if="entryInputType=='video'">
+                                    <div class="form-group">
+                                        <label>Paste YouTube URL here</label>
+                                        <input ng-model="$parent.entryVideoURL" class="form-control" type="text"
+                                               placeholder="" ng-change="entryYouTubeChange()" required/>
+                                    </div>
+                                    <iframe ng-if="entryVideoURLID"
+                                            width="100%"
+                                            ng-src="{{entryVideoURLIDTrusted}}"
+                                            frameborder="0" allowfullscreen >
+                                    </iframe>
+                                </div>
+                                <div class="event" ng-if="entryInputType=='event'">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div class="form-group">
+                                                <label for="eventStart">Start</label>
 
-		                        <div class="videoWrapper">
-		                        <iframe width="560" height="315" src="http://www.youtube.com/embed/9yYKH9K3xdQ" frameborder="0" allowfullscreen=""></iframe>
-		                        </div>
-		                        
-		                        <div class="post-social">
-				                	<i class="fa fa-thumbs-up fa pull-right">2</i>
-				                </div>
+                                                <div class="input-group">
+                                                    <input id="eventStart" type="text" class="form-control"
+                                                           datepicker-popup="MM/dd/yyyy"
+                                                           ng-model="entryEvent.start" min
+                                                           is-open="fromDatePickerOpened"
+                                                           date-disabled="disabled(date, mode)"
+                                                           show-button-bar="false" required/>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary" ng-click="openFromDatePicker($event)">
+                                                            <i class="fa fa-calendar"></i>&ZeroWidthSpace;
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div collapse="entryEvent.allDay">
+                                                <div ng-model="entryEvent.start" ng-change="changed()">
+                                                    <timepicker></timepicker>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <div class="form-group">
+                                                <label for="eventEnd">End</label>
 
-		                        <div class="comments">
-				                    <div class="comment-form row">
-				                        <div class="col-md-2">
-				                            <img src="../home/img/jason.jpg" class="img-rounded">
-				                        </div>
-				                        <div class="col-md-10">
-				                            <div class="form-group">
-				                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Encourage, motivate, inspire">
-				                          </div>
-				                        </div>
-				                    </div>
-				                </div><!-- ./comments -->
-	                    	</div>
-	                	</div><!-- /.post-outer -->
-		        	
+                                                <div class="input-group">
+                                                    <input id="eventEnd" type="text" class="form-control"
+                                                           datepicker-popup="MM/dd/yyyy"
+                                                           ng-model="entryEvent.end"
+                                                           is-open="untilDatePickerOpened"
+                                                           date-disabled="disabled(date, mode)"
+                                                           show-button-bar="false" required/>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary" ng-click="openUntilDatePicker($event)">
+                                                            <i class="fa fa-calendar"></i>&ZeroWidthSpace;
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div collapse="entryEvent.allDay">
+                                                <div ng-model="entryEvent.end" ng-change="changed()">
+                                                    <timepicker></timepicker>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>
+                                            <input type="checkbox" ng-model="entryEvent.allDay">
+                                            All-Day
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="blog" ng-show="entryInputType=='blog'" rich-text-editor ng-model="entryBlogBody"></div>
+                                <button ng-click="entrySubmit()" class="btn btn-primary btn-sm pull-right">share</button>
+                                <span class="clearfix"></span>
+                            </form>
+                            <div class="row">
+                                <div class="col-xs-offset-1 col-xs-2">
+                                    <a href ng-click="selectEntryInputType('text')">
+                                        <i class="fa fa-pencil fa-2x"></i><br>Text
+                                    </a>
+                                </div>
+                                <div class="col-xs-2">
+                                    <a href ng-click="selectEntryInputType('photo')">
+                                        <i class="fa fa-camera-retro fa-2x"></i><br>Photo
+                                    </a>
+                                </div>
+                                <div class="col-xs-2">
+                                    <a href ng-click="selectEntryInputType('video')">
+                                        <i class="fa fa-play-circle fa-2x"></i><br>Video
+                                    </a>
+                                </div>
+                                <div class="col-xs-2">
+                                    <a href ng-click="selectEntryInputType('blog')">
+                                        <i class="fa fa-edit fa-2x"></i><br>Blog
+                                    </a>
+                                </div>
+                                <div class="col-xs-2">
+                                    <a href ng-click="selectEntryInputType('event')">
+                                        <i class="fa fa-calendar fa-2x"></i><br>Event
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
 		        	</div>
 
 		        	<div class="col-md-4">
-			        	<div class="post-outer">
-			        		<div class="post-inner">
-				                
-				                <div class="post-header">
-				                    <a class="post-settings" href="#"><i class="fa fa-cog fa-lg pull-right"></i></a>
-				                    <div class="row">
-				                    	<div class="col-md-2">
-				                    		<img src="../home/img/ashley.jpg" alt="" class="img-rounded" style="width:67px;height:67px;">
-				                    	</div>
-				                    	<div class="col-md-10">
-				                    		<span class="posted-by"><a href="#">Ashley Seeger</a></span><br>
-				                    		<span class="timestamp">shared Feb 8, 20414</span>
-				                    	</div>
-				                    </div>
-				                </div>
-				                
-				                <div class="post-media">
-				                <img src="../home/img/katie-jones.jpg" alt="...">
-				                </div>
-
-				                <div class="post-social">
-				                	<i class="fa fa-thumbs-up fa pull-right">7</i>
-				                </div>
-
-				                <div class="comments">
-				                    <div class="comment-form row">
-				                        <div class="col-md-2">
-				                            <img src="../home/img/jason.jpg" class="img-rounded">
-				                        </div>
-				                        <div class="col-md-10">
-				                            <div class="form-group">
-				                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Encourage, motivate, inspire">
-				                          </div>
-				                        </div>
-				                    </div>
-				                </div><!-- ./comments -->
-
-			            	</div><!-- /.post-inner -->
-		        		</div>
+			        	<div ng-include="'profile/views/feed.html'"
 		        	</div>
 
 		            <div class="col-md-4">
 
-		            	<div class="post-outer">
-		            		
-		            		<div class="post-inner">
-		                        
-		                        <div class="post-header">
-				                    <a class="post-settings" href="#"><i class="fa fa-cog fa-lg pull-right"></i></a>
-				                    <div class="row">
-				                    	<div class="col-md-2">
-				                    		<img src="../home/img/ashley.jpg" alt="" class="img-rounded" style="width:67px;height:67px;">
-				                    	</div>
-				                    	<div class="col-md-10">
-				                    		<span class="posted-by"><a href="#">Ashley Seeger</a></span><br>
-				                    		<span class="timestamp">shared Feb 8, 20414</span>
-				                    	</div>
-				                    </div>
-				                </div>
-
-		                        <div class="videoWrapper">
-
-		                        	<iframe width="560" height="315" src="http://www.youtube.com/embed/vC_ykM5MkfI" frameborder="0" allowfullscreen=""></iframe>
-
-		                        </div><!-- /.videoWrapper -->
-		                        
-		                        <div class="post-social">
-
-				                	<i class="fa fa-thumbs-up fa pull-right">2</i>
-
-				                </div><!-- /.post-social -->
-
-		                        <div class="comments">
-				                    
-				                    <div class="comment-form row">
-
-				                        <div class="col-md-2">
-
-				                            <img src="../home/img/jason.jpg" class="img-rounded">
-
-				                        </div><!-- /.col-md-2 -->
-
-				                        <div class="col-md-10">
-
-				                            <div class="form-group">
-
-				                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Encourage, motivate, inspire">
-
-				                          	</div>
-
-				                        </div><!-- /.col-md-10 -->
-
-				                    </div><!-- /.comment-form row -->
-
-				                </div><!-- ./comments -->
-
-	                    	</div><!-- /.post-inner -->
-	                	
-	                	</div><!-- /.post-outer -->
+		            	
 		            
 		            </div><!-- ./col-md-4 -->
 	        	

@@ -15,6 +15,7 @@ from feed.models import PhotoEntry, VideoEntry, EventEntry, BlogEntry, Entry, Co
 
 
 class EntryListView(generics.ListAPIView):
+	paginate_by = 21
 	serializer_class = EntrySerializer	
 	permission_classes = (IsOwnerOrReadOnly,)
 	filter_backends = (filters.OrderingFilter,)

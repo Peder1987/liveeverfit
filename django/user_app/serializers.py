@@ -18,7 +18,7 @@ class ProfessionalSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='email', required=False)
     img = serializers.ImageField(allow_empty_file=True, required=False)
     certifications = CertificationSerializer(many=True, allow_add_remove=True)
-
+    tags = serializers.Field(source='tags.all')
     def to_native(self, value):
         obj = super(ProfessionalSerializer, self).to_native(value)
         return obj
