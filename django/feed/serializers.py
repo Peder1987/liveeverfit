@@ -1,7 +1,7 @@
 import ast, json
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
-from feed.models import Entry, TextEntry, PhotoEntry, VideoEntry, EventEntry, BlogEntry, Comment
+from feed.models import Entry, TextEntry, PhotoEntry, VideoEntry, EventEntry, BlogEntry, Comment, Flagged
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -14,6 +14,8 @@ class FeedUserSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(slug_field="email", required=False)
     img = serializers.CharField(source='user.img.url', required=False)
+    first_name = serializers.CharField(source='user.first_name', required=False)
+    last_name = serializers.CharField(source='user.last_name', required=False)
     class Meta:
         model = Comment
 
@@ -49,6 +51,9 @@ class BlogEntrySerializer(AbstractEntrySerializer):
 	class Meta:
 		model = BlogEntry
 
+class FlaggedSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Flagged
 
 class EntrySerializer(serializers.ModelSerializer):
 	comments = CommentSerializer(source="comments")

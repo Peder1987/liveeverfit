@@ -18,6 +18,7 @@
 @import "auth/registration/style.less";
 @import "fitness-professional/style.less";
 @import "auth/login/style.less";
+@import "auth/forgot-password/style.less";
 @import "common/angular-xeditable/dist/css/xeditable.css";
 @import "common/jcrop/css/jquery.Jcrop.css";
 
@@ -31,6 +32,7 @@
 @state-success-border: transparent;
 @brand-info: @ever-blue;
 @state-info-text: #FFF;
+@state-info-bg: @ever-blue;
 @btn-default-bg: #9ca4ad;
 @btn-default-border: #9ca4ad;
 @btn-default-color: #e9f4ff;
@@ -46,7 +48,9 @@
 .modal-content {
   .box-shadow(0 3px 9px rgba(0, 0, 0, 0));
 }
-
+.carousel-indicators {
+  z-index: 1;
+}
 @nav-link-hover-bg: @input-bg;
 .nav > li > a:hover {
   color: white;
