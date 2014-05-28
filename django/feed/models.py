@@ -22,9 +22,12 @@ class Entry(TimeStampedModel):
 	"""
     type = "text"
     user = models.ForeignKey(User)
-    text = models.CharField(_('text'), max_length=300, blank=False)
+    text = models.CharField(_('text'), max_length=300, blank=True)
     likes = models.ManyToManyField(User, related_name='entries_liked', blank=True,null=True)
     objects = InheritanceManager()
+
+    def __unicode__(self):
+        return str(self.id)
 
 class TextEntry(Entry):
     type = 'text'
@@ -35,7 +38,7 @@ class PhotoEntry(Entry):
 
 class VideoEntry(Entry):
     type = 'video'
-    url = models.FileField(_('Video'), upload_to=get_upload_path, blank=False, default=True)
+    url = models.CharField(_('Url'), max_length=100, default='')
 
 class EventEntry(Entry, TimeFramedModel):
     type= 'event'
@@ -45,9 +48,22 @@ class BlogEntry(Entry):
     type = 'blog'
     body = models.CharField(_('Body'), max_length=500, default='')
     
-
-
 class Comment(TimeStampedModel):
     entry = models.ForeignKey(Entry, related_name='comments')
     user = models.ForeignKey(User)
     text = models.TextField('description', null=True, blank=True)
+
+
+class Flagged(TimeStampedModel):
+    entry = models.ForeignKey('Entry')
+    reporter = models.ForeignKey(User)
+
+    def __unicode__(self):
+        return u'%s %s' % (self.entry.user, self.entry.text)
+    def delete(self, delete_entry=True):
+        # fetch entry object
+        if delete_entry:
+            entry = self.entry
+            entry = Entry.objects.get(id=entry.id)
+            entry.delete()
+        return super(Flagged, self).delete()
