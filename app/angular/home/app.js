@@ -54,7 +54,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                         $scope.msnry = new Masonry(".newsFeed .row", {
                             columnWidth: '.grid-sizer',
                             itemSelector: '.item',
-                            transitionDuration: '0.1s'
+                            transitionDuration: '0.2s'
                         });
                     }, 10);
                 },
