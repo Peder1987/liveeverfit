@@ -1,6 +1,6 @@
 'use strict';
 
-define(['app'], function (app) {
+define(['app', 'masonry'], function (app, Masonry) {
     app.register.controller('homeCtrl', ['localStorageService', '$scope',
         function (localStorageService, $scope) {
             $scope.token = localStorageService.get('Authorization');
@@ -30,7 +30,6 @@ define(['app'], function (app) {
                 }
             ];
         }]);
-
     app.register.controller('homeController', ['localStorageService', '$scope',
         function (localStorageService, $scope) {
             $scope.token = localStorageService.get('Authorization');
@@ -48,7 +47,17 @@ define(['app'], function (app) {
                 entryVideoURL: "",
                 entryBlogBody: "",
                 entryVideoURLID: "",
-                entryInputType: "video",
+                entryInputType: "text",
+                runMasonry: function() {
+                    if($scope.msnry)$scope.msnry.destroy();
+                    setTimeout(function() {
+                        $scope.msnry = new Masonry(".newsFeed .row", {
+                            columnWidth: '.grid-sizer',
+                            itemSelector: '.item',
+                            transitionDuration: '0.1s'
+                        });
+                    }, 10);
+                },
                 entryYouTubeChange: function () {
                     if ($scope.entryVideoURL) {
                         if ($scope.entryVideoURL.indexOf("watch?v=") > -1) {
@@ -105,6 +114,7 @@ define(['app'], function (app) {
                                 }, function (data) {
                                     $scope.feedList.unshift(data);
                                     $scope.entryInputText = '';
+                                    $scope.runMasonry();
                                 });
                             },
                             photo: function () {
@@ -122,6 +132,7 @@ define(['app'], function (app) {
                                     }).success(function (data) {
                                         $scope.feedList.unshift(data);
                                         $scope.entryInputText = '';
+                                        $scope.runMasonry();
                                         delete $scope.uploadImg;
                                         delete scope.entryImgSrc;
                                         $scope.percent = scope.percent = false;
@@ -147,6 +158,7 @@ define(['app'], function (app) {
                                         $scope.entryVideoURL = "";
                                         $scope.entryVideoURLID = "";
                                         $scope.entryVideoURLIDTrusted = "";
+                                        $scope.runMasonry();
                                     })
                                 } else {
                                     $scope.entryVideoURL = "";
@@ -168,6 +180,7 @@ define(['app'], function (app) {
                                             end: "",
                                             allDay: false
                                         }
+                                        $scope.runMasonry();
                                     });
                                 }
 
@@ -182,6 +195,7 @@ define(['app'], function (app) {
                                         $scope.feedList.unshift(data);
                                         $scope.entryInputText = '';
                                         $scope.entryBlogBody = '';
+                                        $scope.runMasonry();
                                     });
                                 }
                                 else {
@@ -250,17 +264,17 @@ define(['app'], function (app) {
             //init feed
             $scope.feedCollection.get({}, function (data) {
                 $scope.feedList = data.results;
+                $scope.runMasonry();
             });
             $scope.deleteEntry = function (index, entry) {
                 var entryObj = {
                     id: entry.id,
                     type: entry.type
 
-                }
+                };
                 $scope.feedList.splice(index, 1);
-                $scope.entryResource.delete(entryObj, function () {
-
-                });
+                $scope.runMasonry();
+                $scope.entryResource.delete(entryObj, $.noop());
             };
 
             $scope.submitComment = function (obj) {
