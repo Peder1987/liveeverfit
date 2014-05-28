@@ -13,7 +13,7 @@ from django.db.models.signals import post_save
 from rest_framework.authtoken.models import Token
 from taggit.managers import TaggableManager
 from shopify_app import shopify_call
-from chargify import chargify_calls
+from stripe_payments.views import*
 
 
 
@@ -236,15 +236,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def get_shopify_id(self):
         return self.shopify_id
 
-    # to keep things simplistic i kept functions in chargify_calls
-    # but all these functions relate to stripe
-    stripe_subscribe = chargify_calls.subscribe
-    stripe_get_create_customer = chargify_calls.get_create_customer
-    stripe_delete_customer= chargify_calls.delete_customer
-    stripe_edit_creditcard= chargify_calls.edit_creditcard
-    stripe_update_subscription= chargify_calls.update_subscription
-    stripe_cancel_subscription= chargify_calls.cancel_subscription
-    stripe_get_creditcard = chargify_calls.get_creditcard
+    #Stripe
+    stripe_get_or_create_customer = get_or_create_customer
+    stripe_delete_customer= delete_customer
+    stripe_edit_creditcard= edit_creditcard
+    stripe_update_subscription= update_subscription
+    stripe_cancel_subscription= cancel_subscription
+    stripe_get_creditcard = get_creditcard
 
 
 @receiver(post_save, sender=CustomUser)
