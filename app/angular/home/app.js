@@ -40,14 +40,35 @@ define(['app'], function (app) {
                 $scope.homeTemplate = {name: 'loggedin.html', url: 'home/views/loggedin.html'};
             }
         }]);
-    app.register.controller('feedController', ['localStorageService', '$scope', '$resource', 'rest', 'fileReader', '$upload',
-        function (localStorageService, $scope, $resource, rest, fileReader, $upload) {
+    app.register.controller('feedController', ['localStorageService', '$scope', '$resource', 'rest', 'fileReader', '$upload', '$sce',
+        function (localStorageService, $scope, $resource, rest, fileReader, $upload, $sce) {
             angular.extend($scope, {
-                entryInputPlaceHolder: "Encourage, motivate, persevere, succeed...",
+                entryInputPlaceHolder: $sce.trustAsHtml("Encourage, motivate, persevere, succeed..."),
                 entryInputText: "",
                 entryVideoURL: "",
                 entryBlogBody: "",
-                entryInputType: "text",
+                entryVideoURLID: "",
+                entryInputType: "video",
+                entryYouTubeChange: function () {
+                    if ($scope.entryVideoURL) {
+                        if ($scope.entryVideoURL.indexOf("watch?v=") > -1) {
+                            $scope.entryVideoURLID = '//www.youtube.com/embed/' + this.entryVideoURL.slice(this.entryVideoURL.indexOf("watch?v=") + 8)
+                            $scope.entryVideoURLIDTrusted = $sce.trustAsResourceUrl(this.entryVideoURLID);
+                            return;
+                        }
+                        else if ($scope.entryVideoURL.indexOf("http://youtu.be/") > -1) {
+                            $scope.entryVideoURLID = '//www.youtube.com/embed/' + this.entryVideoURL.slice(this.entryVideoURL.indexOf("youtu.be/") + 9);
+                            $scope.entryVideoURLIDTrusted = $sce.trustAsResourceUrl(this.entryVideoURLID);
+                            return;
+                        }
+                        else if ($scope.entryVideoURL.indexOf("embed/") > -1) {
+                            $scope.entryVideoURLID = '//www.youtube.com/embed/' + this.entryVideoURL.slice(this.entryVideoURL.indexOf("embed/") + 6);
+                            $scope.entryVideoURLIDTrusted = $sce.trustAsResourceUrl(this.entryVideoURLID);
+                            return;
+                        }
+                    }
+                    $scope.entryVideoURLID = $scope.entryVideoURLIDTrusted = '';
+                },
                 entryEvent: {
                     start: "",
                     end: "",
@@ -87,7 +108,7 @@ define(['app'], function (app) {
                                 });
                             },
                             photo: function () {
-                                if ($scope.uploadImg && $scope.entryInputText) {
+                                if ($scope.uploadImg) {
                                     $scope.upload = $upload.upload({
                                         url: $scope.restProtocol + '://' + $scope.restURL + '/feed/photo',
                                         data: {
@@ -103,7 +124,7 @@ define(['app'], function (app) {
                                         $scope.entryInputText = '';
                                         delete $scope.uploadImg;
                                         delete scope.entryImgSrc;
-                                        $scope.percent = false;
+                                        $scope.percent = scope.percent = false;
                                     }).error(function (data) {
                                         $scope.percent = false;
                                         console.log("Upload photo error.")
@@ -113,54 +134,86 @@ define(['app'], function (app) {
                                     // Some sort of error.
                                     console.log("No file selected.")
                                 }
-
                             },
                             video: function () {
-                                this.entryCollection.save({
-                                    text: $scope.entryInputText,
-                                    url: $scope.entryVideoURL
-                                }, function (data) {
-                                    $scope.feedList.push(data);
-                                    $scope.entryInputText = '';
-                                });
+                                if ($scope.entryVideoURLID) {
+                                    this.entryCollection.save({
+                                        text: $scope.entryInputText,
+                                        url: $scope.this.entryVideoURLID,
+                                        user: $scope.user_id
+                                    }, function (data) {
+                                        $scope.feedList.unshift(data);
+                                        $scope.entryInputText = '';
+                                        $scope.entryVideoURL = "";
+                                        $scope.entryVideoURLID = "";
+                                        $scope.entryVideoURLIDTrusted = "";
+                                    })
+                                } else {
+                                    $scope.entryVideoURL = "";
+                                }
                             },
                             event: function () {
-                                this.entryCollection.save({
-                                    text: $scope.entryInputText,
-                                    start: $scope.entryEvent.start,
-                                    end: $scope.entryEvent.end,
-                                    allDay: $scope.entryEvent.allDay
-                                }, function (data) {
-                                    $scope.feedList.push(data);
-                                    $scope.entryInputText = '';
-                                });
+                                if ($scope.entryEvent.start && $scope.entryEvent.end) {
+                                    this.entryCollection.save({
+                                        text: $scope.entryInputText,
+                                        start: $scope.entryEvent.start,
+                                        end: $scope.entryEvent.end,
+                                        allDay: $scope.entryEvent.allDay,
+                                        user: $scope.user_id
+                                    }, function (data) {
+                                        $scope.feedList.unshift(data);
+                                        $scope.entryInputText = '';
+                                        $scope.entryEvent = {
+                                            start: "",
+                                            end: "",
+                                            allDay: false
+                                        }
+                                    });
+                                }
+
                             },
                             blog: function () {
-                                this.entryCollection.save({
-                                    text: $scope.entryInputText,
-                                    body: $scope.entryBlogBody,
-                                    user: $scope.user_id
-                                }, function (data) {
-                                    $scope.feedList.push(data);
-                                    $scope.entryInputText = '';
-                                    $scope.entryBlogBody = '';
-                                });
+                                if ($scope.entryBlogBody) {
+                                    this.entryCollection.save({
+                                        text: $scope.entryInputText,
+                                        body: $scope.entryBlogBody,
+                                        user: $scope.user_id
+                                    }, function (data) {
+                                        $scope.feedList.unshift(data);
+                                        $scope.entryInputText = '';
+                                        $scope.entryBlogBody = '';
+                                    });
+                                }
+                                else {
+                                    $scope.entryBlogBody = "<b>Write something here...</b>";
+                                    setTimeout(function () {
+                                        $scope.entryBlogBody = "";
+                                    }, 300);
+                                }
                             },
                             comment: function () {
 
                             }
                         };
-                    runEntrySubmit[$scope.entryInputType]();
+                    if ($scope.entryInputText) {
+                        runEntrySubmit[$scope.entryInputType]();
+                    } else {
+                        $scope.entryInputPlaceHolder = $sce.trustAsHtml("<b>Type something here...</b>");
+                        setTimeout(function () {
+                            $scope.entryInputPlaceHolder = $sce.trustAsHtml("Encourage, motivate, persevere, succeed...");
+                        }, 300);
+                    }
                 },
                 selectEntryInputType: function (type) {
                     var scope = this;
                     scope.entryInputType = type;
+                    scope.entryImgSrc = '';
                     if (type == 'event' || type == 'blog') {
-                        $scope.entryInputPlaceHolder = "Title or Description";
+                        $scope.entryInputPlaceHolder = $sce.trustAsHtml("Title or Description");
                         $scope.entryInputText = '';
                     }
                     else {
-                        $scope.entryInputPlaceHolder = "Encourage, motivate, persevere, succeed...";
+                        $scope.entryInputPlaceHolder = $sce.trustAsHtml("Encourage, motivate, persevere, succeed...");
                     }
                 },
                 onFileSelect: function ($files) {
@@ -180,7 +233,7 @@ define(['app'], function (app) {
                 update: { method: 'PUT' }
             });
             $scope.entryResource = $resource(":protocol://:url/feed/:type/:id", {
-                id : "@id",
+                id: "@id",
                 type: "@type",
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
@@ -198,14 +251,14 @@ define(['app'], function (app) {
             $scope.feedCollection.get({}, function (data) {
                 $scope.feedList = data.results;
             });
-            $scope.deleteEntry = function (index, entry){
+            $scope.deleteEntry = function (index, entry) {
                 var entryObj = {
-                    id : entry.id,
-                    type : entry.type
+                    id: entry.id,
+                    type: entry.type
 
                 }
                 $scope.feedList.splice(index, 1);
-                $scope.entryResource.delete(entryObj, function(){
+                $scope.entryResource.delete(entryObj, function () {
 
                 });
             };
@@ -247,7 +300,7 @@ define(['app'], function (app) {
             restrict: "A",
             require: '?ngModel',
             replace: true,
-            transclude : true,
+            transclude: true,
             template: '<div><textarea></textarea></div>',
             link: function (scope, element, attrs, ngModel) {
                 if (!ngModel) return; // do nothing if no ng-model

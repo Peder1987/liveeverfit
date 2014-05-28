@@ -32,42 +32,46 @@
                 <div class="col-xs-12 col-md-8">
                     <div class="post-outer ">
                         <div class="status-update">
-                            <div class="input-box {{entryInputType}}">
-                                <div ng-show="!entryInputText" class="place-holder">
-                                    {{entryInputPlaceHolder}}
-                                </div>
+                            <form class="input-box {{entryInputType}}">
+                                <div ng-show="!entryInputText" class="place-holder" ng-bind-html="entryInputPlaceHolder"></div>
                                 <div ng-input
                                      class="input"
                                      role="textbox"
                                      contenteditable
                                      ng-model="entryInputText"
                                      ng-enter="entrySubmit()"></div>
-                                <div ng-if="entryInputType=='photo'&&!entryImgSrc&&!percent" class="upload">
-                                    <div class="well well-lg" ng-file-drop="onFileSelect($files)"
-                                         ng-file-drag-over-class="over">
-                                        <i class="fa fa-arrow-down fa-2x"></i>
-                                        <br>
+                                <div class="photo" ng-if="entryInputType=='photo'">
+                                    <div ng-if="!entryImgSrc&&!percent" class="upload">
+                                        <div class="well well-lg" ng-file-drop="onFileSelect($files)"
+                                             ng-file-drag-over-class="over">
+                                            <i class="fa fa-arrow-down fa-2x"></i>
+                                            <br>
 
-                                        <div>drag & drop</div>
-                                    </div>
+                                            <div>drag & drop</div>
+                                        </div>
                                     <span class="btn btn-primary">
                                          upload from computer
                                         <input id="upload" type="file" accept="image/*" class="upload"
                                                ng-file-select="onFileSelect($files)">
                                     </span>
+                                    </div>
+                                    <h3 ng-if="percent">Loading...</h3>
+                                    <progressbar ng-if="percent" class="progress-striped active" value="percent">
+                                        {{percent}}%
+                                    </progressbar>
+                                    <img ng-if="entryImgSrc" ng-src="{{entryImgSrc}}"/>
                                 </div>
-                                <h3 ng-if="percent">Loading...</h3>
-                                <progressbar ng-if="percent" class="progress-striped active" value="percent">
-                                    {{percent}}%
-                                </progressbar>
-                                <img ng-if="entryImgSrc" ng-src="{{entryImgSrc}}"/>
-
                                 <div class="video" ng-if="entryInputType=='video'">
                                     <div class="form-group">
                                         <label>Paste YouTube URL here</label>
-                                        <input ng-model="entryVideoURL" class="form-control" type="text"
-                                               placeholder=""/>
+                                        <input ng-model="$parent.entryVideoURL" class="form-control" type="text"
+                                               placeholder="" ng-change="entryYouTubeChange()" required/>
                                     </div>
+                                    <iframe ng-if="entryVideoURLID"
+                                            width="100%"
+                                            ng-src="{{entryVideoURLIDTrusted}}"
+                                            frameborder="0" allowfullscreen >
+                                    </iframe>
                                 </div>
                                 <div class="event" ng-if="entryInputType=='event'">
                                     <div class="row">
@@ -81,7 +85,7 @@
                                                            ng-model="entryEvent.start" min
                                                            is-open="fromDatePickerOpened"
                                                            date-disabled="disabled(date, mode)"
-                                                           show-button-bar="false"/>
+                                                           show-button-bar="false" required/>
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-primary" ng-click="openFromDatePicker($event)">
                                                             <i class="fa fa-calendar"></i>&ZeroWidthSpace;
@@ -105,7 +109,7 @@
                                                            ng-model="entryEvent.end"
                                                            is-open="untilDatePickerOpened"
                                                            date-disabled="disabled(date, mode)"
-                                                           show-button-bar="false"/>
+                                                           show-button-bar="false" required/>
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-primary" ng-click="openUntilDatePicker($event)">
                                                             <i class="fa fa-calendar"></i>&ZeroWidthSpace;
@@ -127,8 +131,10 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="blog" ng-show="entryInputType=='blog'" rich-text-editor ng-model="$parent.entryBlogBody"></div>
-                            </div>
+                                <div class="blog" ng-show="entryInputType=='blog'" rich-text-editor ng-model="entryBlogBody"></div>
+                                <button ng-click="entrySubmit()" class="btn btn-primary btn-sm pull-right">share</button>
+                                <span class="clearfix"></span>
+                            </form>
                             <div class="row">
                                 <div class="col-xs-offset-1 col-xs-2">
                                     <a href ng-click="selectEntryInputType('text')">
