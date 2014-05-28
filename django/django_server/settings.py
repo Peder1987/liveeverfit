@@ -168,7 +168,7 @@ INSTALLED_APPS = (
     #My Apps
     'contact',
     'membership',
-    'stripe_payments',
+    #'stripe_payments',
     
     #Imported Apps
     'south',
