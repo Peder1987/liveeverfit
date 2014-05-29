@@ -200,7 +200,8 @@ class PaymentSerializer(serializers.ModelSerializer):
 
     def to_native(self, value):
         obj = super(PaymentSerializer,self).to_native(value)
-        stripe_token = obj['stripeToken']
+        stripe_token = obj.get('stripeToken')
         value.stripe_edit_creditcard(stripe_token)
+        value.stripe_update_subscription()
 
 

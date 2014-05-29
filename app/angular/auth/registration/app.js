@@ -68,12 +68,19 @@ define(['app'], function(app) {
     		};
 
 
-    		var AuthToken =  $resource("http://:url/accounts/register/", {
+    		var AuthToken =  $resource(":protocol://:url/accounts/register/", {
+    			protocol: $scope.restProtocol,
                 url: $scope.restURL
             });
-            var ProAuthToken =  $resource("http://:url/accounts/register-professional/", {
+            var ProAuthToken =  $resource(":protocol://:url/accounts/register-professional/", {
+            	protocol: $scope.restProtocol,
                 url: $scope.restURL
             });
+            var paymentResource = $resource(":protocol://:url/users/modify-payment-details/:id",{
+            	id : '@id',
+            	protocol: $scope.restProtocol,
+            	url: $scope.restURL,
+            },{update: { method: 'PUT' }});
 
 
 			$scope.getCurrentStep = function() {
@@ -175,7 +182,18 @@ define(['app'], function(app) {
 					localStorageService.add('user_id', $scope.authToken.id);
 					localStorageService.add('user_email', $scope.authToken.email);
                     localStorageService.add('user_img', $scope.authToken.img);
-                    window.location = '/';
+                    if($scope.user.tier == 1){
+						window.location = "/";
+					}
+					else{
+						$scope.profile_user = $scope.authToken.id;
+						$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
+						$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
+							window.location = "/";
+						});
+						delete $http.defaults.headers.common['Authorization']
+
+					};
 				},function(error) {
 					$scope.message = error.data;
 				});
