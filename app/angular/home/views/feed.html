@@ -228,7 +228,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="list-group">
-                        <div ng-repeat="comment in entry.comments.slice().reverse()" class="list-group-item">
+                        <div ng-repeat="comment in entry.comments" class="list-group-item">
                             <div class="media">
                                 <button class="close" ng-if="comment.user == user_id" ng-click="deleteComment($index, comment, entry)">
                                     <i class="fa fa-times"></i>&ZeroWidthSpace;
@@ -239,7 +239,8 @@
 
                                 <div class="media-body">
                                     <div class="col-xs-12 col-sm-9">
-                                        <span style="color: #999999; font-size: 12px;"><span style="color: #95abbf">{{comment.user}}</span> {{comment.text}}</span>
+                                        {{comment.id}}
+                                        <span style="color: #999999; font-size: 12px;"><span style="color: #95abbf">{{comment.first_name}} {{comment.last_name}}</span> {{comment.text}}</span>
                                         <div style="color: #c2c1c1; font-size: 11px;">
                                             {{ comment.created | date:'mediumDate'}}
                                             at {{comment.created | date: 'shortTime'}}

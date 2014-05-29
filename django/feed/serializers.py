@@ -12,7 +12,6 @@ class FeedUserSerializer(serializers.ModelSerializer):
 		read_only_fields = ('first_name', 'last_name', 'img')
 
 class CommentSerializer(serializers.ModelSerializer):
-    user = serializers.SlugRelatedField(slug_field="email", required=False)
     img = serializers.CharField(source='user.img.url', required=False)
     first_name = serializers.CharField(source='user.first_name', required=False)
     last_name = serializers.CharField(source='user.last_name', required=False)

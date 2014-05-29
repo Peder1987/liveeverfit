@@ -334,11 +334,11 @@ define(['app', 'masonry'], function (app, Masonry) {
                 var scope = this,
                     commentObj = {
                         text: entry.commentInput,
-                        user: $scope.user_email,
+                        user: $scope.user_id,
                         entry: entry.id
                     };
                 $scope.commentResource.save(commentObj, function (data) {
-                    entry.comments.unshift(data);
+                    entry.comments.push(data);
                     setTimeout(function() {
                         $scope.msnry.layout();
                     });
@@ -350,8 +350,11 @@ define(['app', 'masonry'], function (app, Masonry) {
                 var commentObj = {
                     id: comment.id
                 };
+                console.log(index)
+                console.log(comment)
+                console.log(entry.comments)
                 entry.comments.splice(index, 1);
-                console.log(commentObj)
+                console.log(entry.comments)
 
                 $scope.commentResource.delete(commentObj, function () {
 
