@@ -202,7 +202,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             self.save()
 
     def cancel_professional(self):
-        # this function is a accepted trainer who wants to downgrade
+        self.tier = 1
         self.is_professional = False
         self.is_upgraded = False
         self.save()
@@ -240,9 +240,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     stripe_get_or_create_customer = get_or_create_customer
     stripe_delete_customer= delete_customer
     stripe_edit_creditcard= edit_creditcard
+    stripe_get_creditcard = get_creditcard
     stripe_update_subscription= update_subscription
     stripe_cancel_subscription= cancel_subscription
-    stripe_get_creditcard = get_creditcard
 
 
 @receiver(post_save, sender=CustomUser)

@@ -13,10 +13,12 @@ class CertificationSerializer(serializers.ModelSerializer):
         model = Certification
         exclude = ('user',)
 
+
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = ('city', 'state')
+
 
 class SettingsProfessionalSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='email', required=False)
@@ -29,6 +31,7 @@ class SettingsProfessionalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Professional
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list")
+
 
 class SettingsSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(source='id', required=True)  
@@ -85,13 +88,9 @@ class ProfileSerializer(serializers.ModelSerializer):
     joined_on = serializers.DateTimeField(source='date_joined', read_only=True)
     img = serializers.ImageField(allow_empty_file=True, required=False)
     
-
-
     class Meta:
         model = User
-        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', 'primary_address'
-
-                    )
+        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', 'primary_address')
 
     def to_native(self, value):
         obj = super(ProfileSerializer, self).to_native(value)
@@ -110,6 +109,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         obj['user_likes'] = value.likes.filter(pk=user.pk).exists()
         return obj
+
 
 class UserLikeSerializer(serializers.ModelSerializer):
     user_email = serializers.CharField(max_length=50)
@@ -131,6 +131,7 @@ class UserLikeSerializer(serializers.ModelSerializer):
             value.likes.add(user)
 
         return obj
+
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -174,8 +175,8 @@ class ModifyMembershipSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
+
     def to_native(self, value):
-        # no need to return anything
         obj = super(ModifyMembershipSerializer,self).to_native(value)
         
         value.stripe_cancel_subscription()
@@ -191,7 +192,6 @@ class CreditcardSerializer(serializers.ModelSerializer):
 
 
 class PaymentSerializer(serializers.ModelSerializer):
-    #email = serializers.EmailField(source='email', required=False)
     stripeToken = serializers.CharField(required=True)
 
     class Meta:
@@ -199,7 +199,6 @@ class PaymentSerializer(serializers.ModelSerializer):
         fields = ('id','stripeToken',)
 
     def to_native(self, value):
-        # no need to return anything
         obj = super(PaymentSerializer,self).to_native(value)
         stripe_token = obj['stripeToken']
         value.stripe_edit_creditcard(stripe_token)

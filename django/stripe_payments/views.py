@@ -79,7 +79,8 @@ def delete_customer(self):
     return
 
 
-def get_or_create_creditcard(customer, stripToken):
+def get_or_create_creditcard(self, stripToken):
+    customer = self.stripe_get_or_create_customer()
     default_card =  customer.default_card
 
     if default_card:
@@ -90,16 +91,6 @@ def get_or_create_creditcard(customer, stripToken):
         except Exception as e:
             return {'creditcard':str(e)}
     return card
-
-
-def get_creditcard(self):
-    customer = self.stripe_get_or_create_customer()
-    default_card =  customer.default_card
-    if default_card:
-        card = customer.cards.retrieve(default_card)
-        return card
-    else:
-        return 
 
 
 def edit_creditcard(self, stripToken):
@@ -116,7 +107,18 @@ def edit_creditcard(self, stripToken):
         customer.cards.retrieve(old_card).delete()
 
 
-def delete_creditcard(customer):
+def get_creditcard(self):
+    customer = self.stripe_get_or_create_customer()
+    default_card =  customer.default_card
+    if default_card:
+        card = customer.cards.retrieve(default_card)
+        return card
+    else:
+        return 
+
+
+def delete_creditcard(self):
+    customer = self.stripe_get_or_create_customer()
     default_card = customer.default_card
     if default_card:
         customer.cards.retrieve(default_card).delete()
