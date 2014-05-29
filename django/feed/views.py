@@ -25,7 +25,8 @@ class EntryListView(generics.ListAPIView):
 		if pk:
 			return Entry.objects.filter(user=pk).select_subclasses()
 		else:
-			return Entry.objects.all().select_subclasses()
+			following = self.request.user.following.all()
+			return Entry.objects.filter(user__in=following).select_subclasses()
 
 
 class TextEntryViewSet(viewsets.ModelViewSet):
