@@ -56,7 +56,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     likes = models.ManyToManyField('self', related_name='liked', blank=True,null=True)
-    following = models.ManyToManyField('self', related_name='followers', blank=True,null=True)
+    following = models.ManyToManyField('self', related_name='followers', blank=True,null=True, symmetrical=False)
     #custom fields
     TIER_CHOICES = (
         (1, 'Tier 1'),

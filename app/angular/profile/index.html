@@ -75,7 +75,7 @@
 						<div class="report pull-right">
                             <span class="stat-report">likes: {{profile_user.likes}}</span>
 							<span class="stat-report">inspiration: 2134</span>
-							<span class="stat-report">clients: {{profile_user.clients}}</span>
+							<span ng-show="profile_user.clients" class="stat-report">clients: {{profile_user.clients}}</span>
 							<span class="stat-report">fanatics: 1556</span>
 						</div><!-- /.report -->
 						<div style="clear:both;"></div>
