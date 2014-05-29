@@ -177,8 +177,8 @@ class ModifyMembershipSerializer(serializers.ModelSerializer):
         model = User
 
     def to_native(self, value):
+        #do not use this function until it's fix, this does not modify, it only cancels the membership
         obj = super(ModifyMembershipSerializer,self).to_native(value)
-        
         value.stripe_cancel_subscription()
         value.cancel_professional()
 
