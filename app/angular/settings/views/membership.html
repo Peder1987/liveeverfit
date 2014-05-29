@@ -11,7 +11,7 @@
 
                         {{ profile_user.profession }}
                         <br>
-                        <a ng-click="cancelMembership()">
+                        <a ui-sref="membership">
                             Cancel membership
                         </a>
                     </div>
@@ -28,12 +28,12 @@
                                                 {{ profile_user.tier }}
                             </span>
                         <br>
-                        <a href="/modify-membership/?a=cancel" ng-click="modifyTier();">
+                        <a ui-sref="membership">
                             Cancel membership
                         </a>
                     </div>
                     <div ng-switch-default>
-                        <a ui-sref=="/client-upgrade/">
+                        <a ui-sref="membership">
                             <span class="glyphicon glyphicon glyphicon-fire"></span>
                             Upgrade
                         </a>
