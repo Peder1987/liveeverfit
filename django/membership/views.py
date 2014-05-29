@@ -136,6 +136,7 @@ def cancel(request):
             user = User.objects.get(id = user_id)
             user.tier = 1
             user.save()
+            user.stripe_cancel_subscription()
 
         return Response({'details': 'success'}, status=status.HTTP_201_CREATED)
     else:
