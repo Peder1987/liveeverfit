@@ -70,6 +70,7 @@ class ProfileProfessionalSerializer(serializers.ModelSerializer):
     img = serializers.ImageField(allow_empty_file=True, required=False)
     certifications = CertificationSerializer(many=True, allow_add_remove=True)
     tags = serializers.Field(source='tags.all')
+    likes = serializers.Field(source="likes.count")
     def to_native(self, value):
         obj = super(ProfileProfessionalSerializer, self).to_native(value)
         return obj
@@ -87,10 +88,11 @@ class ProfileSerializer(serializers.ModelSerializer):
     last_login_on = serializers.DateTimeField(source='last_login',read_only=True)
     joined_on = serializers.DateTimeField(source='date_joined', read_only=True)
     img = serializers.ImageField(allow_empty_file=True, required=False)
+    likes = serializers.Field(source="likes.count")
     
     class Meta:
         model = User
-        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', 'primary_address')
+        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', 'primary_address',)
 
     def to_native(self, value):
         obj = super(ProfileSerializer, self).to_native(value)
@@ -107,6 +109,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             obj['type'] = 'user'
         #data about user logged in accessing this profile   
         user = self.context['request'].user
+        
         obj['user_likes'] = value.likes.filter(pk=user.pk).exists()
         return obj
 

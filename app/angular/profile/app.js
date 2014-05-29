@@ -9,16 +9,12 @@ define(['app'], function(app) {
     app.register.controller('profileController', ['$scope', "$stateParams", '$resource', '$modal', '$http', 'localStorageService', 'rest', 'tokenError',
         function ($scope, $stateParams, $resource, $modal, $http, localStorageService, tokenError) {
             $scope.user_id = localStorageService.get('user_id');
-            var userResource = $resource(":protocol://:url/users/:id/", {
+            var userResource = $resource(":protocol://:url/users/profile/:id/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
                 id: $scope.user_id
             }, {update: { method: 'PUT' }}),
-            professionalResource = $resource(":protocol://:url/users/professionals/:id/", {
-                protocol: $scope.restProtocol,
-                url: $scope.restURL,
-                id: $scope.user_id
-            }, {update: { method: 'PUT' }}),
+
             getProfile = function(){
                 console.log($stateParams)
                 if($stateParams.view){
@@ -28,12 +24,6 @@ define(['app'], function(app) {
             };
             //init and assign which resource
             $scope.profile_user = userResource.get(function () {
-                if ($scope.profile_user.type == "professional") {
-                    $scope.profileResource = professionalResource
-
-                } else {
-                    $scope.profileResource = userResource
-                }
             }, $scope.checkTokenError);
 
 
