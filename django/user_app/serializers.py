@@ -105,7 +105,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             obj['type'] = 'upgraded'
         else:
             obj['type'] = 'user'
-            
+        #data about user logged in accessing this profile   
         user = self.context['request'].user
         obj['user_likes'] = value.likes.filter(pk=user.pk).exists()
         return obj

@@ -95,3 +95,24 @@ class EntryLikeSerializer(serializers.ModelSerializer):
 			temp['user_likes'] = True
 			obj.likes.add(user)
 		return temp	
+
+class ListEntrySerializer(serializers.ModelSerializer):	
+	def to_native(self, value):
+		class_type = value.__class__.__name__
+
+		if class_type == 'PhotoEntry':
+			obj = PhotoEntrySerializer(instance=value).data
+		elif class_type == 'VideoEntry':
+			obj = VideoEntrySerializer(instance=value).data
+		elif class_type == 'EventEntry':
+			obj = EventEntrySerializer(instance=value).data
+		elif class_type == 'BlogEntry':
+			obj = BlogEntrySerializer(instance=value).data
+		elif class_type == 'BlogEntry':
+			obj = TextEntrySerializer(instance=value).data
+		else:
+			obj = TextEntrySerializer(instance=value).data
+		return obj
+
+	class Meta:
+		model = Entry

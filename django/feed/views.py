@@ -10,9 +10,8 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from feed.permissions import IsOwnerOrReadOnly
 from feed.serializers import EntrySerializer, TextEntrySerializer, PhotoEntrySerializer, VideoEntrySerializer, EventEntrySerializer
-from feed.serializers import BlogEntrySerializer, CommentSerializer, FlaggedSerializer, EntryLikeSerializer
+from feed.serializers import BlogEntrySerializer, CommentSerializer, FlaggedSerializer, EntryLikeSerializer, ListEntrySerializer
 from feed.models import PhotoEntry, VideoEntry, EventEntry, BlogEntry, Entry, Comment, TextEntry, Flagged
-
 
 class EntryListView(generics.ListAPIView):
 	paginate_by = 21
@@ -20,12 +19,14 @@ class EntryListView(generics.ListAPIView):
 	permission_classes = (IsOwnerOrReadOnly,)
 	filter_backends = (filters.OrderingFilter,)
 	ordering = ('-created',)
+	
 	def get_queryset(self):
 		pk = self.kwargs.get('pk', None)
 		if pk:
 			return Entry.objects.filter(user=pk).select_subclasses()
 		else:
 			return Entry.objects.all().select_subclasses()
+
 
 class TextEntryViewSet(viewsets.ModelViewSet):
 	model = TextEntry
@@ -74,3 +75,24 @@ class EntryLikeView(generics.UpdateAPIView, generics.DestroyAPIView):
     model = Entry
     permission_classes = (IsAuthenticated,)
     serializer_class = EntryLikeSerializer
+
+
+class ListSubEntryView(generics.ListAPIView):
+	permission_classes = (IsAuthenticated,)
+	serializer_class = ListEntrySerializer
+	def get_queryset(self):
+		pk = self.kwargs.get('pk', None)
+		type = self.kwargs.get('type', None)
+		if pk and type:
+			if type == 'text':
+				return TextEntry.objects.filter(user=pk).all()
+			elif type == 'photo':
+				return PhotoEntry.objects.filter(user=pk).all()
+			elif type == 'video':
+				return VideoEntry.objects.filter(user=pk).all()
+			elif type == 'event':
+				return EventEntry.objects.filter(user=pk).all()
+			elif type == 'blog':
+				return BlogEntry.objects.filter(user=pk).all()
+		else:
+			return []

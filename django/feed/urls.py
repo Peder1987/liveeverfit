@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 from rest_framework import routers
 from feed.views import PhotoEntryViewSet, VideoEntryViewSet, EventEntryViewSet, BlogEntryViewSet, EntryListView, TextEntryViewSet
-from feed.views import CommentViewSet, FlaggedCreateView, EntryLikeView
+from feed.views import CommentViewSet, FlaggedCreateView, EntryLikeView, ListSubEntryView
 
 router = routers.SimpleRouter(trailing_slash=False)
 router.register('/text', TextEntryViewSet)
@@ -20,4 +20,5 @@ urlpatterns = patterns('',
 	url(r'^/likes/(?P<pk>[0-9]+)$', EntryLikeView.as_view()),
 	url(r'^/(?P<pk>[0-9]+)$', EntryListView.as_view()),
 	url(r'^/flag$', FlaggedCreateView.as_view()),
+	url(r'^/(?P<type>[a-z]+)/list/(?P<pk>[0-9]+)', ListSubEntryView.as_view()),
 )
