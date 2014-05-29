@@ -10,7 +10,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from feed.permissions import IsOwnerOrReadOnly
 from feed.serializers import EntrySerializer, TextEntrySerializer, PhotoEntrySerializer, VideoEntrySerializer, EventEntrySerializer
-from feed.serializers import BlogEntrySerializer, CommentSerializer, FlaggedSerializer
+from feed.serializers import BlogEntrySerializer, CommentSerializer, FlaggedSerializer, EntryLikeSerializer
 from feed.models import PhotoEntry, VideoEntry, EventEntry, BlogEntry, Entry, Comment, TextEntry, Flagged
 
 
@@ -68,3 +68,9 @@ class FlaggedCreateView(generics.CreateAPIView):
 	model = Flagged
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = FlaggedSerializer
+
+
+class EntryLikeView(generics.UpdateAPIView, generics.DestroyAPIView):
+    model = Entry
+    permission_classes = (IsAuthenticated,)
+    serializer_class = EntryLikeSerializer

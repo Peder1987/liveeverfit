@@ -51,9 +51,11 @@ define(['app', 'masonry'], function (app, Masonry) {
                 entryInputType: "text",
                 likeEntry: function(entry) {
                     //Some Functionality to like
+                    //made user_id so it doesn't update entry
+                    // for this user to become the owner
                     $scope.likeResource.update({
                         id: entry.id,
-                        user: $scope.user_id
+                        user_id: $scope.user_id
                     }, function (data) {
                         entry.user_likes = data.user_likes;
                         if (data.user_likes) {
