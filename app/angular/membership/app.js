@@ -173,12 +173,10 @@ define(['app'], function(app) {
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
 
 				$scope.userUpdate = userResource.save($scope.user, function() {
-
 					$scope.profile_user = localStorageService.get('user_id');
 					$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
 						window.location = "/";
 					});
-
 				},function(error) {
 					$scope.message = error.data;
 				});
@@ -189,7 +187,10 @@ define(['app'], function(app) {
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
 
 				$scope.proUpdate = professionalResource.save($scope.pro, function() {
-					window.location = '/';
+					$scope.profile_user = localStorageService.get('user_id');
+					$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
+						window.location = "/";
+					});
 				},function(error) {
 					$scope.message = error.data;
 				});
