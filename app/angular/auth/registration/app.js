@@ -191,7 +191,7 @@ define(['app'], function(app) {
 						$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
 							window.location = "/";
 						});
-						delete $http.defaults.headers.common['Authorization']
+						delete $http.defaults.headers.common['Authorization'];
 
 					};
 				},function(error) {
@@ -211,7 +211,14 @@ define(['app'], function(app) {
                     localStorageService.add('user_img', $scope.authToken.img);
 
                     $scope.proToken = ProAuthToken.save($scope.pro, function(){
-                    	window.location = '/';
+
+                    	$scope.profile_user = $scope.authToken.id;
+						$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
+						$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
+							window.location = "/";
+						});
+						delete $http.defaults.headers.common['Authorization'];
+
 					},function(error) {
 						$scope.message = error.data;
 					});
