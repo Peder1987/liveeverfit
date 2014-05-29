@@ -28,7 +28,7 @@ from rest_framework import serializers
 from .serializers import EmailSerializer, CreateUserSerializer, ReturnUserSerializer, LogoutSerializer, PasswordSerializer, ForgotPasswordSerializer, ChangePasswordSerializer, ResetPasswordSerializer, CreateProSerializer
 #Models
 from rest_framework.authtoken.models import Token
-from user_app.models import Professional, Address, UniqueLocation
+from user_app.models import Professional, Address, UniqueLocation, Certification
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -95,6 +95,10 @@ def register_professional(request):
         user_data.pop('password2', None)
         user_data.pop('referred_by', None)
         user_data.pop('primary_address', None)
+        certification_name1 = user_data.pop('certification_name1', None)
+        certification_number1 = user_data.pop('certification_number1', None)
+        certification_name2 = user_data.pop('certification_name2', None)
+        certification_number2 = user_data.pop('certification_number2', None)
 
         if User.objects.filter(email = email).exists():
             user = User.objects.get(email = email)
@@ -123,6 +127,13 @@ def register_professional(request):
             pro.lng = temp_address['lng']
         except:
             pass
+        if certification_name1:
+            certification1 = Certification(user = pro, certification_name = certification_name1, certification_number = certification_number1)
+            certification1.save()
+        if certification_name2:
+            certification2 = Certification(user = pro, certification_name = certification_name2, certification_number = certification_number2)
+            certification2.save()
+
         pro.save()
         address = Address.objects.get(id = user.primary_address.id)
         address.__dict__.update(**temp_address)
