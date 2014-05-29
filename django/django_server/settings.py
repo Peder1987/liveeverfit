@@ -180,7 +180,6 @@ INSTALLED_APPS = (
     'corsheaders',
     'taggit',
     'shopify_app',
-    'chargify',
     'workouts',
     'messages',
     'feed',
