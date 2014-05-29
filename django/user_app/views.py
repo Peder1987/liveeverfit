@@ -11,7 +11,7 @@ from rest_framework import generics
 from .filters import UserFilter, GenderFilterBackend, ProfessionFilterBackend, LocationFilterBackend, AcceptingFilterBackend, TagFilterBackend
 from .filters import OwnerFilterBackend, QueueFilterBackend
 from .serializers import SettingsSerializer, PasswordSerializer, GroupSerializer, ProfessionalListSerializer, LocationSerializer, ClientListSerializer
-from .serializers import PaymentSerializer, ModifyMembershipSerializer, CreditcardSerializer, SettingsProfessionalSerializer, ProfileSerializer
+from .serializers import PaymentSerializer, ModifyMembershipSerializer, CreditcardSerializer, SettingsProfessionalSerializer, ProfileSerializer, UserLikeSerializer
 from .permissions import IsAdminOrSelf, IsOwnerOrReadOnly, AuthenticatedReadOnly
 from .models import Professional, UniqueLocation
 
@@ -84,3 +84,7 @@ class PaymentView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAdminOrSelf,)
     serializer_class = PaymentSerializer
     
+class UserLikeView(generics.UpdateAPIView, generics.DestroyAPIView):
+    model = User
+    permission_classes = (AuthenticatedReadOnly,)
+    serializer_class = UserLikeSerializer

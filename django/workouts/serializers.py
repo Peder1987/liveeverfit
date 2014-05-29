@@ -36,19 +36,19 @@ class VideoLikeSerializer(serializers.ModelSerializer):
         model = Video
         fields = ('id', "user_email",)
 
-    def to_native(self, obj):
-        temp = super(VideoLikeSerializer, self).to_native(obj)
-        user = User.objects.get(email=temp['user_email'])
+    def to_native(self, value):
+        obj = super(VideoLikeSerializer, self).to_native(value)
+        user = User.objects.get(email=obj['user_email'])
         # best quick solution for M2M, django doesn't provide
         # a clean solution.
-        if obj.likes_user.filter(pk=user.pk).exists():
-            temp['user_likes'] = False
-            obj.likes_user.remove(user)
+        if value.likes_user.filter(pk=user.pk).exists():
+            obj['user_likes'] = False
+            value.likes_user.remove(user)
         else:
-            temp['user_likes'] = True
-            obj.likes_user.add(user)
+            obj['user_likes'] = True
+            value.likes_user.add(user)
 
-        return temp
+        return obj
 
     def validate_user_email(self, attrs, source):
         if User.objects.filter(email=attrs['user_email']).exists():
@@ -66,15 +66,15 @@ class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
 
-    def to_native(self, obj):
-        temp = super(VideoSerializer, self).to_native(obj)
+    def to_native(self, value):
+        obj = super(VideoSerializer, self).to_native(value)
         # In order to keep views on point, using F class to keep track
-        obj.views = F('views') + 1
-        obj.save()
+        value.views = F('views') + 1
+        value.save()
         # check if user likes the video
         user = self.context['request'].user
-        temp['user_likes'] = obj.likes_user.filter(pk=user.pk).exists()
-        return temp
+        obj['user_likes'] = value.likes_user.filter(pk=user.pk).exists()
+        return obj
 
 
 class VideoCommentSerializer(serializers.ModelSerializer):

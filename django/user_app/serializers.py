@@ -106,8 +106,31 @@ class ProfileSerializer(serializers.ModelSerializer):
             obj['type'] = 'upgraded'
         else:
             obj['type'] = 'user'
+            
+        user = self.context['request'].user
+        obj['user_likes'] = value.likes.filter(pk=user.pk).exists()
         return obj
 
+class UserLikeSerializer(serializers.ModelSerializer):
+    user_email = serializers.CharField(max_length=50)
+
+    class Meta:
+        model = User
+        fields = ('id', "user_id",)
+
+    def to_native(self, value):
+        obj = super(UserLikeSerializer, self).to_native(value)
+        user = User.objects.get(email=obj['user_email'])
+        # best quick solution for M2M, django doesn't provide
+        # a clean solution.
+        if value.likes.filter(pk=user.pk).exists():
+            obj['user_likes'] = False
+            value.likes.remove(user)
+        else:
+            obj['user_likes'] = True
+            value.likes.add(user)
+
+        return obj
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:

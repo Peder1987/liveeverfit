@@ -55,7 +55,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), max_length=50, unique=True, db_index=True, )
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
-    
+    likes = models.ManyToManyField('self', related_name='liked', blank=True,null=True)
     #custom fields
     TIER_CHOICES = (
         (1, 'Tier 1'),
