@@ -21,7 +21,7 @@ class Entry(TimeStampedModel):
 	define the types of entries
 	"""
     type = "text"
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, related_name="%(app_label)s_%(class)s")
     text = models.CharField(_('text'), max_length=300, blank=True)
     likes = models.ManyToManyField(User, related_name='entries_liked', blank=True,null=True)
     objects = InheritanceManager()
@@ -54,7 +54,7 @@ class SharedEntry(Entry):
     
 class Comment(TimeStampedModel):
     entry = models.ForeignKey(Entry, related_name='comments')
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, related_name='comments')
     text = models.TextField('description', null=True, blank=True)
 
 

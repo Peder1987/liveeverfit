@@ -6,7 +6,11 @@ User = get_user_model()
 from rest_framework import serializers
 from user_app.models import Professional, UniqueLocation, Certification, Address
 
-
+# This importation is implemented due to 
+# django and MTI (Multi Table inheritance)
+# not allowing to do a reverse table lookup for
+# a specific entry rather only the generic "Entry"
+from feed.models import SharedEntry
 
 class CertificationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -111,7 +115,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         #data about user logged in accessing this profile   
         user = self.context['request'].user
 
-        print user.entry_set.count()
+        obj['user_inspiration'] = SharedEntry.objects.filter(user=user).count() +  user.comments.count()
         # if the value of USER is the same as the logged in users
         # connection then they are connected
         if value == user.connection:

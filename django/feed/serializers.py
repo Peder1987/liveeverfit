@@ -50,13 +50,6 @@ class BlogEntrySerializer(AbstractEntrySerializer):
 	class Meta:
 		model = BlogEntry
 
-class SharedEntrySerializer(AbstractEntrySerializer):
-	shared_first_name = serializers.CharField(source='entry.user.first_name', required=False)
-	shared_last_name = serializers.CharField(source='entry.user.last_name', required=False)
-	shared_user_id = serializers.CharField(source='entry.user.id', required=False)
-	class Meta:
-		model = SharedEntry
-
 class FlaggedSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Flagged
@@ -68,7 +61,6 @@ class EntrySerializer(serializers.ModelSerializer):
 	
 	def to_native(self, value):
 		class_type = value.__class__.__name__
-
 		if class_type == 'PhotoEntry':
 			obj = PhotoEntrySerializer(instance=value).data
 		elif class_type == 'VideoEntry':
@@ -87,6 +79,24 @@ class EntrySerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Entry
+
+
+class SharedEntrySerializer(AbstractEntrySerializer):
+	shared_entry = EntrySerializer(source="entry")
+
+	def to_native(self, value):
+		class_type = value.__class__.__name__
+		# since SharedEntry referes to "Entry" then 
+		# we have to grab super class (if exists) and
+		# for serialization give it it's proper type so 
+		# EntrySerializer can work properly
+		entry_subclass = Entry.objects.get_subclass(id=value.entry.id)
+		value.entry = entry_subclass
+		obj =super(SharedEntrySerializer, self).to_native(value)
+		return obj
+
+	class Meta:
+		model = SharedEntry
 
 class EntryLikeSerializer(serializers.ModelSerializer):
 	user_id = serializers.CharField(max_length=50)
