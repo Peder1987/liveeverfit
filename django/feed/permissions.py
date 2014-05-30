@@ -1,6 +1,8 @@
 from rest_framework import permissions
+from rest_framework.permissions import IsAuthenticated
 
-class IsOwnerOrReadOnly(permissions.BasePermission):
+
+class IsOwnerOrReadOnly(IsAuthenticated):
     """
     Object-level permission to only allow owners of an object to edit it.
     Assumes the model instance has an `owner` attribute.

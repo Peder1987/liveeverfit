@@ -25,7 +25,8 @@ class EntryListView(generics.ListAPIView):
 		if pk:
 			return Entry.objects.filter(user=pk).select_subclasses()
 		else:
-			following = self.request.user.following.all()
+			#RETURNS LIST OF USERS THAT USER IS FOLLOWING
+			following = self.request.user.relationships.following()
 			return Entry.objects.filter(user__in=following).select_subclasses()
 
 
