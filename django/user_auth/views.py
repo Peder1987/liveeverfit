@@ -133,7 +133,6 @@ def register_professional(request):
         if certification_name2:
             certification2 = Certification(user = pro, certification_name = certification_name2, certification_number = certification_number2)
             certification2.save()
-
         pro.save()
         address = Address.objects.get(id = user.primary_address.id)
         address.__dict__.update(**temp_address)
