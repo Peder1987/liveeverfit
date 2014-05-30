@@ -13,18 +13,3 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-
-class CustomUserChoiceField(forms.ModelChoiceField):
-    def label_from_instance(self, obj):
-        print obj
-        return 'hey'   
-
-class AddFlaggedForm(forms.ModelForm):
-    entry = CustomUserChoiceField(queryset=Entry.objects.all().select_subclasses())
-    def __init__(self, *args, **kwargs):
-
-        return super(FlaggedForm, self).__init__(*args, **kwargs)
-        
-    class Meta:
-        model = Flagged
-        #fields = ("entry__text",)

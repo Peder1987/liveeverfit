@@ -1,7 +1,7 @@
 import ast, json
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
-from feed.models import Entry, TextEntry, PhotoEntry, VideoEntry, EventEntry, BlogEntry, Comment, Flagged
+from feed.models import Entry, TextEntry, PhotoEntry, VideoEntry, EventEntry, BlogEntry, Comment, Flagged, SharedEntry
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -50,6 +50,13 @@ class BlogEntrySerializer(AbstractEntrySerializer):
 	class Meta:
 		model = BlogEntry
 
+class SharedEntrySerializer(AbstractEntrySerializer):
+	shared_first_name = serializers.CharField(source='entry.user.first_name', required=False)
+	shared_last_name = serializers.CharField(source='entry.user.last_name', required=False)
+	shared_user_id = serializers.CharField(source='entry.user.id', required=False)
+	class Meta:
+		model = SharedEntry
+
 class FlaggedSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Flagged
@@ -72,6 +79,8 @@ class EntrySerializer(serializers.ModelSerializer):
 			obj = BlogEntrySerializer(instance=value).data
 		elif class_type == 'BlogEntry':
 			obj = TextEntrySerializer(instance=value).data
+		elif class_type == 'SharedEntry':
+			obj = SharedEntrySerializer(instance=value).data
 		else:
 			obj = TextEntrySerializer(instance=value).data
 		return obj
@@ -108,8 +117,8 @@ class ListEntrySerializer(serializers.ModelSerializer):
 			obj = EventEntrySerializer(instance=value).data
 		elif class_type == 'BlogEntry':
 			obj = BlogEntrySerializer(instance=value).data
-		elif class_type == 'BlogEntry':
-			obj = TextEntrySerializer(instance=value).data
+		elif class_type == 'SharedEntry':
+			obj = SharedEntrySerializer(instance=value).data
 		else:
 			obj = TextEntrySerializer(instance=value).data
 		return obj

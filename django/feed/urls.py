@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 from rest_framework import routers
 from feed.views import PhotoEntryViewSet, VideoEntryViewSet, EventEntryViewSet, BlogEntryViewSet, EntryListView, TextEntryViewSet
-from feed.views import CommentViewSet, FlaggedCreateView, EntryLikeView, ListSubEntryView
+from feed.views import CommentViewSet, FlaggedCreateView, EntryLikeView, ListSubEntryView, SharedEntryViewSet
 
 router = routers.SimpleRouter(trailing_slash=False)
 router.register('/text', TextEntryViewSet)
@@ -10,6 +10,7 @@ router.register('/photo', PhotoEntryViewSet)
 router.register('/video', VideoEntryViewSet)
 router.register('/event', EventEntryViewSet)
 router.register('/blog', BlogEntryViewSet)
+router.register('/shared', SharedEntryViewSet)
 router.register('/comment', CommentViewSet)
 
 

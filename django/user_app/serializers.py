@@ -79,7 +79,7 @@ class ProfileProfessionalSerializer(serializers.ModelSerializer):
         model = Professional
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list",
                     'tier', 'referred_by', 'shopify_id', 'chargify_id', 'stripe_id', 'phone', 'is_professional',
-                    'is_upgraded', 'is_superuser', 'primary_address', 'is_staff', 'queue',)                    
+                    'is_upgraded', 'is_superuser', 'primary_address', 'is_staff', 'queue', 'following', 'relationships')
 
     
 class ProfileSerializer(serializers.ModelSerializer):
@@ -93,7 +93,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', 'primary_address',)
+        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', 'primary_address', 'following', 'relationships')
 
     def to_native(self, value):
         obj = super(ProfileSerializer, self).to_native(value)
@@ -110,7 +110,16 @@ class ProfileSerializer(serializers.ModelSerializer):
             obj['type'] = 'user'
         #data about user logged in accessing this profile   
         user = self.context['request'].user
-        
+
+        print user.entry_set.count()
+        # if the value of USER is the same as the logged in users
+        # connection then they are connected
+        if value == user.connection:
+            obj['user_connected'] = True
+        else:
+            obj['user_connected'] = False
+
+        # If logged in user likes this user
         obj['user_likes'] = value.likes.filter(pk=user.pk).exists()
         return obj
 

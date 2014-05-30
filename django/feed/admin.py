@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.core.urlresolvers import reverse
-from feed.models import Entry, PhotoEntry, VideoEntry, EventEntry, BlogEntry, TextEntry, Comment, Flagged
-from feed.forms import AddFlaggedForm
+from feed.models import Entry, PhotoEntry, VideoEntry, EventEntry, BlogEntry, TextEntry, SharedEntry
+from feed. models import Comment, Flagged
 
 class FeedAdmin(admin.ModelAdmin):
 	list_display = ('creator', 'title','start', 'end')
@@ -19,6 +19,8 @@ class EventEntryAdmin(admin.ModelAdmin):
 	pass
 class BlogEntryAdmin(admin.ModelAdmin):
 	pass
+class SharedEntryAdmin(admin.ModelAdmin):
+	pass
 class CommentAdmin(admin.ModelAdmin):
 	pass
 class EntryInline(admin.TabularInline):
@@ -26,7 +28,6 @@ class EntryInline(admin.TabularInline):
 
 
 class FlaggedAdmin(admin.ModelAdmin):
-	#add_form = AddFlaggedForm
 	list_display = ('entry_user', "entry_id", "reporter_user",)	
 	readonly_fields = ('entry_user', 'entry_text', 'entry_object_link',)
 	fields = ("entry_user", "entry_text", 'entry', 'reporter', 'entry_object_link')
@@ -66,5 +67,6 @@ admin.site.register(PhotoEntry, PhotoEntryAdmin)
 admin.site.register(VideoEntry, VideoEntryAdmin)
 admin.site.register(EventEntry, EventEntryAdmin)
 admin.site.register(BlogEntry, BlogEntryAdmin)
+admin.site.register(SharedEntry, SharedEntryAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Flagged, FlaggedAdmin)

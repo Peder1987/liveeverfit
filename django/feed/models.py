@@ -47,6 +47,10 @@ class EventEntry(Entry, TimeFramedModel):
 class BlogEntry(Entry):
     type = 'blog'
     body = models.CharField(_('Body'), max_length=500, default='')
+
+class SharedEntry(Entry):
+    type = 'shared'
+    entry = models.ForeignKey(Entry, related_name="shared")
     
 class Comment(TimeStampedModel):
     entry = models.ForeignKey(Entry, related_name='comments')

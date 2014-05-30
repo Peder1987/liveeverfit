@@ -11,7 +11,8 @@ User = get_user_model()
 from feed.permissions import IsOwnerOrReadOnly
 from feed.serializers import EntrySerializer, TextEntrySerializer, PhotoEntrySerializer, VideoEntrySerializer, EventEntrySerializer
 from feed.serializers import BlogEntrySerializer, CommentSerializer, FlaggedSerializer, EntryLikeSerializer, ListEntrySerializer
-from feed.models import PhotoEntry, VideoEntry, EventEntry, BlogEntry, Entry, Comment, TextEntry, Flagged
+from feed.serializers import SharedEntrySerializer
+from feed.models import TextEntry, PhotoEntry, VideoEntry, EventEntry, BlogEntry, SharedEntry, Entry, Comment, Flagged
 
 class EntryListView(generics.ListAPIView):
 	paginate_by = 21
@@ -60,6 +61,10 @@ class BlogEntryViewSet(viewsets.ModelViewSet):
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = BlogEntrySerializer
 
+class SharedEntryViewSet(viewsets.ModelViewSet):
+	model = BlogEntry
+	permission_classes = (IsOwnerOrReadOnly,)
+	serializer_class = SharedEntrySerializer
 
 class CommentViewSet(viewsets.ModelViewSet):
 	model = Comment
@@ -96,5 +101,8 @@ class ListSubEntryView(generics.ListAPIView):
 				return EventEntry.objects.filter(user=pk).all()
 			elif type == 'blog':
 				return BlogEntry.objects.filter(user=pk).all()
+			elif type == 'shared':
+				return SharedEntry.objects.filter(user=pk).all()
+			return []
 		else:
 			return []
