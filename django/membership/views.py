@@ -14,7 +14,7 @@ from .serializers import AuthSerializer, UserSerializer
 #Permissions
 from .permissions import IsAdminOrSelf
 #Models
-from user_app.models import Professional, Address
+from user_app.models import Professional, Address, Certification
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
