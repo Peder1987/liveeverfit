@@ -12,6 +12,7 @@ from .filters import UserFilter, GenderFilterBackend, ProfessionFilterBackend, L
 from .filters import OwnerFilterBackend, QueueFilterBackend
 from .serializers import SettingsSerializer, PasswordSerializer, GroupSerializer, ProfessionalListSerializer, LocationSerializer, ClientListSerializer
 from .serializers import PaymentSerializer, ModifyMembershipSerializer, CreditcardSerializer, SettingsProfessionalSerializer, ProfileSerializer, UserLikeSerializer
+from .serializers import FollowUserSerializer
 from .permissions import IsAdminOrSelf, IsOwnerOrReadOnly, AuthenticatedReadOnly
 from .models import Professional, UniqueLocation
 
@@ -88,3 +89,8 @@ class UserLikeView(generics.UpdateAPIView, generics.DestroyAPIView):
     model = User
     permission_classes = (AuthenticatedReadOnly,)
     serializer_class = UserLikeSerializer
+
+class FollowUserView(generics.UpdateAPIView):
+    model = User
+    permission_classes = (IsAuthenticated,)
+    serializer_class = FollowUserSerializer

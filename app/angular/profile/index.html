@@ -67,9 +67,10 @@
 					<div class="image-overlay">
 
 						<div class="buttons pull-left">
-							<a href class="message"><i class="fa fa-envelope"></i> Message</a>
-							<a href class="inspire"><i class="fa fa-bolt"></i> Inspire</a>
-							<a href class="invite"><i class="fa fa-exchange"></i> Invite</a>
+							<a href ng-if="profile_user.connected" class="message"><i class="fa fa-envelope"></i> Message</a>
+							<a href ng-if="profile_user.invite" class="invite"><i class="fa fa-exchange"></i> Invite</a>
+							<a href ng-if="!profile_user.user_follow" class="follow" ng-click="followToggle()"><i class="fa fa-exchange"></i> Follow</a>
+							<a href ng-if="profile_user.user_follow" class="follow" ng-click="followToggle()"><i class="fa fa-exchange"></i> Unfollow</a>
 						</div><!-- /.buttons -->
 
 						<div class="report pull-right">

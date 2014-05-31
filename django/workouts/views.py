@@ -27,7 +27,7 @@ class VideoObjectView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = VideoSerializer
 
-class VideoLikeView(generics.UpdateAPIView, generics.DestroyAPIView):
+class VideoLikeView(generics.UpdateAPIView):
     model = Video
     permission_classes = (IsAuthenticated,)
     serializer_class = VideoLikeSerializer

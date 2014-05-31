@@ -22,6 +22,11 @@ define(['app'], function(app) {
                 }
 
             };
+
+            $scope.followToggle = function () {
+                console.log('dib')
+                console.log($stateParams);
+            };
             //init and assign which resource
             $scope.profile_user = userResource.get(function () {
             }, $scope.checkTokenError);
