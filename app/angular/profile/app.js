@@ -9,6 +9,10 @@ define(['app', 'feed'], function (app) {
         function ($scope, $stateParams, $resource, $modal, $http, localStorageService, tokenError) {
             angular.extend($scope, {
                 user_id: localStorageService.get('user_id'),
+                feed: {
+                    id: undefined,
+                    filter: undefined
+                },
                 followToggle: function () {
                     $scope.followResource.update({id: $scope.user_id, user_id: $scope.profile_user.id}, function (data) {
                         angular.extend($scope.profile_user, data);

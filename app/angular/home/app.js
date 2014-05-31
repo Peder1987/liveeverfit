@@ -3,7 +3,17 @@
 define(['app', 'feed'], function (app) {
     app.register.controller('homeCtrl', ['localStorageService', '$scope',
         function (localStorageService, $scope) {
-            $scope.token = localStorageService.get('Authorization');
+            angular.extend($scope, {
+                token: localStorageService.get('Authorization'),
+                tabs: ['text', 'photo', 'video', 'blog', 'event'],
+                feed: {
+                    filter: undefined
+                },
+                filter: function(type) {
+                    $scope.feed.filter = type;
+                    $scope.$apply();
+                }
+            });
         }]);
     app.register.controller('BannerCtrl', ['$scope',
         function ($scope) {

@@ -104,7 +104,8 @@
                         </label>
                     </div>
                 </div>
-                <div class="blog" ng-show="entryInputType=='blog'" rich-text-editor ng-model="$parent.entryBlogBody"></div>
+                <div class="blog" ng-show="entryInputType=='blog'" rich-text-editor
+                     ng-model="$parent.entryBlogBody"></div>
                 <button ng-click="entrySubmit()" class="btn btn-primary btn-sm pull-right">share</button>
                 <span class="clearfix"></span>
             </form>
@@ -195,6 +196,7 @@
                 <div class="event" ng-switch-when="event">
                     <b>{{entry.text}}</b>
                     <br><br>
+
                     <div class="row">
                         <div class="col-xs-6"><b class="blue">From:</b><br> {{entry.start | date : 'mediumDate' }}
                             <span ng-show="!entry.allday">{{entry.created | date : 'shortTime' }}</span>
@@ -205,8 +207,64 @@
                     </div>
                     <b ng-show="entry.allday">All day</b>
                 </div>
-                <div class="share" ng-switch-when="share">
-                    Shared
+                <div class="shared" ng-switch-when="shared">
+                    <b>Shared</b>
+                    <br><br>
+                    <div class="media">
+                        <img class="media-object pull-left"
+                             ng-src="{{entry.shared_entry.profile_img}}"
+                             style="width: 32px; height: 32px;">
+                        <div class="media-body">
+                            <div class="posted-by">
+                                <a href="#">
+                                    {{entry.shared_entry.first_name}} {{entry.shared_entry.last_name}}
+                                </a>
+                            </div>
+                            <div class="timestamp">
+                                shared - {{entry.shared_entry.created | date : 'mediumDate' }}
+                                {{entry.shared_entry.created | date: 'shortTime' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-body" ng-switch="entry.shared_entry.type">
+                        <div class="text" ng-switch-when="text">
+                            {{entry.shared_entry.text}}
+                        </div>
+                        <div class="photo" ng-switch-when="photo">
+                            {{entry.shared_entry.text}}
+                            <div>
+                                <img ng-src="/media/{{entry.shared_entry.img}}">
+                            </div>
+                        </div>
+                        <div class="video" ng-switch-when="video">
+                            {{entry.shared_entry.text}}
+                            <div>
+                                <iframe width="100%" height="100%" ng-src="{{getTrustedURL(entry.shared_entry.url)}}"
+                                        frameborder="0"
+                                        allowfullscreen=""></iframe>
+                            </div>
+                        </div>
+                        <div class="blog" ng-switch-when="blog">
+                            {{entry.text}}
+                            <div ng-bind-html="getTrustedHtml(entry.body)"></div>
+                        </div>
+                        <div class="event" ng-switch-when="event">
+                            <b>{{entry.shared_entry.text}}</b>
+                            <br><br>
+
+                            <div class="row">
+                                <div class="col-xs-6"><b class="blue">From:</b><br> {{entry.shared_entry.start | date :
+                                    'mediumDate'}}
+                                    <span ng-show="!entry.shared_entry.allday">{{entry.shared_entry.created | date : 'shortTime' }}</span>
+                                </div>
+                                <div class="col-xs-6"><b class="blue">Until:</b><br> {{entry.shared_entry.end | date :
+                                    'mediumDate'}}
+                                    <span ng-show="!entry.shared_entry.allday">{{entry.shared_entry.created | date : 'shortTime' }}</span>
+                                </div>
+                            </div>
+                            <b ng-show="entry.shared_entry.allday">All day</b>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="post-social">
@@ -238,7 +296,8 @@
                     <div class="list-group">
                         <div ng-repeat="comment in entry.comments" class="list-group-item">
                             <div class="media">
-                                <button class="close" ng-if="comment.user == user_id" ng-click="deleteComment($index, comment, entry)">
+                                <button class="close" ng-if="comment.user == user_id"
+                                        ng-click="deleteComment($index, comment, entry)">
                                     <i class="fa fa-times"></i>&ZeroWidthSpace;
                                 </button>
                                 <img class="media-object pull-left"
@@ -248,6 +307,7 @@
                                 <div class="media-body">
                                     <div class="col-xs-12 col-sm-9">
                                         <span style="color: #999999; font-size: 12px;"><span style="color: #95abbf">{{comment.first_name}} {{comment.last_name}}</span> {{comment.text}}</span>
+
                                         <div style="color: #c2c1c1; font-size: 11px;">
                                             {{ comment.created | date:'mediumDate'}}
                                             at {{comment.created | date: 'shortTime'}}
