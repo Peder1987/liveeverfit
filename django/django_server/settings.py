@@ -185,6 +185,7 @@ INSTALLED_APPS = (
     'feed',
     'model_utils',
     'cicu',
+    'schedule',
     'relationships',
     # 'ws4redis',
     # 'websocketsredis',

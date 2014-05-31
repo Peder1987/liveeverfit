@@ -89,6 +89,7 @@ define(['angularAMD',
                     .state('terms', route.resolve('/terms', 'terms'))
                     .state('faq', route.resolve('/faq', 'faq'))
                     .state('membership', route.resolve('/membership', 'membership'))
+                    .state('calendar', route.resolve('/calendar', 'calendar'))
                     .state('profile', route.resolve('/profile', 'profile'))
                     .state('profile.view', route.resolve('/:view', 'profile'));
 
