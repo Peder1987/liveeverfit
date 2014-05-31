@@ -63,6 +63,15 @@
                                         </span>
                                     </div>
                                 </div>
+                                <div ng-if="profile_user.type == 'professional'" class="row" style="padding-top: 13px;">
+                                    <div class="col-xs-12">
+                                        <span class="bold">
+                                            <span class="fa fa-share-square"></span> Share Profile:
+                                            <input type="text" class="editable-input form-control ng-pristine" value="{{restProtocol}}://0.0.0.0:9000/#/?referral={{profile_user.email}}">
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <form editable-form name="editable" ng-show="editable.$visible" onbeforesave="updateProfile()">
