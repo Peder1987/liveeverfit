@@ -305,10 +305,11 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 method: 'PUT'
                             }
                         }),
-                        feedCollection: $resource(":protocol://:url/feed/:id", {
+                        feedCollection: $resource(":protocol://:url/feed/:filter/:id", {
                             protocol: $scope.restProtocol,
                             url: $scope.restURL,
-                            id: '@id'
+                            id: '@id',
+                            filter: '@filter'
                         }, {
                             update: { method: 'PUT' }
                         }),
@@ -331,9 +332,9 @@ define(['app', 'masonry'], function (app, Masonry) {
                             protocol: $scope.restProtocol,
                             url: $scope.restURL
                         }),
-                        init: function (feed_id) {
-                            $scope.feed_id = feed_id || undefined;
-                            $scope.feedCollection.get({id: $scope.feed_id}, function (data) {
+                        init: function () {
+                            $scope.feed_id = ngModel.$viewValue.id;
+                            $scope.feedCollection.get({id: $scope.feed_id, filter: ngModel.$viewValue.filter}, function (data) {
                                 $scope.feedList = data.results;
                                 $scope.runMasonry();
                             }, $scope.checkTokenError);
@@ -342,11 +343,11 @@ define(['app', 'masonry'], function (app, Masonry) {
                     // model -> view
                     if (ngModel) {
                         ngModel.$render = function () {
-                            if (ngModel.$viewValue) $scope.init(ngModel.$viewValue);
+                            console.log(ngModel.$viewValue)
+                            if(ngModel.$viewValue) $scope.init();
                         };
                         ngModel.$render();
                     }
-                    else $scope.init();
                 }
             }
         }]);

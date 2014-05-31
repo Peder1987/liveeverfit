@@ -9,6 +9,10 @@ define(['app', 'feed'], function (app) {
         function ($scope, $stateParams, $resource, $modal, $http, localStorageService, tokenError) {
             angular.extend($scope, {
                 user_id: localStorageService.get('user_id'),
+                feed: {
+                    id: undefined,
+                    filter: undefined
+                },
                 userResource: $resource(":protocol://:url/users/profile/:id/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL,

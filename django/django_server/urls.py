@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^upload-image/', include('cicu.urls')),
     url(r'^contact/', include('contact.urls')),
     url(r'^membership/', include('membership.urls')),
+    url(r'^calendar/', include('schedule.urls')),
     url(r'^feed', include('feed.urls')),
 )
 
