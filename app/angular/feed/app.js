@@ -305,11 +305,11 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 method: 'PUT'
                             }
                         }),
-                        feedCollection: $resource(":protocol://:url/feed/:filter/:id", {
+                        feedCollection: $resource(":protocol://:url/feed:filter/:id", {
                             protocol: $scope.restProtocol,
                             url: $scope.restURL,
-                            id: '@id',
-                            filter: '@filter'
+                            filter: '@filter',
+                            id: '@id'
                         }, {
                             update: { method: 'PUT' }
                         }),
@@ -343,7 +343,6 @@ define(['app', 'masonry'], function (app, Masonry) {
                     // model -> view
                     if (ngModel) {
                         ngModel.$render = function () {
-                            console.log(ngModel.$viewValue)
                             if(ngModel.$viewValue) $scope.init();
                         };
                         ngModel.$render();

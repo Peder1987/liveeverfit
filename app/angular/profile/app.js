@@ -11,7 +11,23 @@ define(['app', 'feed'], function (app) {
                 user_id: localStorageService.get('user_id'),
                 feed: {
                     id: undefined,
-                    filter: undefined
+                    filter: undefined,
+                    show: false
+                },
+                tabs: [{title: 'feed', filter:''},{title: 'bio', filter:'exempt'},{title: 'texts', filter:'text'}, {title: 'photos', filter:'photo'}, {title: 'videos', filter:'video'}, {title: 'blogs', filter:'blog'}, {title: 'events', filter:'event'}, {title: 'calendar', filter:'exempt'}, {title: 'reach', filter:'exempt'}],
+                filter: function(type) {
+                    if(type == 'exempt') {
+                        angular.extend($scope.feed, {
+                            show: false
+                        });
+                    }
+                    else {
+                        $scope.feed = {
+                            id: $scope.profile_user.id,
+                            filter: type?'/'+type+'/list':'',
+                            show: true
+                        };
+                    }
                 },
                 followToggle: function () {
                     $scope.followResource.update({id: $scope.user_id, user_id: $scope.profile_user.id}, function (data) {
@@ -31,6 +47,11 @@ define(['app', 'feed'], function (app) {
                 getProfile: function () {
                     $scope.userResource.get({id: $stateParams.view || $scope.user_id}, function (data) {
                         $scope.profile_user = data;
+                        $scope.feed = {
+                            id: $scope.profile_user.id,
+                            filter: $scope.feed.filter,
+                            show: $scope.feed.show
+                        };
                     }, $scope.checkTokenError);
                 }
             });
