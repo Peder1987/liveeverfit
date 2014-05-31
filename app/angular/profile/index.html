@@ -1,6 +1,6 @@
 <div id="profileBg"></div>
 <div id="profile" ng-controller="profileController">
-    <div class="container">
+    <div class="container" ng-if="profile_user">
         <div class="header">
             <div class="row">
                 <div class="col-md-4">
@@ -116,7 +116,7 @@
             </ul>
         </div>
         <!-- /.filters -->
-        <div entry-feed></div>
+        <div entry-feed ng-model="profile_user.id"></div>
     </div>
     <!-- /.container -->
 </div><!-- /#profile -->

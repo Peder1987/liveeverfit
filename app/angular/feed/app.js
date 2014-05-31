@@ -5,7 +5,8 @@ define(['app', 'masonry'], function (app, Masonry) {
         function ($resource, $upload, $sce, rest, localStorageService, fileReader, tokenError) {
             return {
                 templateUrl: 'feed/index.html',
-                link: function ($scope, element, attrs) {
+                require: '?ngModel',
+                link: function ($scope, element, attrs, ngModel) {
                     angular.extend($scope, {
                         user_id: localStorageService.get('user_id'),
                         usrImg: localStorageService.get('user_img'),
@@ -58,6 +59,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                         },
                         entryYouTubeChange: function () {
                             $scope.refreshMasonry();
+                            console.log($scope.entryVideoURL)
                             if ($scope.entryVideoURL) {
                                 if ($scope.entryVideoURL.indexOf("watch?v=") > -1) {
                                     $scope.entryVideoURLID = '//www.youtube.com/embed/' + this.entryVideoURL.slice(this.entryVideoURL.indexOf("watch?v=") + 8)
@@ -142,7 +144,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                         if ($scope.entryVideoURLID) {
                                             this.entryCollection.save({
                                                 text: $scope.entryInputText,
-                                                url: $scope.this.entryVideoURLID,
+                                                url: $scope.entryVideoURLID,
                                                 user: $scope.user_id
                                             }, function (data) {
                                                 $scope.feedList.unshift(data);
@@ -162,7 +164,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                 text: $scope.entryInputText,
                                                 start: $scope.entryEvent.start,
                                                 end: $scope.entryEvent.end,
-                                                allDay: $scope.entryEvent.allDay,
+                                                allday: $scope.entryEvent.allDay,
                                                 user: $scope.user_id
                                             }, function (data) {
                                                 $scope.feedList.unshift(data);
@@ -196,9 +198,6 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                 $scope.entryBlogBody = "";
                                             }, 300);
                                         }
-                                    },
-                                    comment: function () {
-
                                     }
                                 };
                             if ($scope.entryInputText) {
@@ -210,11 +209,28 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 }, 300);
                             }
                         },
+                        entryShare: function (id) {
+                            var entryCollection = $resource(":protocol://:url/feed/shared", {
+                                protocol: $scope.restProtocol,
+                                url: $scope.restURL
+                            }, {
+                                update: {
+                                    method: 'PUT'
+                                }
+                            });
+                            entryCollection.update({
+                                    user: $scope.user_id,
+                                    entry: id
+                                },
+                                function (data) {
+                                $scope.feedList.unshift(data);
+                                $scope.runMasonry();
+                            });
+                        },
                         selectEntryInputType: function (type) {
-                            var scope = this;
-                            scope.entryInputType = type;
-                            scope.refreshMasonry();
-                            scope.entryImgSrc = '';
+                            $scope.entryInputType = type;
+                            $scope.refreshMasonry();
+                            $scope.entryImgSrc = '';
                             if (type == 'event' || type == 'blog') {
                                 $scope.entryInputPlaceHolder = $sce.trustAsHtml("Title or Description");
                                 $scope.entryInputText = '';
@@ -269,12 +285,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                             var commentObj = {
                                 id: comment.id
                             };
-                            console.log(index)
-                            console.log(comment)
-                            console.log(entry.comments)
                             entry.comments.splice(index, 1);
-                            console.log(entry.comments)
-
                             $scope.commentResource.delete(commentObj, function () {
 
                             });
@@ -285,7 +296,7 @@ define(['app', 'masonry'], function (app, Masonry) {
 
                             });
                         },
-                        likeResource: $resource(":protocol://:url/feed/likes/:id/", {
+                        likeResource: $resource(":protocol://:url/feed/likes/:id", {
                             protocol: $scope.restProtocol,
                             url: $scope.restURL,
                             id: '@id'
@@ -294,9 +305,10 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 method: 'PUT'
                             }
                         }),
-                        feedCollection: $resource(":protocol://:url/feed", {
+                        feedCollection: $resource(":protocol://:url/feed/:id", {
                             protocol: $scope.restProtocol,
-                            url: $scope.restURL
+                            url: $scope.restURL,
+                            id: '@id'
                         }, {
                             update: { method: 'PUT' }
                         }),
@@ -318,13 +330,23 @@ define(['app', 'masonry'], function (app, Masonry) {
                         flagResource: $resource(":protocol://:url/feed/flag", {
                             protocol: $scope.restProtocol,
                             url: $scope.restURL
-                        })
+                        }),
+                        init: function (feed_id) {
+                            $scope.feed_id = feed_id || undefined;
+                            $scope.feedCollection.get({id: $scope.feed_id}, function (data) {
+                                $scope.feedList = data.results;
+                                $scope.runMasonry();
+                            }, $scope.checkTokenError);
+                        }
                     });
-                    //init feed
-                    $scope.feedCollection.get({}, function (data) {
-                        $scope.feedList = data.results;
-                        $scope.runMasonry();
-                    }, $scope.checkTokenError);
+                    // model -> view
+                    if (ngModel) {
+                        ngModel.$render = function () {
+                            if (ngModel.$viewValue) $scope.init(ngModel.$viewValue);
+                        };
+                        ngModel.$render();
+                    }
+                    else $scope.init();
                 }
             }
         }]);

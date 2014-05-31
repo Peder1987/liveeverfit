@@ -1,6 +1,6 @@
 <div class="newsFeed">
 <div class="row">
-<div class="item col-xs-12 col-lg-8">
+<div ng-if="!feed_id || feed_id == user_id" class="item col-xs-12 col-lg-8">
     <div class="post-outer ">
         <div class="entry-input">
             <form class="input-box {{entryInputType}}">
@@ -9,7 +9,7 @@
                      class="input"
                      role="textbox"
                      contenteditable
-                     ng-model="entryInputText"
+                     ng-model="$parent.entryInputText"
                      ng-enter="entrySubmit()"></div>
                 <div class="photo" ng-if="entryInputType=='photo'">
                     <div ng-if="!entryImgSrc&&!percent" class="upload">
@@ -20,11 +20,11 @@
 
                             <div>drag & drop</div>
                         </div>
-                                    <span class="btn btn-primary">
-                                         upload from computer
-                                        <input id="upload" type="file" accept="image/*" class="upload"
-                                               ng-file-select="onFileSelect($files)">
-                                    </span>
+                        <span class="btn btn-primary">
+                             upload from computer
+                            <input id="upload" type="file" accept="image/*" class="upload"
+                                   ng-file-select="onFileSelect($files)">
+                        </span>
                     </div>
                     <h3 ng-if="percent">Loading...</h3>
                     <progressbar ng-if="percent" class="progress-striped active" value="percent">
@@ -35,7 +35,7 @@
                 <div class="video" ng-if="entryInputType=='video'">
                     <div class="form-group">
                         <label>Paste YouTube URL here</label>
-                        <input ng-model="$parent.entryVideoURL" class="form-control" type="text"
+                        <input ng-model="$parent.$parent.entryVideoURL" class="form-control" type="text"
                                placeholder="" ng-change="entryYouTubeChange()" required/>
                     </div>
                     <iframe ng-if="entryVideoURLID"
@@ -53,7 +53,7 @@
                                 <div class="input-group">
                                     <input id="eventStart" type="text" class="form-control"
                                            datepicker-popup="MM/dd/yyyy"
-                                           ng-model="entryEvent.start" min
+                                           ng-model="$parent.$parent.entryEvent.start" min
                                            is-open="fromDatePickerOpened"
                                            date-disabled="disabled(date, mode)"
                                            show-button-bar="false" required/>
@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                             <div collapse="entryEvent.allDay">
-                                <div ng-model="entryEvent.start" ng-change="changed()">
+                                <div ng-model="$parent.$parent.entryEvent.start" ng-change="changed()">
                                     <timepicker></timepicker>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                                 <div class="input-group">
                                     <input id="eventEnd" type="text" class="form-control"
                                            datepicker-popup="MM/dd/yyyy"
-                                           ng-model="entryEvent.end"
+                                           ng-model="$parent.$parent.entryEvent.end"
                                            is-open="untilDatePickerOpened"
                                            date-disabled="disabled(date, mode)"
                                            show-button-bar="false" required/>
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                             <div collapse="entryEvent.allDay">
-                                <div ng-model="entryEvent.end" ng-change="changed()">
+                                <div ng-model="$parent.$parent.entryEvent.end" ng-change="changed()">
                                     <timepicker></timepicker>
                                 </div>
                             </div>
@@ -99,12 +99,12 @@
                     </div>
                     <div class="form-group">
                         <label>
-                            <input type="checkbox" ng-model="entryEvent.allDay">
+                            <input type="checkbox" ng-model="$parent.$parent.entryEvent.allDay">
                             All-Day
                         </label>
                     </div>
                 </div>
-                <div class="blog" ng-show="entryInputType=='blog'" rich-text-editor ng-model="entryBlogBody"></div>
+                <div class="blog" ng-show="entryInputType=='blog'" rich-text-editor ng-model="$parent.entryBlogBody"></div>
                 <button ng-click="entrySubmit()" class="btn btn-primary btn-sm pull-right">share</button>
                 <span class="clearfix"></span>
             </form>
@@ -193,16 +193,20 @@
                     <div ng-bind-html="getTrustedHtml(entry.body)"></div>
                 </div>
                 <div class="event" ng-switch-when="event">
+                    <b>{{entry.text}}</b>
+                    <br><br>
                     <div class="row">
                         <div class="col-xs-6"><b class="blue">From:</b><br> {{entry.start | date : 'mediumDate' }}
-                            {{entry.created | date : 'shortTime' }}
+                            <span ng-show="!entry.allday">{{entry.created | date : 'shortTime' }}</span>
                         </div>
                         <div class="col-xs-6"><b class="blue">Until:</b><br> {{entry.end | date : 'mediumDate' }}
-                            {{entry.created | date : 'shortTime' }}
+                            <span ng-show="!entry.allday">{{entry.created | date : 'shortTime' }}</span>
                         </div>
                     </div>
-                    <br>
-                    {{entry.text}}
+                    <b ng-show="entry.allday">All day</b>
+                </div>
+                <div class="share" ng-switch-when="share">
+                    Shared
                 </div>
             </div>
             <div class="post-social">
@@ -211,11 +215,15 @@
                 </span>
                 <button class="btn btn-default btn-sm"
                         ng-click="likeEntry(entry)">
-                    <span ng-if="!entry.user_likes">like</span>
-                    <span ng-if="entry.user_likes">unlike</span>
+                    <span ng-if="!entry.user_likes">rep</span>
+                    <span ng-if="entry.user_likes">unrep</span>
                     <span class="fa"
                           ng-class="{'fa-thumbs-o-up': (entry.user_likes == false), 'fa-thumbs-o-down': (entry.user_likes == true)}">
                     </span>
+                </button>
+                <button class="btn btn-default btn-sm"
+                        ng-click="entryShare(entry.id)">
+                    share
                 </button>
             </div>
             <div class="row" style="padding: 8px 0;" ng-if="commentNext">
