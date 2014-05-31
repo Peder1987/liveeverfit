@@ -365,6 +365,7 @@ class Professional(CustomUser):
         ('Nutritionist', 'Nutritionist'),
         ('Trainer', 'Trainer'),
         ('Promoter', 'Promoter'),
+        ('Instructor', 'Instructor'),
     )
     
     profession = models.CharField(_('profession'), max_length=30, blank=True, choices=PROFESSIONAL_CHOICES)
