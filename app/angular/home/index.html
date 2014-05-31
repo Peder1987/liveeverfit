@@ -21,8 +21,8 @@
                 </div>
             </div>
         </div>
-        <tabset>
-            <tab ng-repeat="tab in tabs" heading="{{tab}}" select="filter(tab)"></tab>
+        <tabset justified="true">
+            <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="filter(tab.filter)"></tab>
         </tabset>
         <!-- /.homePageButtons -->
         <div entry-feed ng-model="$parent.feed"></div>
