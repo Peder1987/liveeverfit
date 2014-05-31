@@ -218,7 +218,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                     method: 'PUT'
                                 }
                             });
-                            entryCollection.update({
+                            entryCollection.save({
                                     user: $scope.user_id,
                                     entry: id
                                 },

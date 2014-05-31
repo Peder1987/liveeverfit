@@ -63,7 +63,7 @@ class BlogEntryViewSet(viewsets.ModelViewSet):
 	serializer_class = BlogEntrySerializer
 
 class SharedEntryViewSet(viewsets.ModelViewSet):
-	model = BlogEntry
+	model = SharedEntry
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = SharedEntrySerializer
 
