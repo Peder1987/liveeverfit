@@ -29,11 +29,6 @@ define(['app', 'feed'], function (app) {
                         };
                     }
                 },
-                followToggle: function () {
-                    $scope.followResource.update({id: $scope.user_id, user_id: $scope.profile_user.id}, function (data) {
-                        angular.extend($scope.profile_user, data);
-                    });
-                },
                 userResource: $resource(":protocol://:url/users/profile/:id/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL,
@@ -44,6 +39,23 @@ define(['app', 'feed'], function (app) {
                     url: $scope.restURL,
                     id: "@id"
                 }, {update: { method: 'PUT' }}),
+                connectResource: $resource(":protocol://:url/users/connect/:id/", {
+                    protocol: $scope.restProtocol,
+                    url: $scope.restURL,
+                    id: "@id"
+                }, {update: { method: 'PUT' }}),
+                followToggle: function () {
+                    $scope.followResource.update({id: $scope.user_id, user_id: $scope.profile_user.id}, function (data) {
+                        console.log(data)
+
+                        $scope.profile_user.user_follows = data.user_follows;
+                    });
+                },
+                connect: function () {
+                    $scope.connectResource.update({id: $scope.user_id, professional_id: $scope.profile_user.id}, function (data) {
+                        $scope.profile_user.user_connected = data.user_connected
+                    });
+                },
                 getProfile: function () {
                     $scope.userResource.get({id: $stateParams.view || $scope.user_id}, function (data) {
                         $scope.profile_user = data;

@@ -12,7 +12,7 @@ from .filters import UserFilter, GenderFilterBackend, ProfessionFilterBackend, L
 from .filters import OwnerFilterBackend, QueueFilterBackend
 from .serializers import SettingsSerializer, PasswordSerializer, GroupSerializer, ProfessionalListSerializer, LocationSerializer, ClientListSerializer
 from .serializers import PaymentSerializer, ModifyMembershipSerializer, CreditcardSerializer, SettingsProfessionalSerializer, ProfileSerializer, UserLikeSerializer
-from .serializers import FollowUserSerializer
+from .serializers import FollowUserSerializer, ConnectUserSerializer
 from .permissions import IsAdminOrSelf, IsOwnerOrReadOnly, AuthenticatedReadOnly
 from .models import Professional, UniqueLocation
 
@@ -94,3 +94,9 @@ class FollowUserView(generics.UpdateAPIView):
     model = User
     permission_classes = (IsAuthenticated,)
     serializer_class = FollowUserSerializer
+
+
+class ConnectUserView(generics.UpdateAPIView):
+    model = User
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ConnectUserSerializer
