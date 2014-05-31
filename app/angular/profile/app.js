@@ -22,10 +22,14 @@ define(['app'], function(app) {
             getProfile = function(){
                 console.log($stateParams)
                 if($stateParams.view){
-                    $scope.profile_user = userResource.get({id:$stateParams.view},function () {
+                    userResource.get({id:$stateParams.view},function (data) {
+                        $scope.profile_user = data
+                        console.log($scope.profile_user)
                     }, $scope.checkTokenError);
                 }else{
-                    $scope.profile_user = userResource.get(function () {
+                    userResource.get(function (data) {
+                        $scope.profile_user = data
+                        console.log($scope.profile_user)
                     }, $scope.checkTokenError);
 
                 }

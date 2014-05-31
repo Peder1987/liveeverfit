@@ -124,6 +124,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         else:
             obj['user_connected'] = False
 
+        # check if user is following this profile
+        if value.relationships.followers().filter(pk=user.pk).exists():
+            obj['user_follows'] = True
+        else:
+            obj['user_follows'] = False
+
         # If logged in user likes this user
         obj['user_likes'] = value.likes.filter(pk=user.pk).exists()
         return obj
