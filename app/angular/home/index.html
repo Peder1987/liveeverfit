@@ -1,2 +1,27 @@
 <div id="homeBg"></div>
-<div id="homePage" ng-include="homeTemplate.url"></div>
+<div id="homePage" ng-if="token">
+    <div class="container">
+        <div ng-controller="BannerCtrl">
+            <carousel interval="3000">
+                <slide ng-repeat="slide in slides" active="slide.active">
+                    <img ng-src="{{slide.image}}" style="margin:auto;">
+                </slide>
+            </carousel>
+        </div>
+        <div class="homePageButtons xs-up">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <img src="../home/img/find-a-pro.png"/>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <img src="../home/img/workouts.png"/>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <img src="../home/img/the-shop.png"/>
+                </div>
+            </div>
+        </div>
+        <!-- /.homePageButtons -->
+        <div entry-feed></div>
+    </div>
+</div>

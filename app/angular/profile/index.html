@@ -1,21 +1,20 @@
 <div id="profileBg"></div>
 <div id="profile" ng-controller="profileController">
-
-	<div class="container">
-
-		<div class="header">
-			<div class="row">
-				<div class="col-md-4">
+    <div class="container">
+        <div class="header">
+            <div class="row">
+                <div class="col-md-4">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
                             <h2 class="ef-header pull-left">{{profile_user.first_name}} {{profile_user.last_name}}
-                            <small> / {{profile_user.location}}</small></h2>
+                                <small> / {{profile_user.location}}</small>
+                            </h2>
                         </div>
                     </div>
-				</div>
-				<div class="col-md-4 col-xs-2"></div>
-				<div class="col-md-2 col-sm-4 col-xs-2">
-					<div class="status-profile" style="text-align: center">
+                </div>
+                <div class="col-md-4 col-xs-2"></div>
+                <div class="col-md-2 col-sm-4 col-xs-2">
+                    <div class="status-profile" style="text-align: center">
                         Live training in session<br>
                         <i class="fa fa-circle fa-2x red"></i>
 
@@ -25,91 +24,99 @@
                     <div class="status-profile" style="text-align: center">
                         Accepting clients:<br>
                         <i ng-class="{'fa fa-circle fa-2x red': (profile_user.is_accepting == false), 'fa fa-circle fa-2x green': (profile_user.is_accepting == true)}"></i>
-                        
+
                     </div>
-				</div>
-			</div>
-		</div>
+                </div>
+            </div>
+        </div>
+        <div class="meta-banner">
 
-		<div class="meta-banner">
-
-			<div class="row">
-					<div class="col-md-4">
-						<div class="profile-left">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="profile-picture">
-									<img ng-src="/media/{{profile_user.img}}" class=""/>
-								</div><!-- /.profile-picture -->
-							</div><!-- /.col-md-6 -->
-							<div class="col-md-6">
-								<div class="meta-data" >
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-left">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="profile-picture">
+                                    <img ng-src="/media/{{profile_user.img}}" class=""/>
+                                </div>
+                                <!-- /.profile-picture -->
+                            </div>
+                            <!-- /.col-md-6 -->
+                            <div class="col-md-6">
+                                <div class="meta-data">
                                     <i class="fa fa-youtube fa-lg">{{profile_user.youtube}}</i><br>
                                     <i class="fa fa-twitter fa-lg">{{profile_user.twitter}}</i><br>
-									<i class="fa fa-facebook fa-lg">{{profile_user.facebook}}</i><br>
+                                    <i class="fa fa-facebook fa-lg">{{profile_user.facebook}}</i><br>
                                     <i class="fa fa-google-plus fa-lg">{{profile_user.plus}}</i><br>
                                     <i class="fa fa-instagram fa-lg">{{profile_user.instagram}}</i><br>
                                     <i class="fa fa-linkedin fa-lg">{{profile_user.linkedin}}</i>
-								</div><!-- /.meta-data -->
-							</div><!-- /.col-md-6 -->
-						</div><!-- /.row -->
+                                </div>
+                                <!-- /.meta-data -->
+                            </div>
+                            <!-- /.col-md-6 -->
+                        </div>
+                        <!-- /.row -->
 
-						<div class="specialties">
-							<h3 class="ef-header" >specialties</h3>
-							<span class="tag tag-blue tag-click" ng-repeat="tag in profile_user.tags">{{tag}}</span>
-						</div><!-- /.specialties-->
-					</div><!-- /.profile-left -->
+                        <div class="specialties">
+                            <h3 class="ef-header">specialties</h3>
+                            <span class="tag tag-blue tag-click" ng-repeat="tag in profile_user.tags">{{tag}}</span>
+                        </div>
+                        <!-- /.specialties-->
+                    </div>
+                    <!-- /.profile-left -->
 
-					</div><!-- /.col-md-4 -->
+                </div>
+                <!-- /.col-md-4 -->
 
-				<div class="col-md-8">
+                <div class="col-md-8">
 
-					<div class="profile-banner">
+                    <div class="profile-banner">
 
-					<div class="image-overlay">
+                        <div class="image-overlay">
 
-						<div class="buttons pull-left">
-							<a href ng-if="profile_user.connected" class="message"><i class="fa fa-envelope"></i> Message</a>
-							<a href ng-if="profile_user.invite" class="invite"><i class="fa fa-exchange"></i> Invite</a>
-							<a href ng-if="!profile_user.user_follows" class="follow" ng-click="followToggle()"><i class="fa fa-exchange"></i> Follow</a>
-							<a href ng-if="profile_user.user_follows" class="follow" ng-click="followToggle()"><i class="fa fa-exchange"></i> Unfollow</a>
-						</div><!-- /.buttons -->
+                            <div class="buttons pull-left">
+                                <a href ng-if="profile_user.connected" class="message"><i class="fa fa-envelope"></i>
+                                    Message</a>
+                                <a href ng-if="profile_user.invite" class="invite"><i class="fa fa-exchange"></i> Invite</a>
+                                <a href ng-if="!profile_user.user_follows" class="follow" ng-click="followToggle()"><i
+                                        class="fa fa-exchange"></i> Follow</a>
+                                <a href ng-if="profile_user.user_follows" class="follow" ng-click="followToggle()"><i
+                                        class="fa fa-exchange"></i> Unfollow</a>
+                            </div>
+                            <!-- /.buttons -->
 
-						<div class="report pull-right">
-                            <span class="stat-report">likes:{{profile_user.likes}}</span>
-							<span class="stat-report">inspiration:{{profile_user.user_inspiration}}</span>
-							<span ng-show="profile_user.clients" class="stat-report">clients:{{profile_user.clients}}</span>
-							<span class="stat-report">fanatics:{{profile_user.user_fanatics}}</span>
-						</div><!-- /.report -->
-						<div style="clear:both;"></div>
-					</div><!-- /.image-overlay -->
-					</div>
-				</div><!-- /.col-md-8 -->
-			</div><!-- /.row -->
-		</div><!-- /.meta-banner -->
-		<div class="filters">
+                            <div class="report pull-right">
+                                <span class="stat-report">likes:{{profile_user.likes}}</span>
+                                <span class="stat-report">inspiration:{{profile_user.user_inspiration}}</span>
+                                <span ng-show="profile_user.clients" class="stat-report">clients:{{profile_user.clients}}</span>
+                                <span class="stat-report">fanatics:{{profile_user.user_fanatics}}</span>
+                            </div>
+                            <!-- /.report -->
+                            <div style="clear:both;"></div>
+                        </div>
+                        <!-- /.image-overlay -->
+                    </div>
+                </div>
+                <!-- /.col-md-8 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.meta-banner -->
+        <div class="filters">
             <ul>
-                    <a href="#">feed</a>
-                    <a href="#">bio</a>
-                    <a href="#">videos</a>
-                    <a href="#">photos</a>
-                    <a href="#">calendar</a>
-                    <a href="#">blog</a>
-                    <a href="#">reach</a>
-                    <a href="#">group</a>
-                    <a href="#">testimonials</a>
+                <a href>feed</a>
+                <a href>bio</a>
+                <a href>videos</a>
+                <a href>photos</a>
+                <a href>calendar</a>
+                <a href>blog</a>
+                <a href>reach</a>
+                <a href>group</a>
+                <a href>testimonials</a>
             </ul>
-
-		</div><!-- /.filters -->
-
-		<div class="content">
-
-			<div class="newsFeed" >
-	        	<div ng-include="'profile/views/feed.html'"></div>
-	        </div><!-- /#newsFeed -->
-
-		</div><!-- /.content -->
-
-	</div><!-- /.container -->
-
+        </div>
+        <!-- /.filters -->
+        <div entry-feed></div>
+    </div>
+    <!-- /.container -->
 </div><!-- /#profile -->
