@@ -18,12 +18,14 @@
 					<div class="status-profile" style="text-align: center">
                         Live training in session<br>
                         <i class="fa fa-circle fa-2x red"></i>
+
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-2">
                     <div class="status-profile" style="text-align: center">
                         Accepting clients:<br>
-                        <i class="fa fa-circle fa-2x green"></i>
+                        <i ng-class="{'fa fa-circle fa-2x red': (profile_user.is_accepting == false), 'fa fa-circle fa-2x green': (profile_user.is_accepting == true)}"></i>
+                        
                     </div>
 				</div>
 			</div>
