@@ -82,7 +82,7 @@ class EntrySerializer(serializers.ModelSerializer):
 
 
 class SharedEntrySerializer(AbstractEntrySerializer):
-	shared_entry = EntrySerializer(source="entry")
+	shared_entry = EntrySerializer(source="entry", required=False)
 
 	def to_native(self, value):
 		class_type = value.__class__.__name__
