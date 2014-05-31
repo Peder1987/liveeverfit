@@ -151,23 +151,26 @@ class UserLikeSerializer(serializers.ModelSerializer):
         return obj
 
 class FollowUserSerializer(serializers.ModelSerializer):
-    user_email = serializers.CharField(max_length=50)
+    user_id = serializers.CharField(max_length=50)
 
     class Meta:
         model = User
         fields = ('id', "user_id",)
 
     def to_native(self, value):
-        obj = super(UserLikeSerializer, self).to_native(value)
-        user = User.objects.get(email=obj['user_email'])
-        # best quick solution for M2M, django doesn't provide
-        # a clean solution.
-        if value.likes.filter(pk=user.pk).exists():
-            obj['user_likes'] = False
-            value.likes.remove(user)
+        obj = super(FollowUserSerializer, self).to_native(value)
+        user = User.objects.get(id=obj['user_id'])
+        
+        #print value.relationships.add(user)
+        print value.relationships.following()
+        if value.relationships.following().filter(pk=user.pk).exists():
+            obj['user_follows'] = False
+            print 'unfollowing'
+            value.relationships.remove(user)
         else:
-            obj['user_likes'] = True
-            value.likes.add(user)
+            print 'following'
+            obj['user_follows'] = True
+            value.relationships.add(user)
 
         return obj
 

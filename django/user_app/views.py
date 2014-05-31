@@ -87,7 +87,7 @@ class PaymentView(generics.RetrieveUpdateDestroyAPIView):
     
 class UserLikeView(generics.UpdateAPIView, generics.DestroyAPIView):
     model = User
-    permission_classes = (AuthenticatedReadOnly,)
+    permission_classes = (IsAdminOrSelf,)
     serializer_class = UserLikeSerializer
 
 class FollowUserView(generics.UpdateAPIView):

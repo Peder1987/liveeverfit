@@ -14,22 +14,33 @@ define(['app'], function(app) {
                 url: $scope.restURL,
                 id: $scope.user_id
             }, {update: { method: 'PUT' }}),
-
+            followResource = $resource(":protocol://:url/users/follow/:id/", {
+                protocol: $scope.restProtocol,
+                url: $scope.restURL,
+                id: "@id"
+            }, {update: { method: 'PUT' }}),
             getProfile = function(){
                 console.log($stateParams)
                 if($stateParams.view){
-                    console.log('id!')
+                    $scope.profile_user = userResource.get({id:$stateParams.view},function () {
+                    }, $scope.checkTokenError);
+                }else{
+                    $scope.profile_user = userResource.get(function () {
+                    }, $scope.checkTokenError);
+
                 }
 
             };
 
             $scope.followToggle = function () {
-                console.log('dib')
-                console.log($stateParams);
+
+                followResource.update({id:$scope.user_id, user_id:$scope.profile_user.id}, function(data){
+                    console.log(data.user_follows)
+                    $scope.profile_user.user_follows = data.user_follows
+                });
             };
             //init and assign which resource
-            $scope.profile_user = userResource.get(function () {
-            }, $scope.checkTokenError);
+            $scope.profile_user = []
 
 
             $scope.$on('$stateChangeSuccess', getProfile);
