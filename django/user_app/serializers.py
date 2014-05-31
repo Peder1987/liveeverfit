@@ -98,7 +98,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', 'primary_address', 'following', 'relationships')
-
+        
     def to_native(self, value):
         obj = super(ProfileSerializer, self).to_native(value)
         user_tier = obj.get('tier')
@@ -119,7 +119,9 @@ class ProfileSerializer(serializers.ModelSerializer):
         obj['user_inspiration'] = SharedEntry.objects.filter(user=user).count() +  user.comments.count()
         # if the value of USER is the same as the logged in users
         # connection then they are connected
-        if value == user.connection:
+        print value
+        print user.connection
+        if value.pk == user.connection.pk:
             obj['user_connected'] = True
         else:
             obj['user_connected'] = False
@@ -179,6 +181,33 @@ class FollowUserSerializer(serializers.ModelSerializer):
             value.relationships.add(user)
 
         return obj
+
+class ConnectUserSerializer(serializers.ModelSerializer):
+    professional_id = serializers.CharField(max_length=50)
+
+    class Meta:
+        model = User
+        fields = ('id', "professional_id",)
+
+    def to_native(self, value):
+        obj = super(ConnectUserSerializer, self).to_native(value)
+        print obj
+
+        value.connection = Professional.objects.get(pk=obj['professional_id'])
+        value.save()
+        obj['user_connected'] = True
+
+        return obj
+
+    def validate_professional_id(self, attrs, source):
+
+        if Professional.objects.filter(pk=attrs['professional_id']).exists():
+            pass
+        else:
+            raise serializers.ValidationError("Must be a Professional")
+
+        return attrs
+
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
