@@ -28,8 +28,9 @@ class EntryListView(generics.ListAPIView):
 		else:
 			#RETURNS LIST OF USERS THAT USER IS FOLLOWING
 			following = self.request.user.relationships.following()
-			return Entry.objects.filter(user__in=following).select_subclasses()
-
+			qs= Entry.objects.filter(user__in=following).select_subclasses()
+			qs2 = Entry.objects.filter(user=self.request.user)
+			return qs | qs2
 
 class TextEntryViewSet(viewsets.ModelViewSet):
 	model = TextEntry
