@@ -75,6 +75,16 @@ class EntrySerializer(serializers.ModelSerializer):
 			obj = SharedEntrySerializer(instance=value).data
 		else:
 			obj = TextEntrySerializer(instance=value).data
+
+
+		if 'request' in self.context:
+			user = self.context['request'].user
+			if value.likes.filter(pk=user.pk).exists():
+				obj['user_likes'] = True
+			else:
+				obj['user_likes'] = False
+		
+		
 		return obj
 
 	class Meta:

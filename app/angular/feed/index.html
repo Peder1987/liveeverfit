@@ -271,6 +271,7 @@
                 <span class="pull-right"><i class="fa fa-thumbs-o-up blue"></i>&NonBreakingSpace;
                     {{ entry.likes }}
                 </span>
+                {{entry}}
                 <button class="btn btn-default btn-sm"
                         ng-click="likeEntry(entry)">
                     <span ng-if="!entry.user_likes">rep</span>
