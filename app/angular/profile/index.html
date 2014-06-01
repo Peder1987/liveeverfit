@@ -105,21 +105,11 @@
             <!-- /.row -->
         </div>
         <!-- /.meta-banner -->
-        <div class="filters">
-            <ul>
-                <a href>feed</a>
-                <a href>bio</a>
-                <a href>videos</a>
-                <a href>photos</a>
-                <a href>calendar</a>
-                <a href>blog</a>
-                <a href>reach</a>
-                <a href>group</a>
-                <a href>testimonials</a>
-            </ul>
-        </div>
+        <tabset justified="true" type="pills">
+            <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="filter(tab.filter)"></tab>
+        </tabset>
         <!-- /.filters -->
-        <div entry-feed ng-model="feed"></div>
+        <div ng-if="feed.show" entry-feed ng-model="$parent.$parent.feed"></div>
     </div>
     <!-- /.container -->
 </div><!-- /#profile -->

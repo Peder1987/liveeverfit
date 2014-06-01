@@ -11,7 +11,7 @@ define(['app', 'feed'], function (app) {
                 },
                 filter: function(type) {
                     $scope.feed = {
-                        filter: type
+                        filter: type?'/'+type:''
                     };
                 }
             });
