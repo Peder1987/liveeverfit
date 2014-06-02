@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-sm-8">
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                        <div class="col-lg-12 col-md-6 col-sm-6 col-xs-6">
                             <h2 class="ef-header pull-left">{{profile_user.first_name}} {{profile_user.last_name}}
                                 <small> / {{profile_user.location}}</small>
                             </h2>
@@ -80,10 +80,40 @@
                             <!-- /.buttons -->
 
                             <div class="report pull-right">
-                                <span class="stat-report">likes:{{profile_user.likes}}</span>
-                                <span class="stat-report">inspiration:{{profile_user.user_inspiration}}</span>
-                                <span ng-show="profile_user.clients" class="stat-report">clients:{{profile_user.clients}}</span>
-                                <span class="stat-report">fanatics:{{profile_user.user_fanatics}}</span>
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <div class="stat-report">
+                                            likes
+                                            <div class="number">
+                                                {{profile_user.likes}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <div class="stat-report">
+                                            inspiration
+                                            <div class="number">
+                                                {{profile_user.user_inspiration}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <div class="stat-report">
+                                            clients
+                                            <div class="number">
+                                                {{profile_user.clients}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <div class="stat-report">
+                                            fanatics
+                                            <div class="number">
+                                                {{profile_user.user_fanatics}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <!-- /.report -->
                             <div style="clear:both;"></div>
