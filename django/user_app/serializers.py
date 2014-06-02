@@ -119,11 +119,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         obj['user_inspiration'] = SharedEntry.objects.filter(user=user).count() +  user.comments.count()
         # if the value of USER is the same as the logged in users
         # connection then they are connected
-        print value
-        print user.connection
-        if value.pk == user.connection.pk:
-            obj['user_connected'] = True
-        else:
+        try:
+            if value.pk == user.connection.pk:
+                obj['user_connected'] = True
+            else:
+                obj['user_connected'] = False
+        except:
             obj['user_connected'] = False
 
         # check if user is following this profile
