@@ -283,9 +283,9 @@ class PaymentSerializer(serializers.ModelSerializer):
 
 
 class RelationshipTypeAheadSerializer(serializers.ModelSerializer):
-    def to_native(self, value):
-        print value
-        return {"name": 'value.title'}
+    # def to_native(self, value):
+    #     print value
+    #     return {"name": 'value.title'}
 
     class Meta:
         model = User
