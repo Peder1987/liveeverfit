@@ -59,12 +59,10 @@ define(['app'], function (app) {
                     event.calendar = $scope.user_id;
                     event.creator = $scope.user_id;
                     newEvent.save(event,function(){},function(error){});
-                    console.log(event);
                     // setTimeout( function(){location.reload();}, 200 );
                 }
                 else{
                     eventResource.update({id:event.id}, event);
-                    console.log(event);
                 }
             };
             $scope.close = function () {
