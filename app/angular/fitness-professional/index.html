@@ -170,7 +170,7 @@
             <div class="row">
                 <div class="col-sm-6 col-md-2"
                      ng-repeat="professional in professionals" ng-mouseover="proMouseOver(professional)"
-                     ng-mouseleave="proMouseOut(professional)">
+                     ng-mouseleave="proMouseOut(professional)"  ui-sref="profile.view({view: professional.id})">
                     <div class="thumbnail">
                         <img ng-src="media/{{professional.img}}"/>
 
