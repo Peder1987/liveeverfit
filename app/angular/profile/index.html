@@ -3,7 +3,7 @@
     <div class="container" ng-if="profile_user">
         <div class="header">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-sm-8">
                     <div class="row">
                         <div class="col-lg-12 col-md-6 col-sm-6 col-xs-6">
                             <h2 class="ef-header pull-left">{{profile_user.first_name}} {{profile_user.last_name}}
@@ -12,19 +12,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-xs-2"></div>
-                <div class="col-md-2 col-sm-4 col-xs-2">
+                <div class="col-md-2 col-sm-4 col-xs-2" ng-if="profile_user.profession">
                     <div class="status-profile" style="text-align: center">
                         Live training in session<br>
                         <i class="fa fa-circle fa-2x red"></i>
 
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-4 col-xs-2">
+                <div class="col-md-2 col-sm-4 col-xs-2" ng-if="profile_user.profession">
                     <div class="status-profile" style="text-align: center">
                         Accepting clients:<br>
                         <i ng-class="{'fa fa-circle fa-2x red': (profile_user.is_accepting == false), 'fa fa-circle fa-2x green': (profile_user.is_accepting == true)}"></i>
-
                     </div>
                 </div>
             </div>
@@ -35,29 +33,22 @@
                 <div class="col-md-4">
                     <div class="profile-left">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-sm-8">
                                 <div class="profile-picture">
                                     <img ng-src="/media/{{profile_user.img}}" class=""/>
                                 </div>
                                 <!-- /.profile-picture -->
                             </div>
                             <!-- /.col-md-6 -->
-                            <div class="col-md-6">
-                                <div class="meta-data">
-                                    <i class="fa fa-youtube fa-lg">{{profile_user.youtube}}</i><br>
-                                    <i class="fa fa-twitter fa-lg">{{profile_user.twitter}}</i><br>
-                                    <i class="fa fa-facebook fa-lg">{{profile_user.facebook}}</i><br>
-                                    <i class="fa fa-google-plus fa-lg">{{profile_user.plus}}</i><br>
-                                    <i class="fa fa-instagram fa-lg">{{profile_user.instagram}}</i><br>
-                                    <i class="fa fa-linkedin fa-lg">{{profile_user.linkedin}}</i>
-                                </div>
-                                <!-- /.meta-data -->
+                            <div class="col-sm-4">
+                                <img ng-if="profile_user.profession" ng-src="/profile/img/{{profile_user.profession}}.png"/>
+                                <img ng-if="!profile_user.profession" ng-src="/profile/img/user.png"/>
                             </div>
                             <!-- /.col-md-6 -->
                         </div>
                         <!-- /.row -->
 
-                        <div class="specialties">
+                        <div class="specialties" ng-if="profile_user.profession">
                             <h3 class="ef-header">specialties</h3>
                             <span class="tag tag-blue tag-click" ng-repeat="tag in profile_user.tags">{{tag}}</span>
                         </div>

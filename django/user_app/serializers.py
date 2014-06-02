@@ -119,11 +119,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         obj['user_inspiration'] = SharedEntry.objects.filter(user=user).count() +  user.comments.count()
         # if the value of USER is the same as the logged in users
         # connection then they are connected
-        print value
-        print user.connection
-        if value.pk == user.connection.pk:
-            obj['user_connected'] = True
-        else:
+        try:
+            if value.pk == user.connection.pk:
+                obj['user_connected'] = True
+            else:
+                obj['user_connected'] = False
+        except:
             obj['user_connected'] = False
 
         # check if user is following this profile
@@ -237,7 +238,7 @@ class ProfessionalListSerializer(serializers.ModelSerializer):
     img = serializers.ImageField(allow_empty_file=True, required=False)
     class Meta:
         model = Professional
-        fields = ("first_name", "last_name", "profession", "gender", "location", "is_accepting", "img", 'lat', 'lng', 'queue',)
+        fields = ('id',"first_name", "last_name", "profession", "gender", "location", "is_accepting", "img", 'lat', 'lng', 'queue',)
 
 
 class ClientListSerializer(serializers.ModelSerializer):
@@ -281,3 +282,12 @@ class PaymentSerializer(serializers.ModelSerializer):
         value.stripe_update_subscription()
 
 
+
+class RelationshipTypeAheadSerializer(serializers.ModelSerializer):
+    # def to_native(self, value):
+    #     print value
+    #     return {"name": 'value.title'}
+
+    class Meta:
+        model = User
+        fields = ('email', 'first_name', 'last_name',)

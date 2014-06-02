@@ -13,12 +13,18 @@ class EventSerializer(serializers.ModelSerializer):
 		fields = ('id', 'start', 'end', 'title', 'description', 'creator', 'calendar', 'created_on')
 
 	def validate_end(self, attrs, source):
-		end = attrs['end']
+		end = attrs.get('end')
+		print end
 		if end is None:
 			attrs['end'] = attrs['start']
 			return attrs
 		else:
 			return attrs
+
+	def validate_start(self, attrs, source):
+		start = attrs.get('start')
+		print start
+		return attrs
 
 	def validate_calendar(self, attrs, source):
 		creator = attrs['creator']

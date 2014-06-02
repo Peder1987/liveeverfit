@@ -46,7 +46,6 @@ define(['app', 'feed'], function (app) {
                 }, {update: { method: 'PUT' }}),
                 followToggle: function () {
                     $scope.followResource.update({id: $scope.user_id, user_id: $scope.profile_user.id}, function (data) {
-                        console.log(data)
 
                         $scope.profile_user.user_follows = data.user_follows;
                     });

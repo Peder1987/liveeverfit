@@ -245,8 +245,8 @@
                             </div>
                         </div>
                         <div class="blog" ng-switch-when="blog">
-                            {{entry.shared_entry.text}}
-                            <div ng-bind-html="getTrustedHtml(entry.shared_entry.body)"></div>
+                            {{entry.text}}
+                            <div ng-bind-html="getTrustedHtml(entry.body)"></div>
                         </div>
                         <div class="event" ng-switch-when="event">
                             <b>{{entry.shared_entry.text}}</b>

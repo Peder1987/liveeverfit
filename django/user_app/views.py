@@ -12,7 +12,7 @@ from .filters import UserFilter, GenderFilterBackend, ProfessionFilterBackend, L
 from .filters import OwnerFilterBackend, QueueFilterBackend
 from .serializers import SettingsSerializer, PasswordSerializer, GroupSerializer, ProfessionalListSerializer, LocationSerializer, ClientListSerializer
 from .serializers import PaymentSerializer, ModifyMembershipSerializer, CreditcardSerializer, SettingsProfessionalSerializer, ProfileSerializer, UserLikeSerializer
-from .serializers import FollowUserSerializer, ConnectUserSerializer
+from .serializers import FollowUserSerializer, ConnectUserSerializer, RelationshipTypeAheadSerializer
 from .permissions import IsAdminOrSelf, IsOwnerOrReadOnly, AuthenticatedReadOnly
 from .models import Professional, UniqueLocation
 
@@ -100,3 +100,22 @@ class ConnectUserView(generics.UpdateAPIView):
     model = User
     permission_classes = (IsAuthenticated,)
     serializer_class = ConnectUserSerializer
+
+
+class RelationshipTypeAheadView(generics.ListAPIView):
+    paginate_by = None
+    serializer_class = RelationshipTypeAheadSerializer
+    model = User
+    permission_classes = (IsAuthenticated,)
+    #search_fields = ('title', )
+
+    def get_queryset(self):
+        user =  self.request.user
+        qs = user.relationships.followers()
+        qs2 = user.relationships.following()
+        qs3 = qs | qs2
+ 
+        return qs3.distinct()
+        
+
+        
