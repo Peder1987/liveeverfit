@@ -74,7 +74,6 @@ define(['app'], function (app) {
                 $modalInstance.dismiss('delete');
             };
 
-
     }]);
 
 
