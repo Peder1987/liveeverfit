@@ -35,6 +35,12 @@ define(['app', 'videojs'], function (app) {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
             });
+            //
+            $scope.connectionResource = $resource(":protocol://:url/messages/connection/:id", {
+                protocol: $scope.restProtocol,
+                url: $scope.restURL,
+                id: '@id'
+            });
             $scope.replyMessageResource = $resource(":protocol://:url/messages/reply/:id", {
                 id: '@id',
                 protocol: $scope.restProtocol,
@@ -84,6 +90,10 @@ define(['app', 'videojs'], function (app) {
                             $scope.trashCollection.get({page:$scope.currentPage}, success);
                         },
                         new: function () {
+                            var recipient;
+                            $scope.connectionResource.get({id:$scope.user_id},function(data){
+                                recipient = data.connection;
+                            });  
                             $scope.newMessage = {
                                 body: '',
                                 recipient: $stateParams.recipient || '',
