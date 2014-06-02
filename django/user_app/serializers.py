@@ -281,3 +281,12 @@ class PaymentSerializer(serializers.ModelSerializer):
         value.stripe_update_subscription()
 
 
+
+class RelationshipTypeAheadSerializer(serializers.ModelSerializer):
+    def to_native(self, value):
+        print value
+        return {"name": 'value.title'}
+
+    class Meta:
+        model = User
+        fields = ('email', 'first_name', 'last_name',)
