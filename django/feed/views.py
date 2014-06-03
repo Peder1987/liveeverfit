@@ -37,19 +37,35 @@ class TextEntryViewSet(viewsets.ModelViewSet):
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = TextEntrySerializer
 
+	def get_queryset(self):
+		following = self.request.user.relationships.following()
+		qs= TextEntry.objects.filter(user__in=following)
+		qs2 = TextEntry.objects.filter(user=self.request.user)
+		return qs | qs2
+
 class PhotoEntryViewSet(viewsets.ModelViewSet):
 	model = PhotoEntry
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = PhotoEntrySerializer
-	def get_serializer_class(self):
-		
-		return PhotoEntrySerializer
+
+	def get_queryset(self):
+		following = self.request.user.relationships.following()
+		qs= PhotoEntry.objects.filter(user__in=following)
+		qs2 = PhotoEntry.objects.filter(user=self.request.user)
+		return qs | qs2
+	
 
 
 class VideoEntryViewSet(viewsets.ModelViewSet):
 	model = VideoEntry
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = VideoEntrySerializer
+
+	def get_queryset(self):
+		following = self.request.user.relationships.following()
+		qs= VideoEntry.objects.filter(user__in=following)
+		qs2 = VideoEntry.objects.filter(user=self.request.user)
+		return qs | qs2
 	
 
 class EventEntryViewSet(viewsets.ModelViewSet):
@@ -57,15 +73,33 @@ class EventEntryViewSet(viewsets.ModelViewSet):
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = EventEntrySerializer
 
+	def get_queryset(self):
+		following = self.request.user.relationships.following()
+		qs= EventEntry.objects.filter(user__in=following)
+		qs2 = EventEntry.objects.filter(user=self.request.user)
+		return qs | qs2
+
 class BlogEntryViewSet(viewsets.ModelViewSet):
 	model = BlogEntry
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = BlogEntrySerializer
 
+	def get_queryset(self):
+		following = self.request.user.relationships.following()
+		qs= BlogEntry.objects.filter(user__in=following)
+		qs2 = BlogEntry.objects.filter(user=self.request.user)
+		return qs | qs2
+
 class SharedEntryViewSet(viewsets.ModelViewSet):
 	model = SharedEntry
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = SharedEntrySerializer
+
+	def get_queryset(self):
+		following = self.request.user.relationships.following()
+		qs= SharedEntry.objects.filter(user__in=following)
+		qs2 = SharedEntry.objects.filter(user=self.request.user)
+		return qs | qs2
 
 class CommentViewSet(viewsets.ModelViewSet):
 	model = Comment
