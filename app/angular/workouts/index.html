@@ -166,13 +166,17 @@
                                 <div ng-hide="comments.length">No comments found</div>
                                 <div ng-repeat="comment in comments.slice().reverse()" class="list-group-item">
                                     <div class="media">
-                                        <img class="media-object pull-left"
-                                             ng-src="{{comment.img}}"
-                                             style="width: 36px; height: 36px;">
+                                        <a ui-sref="profile.view({view: comment.user})">
+                                            <img class="media-object pull-left"
+                                                 ng-src="{{comment.img}}"
+                                                 style="width: 36px; height: 36px;">
+                                        </a>
 
                                         <div class="media-body">
                                             <div class="col-xs-12 col-sm-9">
-                                                <b class="blue">{{comment.user}}</b> {{comment.comment}}
+                                                <a ui-sref="profile.view({view: comment.user})">
+                                                <b class="blue">{{comment.first_name}} {{comment.last_name}}</b></a> {{comment.comment}}
+
                                                 <div style="color: #FFFFFF">
                                                     {{ comment.pub_date | date:'fullDate'}}
                                                     at {{comment.pub_date | date: 'shortTime'}}

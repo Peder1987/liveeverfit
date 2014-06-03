@@ -129,7 +129,7 @@ define(['app', 'videojs'], function (app) {
             $scope.likeVideo = function () {
                 likeResource.update({
                     id: $stateParams.id,
-                    user_email: localStorageService.get("user_email")
+                    user_email: localStorageService.get("user_id")
                 }, function (data) {
                     $scope.video.user_likes = data.user_likes;
                     if (data.user_likes) {
@@ -171,7 +171,7 @@ define(['app', 'videojs'], function (app) {
                 commentCollection.save({
                     id: $stateParams.id,
                     video: $stateParams.id,
-                    user: localStorageService.get("user_email"),
+                    user: localStorageService.get("user_id"),
                     comment: scope.commentText
                 }, function (data) {
                     $scope.comments.unshift(data)
