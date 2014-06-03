@@ -130,11 +130,14 @@
         <tabset justified="true" type="pills">
             <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="filter(tab.filter)" >{{tab.content}}</tab>
             <tab heading="calendar" select="initCalendar()">
+
             </tab>
             <tab heading="reach" select="initReach()">
-                <div class="google-map" center="map.center" zoom="map.zoom" draggable='true' control="map.control">
-                    <marker ng-repeat="referral in profile_user.referrals" coords="{latitude: referral.latitude, longitude: referral.longitude}">
-                    </marker>
+                <div class="google-map-outer">
+                    <div class="google-map" center="map.center" zoom="map.zoom" draggable='true' control="map.control">
+                        <marker ng-repeat="referral in profile_user.referrals" coords="{latitude: referral.lat, longitude: referral.lng}">
+                        </marker>
+                    </div>
                 </div>
             </tab>
         </tabset>
