@@ -36,6 +36,7 @@ class Event(models.Model):
     rule = models.ForeignKey(Rule, null = True, blank = True, verbose_name=_("rule"), help_text=_("Select '----' for a one time only event."))
     end_recurring_period = models.DateTimeField(_("end recurring period"), null = True, blank = True, help_text=_("This date is ignored for one time only events."))
     calendar = models.ForeignKey(Calendar, blank=True, null=True)
+    allDay = models.BooleanField(default=False)
     objects = EventManager()
 
     class Meta:

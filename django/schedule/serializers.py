@@ -11,7 +11,7 @@ class EventSerializer(serializers.ModelSerializer):
  
 	class Meta:
 		model = Event
-		fields = ('id', 'start', 'end', 'title', 'description', 'creator', 'calendar', 'created_on')
+		fields = ('id', 'start', 'end', 'title', 'description', 'creator', 'calendar', 'created_on', 'allDay')
 
 	def validate_end(self, attrs, source):
 		end = attrs.get('end')
