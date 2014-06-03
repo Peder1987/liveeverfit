@@ -139,7 +139,7 @@
         </div>
     </div>
 </div>
-<div ng-if="user_id <= 1 && (feed_id == user_id)" class="item col-xs-12 col-lg-8">
+<div ng-if="user_id <= 10 && (feed_id == user_id)" class="item col-xs-12 col-lg-8">
     No entry
 </div>
 <div class="item col-xs-12 col-md-6 col-lg-4" ng-repeat="entry in feedList">
@@ -273,22 +273,22 @@
                     </div>
                 </div>
             </div>
-            <div class="post-social">
-                <span class="pull-right"><i class="fa fa-thumbs-o-up blue"></i>&NonBreakingSpace;
-                    {{ entry.likes }}
-                </span>
-                <button class="btn btn-default btn-sm"
-                        ng-click="likeEntry(entry)">
-                    <span ng-if="!entry.user_likes">rep</span>
-                    <span ng-if="entry.user_likes">unrep</span>
-                    <span class="fa"
-                          ng-class="{'fa-thumbs-o-up': (entry.user_likes == false), 'fa-thumbs-o-down': (entry.user_likes == true)}">
+            <div class="post-social pull-right">
+                <a class="icon" ng-click="likeEntry(entry)">
+                    <span ng-if="!entry.user_likes">
+                        <i class="fa fa-thumbs-o-up fa-lg"></i>&NonBreakingSpace;
                     </span>
-                </button>
-                <button class="btn btn-default btn-sm"
-                        ng-click="entryShare(entry.id)">
-                    share
-                </button>
+                        <span ng-if="entry.user_likes">
+                            <i class="fa fa-thumbs-o-down fa-lg"></i>&NonBreakingSpace;
+                        </span>
+                            <span class="counter">
+                                {{ entry.likes }}
+                            </span>
+                </a>
+                <a class="icon" ng-click="entryShare(entry.id)">
+                    <i class="fa fa-retweet fa-lg"></i>
+
+                </a>
             </div>
             <div class="row" style="padding: 8px 0;" ng-if="commentNext">
                 <div class="col-xs-12">
