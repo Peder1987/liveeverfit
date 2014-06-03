@@ -8,11 +8,14 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework import generics
 from django.contrib.auth import get_user_model
 User = get_user_model()
+
 from feed.permissions import IsOwnerOrReadOnly
 from feed.serializers import EntrySerializer, TextEntrySerializer, PhotoEntrySerializer, VideoEntrySerializer, EventEntrySerializer
 from feed.serializers import BlogEntrySerializer, CommentSerializer, FlaggedSerializer, EntryLikeSerializer, ListEntrySerializer
 from feed.serializers import SharedEntrySerializer, RelationshipTypeAheadSerializer
 from feed.models import TextEntry, PhotoEntry, VideoEntry, EventEntry, BlogEntry, SharedEntry, Entry, Comment, Flagged
+
+from user_app.models import Professional
 
 class EntryListView(generics.ListAPIView):
 	paginate_by = 21
@@ -197,9 +200,13 @@ class RelationshipTypeAheadView(generics.ListAPIView):
         user =  self.request.user
         qs = user.relationships.followers()
         qs2 = user.relationships.following()
-        qs3 = qs | qs2
- 
-        return qs3.distinct()
-        
+        #add pro you are connected to
+        try:
+        	user_id = user.connection.id
+        	pro = User.objects.filter(id=user_id)
+        	qs = qs|pro
+        except:
+        	pass
 
-        
+        qs3 = qs | qs2 
+        return qs3.distinct()
