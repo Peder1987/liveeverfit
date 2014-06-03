@@ -162,7 +162,6 @@ define(['app'], function(app) {
 				angular.forEach($scope.user, function(value, key){
 					$scope.pro[key] = value;
 				});
-				$scope.pro.primary_address = $scope.address;
 				$scope.proSubmit();
 			};
 		
