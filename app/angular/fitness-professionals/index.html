@@ -8,12 +8,12 @@
                 <div class="pro-overlay">
                     <img class="img" ng-src="/media/{{professional.img}}"/>
                 </div>
-                <div class="pro-overlay" ng-click="alert()">
+                <a href class="pro-overlay" ui-sref="profile.view({view: professional.id})">
                     <div class="pro-overlay-text">
                         <div class="name">{{professional.first_name}} {{professional.last_name}}</div>
                         <span class="location">{{professional.location}}</span> <span class="profession">{{professional.profession}}</span>
                     </div>
-                </div>
+                </a>
             </div>
         </window>
     </marker>
