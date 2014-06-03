@@ -1,7 +1,7 @@
 'use strict';
 
 define(['app'], function (app) {
-    app.register.controller("fitness-professionalCtrl", ["localStorageService", "geolocation", "$scope", "$http", "$resource", "rest", "tokenError", "specialtyTags",
+    app.register.controller("fitness-professionalsCtrl", ["localStorageService", "geolocation", "$scope", "$http", "$resource", "rest", "tokenError", "specialtyTags",
         function (localStorageService, geolocation, $scope, $http, $resource) {
 
             var filterProfessionalCollection = $resource("http://:url/users/professionals?:filter", {

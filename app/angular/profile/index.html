@@ -30,28 +30,20 @@
             </div>
         </div>
         <div class="meta-banner">
-
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-left">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-sm-8">
                                 <div class="profile-picture">
                                     <img ng-src="/media/{{profile_user.img}}" class=""/>
                                 </div>
                                 <!-- /.profile-picture -->
                             </div>
                             <!-- /.col-md-6 -->
-                            <div class="col-md-6">
-                                <div class="meta-data">
-                                    <i class="fa fa-youtube fa-lg">{{profile_user.youtube}}</i><br>
-                                    <i class="fa fa-twitter fa-lg">{{profile_user.twitter}}</i><br>
-                                    <i class="fa fa-facebook fa-lg">{{profile_user.facebook}}</i><br>
-                                    <i class="fa fa-google-plus fa-lg">{{profile_user.plus}}</i><br>
-                                    <i class="fa fa-instagram fa-lg">{{profile_user.instagram}}</i><br>
-                                    <i class="fa fa-linkedin fa-lg">{{profile_user.linkedin}}</i>
-                                </div>
-                                <!-- /.meta-data -->
+                            <div class="col-sm-4">
+                                <img ng-if="profile_user.profession" ng-src="/profile/img/{{profile_user.profession}}.png"/>
+                                <img ng-if="!profile_user.profession" ng-src="/profile/img/user.png"/>
                             </div>
                             <!-- /.col-md-6 -->
                         </div>
@@ -136,7 +128,15 @@
         </div>
         <!-- /.meta-banner -->
         <tabset justified="true" type="pills">
-            <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="filter(tab.filter)"></tab>
+            <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="filter(tab.filter)" >{{tab.content}}</tab>
+            <tab heading="calendar" select="initCalendar()">
+            </tab>
+            <tab heading="reach" select="initReach()">
+                <div class="google-map" center="map.center" zoom="map.zoom" draggable='true' control="map.control">
+                    <marker ng-repeat="referral in profile_user.referrals" coords="{latitude: referral.latitude, longitude: referral.longitude}">
+                    </marker>
+                </div>
+            </tab>
         </tabset>
         <!-- /.filters -->
         <div ng-if="feed.show" entry-feed ng-model="$parent.$parent.feed"></div>

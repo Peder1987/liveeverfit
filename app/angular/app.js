@@ -83,7 +83,7 @@ define(['angularAMD',
                     .state('messages.view.detail', route.resolve('/:index', 'messages'))
                     .state('workouts', route.resolve('/workouts', 'workouts'))
                     .state('workouts.video', route.resolve('/:id', 'workouts'))
-                    .state('fitness-professional', route.resolve('/fitness-professional', 'fitness-professional'))
+                    .state('fitness-professionals', route.resolve('/fitness-professionals', 'fitness-professionals'))
                     .state('evergreen', route.resolve('/evergreen', 'evergreen'))
                     .state('change-password', route.resolve('/change-password', 'auth/change-password'))
                     .state('terms', route.resolve('/terms', 'terms'))

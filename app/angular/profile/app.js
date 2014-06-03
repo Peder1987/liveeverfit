@@ -14,9 +14,17 @@ define(['app', 'feed'], function (app) {
                     filter: undefined,
                     show: false
                 },
-                tabs: [{title: 'feed', filter:''},{title: 'bio', filter:'exempt'},{title: 'texts', filter:'text'}, {title: 'photos', filter:'photo'}, {title: 'videos', filter:'video'}, {title: 'blogs', filter:'blog'}, {title: 'events', filter:'event'}, {title: 'calendar', filter:'exempt'}, {title: 'reach', filter:'exempt'}],
-                filter: function(type) {
-                    if(type == 'exempt') {
+                tabs: [
+                    {title: 'feed', filter: ''},
+                    {title: 'bio', filter: 'exempt', content: 'No bio yet.'},
+                    {title: 'texts', filter: 'text'},
+                    {title: 'photos', filter: 'photo'},
+                    {title: 'videos', filter: 'video'},
+                    {title: 'blogs', filter: 'blog'},
+                    {title: 'events', filter: 'event'}
+                ],
+                filter: function (type) {
+                    if (type == 'exempt') {
                         angular.extend($scope.feed, {
                             show: false
                         });
@@ -24,7 +32,7 @@ define(['app', 'feed'], function (app) {
                     else {
                         $scope.feed = {
                             id: $scope.profile_user.id,
-                            filter: type?'/'+type+'/list':'',
+                            filter: type ? '/' + type + '/list' : '',
                             show: true
                         };
                     }
@@ -64,10 +72,28 @@ define(['app', 'feed'], function (app) {
                             show: $scope.feed.show
                         };
                     }, $scope.checkTokenError);
+                },
+                initReach: function () {
+                    angular.extend($scope.feed, {
+                        show: false
+                    });
+                },
+                map: {
+                    center: {
+                        latitude: 38.719805,
+                        longitude: -98.613281
+                    },
+                    zoom: 4,
+                    control: {}
+                },
+                initCalendar: function() {
+
                 }
             });
             //init view
             $scope.$on('$stateChangeSuccess', $scope.getProfile);
         }
-    ]);
-});
+    ])
+    ;
+})
+;

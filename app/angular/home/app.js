@@ -5,13 +5,20 @@ define(['app', 'feed'], function (app) {
         function (localStorageService, $scope) {
             angular.extend($scope, {
                 token: localStorageService.get('Authorization'),
-                tabs: [{title: 'all', filter:''},{title: 'texts', filter:'text'}, {title: 'photos', filter:'photo'}, {title: 'videos', filter:'video'}, {title: 'blogs', filter:'blog'}, {title: 'events', filter:'event'}],
+                tabs: [
+                    {title: 'all', filter: ''},
+                    {title: 'texts', filter: 'text'},
+                    {title: 'photos', filter: 'photo'},
+                    {title: 'videos', filter: 'video'},
+                    {title: 'blogs', filter: 'blog'},
+                    {title: 'events', filter: 'event'}
+                ],
                 feed: {
                     filter: undefined
                 },
-                filter: function(type) {
+                filter: function (type) {
                     $scope.feed = {
-                        filter: type?'/'+type:''
+                        filter: type ? '/' + type : ''
                     };
                 }
             });
