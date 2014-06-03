@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from rest_framework import routers
-from feed.views import PhotoEntryViewSet, VideoEntryViewSet, EventEntryViewSet, BlogEntryViewSet, EntryListView, TextEntryViewSet
+from feed.views import PhotoEntryViewSet, VideoEntryViewSet, BlogEntryViewSet, EntryListView, TextEntryViewSet, EventEntryViewSet
 from feed.views import CommentViewSet, FlaggedCreateView, EntryLikeView, ListSubEntryView, SharedEntryViewSet, ClientListView, ClientFilterView
 from feed.views import RelationshipTypeAheadView
 
@@ -19,11 +19,12 @@ router.register('/comment', CommentViewSet)
 urlpatterns = patterns('',
 	url(r'^', include(router.urls)),
 	url(r'^$', EntryListView.as_view()),
-	url(r'^/likes/(?P<pk>[0-9]+)$', EntryLikeView.as_view()),
 	url(r'^/(?P<pk>[0-9]+)$', EntryListView.as_view()),
+	url(r'^/likes/(?P<pk>[0-9]+)$', EntryLikeView.as_view()),
 	url(r'^/flag$', FlaggedCreateView.as_view()),
 	url(r'^/(?P<type>[a-z]+)/list/(?P<pk>[0-9]+)', ListSubEntryView.as_view()),
-	url(r'^/client/(?P<pk>[0-9]+)$', ClientListView.as_view()),
-	url(r'^/client/(?P<type>[a-z]+)/list/(?P<pk>[0-9]+)', ClientFilterView.as_view()),
+	url(r'^/client$', ClientListView.as_view()),
+	#url(r'^/client/(?P<pk>[0-9]+)$', ClientListView.as_view()),
+	url(r'^/client/(?P<type>[a-z]+)/', ClientFilterView.as_view()),
 	url(r'^/typeahead?$', RelationshipTypeAheadView.as_view()),
 )

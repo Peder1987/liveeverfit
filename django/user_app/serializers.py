@@ -23,6 +23,12 @@ class AddressSerializer(serializers.ModelSerializer):
         model = Address
         fields = ('city', 'state')
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name', 'lat', 'lng', 'gender',)
+
+
 
 class SettingsProfessionalSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='email', required=False)
@@ -75,9 +81,11 @@ class ProfileProfessionalSerializer(serializers.ModelSerializer):
     certifications = CertificationSerializer(many=True, allow_add_remove=True)
     tags = serializers.Field(source='tags.all')
     likes = serializers.Field(source="likes.count")
+    referrals = UserSerializer(source="user_reference.all")
     def to_native(self, value):
         obj = super(ProfileProfessionalSerializer, self).to_native(value)
         obj['clients'] = value.user_connections.count()
+        print value.user_reference.all()
         return obj
     class Meta:
         model = Professional

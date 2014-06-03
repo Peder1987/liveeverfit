@@ -1,9 +1,13 @@
 import ast, json
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
-from feed.models import Entry, TextEntry, PhotoEntry, VideoEntry, EventEntry, BlogEntry, Comment, Flagged, SharedEntry
+from feed.models import Entry, TextEntry, PhotoEntry, VideoEntry, BlogEntry, Comment, Flagged, SharedEntry
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from schedule.models.events import Event
+from schedule.models.calendars import Calendar
+
+
 
 class FeedUserSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -42,9 +46,28 @@ class VideoEntrySerializer(AbstractEntrySerializer):
 	class Meta:
 		model = VideoEntry
 
+
 class EventEntrySerializer(AbstractEntrySerializer):
+	title = serializers.CharField(required=False)
+	creator = serializers.RelatedField(required=False)
 	class Meta:
-		model = EventEntry
+		model = Event
+
+	def validate_title(self, attrs, source):
+		text = attrs.get('text')
+		attrs['title'] = text
+		return attrs
+
+	def validate_creator(self, attrs, source):
+		user = attrs.get('user')
+		attrs['creator'] = user
+		return attrs
+
+	def validate_calendar(self, attrs, source):
+		user = attrs.get('user')
+		attrs['calendar'] = Calendar.objects.get(user = user)
+		return attrs
+
 
 class BlogEntrySerializer(AbstractEntrySerializer):
 	class Meta:
@@ -65,7 +88,7 @@ class EntrySerializer(serializers.ModelSerializer):
 			obj = PhotoEntrySerializer(instance=value).data
 		elif class_type == 'VideoEntry':
 			obj = VideoEntrySerializer(instance=value).data
-		elif class_type == 'EventEntry':
+		elif class_type == 'Event':
 			obj = EventEntrySerializer(instance=value).data
 		elif class_type == 'BlogEntry':
 			obj = BlogEntrySerializer(instance=value).data
@@ -133,7 +156,7 @@ class ListEntrySerializer(serializers.ModelSerializer):
 			obj = PhotoEntrySerializer(instance=value).data
 		elif class_type == 'VideoEntry':
 			obj = VideoEntrySerializer(instance=value).data
-		elif class_type == 'EventEntry':
+		elif class_type == 'Event':
 			obj = EventEntrySerializer(instance=value).data
 		elif class_type == 'BlogEntry':
 			obj = BlogEntrySerializer(instance=value).data

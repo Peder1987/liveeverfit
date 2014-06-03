@@ -9,6 +9,8 @@ import os
 from model_utils.models import TimeStampedModel, TimeFramedModel
 from model_utils.managers import InheritanceManager
 
+
+
 def get_upload_path(instance, filename):
     now_time = now().strftime("%m_%d_%Y_%H_%M_%S_%f_")
     os.path.join(
@@ -40,10 +42,6 @@ class VideoEntry(Entry):
     type = 'video'
     url = models.CharField(_('Url'), max_length=100, default='')
 
-class EventEntry(Entry, TimeFramedModel):
-    type= 'event'
-    allday = models.BooleanField(_('All day'), default=False)
-
 class BlogEntry(Entry):
     type = 'blog'
     body = models.TextField(_('Body'), max_length=500, default='')
@@ -71,3 +69,5 @@ class Flagged(TimeStampedModel):
             entry = Entry.objects.get(id=entry.id)
             entry.delete()
         return super(Flagged, self).delete()
+
+
