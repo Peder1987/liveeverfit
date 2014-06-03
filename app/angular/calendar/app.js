@@ -62,6 +62,8 @@ define(['app'], function (app) {
                     newEvent.save(event,function(){},function(error){});
                 }
                 else{
+                    $scope.user_id = localStorageService.get('user_id');
+                    event.user = $scope.user_id;
                     eventResource.update({id:event.id}, event);
                 }
             };
