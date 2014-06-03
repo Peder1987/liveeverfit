@@ -44,9 +44,9 @@ def register(request):
     serialized = CreateUserSerializer(data=request.DATA)
     if serialized.is_valid():
         user_data = {field: data for (field, data) in request.DATA.items()}
-        pro_referred_by = user_data.get('referred_by')
+        pro_referred_by = user_data.pop('referred_by', None)
+        temp_address = user_data.pop('primary_address', None)
         user_data.pop('password2', None)
-        user_data.pop('referred_by', None)
         user_data.pop('profession', None)
         user_data.pop('education', None)
         user_data.pop('experience', None)
@@ -61,7 +61,6 @@ def register(request):
         user_data.pop('youtube', None) 
         user_data.pop('linkedin', None)
         user_data.pop('plus', None)
-        user_data.pop('primary_address', None)
 
 
         user = User.objects.create_user(
@@ -72,6 +71,34 @@ def register(request):
             pro_ref = Professional.objects.get(email = pro_referred_by)
             user.referred_by = pro_ref
             user.referred_by.save()
+
+        try:
+            city = temp_address['city']
+            city = str(city)
+            city = city.strip()
+            state = temp_address['state']
+            state = str(state)
+            state = state.strip()
+            temp_location = city + ', ' + state
+            location = UniqueLocation.objects.get_or_create(location = temp_location)
+            location[0].counter += 1
+            location[0].save()
+        except:
+            pass
+
+        try:
+            user.location = temp_location
+            user.lat = temp_address['lat']
+            user.lng = temp_address['lng']
+        except:
+            pass
+
+        try:
+            address = Address.objects.get(id = user.primary_address.id)
+            address.__dict__.update(**temp_address)
+            address.save()
+        except:
+            pass
 
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
@@ -90,43 +117,24 @@ def register_professional(request):
     serialized = CreateProSerializer(data=request.DATA)
     if serialized.is_valid():
         user_data = {field: data for (field, data) in request.DATA.items()}
-        email = user_data.get('email')
-        temp_address = user_data.get('primary_address')
-        user_data.pop('password2', None)
-        user_data.pop('referred_by', None)
-        user_data.pop('primary_address', None)
+        email = user_data.pop('email', None)
         certification_name1 = user_data.pop('certification_name1', None)
         certification_number1 = user_data.pop('certification_number1', None)
         certification_name2 = user_data.pop('certification_name2', None)
         certification_number2 = user_data.pop('certification_number2', None)
+        user_data.pop('password', None)
+        user_data.pop('password2', None)
+        user_data.pop('referred_by', None)
+        user_data.pop('primary_address', None)
+
 
         if User.objects.filter(email = email).exists():
             user = User.objects.get(email = email)
             pro = Professional.objects.create_prof(user)
         else:
-            return Response({'error': 'User could not be created'}, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            city = temp_address['city']
-            city = str(city)
-            city = city.strip()
-            state = temp_address['state']
-            state = str(state)
-            state = state.strip()
-            temp_location = city + ', ' + state
-            location = UniqueLocation.objects.get_or_create(location = temp_location)
-            location[0].counter += 1
-            location[0].save()
-        except:
-            pass
+            return Response({'error': 'Professional could not be created'}, status=status.HTTP_400_BAD_REQUEST)
 
         pro.__dict__.update(**user_data)
-        try:
-            pro.location = temp_location
-            pro.lat = temp_address['lat']
-            pro.lng = temp_address['lng']
-        except:
-            pass
         if certification_name1:
             certification1 = Certification(user = pro, certification_name = certification_name1, certification_number = certification_number1)
             certification1.save()
@@ -134,9 +142,6 @@ def register_professional(request):
             certification2 = Certification(user = pro, certification_name = certification_name2, certification_number = certification_number2)
             certification2.save()
         pro.save()
-        address = Address.objects.get(id = user.primary_address.id)
-        address.__dict__.update(**temp_address)
-        address.save()
         
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key

@@ -20,6 +20,7 @@ def create_user_calendar(sender, instance=None, created=False, **kwargs):
                 start = now()
                 end = now() + datetime.timedelta(hours=1)
                 data = {'creator' : user,
+                        'user' : user,
                         'title' : title,
                         'description' : description,
                         'start' : start,
