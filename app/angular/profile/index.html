@@ -128,15 +128,20 @@
         </div>
         <!-- /.meta-banner -->
         <tabset justified="true" type="pills">
-            <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="filter(tab.filter)" >{{tab.content}}</tab>
+            <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="filter(tab.filter)" active="tab.active">{{tab.content}}</tab>
             <tab heading="calendar" select="initCalendar()">
-
             </tab>
             <tab heading="reach" select="initReach()">
                 <div class="google-map-outer">
-                    <div class="google-map" center="map.center" zoom="map.zoom" draggable='true' control="map.control">
-                        <marker ng-repeat="referral in profile_user.referrals" coords="{latitude: referral.lat, longitude: referral.lng}">
+                    <div class="google-map" center="map.center" zoom="map.zoom" draggable='true' control="map.control" options="map.options">
+                        <marker ng-repeat="referral in profile_user.referrals" coords="{latitude: referral.lat, longitude: referral.lng}"
+                                icon="referralIcon" events="{click: referral.click}">
                         </marker>
+                    </div>
+                    <div class="referrals">
+                        referrals
+                        <br>
+                        <i class="fa fa-hand-o-up fa-lg ever-blue"></i><span>{{profile_user.referrals.length}}</span>
                     </div>
                 </div>
             </tab>
