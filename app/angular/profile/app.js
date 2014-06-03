@@ -87,7 +87,9 @@ define(['app', 'feed'], function (app) {
                     control: {}
                 },
                 initCalendar: function() {
+                    if(!$scope.eventSources) {
 
+                    }
                 }
             });
             //init view

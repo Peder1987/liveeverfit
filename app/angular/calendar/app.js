@@ -151,7 +151,7 @@ define(['app'], function (app) {
                     }
                 }, function (reason) {
                     if (reason == "delete") {
-                        $scope.events.splice(index, 1)
+                        $scope.events.splice(index, 1);
                         // Backend Delete
                     }
                     // Else Modal Closed.
