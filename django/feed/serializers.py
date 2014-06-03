@@ -1,9 +1,12 @@
 import ast, json
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
-from feed.models import Entry, TextEntry, PhotoEntry, VideoEntry, EventEntry, BlogEntry, Comment, Flagged, SharedEntry
+from feed.models import Entry, TextEntry, PhotoEntry, VideoEntry, BlogEntry, Comment, Flagged, SharedEntry
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from schedule.models.events import Event
+
+
 
 class FeedUserSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -44,7 +47,7 @@ class VideoEntrySerializer(AbstractEntrySerializer):
 
 class EventEntrySerializer(AbstractEntrySerializer):
 	class Meta:
-		model = EventEntry
+		model = Event
 
 class BlogEntrySerializer(AbstractEntrySerializer):
 	class Meta:

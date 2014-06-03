@@ -42,9 +42,6 @@ class VideoEntry(Entry):
     type = 'video'
     url = models.CharField(_('Url'), max_length=100, default='')
 
-class EventEntry(Entry, TimeFramedModel):
-    type = 'event'
-
 class BlogEntry(Entry):
     type = 'blog'
     body = models.TextField(_('Body'), max_length=500, default='')

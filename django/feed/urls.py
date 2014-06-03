@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from rest_framework import routers
-from feed.views import PhotoEntryViewSet, VideoEntryViewSet, EventEntryViewSet, BlogEntryViewSet, EntryListView, TextEntryViewSet
+from feed.views import PhotoEntryViewSet, VideoEntryViewSet, BlogEntryViewSet, EntryListView, TextEntryViewSet, EventEntryViewSet
 from feed.views import CommentViewSet, FlaggedCreateView, EntryLikeView, ListSubEntryView, SharedEntryViewSet, ClientListView, ClientFilterView
 from feed.views import RelationshipTypeAheadView
 

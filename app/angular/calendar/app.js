@@ -60,7 +60,6 @@ define(['app'], function (app) {
                     event.creator = $scope.user_id;
                     event.user = $scope.user_id;
                     newEvent.save(event,function(){},function(error){});
-                    // setTimeout( function(){location.reload();}, 200 );
                 }
                 else{
                     eventResource.update({id:event.id}, event);

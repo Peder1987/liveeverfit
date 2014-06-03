@@ -13,7 +13,8 @@ from feed.permissions import IsOwnerOrReadOnly
 from feed.serializers import EntrySerializer, TextEntrySerializer, PhotoEntrySerializer, VideoEntrySerializer, EventEntrySerializer
 from feed.serializers import BlogEntrySerializer, CommentSerializer, FlaggedSerializer, EntryLikeSerializer, ListEntrySerializer
 from feed.serializers import SharedEntrySerializer, RelationshipTypeAheadSerializer
-from feed.models import TextEntry, PhotoEntry, VideoEntry, EventEntry, BlogEntry, SharedEntry, Entry, Comment, Flagged
+from feed.models import TextEntry, PhotoEntry, VideoEntry, BlogEntry, SharedEntry, Entry, Comment, Flagged
+from schedule.models.events import Event
 
 from user_app.models import Professional
 
@@ -72,14 +73,14 @@ class VideoEntryViewSet(viewsets.ModelViewSet):
 	
 
 class EventEntryViewSet(viewsets.ModelViewSet):
-	model = EventEntry
+	model = Event
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = EventEntrySerializer
 
 	def get_queryset(self):
 		following = self.request.user.relationships.following()
-		qs= EventEntry.objects.filter(user__in=following)
-		qs2 = EventEntry.objects.filter(user=self.request.user)
+		qs= Event.objects.filter(user__in=following)
+		qs2 = Event.objects.filter(user=self.request.user)
 		return qs | qs2
 
 
@@ -137,7 +138,7 @@ class ListSubEntryView(generics.ListAPIView):
 			elif type == 'video':
 				return VideoEntry.objects.filter(user=pk).all()
 			elif type == 'event':
-				return EventEntry.objects.filter(user=pk).all()
+				return Event.objects.filter(user=pk).all()
 			elif type == 'blog':
 				return BlogEntry.objects.filter(user=pk).all()
 			elif type == 'shared':
@@ -179,7 +180,7 @@ class ClientFilterView(generics.ListAPIView):
 			elif type == 'video':
 				return VideoEntry.objects.filter(user=pk).all()
 			elif type == 'event':
-				return EventEntry.objects.filter(user=pk).all()
+				return Event.objects.filter(user=pk).all()
 			elif type == 'blog':
 				return BlogEntry.objects.filter(user=pk).all()
 			elif type == 'shared':
