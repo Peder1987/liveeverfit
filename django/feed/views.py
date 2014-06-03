@@ -57,6 +57,7 @@ class EventEntryViewSet(viewsets.ModelViewSet):
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = EventEntrySerializer
 
+
 class BlogEntryViewSet(viewsets.ModelViewSet):
 	model = BlogEntry
 	permission_classes = (IsOwnerOrReadOnly,)
