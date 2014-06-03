@@ -22,8 +22,11 @@
 @import "auth/forgot-password/style.less";
 @import "common/angular-xeditable/dist/css/xeditable.css";
 @import "common/jcrop/css/jquery.Jcrop.css";
+@import "common/fullcalendar/fullcalendar.css";
 
+// Variables
 @ever-blue: #1a8cff;
+@ever-gray: #818b94;
 
 @brand-primary: #7d8790;
 @state-danger-bg: #E44444;
@@ -43,6 +46,56 @@
 @input-color: white;
 @well-border: transparent;
 @well-bg: rgba(145, 153, 162, 0.37);
+@nav-tabs-border-color: none;
+
+// Nav Tabs
+.nav-tabs > li > a {
+  cursor: pointer;
+}
+
+//Calendar
+.calendar {
+  padding-top: 21px;
+  .fc-state-highlight {
+    background: @well-bg;
+  }
+  .fc-event {
+    background: @ever-blue;
+    border: none;
+    padding: 2px;
+  }
+  .fc-state-default {
+    background: @btn-default-bg;
+    color: @btn-default-color;
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+  }
+  .fc-header-title {
+    line-height: 46px;
+    position: relative;
+    padding-left: 14px;
+    font-weight: bold;
+    margin-bottom: 21px;
+    font-family: 'Helvetica Neue', 'HelveticaNeue', 'Open Sans';
+    letter-spacing: -2px;
+    font-size: 36px;
+    color: @ever-gray;
+    h2 {
+      color: @ever-gray !important;
+    }
+  }
+
+  .fc-header-title:after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 32px;
+    top: -4px;
+    left: 0;
+    background-color: #178aff;
+  }
+}
 
 // Nav Pills
 @nav-pills-border-radius: 0;
@@ -59,7 +112,7 @@
       &:hover,
       &:focus {
         &:after {
-          content: '' ;
+          content: '';
           border-top: 8px solid @nav-pills-active-link-hover-bg;
           margin-top: 8px;
           border-left: 8px solid transparent;
@@ -104,11 +157,8 @@
 }
 
 @input-border: rgba(125, 135, 144, 0.1);
-
 @page-header-border-color: #b3b4b6;
-
 @badge-bg: @ever-blue;
-
 @list-group-bg: rgba(216, 213, 213, 0.32);
 @list-group-border: transparent;
 @list-group-hover-bg: rgba(199, 197, 197, 0.32);
@@ -146,6 +196,7 @@
     &:nth-child(2) {
       overflow-y: scroll;
       padding-top: 34px;
+      padding-bottom: 34px;
       .container {
         min-height: 80%;
         padding: 21px;
@@ -164,7 +215,6 @@
     }
 
   }
-
 
 }
 
@@ -185,7 +235,7 @@
   font-family: 'Helvetica Neue', 'HelveticaNeue', 'Open Sans';
   letter-spacing: -2px;
   font-size: 36px;
-  color: #818b94;
+  color: @ever-gray;
 }
 
 .ef-header:after {
@@ -881,3 +931,5 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="blue"] {
 ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   background: orange !important;
 }
+
+

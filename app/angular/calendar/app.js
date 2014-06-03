@@ -1,10 +1,8 @@
 'use strict';
 
-define(['app','calendar'], function (app,calendar) {
-    
-
-    app.register.controller('EventModalCtrl', ['localStorageService','$scope','$modalInstance','$resource','event', 
-        function(localStorageService, $scope, $modalInstance, $resource ,event){
+define(['app'], function (app, calendar) {
+    app.register.controller('EventModalCtrl', ['localStorageService', '$scope', '$modalInstance', '$resource', 'event',
+        function (localStorageService, $scope, $modalInstance, $resource, event) {
 
             var eventResource = $resource("http://:url/calendar/event/:id/", {
                 url: $scope.restURL,
@@ -12,7 +10,7 @@ define(['app','calendar'], function (app,calendar) {
             }, {update: { method: 'PUT' }});
 
             var newEvent = $resource("http://:url/calendar/event/", {
-                url: $scope.restURL,
+                url: $scope.restURL
             });
 
 
@@ -47,62 +45,55 @@ define(['app','calendar'], function (app,calendar) {
                     creator: $scope.event.creator
                 };
                 $modalInstance.close(event);
-                if(event.id == null) {
+                if (event.id == null) {
                     $scope.user_id = localStorageService.get('user_id');
                     event.calendar = $scope.user_id;
                     event.creator = $scope.user_id;
                     event.user = $scope.user_id;
-                    newEvent.save(event,function(){},function(error){});
+                    newEvent.save(event, function () {
+                    }, function (error) {
+                    });
                 }
-                else{
+                else {
                     $scope.user_id = localStorageService.get('user_id');
                     event.user = $scope.user_id;
-                    eventResource.update({id:event.id}, event);
+                    eventResource.update({id: event.id}, event);
                 }
             };
             $scope.close = function () {
                 $modalInstance.dismiss();
             };
             $scope.delete = function () {
-                eventResource.delete({id:event.id}, event);
+                eventResource.delete({id: event.id}, event);
                 $modalInstance.dismiss('delete');
             };
 
-    }]);
-
-
-
-
-     app.register.directive('calendar', ['localStorageService', '$scope', '$resource', '$modal', 'rest', 'tokenError',
-        function (localStorageService, $scope, $resource, $modal) {
+        }]);
+    app.register.directive('profileCalendar', ['localStorageService', '$resource', '$modal', 'rest', 'tokenError',
+        function (localStorageService, $resource, $modal) {
             return {
                 templateUrl: 'calendar/index.html',
-                link: function ($scope, element, attrs, ngModel) {
-                   // Setup Rest
+                controller: function ($scope) {
+                    //***Calendar***
+                    $scope.eventSources = [];
+                    $scope.events = [];
+                    // Setup Rest
                     $scope.user_id = localStorageService.get('user_id');
                     var calendarCollection = $resource("http://:url/calendar/:id/", {
                         url: $scope.restURL,
                         id: $scope.user_id
                     });
-
-
-                    //***Calendar***
-                    $scope.eventSources = [];
-                    $scope.events = [];
-
                     // Fetch calendar data.
                     $scope.calendarEvents = calendarCollection.get(function () {
-                        if($scope.calendarEvents.results.length){
+                        if ($scope.calendarEvents.results.length) {
                             $scope.events = $scope.calendarEvents.results;
-                            angular.forEach($scope.events, function(value, key){
+                            angular.forEach($scope.events, function (value, key) {
                                 value.start = new Date(value.start);
                                 value.end = new Date(value.end);
                             });
                             $scope.eventSources.push($scope.events);
                         }
                     }, $scope.checkTokenError);
-
-
                     //alert on Drop
                     $scope.alertOnDrop = function (event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
                         console.log('Event Droped to make dayDelta ' + dayDelta);
@@ -139,7 +130,7 @@ define(['app','calendar'], function (app,calendar) {
                                 // This is a new event from the "Create" button.
                                 $scope.events.push(newEvent);
                                 // In case the Rest hasn't responded.
-                                if(!$scope.eventSources.length){
+                                if (!$scope.eventSources.length) {
                                     $scope.eventSources.push($scope.events);
                                 }
                             }
@@ -156,7 +147,6 @@ define(['app','calendar'], function (app,calendar) {
                             // Else Modal Closed.
                         });
                     };
-
                     //config object
                     $scope.calendarConfig = {
                         height: 600,

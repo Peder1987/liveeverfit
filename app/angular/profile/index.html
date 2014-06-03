@@ -42,7 +42,8 @@
                             </div>
                             <!-- /.col-md-6 -->
                             <div class="col-sm-4">
-                                <img ng-if="profile_user.profession" ng-src="/profile/img/{{profile_user.profession}}.png"/>
+                                <img ng-if="profile_user.profession"
+                                     ng-src="/profile/img/{{profile_user.profession}}.png"/>
                                 <img ng-if="!profile_user.profession" ng-src="/profile/img/user.png"/>
                             </div>
                             <!-- /.col-md-6 -->
@@ -67,19 +68,38 @@
                         <div class="image-overlay">
 
                             <div class="buttons pull-left">
-                                <a href ng-if="user_id != profile_user.id && profile_user.user_connected" class="message"><i class="fa fa-envelope"></i>
-                                    Message</a>
-                                <a href ng-if="user_id != profile_user.id && !profile_user.user_connected && profile_user.type == 'professional'" ng-click="connect()" class="connect"><i class="fa fa-envelope"></i>
-                                    Connect</a>
-                                <a href ng-if="profile_user.invite" class="invite"><i class="fa fa-exchange"></i> Invite</a>
-                                <a href ng-if="user_id != profile_user.id && !profile_user.user_follows" class="follow" ng-click="followToggle()"><i
-                                        class="fa fa-exchange"></i> Follow</a>
-                                <a href ng-if="user_id != profile_user.id && profile_user.user_follows" class="follow" ng-click="followToggle()"><i
-                                        class="fa fa-exchange"></i> Unfollow</a>
+                                <a href ng-if="user_id == profile_user.id" class="message" ui-sref="settings">
+                                    <i class="fa fa-cog"></i>
+                                    settings
+                                </a>
+                                <a href ng-if="user_id != profile_user.id && profile_user.user_connected"
+                                   class="message">
+                                    <i class="fa fa-envelope"></i>
+                                    message
+                                </a>
+                                <a href
+                                   ng-if="user_id != profile_user.id && !profile_user.user_connected && profile_user.type == 'professional'"
+                                   ng-click="connect()" class="connect">
+                                    <i class="fa fa-envelope"></i>
+                                    Connect
+                                </a>
+                                <a href ng-if="profile_user.invite" class="invite">
+                                    <i class="fa fa-exchange"></i>
+                                    Invite
+                                </a>
+                                <a href ng-if="user_id != profile_user.id && !profile_user.user_follows" class="follow"
+                                   ng-click="followToggle()">
+                                    <i class="fa fa-exchange"></i>
+                                    Follow
+                                </a>
+                                <a href ng-if="user_id != profile_user.id && profile_user.user_follows" class="follow"
+                                   ng-click="followToggle()">
+                                    <i class="fa fa-exchange"></i>
+                                    Unfollow
+                                </a>
 
                             </div>
                             <!-- /.buttons -->
-
                             <div class="report pull-right">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -99,7 +119,7 @@
                                         </div>
                                     </div>
                                     <div ng-show="profile_user.clients" class="col-xs-2 col-xs-offset-1">
-                                        <div  class="stat-report">
+                                        <div class="stat-report">
                                             clients
                                             <div class="number">
                                                 {{profile_user.clients}}
@@ -128,14 +148,32 @@
         </div>
         <!-- /.meta-banner -->
         <tabset justified="true" type="pills">
-            <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="filter(tab.filter)" active="tab.active">{{tab.content}}</tab>
-            <tab heading="calendar" select="filter('exempt')">
-                <div calendar></div>
+            <tab heading="feed" select="filter('')"></tab>
+            <tab heading="bio" select="filter('exempt')">
+                <div class="google-map-outer">
+                    <div class="bio">
+                        <h2 class="ef-header">bio</h2>
+                        <div ng-if="!profile_user.bio">No bio.</div>
+                        {{profile_user.bio}}
+                    </div>
+                </div>
+            </tab>
+            <tab heading="texts" select="filter('text')"></tab>
+            <tab heading="photos" select="filter('photo')"></tab>
+            <tab heading="videos" select="filter('video')"></tab>
+            <tab heading="blogs" select="filter('blog')"></tab>
+            <tab heading="events" select="filter('event')"></tab>
+            <tab heading="calendar" select="hideFeed()" active="feedActive">
+                <div ng-if="profile_user" class="google-map-outer">
+                    <div profile-calendar=""></div>
+                </div>
             </tab>
             <tab heading="reach" select="initReach()">
                 <div class="google-map-outer">
-                    <div class="google-map" center="map.center" zoom="map.zoom" draggable='true' control="map.control" options="map.options">
-                        <marker ng-repeat="referral in profile_user.referrals" coords="{latitude: referral.lat, longitude: referral.lng}"
+                    <div class="google-map" center="map.center" zoom="map.zoom" draggable='true' control="map.control"
+                         options="map.options">
+                        <marker ng-repeat="referral in profile_user.referrals"
+                                coords="{latitude: referral.lat, longitude: referral.lng}"
                                 icon="referralIcon" events="{click: referral.click}">
                         </marker>
                     </div>
