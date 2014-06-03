@@ -93,12 +93,14 @@ define(['app'], function (app) {
 
             // Fetch calendar data.
             $scope.calendarEvents = calendarCollection.get(function () {
-                $scope.events = $scope.calendarEvents.results;
-                angular.forEach($scope.events, function(value, key){
-                    value.start = new Date(value.start);
-                    value.end = new Date(value.end);
-                });
-                $scope.eventSources.push($scope.events);
+                if($scope.calendarEvents.results.length){
+                    $scope.events = $scope.calendarEvents.results;
+                    angular.forEach($scope.events, function(value, key){
+                        value.start = new Date(value.start);
+                        value.end = new Date(value.end);
+                    });
+                    $scope.eventSources.push($scope.events);
+                }
             }, $scope.checkTokenError);
 
 
@@ -138,7 +140,9 @@ define(['app'], function (app) {
                         // This is a new event from the "Create" button.
                         $scope.events.push(newEvent);
                         // In case the Rest hasn't responded.
-                        if(!$scope.eventSources.length) $scope.eventSources.push($scope.events);
+                        if(!$scope.eventSources.length){
+                            $scope.eventSources.push($scope.events);
+                        }
                     }
                     else {
                         // Let's add the ID so we can edit in back end.
