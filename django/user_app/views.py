@@ -43,7 +43,7 @@ class LocationViewSet(viewsets.ModelViewSet):
 
 
 class ProfessionalListView(generics.ListAPIView):
-    paginate_by = 9
+    paginate_by = 12
     model = Professional
     permission_classes = (IsAuthenticated,)
     serializer_class = ProfessionalListSerializer
