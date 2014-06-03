@@ -58,6 +58,7 @@ define(['app'], function (app) {
                     $scope.user_id = localStorageService.get('user_id');
                     event.calendar = $scope.user_id;
                     event.creator = $scope.user_id;
+                    event.user = $scope.user_id;
                     newEvent.save(event,function(){},function(error){});
                     // setTimeout( function(){location.reload();}, 200 );
                 }

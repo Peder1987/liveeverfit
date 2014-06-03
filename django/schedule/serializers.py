@@ -11,7 +11,7 @@ class EventSerializer(serializers.ModelSerializer):
  
 	class Meta:
 		model = Event
-		fields = ('id', 'start', 'end', 'title', 'description', 'creator', 'calendar', 'created_on', 'allDay')
+		fields = ('id', 'start', 'end', 'title', 'description', 'creator', 'calendar', 'created_on', 'allDay', 'user')
 
 	def validate_end(self, attrs, source):
 		end = attrs.get('end')
@@ -24,6 +24,11 @@ class EventSerializer(serializers.ModelSerializer):
 	def validate_calendar(self, attrs, source):
 		creator = attrs.get('creator')
 		attrs['calendar'] = Calendar.objects.get(user = creator)
+		return attrs
+
+	def validate_title(self, attrs, source):
+		title = attrs.get('title')
+		attrs['text'] = title
 		return attrs
 
 
