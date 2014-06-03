@@ -130,6 +130,7 @@
         <tabset justified="true" type="pills">
             <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="filter(tab.filter)" >{{tab.content}}</tab>
             <tab heading="calendar" select="initCalendar()">
+
             </tab>
             <tab heading="reach" select="initReach()">
                 <div class="google-map-outer">
