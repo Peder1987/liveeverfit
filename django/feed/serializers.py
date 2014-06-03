@@ -106,7 +106,9 @@ class EntrySerializer(serializers.ModelSerializer):
 				obj['user_likes'] = True
 			else:
 				obj['user_likes'] = False
+
 		
+		obj['shares'] = SharedEntry.objects.filter(entry=value).count()
 		
 		return obj
 

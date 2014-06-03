@@ -209,8 +209,9 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 }, 300);
                             }
                         },
-                        entryShare: function (id) {
-                            var entryCollection = $resource(":protocol://:url/feed/shared", {
+                        entryShare: function (entry) {
+                            var id, 
+                            entryCollection = $resource(":protocol://:url/feed/shared", {
                                 protocol: $scope.restProtocol,
                                 url: $scope.restURL
                             }, {
@@ -218,6 +219,13 @@ define(['app', 'masonry'], function (app, Masonry) {
                                     method: 'PUT'
                                 }
                             });
+
+                            if(entry.type == 'shared'){
+                                id = entry.shared_entry.id;
+                            }else{
+                                id = entry.id;
+                            }
+
                             entryCollection.save({
                                     user: $scope.user_id,
                                     entry: id
