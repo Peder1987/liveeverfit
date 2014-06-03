@@ -162,6 +162,10 @@ define(['app'], function(app) {
 
 				};
 			};
+			$scope.preSubmit = function(){
+				$scope.user.primary_address = $scope.address;
+				$scope.submit();
+			};
 			$scope.preProSubmit = function(){
 				angular.forEach($scope.user, function(value, key){
 					$scope.pro[key] = value;
