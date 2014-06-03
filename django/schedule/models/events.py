@@ -13,6 +13,7 @@ from django.utils.timezone import utc, now
 from dateutil import rrule
 from schedule.models.rules import Rule
 from schedule.models.calendars import Calendar
+from feed.models import Entry
 
 
 
@@ -22,7 +23,7 @@ class EventManager(models.Manager):
         return EventRelation.objects.get_events_for_object(content_object, distinction, inherit)
 
 
-class Event(models.Model):
+class Event(Entry):
     '''
     This model stores meta data for a date.  You can relate this data to many
     other models.

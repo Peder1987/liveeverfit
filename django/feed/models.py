@@ -1,5 +1,3 @@
-from django.dispatch import receiver
-from django.db.models.signals import post_save
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
@@ -10,8 +8,8 @@ import os
 # https://django-model-utils.readthedocs.org/en/latest/managers.html
 from model_utils.models import TimeStampedModel, TimeFramedModel
 from model_utils.managers import InheritanceManager
-from schedule.models.events import Event
-from schedule.models.calendars import Calendar
+
+
 
 def get_upload_path(instance, filename):
     now_time = now().strftime("%m_%d_%Y_%H_%M_%S_%f_")
@@ -46,18 +44,6 @@ class VideoEntry(Entry):
 
 class EventEntry(Entry, TimeFramedModel):
     type = 'event'
-    event =  models.OneToOneField(Event, null=True, blank=True, on_delete=models.SET_NULL)
-    allday = models.BooleanField(_('All day'), default=False)
-
-@receiver(post_save, sender=EventEntry)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-    if created:
-        calendar = Calendar.objects.get_or_create(user = instance.user)
-        event = Event(title=instance.text, start=instance.start, end=instance.end, creator=instance.user, calendar=calendar[0], allDay=instance.allday)
-        event.save()
-        instance.event = event
-        instance.save()
-
 
 class BlogEntry(Entry):
     type = 'blog'
