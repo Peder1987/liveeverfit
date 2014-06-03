@@ -287,9 +287,11 @@
                         </span>
                 </a>
 
-                <a class="icon" ng-click="entryShare(entry.id)">
+                <a class="icon" ng-click="entryShare(entry)">
                     <span class="counter">
-                       {{ entry.share }}
+                        <div ng-if="entry.type == 'shared'">{{ entry.shared_entry.shares }}</div>
+                        <div ng-if="entry.type != 'shared'">{{ entry.shares }}</div>
+                       
                        <i class="fa fa-retweet" title="Number of share's"></i>&NonBreakingSpace;
                     </span>|
                     <span>
