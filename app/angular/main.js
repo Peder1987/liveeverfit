@@ -69,8 +69,7 @@ require.config({
         'masonry': 'common/masonry/dist/masonry.pkgd',
         'app': 'app',
         'feed': 'feed/app',
-        'calendar': 'calendar/app',
-
+        'calendar': 'calendar/app'
     },
 
     //Angular does not support AMD out of the box, put it in a shim
