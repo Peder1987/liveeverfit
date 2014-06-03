@@ -1,6 +1,7 @@
 from rest_framework import permissions
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, BasePermission
 
+from user_app.models import Professional
 
 class IsOwnerOrReadOnly(IsAuthenticated):
     """
@@ -16,3 +17,14 @@ class IsOwnerOrReadOnly(IsAuthenticated):
 
         # Instance must have an attribute named `user`.
         return obj.user == request.user
+
+
+class ProfessionalOnly(BasePermission):
+    """
+    Allows access only to authenticated users.
+    """
+
+    def has_permission(self, request, view):
+        if Professional.objects.filter(id=request.user.id):
+            return True
+        return False    

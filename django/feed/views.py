@@ -9,7 +9,7 @@ from rest_framework import generics
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-from feed.permissions import IsOwnerOrReadOnly
+from feed.permissions import IsOwnerOrReadOnly, ProfessionalOnly
 from feed.serializers import EntrySerializer, TextEntrySerializer, PhotoEntrySerializer, VideoEntrySerializer, EventEntrySerializer
 from feed.serializers import BlogEntrySerializer, CommentSerializer, FlaggedSerializer, EntryLikeSerializer, ListEntrySerializer
 from feed.serializers import SharedEntrySerializer, RelationshipTypeAheadSerializer
@@ -149,41 +149,36 @@ class ListSubEntryView(generics.ListAPIView):
 class ClientListView(generics.ListAPIView):
 	paginate_by = 21
 	serializer_class = EntrySerializer	
-	permission_classes = (IsOwnerOrReadOnly,)
+	permission_classes = (ProfessionalOnly,)
 	filter_backends = (filters.OrderingFilter,)
 	ordering = ('-created',)
 	
 	def get_queryset(self):
-		pk = self.kwargs.get('pk', None)
-		if pk:
-			return Entry.objects.filter(user=pk).select_subclasses()
-		else:
-			#RETURNS LIST OF USERS THAT USER IS FOLLOWING
-			following = self.request.user.relationships.following()
-			qs= Entry.objects.filter(user__in=following).select_subclasses()
-			qs2 = Entry.objects.filter(user=self.request.user)
-			return qs | qs2
+		pro = Professional.objects.get(id=self.request.user.id)
+		connections = pro.user_connections.all()
+		return Entry.objects.filter(user__in=connections).select_subclasses()
 
 
 class ClientFilterView(generics.ListAPIView):
-	permission_classes = (IsAuthenticated,)
+	permission_classes = (ProfessionalOnly,)
 	serializer_class = ListEntrySerializer
 	def get_queryset(self):
-		pk = self.kwargs.get('pk', None)
 		type = self.kwargs.get('type', None)
-		if pk and type:
+		pro = Professional.objects.get(id=self.request.user.id)
+		connections = pro.user_connections.all()
+		if type:
 			if type == 'text':
-				return TextEntry.objects.filter(user=pk).all()
+				return TextEntry.objects.filter(user__in=connections).all()
 			elif type == 'photo':
-				return PhotoEntry.objects.filter(user=pk).all()
+				return PhotoEntry.objects.filter(user__in=connections).all()
 			elif type == 'video':
-				return VideoEntry.objects.filter(user=pk).all()
+				return VideoEntry.objects.filter(user__in=connections).all()
 			elif type == 'event':
-				return EventEntry.objects.filter(user=pk).all()
+				return EventEntry.objects.filter(user__in=connections).all()
 			elif type == 'blog':
-				return BlogEntry.objects.filter(user=pk).all()
+				return BlogEntry.objects.filter(user__in=connections).all()
 			elif type == 'shared':
-				return SharedEntry.objects.filter(user=pk).all()
+				return SharedEntry.objects.filter(user__in=connections).all()
 			return []
 		else:
 			return []
