@@ -186,12 +186,11 @@ class ClientFilterView(generics.ListAPIView):
 
 
 
-class RelationshipTypeAheadView(generics.ListAPIView):
-    paginate_by = None
+class RelationshipTypeAheadView(generics.ListAPIView):   
     serializer_class = RelationshipTypeAheadSerializer
     model = User
     permission_classes = (IsAuthenticated,)
-    #search_fields = ('title', )
+    search_fields = ('email', )
 
     def get_queryset(self):
         user =  self.request.user
