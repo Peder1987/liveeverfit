@@ -16,18 +16,10 @@ from schedule.filters import DatetimeFilterBackend, NowFilterBackend
 
 
 
-class CalendarViewSet(viewsets.ModelViewSet):
-	lookup_field = "user_id"
-	model = Calendar
-	serializer_class = CalendarSerializer
-	permission_classes = (IsAdminOrSelf,)
-	filter_fields = ('start__month', )
-
-
 class EventViewSet(generics.ListCreateAPIView):
 	model = Event
 	queryset = Event.objects.all()
-	filter_backends = (IsCalendarOwnerFilterBackend, DatetimeFilterBackend, filters.OrderingFilter, NowFilterBackend)
+	filter_backends = (IsCalendarOwnerFilterBackend, DatetimeFilterBackend, NowFilterBackend, filters.OrderingFilter)
 	filter_class = EventFilter
 	ordering = ('start',)
 	serializer_class = EventSerializer

@@ -163,12 +163,13 @@
                     </ul>
                 </div>
                 <div class="media">
-                    <img class="media-object pull-left"
-                         ng-src="{{entry.profile_img}}"
-                         style="width: 32px; height: 32px;">
-
+                    <a ui-sref="profile.view({view: entry.user})" >
+                        <img class="media-object pull-left"
+                             ng-src="{{entry.profile_img}}"
+                             style="width: 32px; height: 32px;">
+                    </a>
                     <div class="media-body">
-                        <div class="posted-by"><a href="#">{{entry.first_name}} {{entry.last_name}}</a></div>
+                        <div class="posted-by"><a ui-sref="profile.view({view: entry.user})">{{entry.first_name}} {{entry.last_name}}</a></div>
                         <div class="timestamp">shared - {{entry.created | date : 'mediumDate' }} {{entry.created | date
                             : 'shortTime' }}
                         </div>
@@ -214,12 +215,14 @@
                     <b>Shared</b>
                     <br><br>
                     <div class="media">
-                        <img class="media-object pull-left"
-                             ng-src="{{entry.shared_entry.profile_img}}"
-                             style="width: 32px; height: 32px;">
+                        <a ui-sref="profile.view({view: entry.shared_entry.user})" >
+                            <img class="media-object pull-left"
+                                 ng-src="{{entry.shared_entry.profile_img}}"
+                                 style="width: 32px; height: 32px;">
+                         </a>
                         <div class="media-body">
                             <div class="posted-by">
-                                <a href="#">
+                                <a ui-sref="profile.view({view: entry.shared_entry.user})">
                                     {{entry.shared_entry.first_name}} {{entry.shared_entry.last_name}}
                                 </a>
                             </div>
@@ -303,13 +306,15 @@
                                         ng-click="deleteComment($index, comment, entry)">
                                     <i class="fa fa-times"></i>&ZeroWidthSpace;
                                 </button>
+                                <a ui-sref="profile.view({view: comment.user})" >
                                 <img class="media-object pull-left"
                                      ng-src="{{comment.img}}"
-                                     style="width: 36px; height: 36px;">
+                                     style="width: 36px; height: 36px;" ui-sref="profile.view({view: comment.user})" >
+                                 </a>
 
                                 <div class="media-body">
                                     <div class="col-xs-12 col-sm-9">
-                                        <span style="color: #999999; font-size: 12px;"><span style="color: #95abbf">{{comment.first_name}} {{comment.last_name}}</span> {{comment.text}}</span>
+                                        <a style="color: #999999; font-size: 12px;" ><a ui-sref="profile.view({view: comment.user})" style="color: #95abbf" >{{comment.first_name}} {{comment.last_name}}</a> {{comment.text}}</a>
 
                                         <div style="color: #c2c1c1; font-size: 11px;">
                                             {{ comment.created | date:'mediumDate'}}

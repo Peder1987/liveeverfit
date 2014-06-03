@@ -289,7 +289,7 @@ define(['app'], function(app) {
 								city: (!(types['locality'] === undefined)?item.address_components[types['locality']]['short_name']:!(types['sublocality'] === undefined)?item.address_components[types['sublocality']]['short_name']:!(types['neighborhood'] === undefined)?item.address_components[types['neighborhood']]['short_name'] + ' ':''),
 								state: (!(types['administrative_area_level_1'] === undefined)?item.address_components[types['administrative_area_level_1']]['short_name'] + ' ':''),
 								country: (!(types['country'] === undefined)?item.address_components[types['country']]['long_name'] + ' ':''),
-								zipcode: (!(types['postal_code'] === undefined || item.address_components[types['postal_code']] === undefined)?item.address_components[types['postal_code']]['short_name'] + ' ':''),
+								zipcode: (!(types['postal_code'] === undefined || item.address_components[types['postal_code']] === undefined)?item.address_components[types['postal_code']]['short_name']:''),
 								lat: item.geometry.location.lat,
 								lng: item.geometry.location.lng
 							};

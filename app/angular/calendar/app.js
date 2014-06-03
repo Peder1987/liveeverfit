@@ -59,7 +59,6 @@ define(['app'], function (app) {
                     event.calendar = $scope.user_id;
                     event.creator = $scope.user_id;
                     newEvent.save(event,function(){},function(error){});
-                    console.log(event);
                     // setTimeout( function(){location.reload();}, 200 );
                 }
                 else{
@@ -87,6 +86,7 @@ define(['app'], function (app) {
                 id: $scope.user_id
             });
 
+
             //***Calendar***
             $scope.eventSources = [];
             $scope.events = [];
@@ -94,9 +94,13 @@ define(['app'], function (app) {
             // Fetch calendar data.
             $scope.calendarEvents = calendarCollection.get(function () {
                 $scope.events = $scope.calendarEvents.results;
+                angular.forEach($scope.events, function(value, key){
+                    value.start = new Date(value.start);
+                    value.end = new Date(value.end);
+                });
                 $scope.eventSources.push($scope.events);
-                console.log($scope.events);
             }, $scope.checkTokenError);
+
 
             //alert on Drop
             $scope.alertOnDrop = function (event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {

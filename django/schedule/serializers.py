@@ -6,28 +6,23 @@ from schedule.models import Calendar, Event
 
 
 class EventSerializer(serializers.ModelSerializer):
-	end = serializers.DateTimeField(required=False)
+	end = serializers.DateTimeField(required=False, format=None, input_formats=None)
+	start = serializers.DateTimeField(format=None, input_formats=None)
  
 	class Meta:
 		model = Event
-		fields = ('id', 'start', 'end', 'title', 'description', 'creator', 'calendar', 'created_on')
+		fields = ('id', 'start', 'end', 'title', 'description', 'creator', 'calendar', 'created_on', 'allDay')
 
 	def validate_end(self, attrs, source):
 		end = attrs.get('end')
-		print end
 		if end is None:
-			attrs['end'] = attrs['start']
+			attrs['end'] = attrs.get('start')
 			return attrs
 		else:
 			return attrs
 
-	def validate_start(self, attrs, source):
-		start = attrs.get('start')
-		print start
-		return attrs
-
 	def validate_calendar(self, attrs, source):
-		creator = attrs['creator']
+		creator = attrs.get('creator')
 		attrs['calendar'] = Calendar.objects.get(user = creator)
 		return attrs
 
