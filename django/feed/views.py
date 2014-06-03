@@ -82,6 +82,7 @@ class EventEntryViewSet(viewsets.ModelViewSet):
 		qs2 = EventEntry.objects.filter(user=self.request.user)
 		return qs | qs2
 
+
 class BlogEntryViewSet(viewsets.ModelViewSet):
 	model = BlogEntry
 	permission_classes = (IsOwnerOrReadOnly,)
