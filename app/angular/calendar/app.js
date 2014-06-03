@@ -1,14 +1,7 @@
 'use strict';
 
-define(['app'], function (app) {
+define(['app','calendar'], function (app,calendar) {
     
-
-    app.register.controller('calendarCtrl', ['$scope', 'restricted',
-        function ($scope) {
-            $scope.restricted();
-        }
-    ]);
-
 
     app.register.controller('EventModalCtrl', ['localStorageService','$scope','$modalInstance','$resource','event', 
         function(localStorageService, $scope, $modalInstance, $resource ,event){
@@ -78,104 +71,109 @@ define(['app'], function (app) {
     }]);
 
 
-    app.register.controller('CalendarWidgetCtrl', ['localStorageService', '$scope', '$resource', '$modal', 'rest', 'tokenError',
-        function(localStorageService, $scope, $resource, $modal) {
-            
-            // Setup Rest
-            $scope.user_id = localStorageService.get('user_id');
-            var calendarCollection = $resource("http://:url/calendar/:id/", {
-                url: $scope.restURL,
-                id: $scope.user_id
-            });
 
 
-            //***Calendar***
-            $scope.eventSources = [];
-            $scope.events = [];
-
-            // Fetch calendar data.
-            $scope.calendarEvents = calendarCollection.get(function () {
-                if($scope.calendarEvents.results.length){
-                    $scope.events = $scope.calendarEvents.results;
-                    angular.forEach($scope.events, function(value, key){
-                        value.start = new Date(value.start);
-                        value.end = new Date(value.end);
+     app.register.directive('calendar', ['localStorageService', '$scope', '$resource', '$modal', 'rest', 'tokenError',
+        function (localStorageService, $scope, $resource, $modal) {
+            return {
+                templateUrl: 'calendar/index.html',
+                link: function ($scope, element, attrs, ngModel) {
+                   // Setup Rest
+                    $scope.user_id = localStorageService.get('user_id');
+                    var calendarCollection = $resource("http://:url/calendar/:id/", {
+                        url: $scope.restURL,
+                        id: $scope.user_id
                     });
-                    $scope.eventSources.push($scope.events);
-                }
-            }, $scope.checkTokenError);
 
 
-            //alert on Drop
-            $scope.alertOnDrop = function (event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
-                console.log('Event Droped to make dayDelta ' + dayDelta);
-            };
-            //alert on Resize
-            $scope.alertOnResize = function (event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view) {
-                console.log('Event Resized to make dayDelta ' + minuteDelta);
-            };
-            //Change View
-            $scope.changeView = function (view, calendar) {
-                calendar.fullCalendar('changeView', view);
-            };
-            //***Event Modal***
-            $scope.openEventModal = function (event) {
-                var now = new Date(),
-                    index = $.inArray(event, $scope.events),
-                    defaultEvent = {
-                        title: 'Untitled event',
-                        start: new Date(),
-                        end: new Date(now.setHours(now.getHours() + 1)), // Add an hour to end date.
-                        allDay: false
-                    },
-                    modalInstance = $modal.open({
-                        templateUrl: 'eventModalTemplate.html',
-                        controller: 'EventModalCtrl',
-                        resolve: {
-                            event: function () {
-                                return $.extend({}, defaultEvent, event)
-                            }
-                        }
-                    });
-                modalInstance.result.then(function (newEvent) {
-                    if (index == -1) {
-                        // This is a new event from the "Create" button.
-                        $scope.events.push(newEvent);
-                        // In case the Rest hasn't responded.
-                        if(!$scope.eventSources.length){
+                    //***Calendar***
+                    $scope.eventSources = [];
+                    $scope.events = [];
+
+                    // Fetch calendar data.
+                    $scope.calendarEvents = calendarCollection.get(function () {
+                        if($scope.calendarEvents.results.length){
+                            $scope.events = $scope.calendarEvents.results;
+                            angular.forEach($scope.events, function(value, key){
+                                value.start = new Date(value.start);
+                                value.end = new Date(value.end);
+                            });
                             $scope.eventSources.push($scope.events);
                         }
-                    }
-                    else {
-                        // Let's add the ID so we can edit in back end.
-                        $scope.events.splice(index, 1, $.extend({}, newEvent, {id: event.id}));
-                        // Here I would add some sort of backend update
-                    }
-                }, function (reason) {
-                    if (reason == "delete") {
-                        $scope.events.splice(index, 1);
-                        // Backend Delete
-                    }
-                    // Else Modal Closed.
-                });
-            };
-
-            //config object
-            $scope.calendarConfig = {
-                height: 600,
-                editable: true,
-                header: {
-                    left: 'title',
-                    center: '',
-                    right: 'today prev,next'
-                },
-                eventClick: $scope.openEventModal,
-                eventDrop: $scope.alertOnDrop,
-                eventResize: $scope.alertOnResize
-            };
+                    }, $scope.checkTokenError);
 
 
+                    //alert on Drop
+                    $scope.alertOnDrop = function (event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
+                        console.log('Event Droped to make dayDelta ' + dayDelta);
+                    };
+                    //alert on Resize
+                    $scope.alertOnResize = function (event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view) {
+                        console.log('Event Resized to make dayDelta ' + minuteDelta);
+                    };
+                    //Change View
+                    $scope.changeView = function (view, calendar) {
+                        calendar.fullCalendar('changeView', view);
+                    };
+                    //***Event Modal***
+                    $scope.openEventModal = function (event) {
+                        var now = new Date(),
+                            index = $.inArray(event, $scope.events),
+                            defaultEvent = {
+                                title: 'Untitled event',
+                                start: new Date(),
+                                end: new Date(now.setHours(now.getHours() + 1)), // Add an hour to end date.
+                                allDay: false
+                            },
+                            modalInstance = $modal.open({
+                                templateUrl: 'eventModalTemplate.html',
+                                controller: 'EventModalCtrl',
+                                resolve: {
+                                    event: function () {
+                                        return $.extend({}, defaultEvent, event)
+                                    }
+                                }
+                            });
+                        modalInstance.result.then(function (newEvent) {
+                            if (index == -1) {
+                                // This is a new event from the "Create" button.
+                                $scope.events.push(newEvent);
+                                // In case the Rest hasn't responded.
+                                if(!$scope.eventSources.length){
+                                    $scope.eventSources.push($scope.events);
+                                }
+                            }
+                            else {
+                                // Let's add the ID so we can edit in back end.
+                                $scope.events.splice(index, 1, $.extend({}, newEvent, {id: event.id}));
+                                // Here I would add some sort of backend update
+                            }
+                        }, function (reason) {
+                            if (reason == "delete") {
+                                $scope.events.splice(index, 1);
+                                // Backend Delete
+                            }
+                            // Else Modal Closed.
+                        });
+                    };
+
+                    //config object
+                    $scope.calendarConfig = {
+                        height: 600,
+                        editable: true,
+                        header: {
+                            left: 'title',
+                            center: '',
+                            right: 'today prev,next'
+                        },
+                        eventClick: $scope.openEventModal,
+                        eventDrop: $scope.alertOnDrop,
+                        eventResize: $scope.alertOnResize
+                    };
+                }
+            }
         }]);
 
+    return app;
 
 });

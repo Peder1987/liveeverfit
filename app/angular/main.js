@@ -68,7 +68,8 @@ require.config({
         'rangy': 'common/rangy-1.3/rangy-core',
         'masonry': 'common/masonry/dist/masonry.pkgd',
         'app': 'app',
-        'feed': 'feed/app'
+        'feed': 'feed/app',
+        'calendar': 'calendar/app',
 
     },
 
@@ -101,7 +102,8 @@ require.config({
         'bootstrap.modal': ['jquery'],
         'bootstrap.wysihtml5': ['jquery', 'rangy','bootstrap.modal'],
         'bootstrap.wysihtml5.en-US': ['bootstrap.wysihtml5'],
-        'feed': ['app']
+        'feed': ['app'],
+        'calendar': ['app']
     },
     //Kick start application
     deps: ['app']

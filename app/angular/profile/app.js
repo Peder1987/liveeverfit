@@ -1,6 +1,6 @@
 'use strict';
 
-define(['app', 'feed'], function (app) {
+define(['app', 'feed', 'calendar'], function (app) {
     app.register.controller('profileCtrl', ['$scope', 'restricted',
         function ($scope) {
             $scope.restricted();
@@ -117,7 +117,6 @@ define(['app', 'feed'], function (app) {
                 initCalendar: function () {
                     if (!$scope.eventSources) {
 
-                        return false;
                     }
                 }
             });
