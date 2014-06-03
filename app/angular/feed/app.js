@@ -164,7 +164,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                 text: $scope.entryInputText,
                                                 start: $scope.entryEvent.start,
                                                 end: $scope.entryEvent.end,
-                                                allday: $scope.entryEvent.allDay,
+                                                allDay: $scope.entryEvent.allDay,
                                                 user: $scope.user_id
                                             }, function (data) {
                                                 $scope.feedList.unshift(data);
@@ -337,6 +337,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                             $scope.feedCollection.get({id: $scope.feed_id, filter: ngModel.$viewValue.filter}, function (data) {
                                 $scope.feedList = data.results;
                                 $scope.runMasonry();
+                                console.log($scope.feedList);
                             }, $scope.checkTokenError);
                         }
                     });

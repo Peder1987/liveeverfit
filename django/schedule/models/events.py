@@ -28,6 +28,7 @@ class Event(Entry):
     This model stores meta data for a date.  You can relate this data to many
     other models.
     '''
+    type = 'event'
     start = models.DateTimeField(_("start"))
     end = models.DateTimeField(_("end"),help_text=_("The end time must be later than the start time."))
     title = models.CharField(_("title"), max_length = 255)
