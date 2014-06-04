@@ -142,8 +142,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         #data about user logged in accessing this profile   
         user = self.context['request'].user
 
-        obj['user_fanatics'] = user.relationships.followers().count()
-        obj['user_inspiration'] = SharedEntry.objects.filter(user=user).count() +  user.comments.count()
+        print value
+        obj['fanatics'] = value.relationships.followers().count()
+        print SharedEntry.objects.filter(entry__user=value)
+        obj['inspiration'] = SharedEntry.objects.filter(entry__user=value).count() +  value.comments.count()
         # if the value of USER is the same as the logged in users
         # connection then they are connected
         try:
