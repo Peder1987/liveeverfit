@@ -30,7 +30,7 @@
             </div>
         </div>
         <tabset justified="true" type="pills">
-            <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="filter(tab.filter)"></tab>
+            <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="feedFilter(tab.filter)"></tab>
         </tabset>
         <!-- /.homePageButtons -->
         <div entry-feed ng-model="$parent.feed"></div>

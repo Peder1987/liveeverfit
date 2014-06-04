@@ -59,7 +59,6 @@ define(['app', 'masonry'], function (app, Masonry) {
                         },
                         entryYouTubeChange: function () {
                             $scope.refreshMasonry();
-                            console.log($scope.entryVideoURL)
                             if ($scope.entryVideoURL) {
                                 if ($scope.entryVideoURL.indexOf("watch?v=") > -1) {
                                     $scope.entryVideoURLID = '//www.youtube.com/embed/' + this.entryVideoURL.slice(this.entryVideoURL.indexOf("watch?v=") + 8)
@@ -345,14 +344,12 @@ define(['app', 'masonry'], function (app, Masonry) {
                             $scope.feedCollection.get({id: $scope.feed_id, filter: ngModel.$viewValue.filter}, function (data) {
                                 $scope.feedList = data.results;
                                 $scope.runMasonry();
-                                console.log($scope.feedList);
                             }, $scope.checkTokenError);
                         }
                     });
                     // model -> view
                     if (ngModel) {
                         ngModel.$render = function () {
-                            console.log('$render')
                             if(ngModel.$viewValue) {
                                 $scope.init();
                                 $scope.filter = ngModel.$viewValue.filter;

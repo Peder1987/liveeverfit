@@ -6,7 +6,7 @@ define(['app', 'feed'], function (app) {
             angular.extend($scope, {
                 token: localStorageService.get('Authorization'),
                 tabs: [
-                    {title: 'all', filter: ''},
+                    {title: 'all', filter: '', active: true},
                     {title: 'texts', filter: 'text'},
                     {title: 'photos', filter: 'photo'},
                     {title: 'videos', filter: 'video'},
@@ -16,7 +16,7 @@ define(['app', 'feed'], function (app) {
                 feed: {
                     filter: undefined
                 },
-                filter: function (type) {
+                feedFilter: function (type) {
                     $scope.feed = {
                         filter: type ? '/' + type : ''
                     };
