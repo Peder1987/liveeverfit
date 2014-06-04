@@ -1,11 +1,17 @@
 <div class="col-xs-12 col-sm-9">
 
-    <form method="post">
-        <div class="form-group">
+    <form ng-show="newMessage.type != null" method="post">
+        <div class="form-group" >
             <label for="id_recipient">Recipient:</label>
-            <input id="id_recipient" class="form-control" name="recipient" type="text"
+            <input ng-show="newMessage.type == 'professional'" id="id_recipient" class="form-control" name="recipient" type="text"
                    ng-model="newMessage.recipient"
                    typeahead="obj.email for obj in getClientTypeAhead($viewValue)" required>
+            <a ng-show="newMessage.type == 'user'" ui-sref="profile.view({view: newMessage.recipient.id})" >
+                <img class="media-object pull-left"
+                     ng-src="/media/{{newMessage.recipient.img}}"
+                     style="width: 36px; height: 36px;" ui-sref="profile.view({view: newMessage.recipient.id})" >
+                <div> {{newMessage.recipient.first_name}} {{newMessage.recipient.last_name}} </div>
+            </a>
         </div>
         <div class="form-group">
             <label for="id_subject">Subject:</label>
@@ -17,4 +23,5 @@
         </div>
         <button type="submit" class="btn btn-primary" ng-click="submitMessage()">Submit</button>
     </form>
+    <div ng-show="newMessage.type == null"> Go get connected to a trainer! </div>
 </div>

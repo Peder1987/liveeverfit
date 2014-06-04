@@ -17,10 +17,11 @@ from rest_framework import generics
 from messages.models import Message
 from messages.forms import ComposeForm
 from messages.utils import format_quote, get_user_model, get_username_field
-from messages.filters import InboxOwnerBackendFilter, SentOwnerBackendFilter, DeletedOwnerBackendFilter
 from messages.serializers import DeleteSerializer, UnDeleteSerializer, ReplySerializer, InboxSerializer, ComposeSerializer
-from messages.serializers import TrashSerializer, SentSerializer
+from messages.serializers import TrashSerializer, SentSerializer, ConnectionSerializer
+from messages.permissions import IsAdminOrSelf
 User = get_user_model()
+
 
 if "notification" in settings.INSTALLED_APPS:
     from notification import models as notification
@@ -187,20 +188,47 @@ view = login_required(view)
 class InboxListView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     model = Message
-    filter_backends = (InboxOwnerBackendFilter,)
     serializer_class = InboxSerializer
+    def get_queryset(self):
+        """
+            Returns all messages that were received by the given user and are not
+            marked as deleted.
+        """
+        return Message.objects.filter(recipient=self.request.user,  recipient_deleted_at__isnull=True,)
+
 
 class SentListView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     model = Message
     serializer_class = SentSerializer
-    filter_backends = (SentOwnerBackendFilter,)
+    def get_queryset(self):
+        """
+            Returns all messages that were sent by the given user and are not
+            marked as deleted.
+        """
+        return Message.objects.filter(
+            sender=self.request.user,
+            sender_deleted_at__isnull=True,
+        )
+
 
 class DeletedListView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     model = Message
-    filter_backends = (DeletedOwnerBackendFilter,)
     serializer_class = TrashSerializer
+    def get_queryset(self):
+        """
+            Returns all messages that were either received or sent by the given
+            user and are marked as deleted.
+        """
+        return Message.objects.filter(
+            recipient=self.request.user,
+            recipient_deleted_at__isnull=False,
+        ) | Message.objects.filter(
+            sender=self.request.user,
+            sender_deleted_at__isnull=False,
+        )
+
 
 # INDIVIDUAL OBJECT VIEWS
 
@@ -227,3 +255,8 @@ class ReplyMessageObjView(generics.CreateAPIView):
     model = Message
     serializer_class = ReplySerializer
 
+
+class ConnectionView(generics.RetrieveAPIView):
+    permission_classes = (IsAdminOrSelf,)
+    model = User
+    serializer_class = ConnectionSerializer

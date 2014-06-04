@@ -187,6 +187,7 @@ INSTALLED_APPS = (
     'cicu',
     'schedule',
     'relationships',
+    'notifications',
     # 'ws4redis',
     # 'websocketsredis',
     # 'chatserver',
