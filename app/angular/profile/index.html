@@ -148,7 +148,7 @@
         </div>
         <!-- /.meta-banner -->
         <tabset justified="true" type="pills">
-            <tab heading="feed" select="filter('')"></tab>
+            <tab heading="feed" select="filter('')" active="feedActive"></tab>
             <tab heading="bio" select="filter('exempt')">
                 <div class="google-map-outer">
                     <div class="bio">
@@ -163,9 +163,9 @@
             <tab heading="videos" select="filter('video')"></tab>
             <tab heading="blogs" select="filter('blog')"></tab>
             <tab heading="events" select="filter('event')"></tab>
-            <tab heading="clients" select="filter('client')" ng-if="user_id == profile_user.id" ></tab>
-            <tab heading="calendar" select="hideFeed()" active="feedActive">
-                <div ng-if="profile_user.id" class="google-map-outer">
+            <tab heading="clients" select="clientFilter()" ng-if="user_id == profile_user.id && profile_user.type == 'professional'" ></tab>
+            <tab heading="calendar" select="initCalendar()">
+                <div ng-if="profile_user.id && showCalendar" class="google-map-outer">
                     <div profile-calendar ng-model="profile_user.id"></div>
                 </div>
             </tab>

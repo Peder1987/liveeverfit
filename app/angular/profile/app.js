@@ -25,10 +25,17 @@ define(['app', 'feed', 'calendar'], function (app) {
                     else {
                         $scope.feed = {
                             id: $scope.profile_user.id,
-                            filter: type ? '/' + type + '/list' : '',
+                            filter: type?'/'+type+'/list':'',
                             show: true
                         };
                     }
+                },
+                clientFilter: function() {
+                    $scope.feed = {
+                        id: $stateParams.view == $scope.user_id ? null : $stateParams.view,
+                        filter: '/client',
+                        show: true
+                    };
                 },
                 userResource: $resource(":protocol://:url/users/profile/:id/", {
                     protocol: $scope.restProtocol,
@@ -84,6 +91,10 @@ define(['app', 'feed', 'calendar'], function (app) {
                         latitude: 38.828127,
                         longitude: -98.579404
                     });
+                },
+                initCalendar: function () {
+                    $scope.showCalendar = true;
+                    $scope.hideFeed();
                 },
                 map: {
                     center: {
