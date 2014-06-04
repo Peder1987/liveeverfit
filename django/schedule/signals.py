@@ -16,22 +16,21 @@ def create_user_calendar(sender, instance=None, created=False, **kwargs):
                 obj, created = Calendar.objects.get_or_create(user=instance)
                 user = instance
                 title = 'Account created'
+                text = 'Account created'
                 description = 'Account was created!'
                 start = now()
                 end = now() + datetime.timedelta(hours=1)
                 data = {'creator' : user,
                         'user' : user,
                         'title' : title,
+                        'text' : text,
                         'description' : description,
                         'start' : start,
                         'end' : end,
                         'calendar' : obj
                         }
                 create_event = Event(**data)
-                
                 create_event.save()
-
-                #print obj, created
         
 
 

@@ -5,6 +5,7 @@ define(['app'], function (app) {
         function ($scope, $resource, $modal, $http, localStorageService, tokenError) {
             Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
             $scope.user_id = localStorageService.get('user_id');
+            $scope.tags = [];
             var userResource = $resource(":protocol://:url/users/:id/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
@@ -160,6 +161,12 @@ define(['app'], function (app) {
                 var temp = $scope.profile_user
                 //removing image since it isn't required
                 delete temp['img']
+                $scope.tags = [];
+                $scope.profile_user.tags.forEach(function (obj) {
+                    $scope.tags.push(obj.name)
+                });
+                // returning tags in list form
+                temp.tags = $scope.tags
                 var obj = $scope.profileResource.update({id: $scope.profile_user.id}, temp);
 
             };
@@ -185,6 +192,25 @@ define(['app'], function (app) {
             };
             $scope.modifyTier = function () {
                 console.log('dib');
+
+            };
+            $scope.onTagAdd = function (tag) {
+                $scope.tags = [];
+                $scope.profile_user.tags.forEach(function (obj) {
+                    console.log('test')
+                    $scope.tags.push(obj.text)
+                    console.log($scope.tags)
+                });
+
+            }
+            $scope.onDeleteTag = function (tag) {
+                if ($scope.tags.indexOf(tag.text) != -1) {
+                    var temp = $scope.tags.indexOf(tag.text);
+                    $scope.tags.splice(temp, 1);
+
+                }
+                
+                console.log($scope.tags)
 
             };
         }]);

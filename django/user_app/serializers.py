@@ -11,6 +11,7 @@ from user_app.models import Professional, UniqueLocation, Certification, Address
 # not allowing to do a reverse table lookup for
 # a specific entry rather only the generic "Entry"
 from feed.models import SharedEntry
+from taggit.models import Tag
 
 class CertificationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,19 +31,35 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 
+class TagListSerializer(serializers.WritableField):
+     
+    def from_native(self, data):
+        print data
+        if type(data) is not list:
+            raise ParseError("expected a list of data")     
+        return data
+     
+    def to_native(self, obj):
+        if type(obj) is not list:
+            return [tag.name for tag in obj.all()]
+        return obj 
+
+      
 class SettingsProfessionalSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='email', required=False)
     img = serializers.ImageField(allow_empty_file=True, required=False)
     certifications = CertificationSerializer(many=True, allow_add_remove=True)
-    tags = serializers.Field(source='tags.all')
-    def to_native(self, value):
-        obj = super(SettingsProfessionalSerializer, self).to_native(value)
-        return obj
+    tags = TagListSerializer(required=False)
+
     class Meta:
         model = Professional
+        fields = ('email', 'img', 'certifications', 'tags', 'id', 'first_name', 'last_name', 'tier', 'gender', 
+                'location', 'lat', 'lng', 'twitter', 'facebook', 'instagram', 'youtube', 'linkedin', 'plus', 
+                'bio', 'referred_by', 'shopify_id', 'chargify_id', 'stripe_id', 'url', 'phone', 'primary_address', 
+                'profession', 'is_accepting', 'queue', 'fitness_sales_experience', 'education', 'tags')
+
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list")
-
-
+       
 class SettingsSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(source='id', required=True)  
     first_name = serializers.CharField(source='first_name', required=False)
@@ -57,6 +74,8 @@ class SettingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',)
+
+
 
     def to_native(self, value):
         obj = super(SettingsSerializer, self).to_native(value)
@@ -123,8 +142,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         #data about user logged in accessing this profile   
         user = self.context['request'].user
 
-        obj['user_fanatics'] = user.relationships.followers().count()
-        obj['user_inspiration'] = SharedEntry.objects.filter(user=user).count() +  user.comments.count()
+        print value
+        obj['fanatics'] = value.relationships.followers().count()
+        print SharedEntry.objects.filter(entry__user=value)
+        obj['inspiration'] = SharedEntry.objects.filter(entry__user=value).count() +  value.comments.count()
         # if the value of USER is the same as the logged in users
         # connection then they are connected
         try:
