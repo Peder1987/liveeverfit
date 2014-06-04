@@ -147,13 +147,15 @@ define(['app'], function (app) {
                 var ref = temp['referred_by'];
                 delete temp['img'];
                 delete temp['referred_by'];
-                // $scope.tags = [];
-                //This is a bug in tags for user not for pro
-                // $scope.profile_user.tags.forEach(function (obj) {
-                //     $scope.tags.push(obj.name)
-                // });
-                // returning tags in list form
-                // temp.tags = $scope.tags
+                
+                if($scope.profile_user.type == 'professional'){
+                    $scope.tags = [];
+                    $scope.profile_user.tags.forEach(function (obj) {
+                        $scope.tags.push(obj.name)
+                    });
+                    // returning tags in list form
+                    temp.tags = $scope.tags
+                }
                 var obj = $scope.profileResource.update({id: $scope.profile_user.id}, temp,
                     function(){
                         temp['img'] = img;
@@ -181,18 +183,16 @@ define(['app'], function (app) {
             $scope.onTagAdd = function (tag) {
                 $scope.tags = [];
                 $scope.profile_user.tags.forEach(function (obj) {
-                    console.log('test')
-                    $scope.tags.push(obj.text)
-                    console.log($scope.tags)
+                    $scope.tags.push(obj.name)
                 });
 
             }
             $scope.onDeleteTag = function (tag) {
                 if ($scope.tags.indexOf(tag.text) != -1) {
-                    var temp = $scope.tags.indexOf(tag.text);
+                    var temp = $scope.tags.indexOf(tag.name);
                     $scope.tags.splice(temp, 1);
                 }
-                console.log($scope.tags)
+                
             };
 
 

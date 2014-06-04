@@ -34,7 +34,6 @@ class UserSerializer(serializers.ModelSerializer):
 class TagListSerializer(serializers.WritableField):
      
     def from_native(self, data):
-        print data
         if type(data) is not list:
             raise ParseError("expected a list of data")     
         return data
