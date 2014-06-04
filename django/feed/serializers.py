@@ -52,7 +52,6 @@ class EventEntrySerializer(AbstractEntrySerializer):
  
 	class Meta:
 		model = Event
-		fields = ('id', 'start', 'end', 'title', 'description', 'creator', 'calendar', 'created_on', 'allDay', 'user')
 
 	def validate_end(self, attrs, source):
 		end = attrs.get('end')
