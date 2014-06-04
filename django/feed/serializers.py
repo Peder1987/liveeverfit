@@ -46,26 +46,30 @@ class VideoEntrySerializer(AbstractEntrySerializer):
 	class Meta:
 		model = VideoEntry
 
-
 class EventEntrySerializer(AbstractEntrySerializer):
-	title = serializers.CharField(required=False)
-	creator = serializers.RelatedField(required=False)
+	end = serializers.DateTimeField(required=False, format=None, input_formats=None)
+	start = serializers.DateTimeField(format=None, input_formats=None)
+ 
 	class Meta:
 		model = Event
+		fields = ('id', 'start', 'end', 'title', 'description', 'creator', 'calendar', 'created_on', 'allDay', 'user')
 
-	def validate_title(self, attrs, source):
-		text = attrs.get('text')
-		attrs['title'] = text
-		return attrs
-
-	def validate_creator(self, attrs, source):
-		user = attrs.get('user')
-		attrs['creator'] = user
-		return attrs
+	def validate_end(self, attrs, source):
+		end = attrs.get('end')
+		if end is None:
+			attrs['end'] = attrs.get('start')
+			return attrs
+		else:
+			return attrs
 
 	def validate_calendar(self, attrs, source):
-		user = attrs.get('user')
-		attrs['calendar'] = Calendar.objects.get(user = user)
+		creator = attrs.get('creator')
+		attrs['calendar'] = Calendar.objects.get(user = creator)
+		return attrs
+
+	def validate_title(self, attrs, source):
+		title = attrs.get('title')
+		attrs['text'] = title
 		return attrs
 
 

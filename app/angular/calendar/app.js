@@ -4,14 +4,11 @@ define(['app'], function (app, calendar) {
     app.register.controller('EventModalCtrl', ['localStorageService', '$scope', '$modalInstance', '$resource', 'event',
         function (localStorageService, $scope, $modalInstance, $resource, event) {
 
-            var eventResource = $resource("http://:url/calendar/event/:id/", {
+            var eventResource = $resource("http://:url/feed/event/:id/", {
                 url: $scope.restURL,
                 id: '@id'
             }, {update: { method: 'PUT' }});
 
-            var newEvent = $resource("http://:url/calendar/event/", {
-                url: $scope.restURL
-            });
 
 
             //***DatePicker***
@@ -50,7 +47,7 @@ define(['app'], function (app, calendar) {
                     event.calendar = $scope.user_id;
                     event.creator = $scope.user_id;
                     event.user = $scope.user_id;
-                    newEvent.save(event, function () {
+                    eventResource.save(event, function () {
                     }, function (error) {
                     });
                 }
