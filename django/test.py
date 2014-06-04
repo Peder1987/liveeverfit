@@ -12,6 +12,6 @@ from django.utils.timezone import utc, now
 
 from user_app.models import Professional
 
-
-for pro in Professional.objects.all():
-	print pro.tier
+from schedule.models import Calendar
+for user in User.objects.all():
+	Calendar.objects.get_or_create(user=user)
