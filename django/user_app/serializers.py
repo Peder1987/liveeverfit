@@ -56,7 +56,7 @@ class SettingsProfessionalSerializer(serializers.ModelSerializer):
         fields = ('email', 'img', 'certifications', 'tags', 'id', 'first_name', 'last_name', 'tier', 'gender', 
                 'location', 'lat', 'lng', 'twitter', 'facebook', 'instagram', 'youtube', 'linkedin', 'plus', 
                 'bio', 'referred_by', 'shopify_id', 'chargify_id', 'stripe_id', 'url', 'phone', 'primary_address', 
-                'profession', 'is_accepting', 'queue', 'fitness_sales_experience', 'education', 'tags')
+                'profession', 'is_accepting', 'queue', 'fitness_sales_experience', 'education', 'tags', 'date_joined')
 
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list")
   

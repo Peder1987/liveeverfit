@@ -67,14 +67,14 @@
             Primary Address
         </label>
         <input id="address" type="text" ng-model="tempAddressPay.formatted_address"
-               placeholder="Primary Address"
+               placeholder="{{creditcard.address_line1}}, {{creditcard.address_city}}, {{creditcard.address_state}}"
                typeahead="address for address in getLocation($viewValue)"
                typeahead-loading="loadingLocations"
                ng-change="setAddressPay()" typeahead-on-select="setAddressPay()" class="form-control"
                required>
 
         <input type="text" class="form-control" name="firstName" id="firstName"
-               placeholder="P.O. Box, Apartment, Suite, Unit, Building, Floor, Etc."
+               placeholder="{{creditcard.address_line2}}"
                ng-change="setAddressPay()"
                ng-model="tempAddressPay.street_line2">
 
