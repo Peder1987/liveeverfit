@@ -1,7 +1,8 @@
 <div id="homeBg"></div>
 <div id="homePage" ng-if="token">
     <div class="container">
-        <div ng-controller="BannerCtrl">
+        <div class="col-md-10">
+            <div ng-controller="BannerCtrl">
             <carousel interval="3000">
                 <slide ng-repeat="slide in slides" active="slide.active">
                     <img ng-src="{{slide.image}}" style="margin:auto;">
@@ -34,5 +35,51 @@
         </tabset>
         <!-- /.homePageButtons -->
         <div entry-feed ng-model="$parent.feed"></div>
+        </div>
+
+        <div class="col-md-2 chatfit">
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="ef-header">fanatics</h2>
+
+                    <div class="row inf-costum">
+                        <div class="col-md-12">
+                            <i class="fa fa-comments fa-3x ico-comm"></i>
+                        </div>
+                    </div>
+                    <div class="row inf-search">
+                        <div class="col-md-12">
+                            <div class="form-search">
+                                <tags-input id="specialties" type="text" class="bootstrap"
+                                            placeholder="Search..."
+                                            ng-model="specialtySearch" display-property="name"
+                                            on-tag-removed="onDeleteTag($tag)"
+                                            on-tag-added="onTagAdd($tag)">
+                                    <auto-complete source="loadSpecialty($query)"
+                                                   min-length="1"></auto-complete>
+                                </tags-input>
+                            </div>
+
+                            <i class="fa fa-search fa-lg ico-search"></i>
+                        </div>
+                    </div>
+                    <div class="row inf-user">
+                        <div class="col-md-2 ico-user">
+                            <i class="fa fa-user fa-2x"></i>
+                        </div>
+                        <div class="col-md-8 name-user">
+                            Miguel Ramirez Andrade
+                        </div>
+                        <div class="col-md-2 envelope">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
     </div>
 </div>
