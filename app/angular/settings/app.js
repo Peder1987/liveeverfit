@@ -217,7 +217,7 @@ define(['app'], function (app) {
                     if ($scope.address !== undefined){
                         $scope.address.street_line2 = (!($scope.tempAddress.street_line2 === undefined)?$scope.tempAddress.street_line2 + ' ':'');
                     }
-                    $scope.profile_user.primary_address = $scope.address
+                    $scope.profile_user.primary_address = $scope.address;
                 }
             };
 
@@ -388,6 +388,7 @@ define(['app'], function (app) {
         };
 
         $scope.cancel = function () {
+            console.log($scope.profile_user);
             $modalInstance.dismiss();
         };
 
@@ -429,23 +430,23 @@ define(['app'], function (app) {
         };
 
         $scope.tempAddressPay = {
-                formatted_address:'',
-                street_line2:'',
-            };
-            $scope.setAddressPay = function() {
-                if ($scope.tempAddressPay.formatted_address !== "undefined")
-                {
-                    $scope.creditcard.address_line1 = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].street_line1 + ' ':'');
-                    $scope.creditcard.address_city = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].city + ' ':'');
-                    $scope.creditcard.address_country = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].country + ' ':'');
-                    $scope.creditcard.address_state = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].state + ' ':'');
-                    $scope.creditcard.address_zip = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].zipcode + ' ':'');
+            formatted_address:'',
+            street_line2:'',
+        };
+        $scope.setAddressPay = function() {
+            if ($scope.tempAddressPay.formatted_address !== "undefined")
+            {
+                $scope.creditcard.address_line1 = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].street_line1 + ' ':'');
+                $scope.creditcard.address_city = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].city + ' ':'');
+                $scope.creditcard.address_country = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].country + ' ':'');
+                $scope.creditcard.address_state = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].state + ' ':'');
+                $scope.creditcard.address_zip = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].zipcode + ' ':'');
 
-                    if ($scope.creditcard !== undefined){
-                        $scope.creditcard.address_line2 = (!($scope.tempAddressPay.street_line2 === undefined)?$scope.tempAddressPay.street_line2 + ' ':'');
-                    }
+                if ($scope.creditcard !== undefined){
+                    $scope.creditcard.address_line2 = (!($scope.tempAddressPay.street_line2 === undefined)?$scope.tempAddressPay.street_line2 + ' ':'');
                 }
-            };
+            }
+        };
 
     };
 

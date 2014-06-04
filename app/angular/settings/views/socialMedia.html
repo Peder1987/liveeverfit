@@ -3,6 +3,18 @@
         <div class="row">
             <div class="col-xs-12">
                 <span class="bold">
+                    <span class="fa fa-phone"></span> Phone Number:
+                </span>
+                <br ng-show="editable.$visible">
+                <span id="phone" class="edit-text" data-title="Phone Number"
+                      data-type="text" editable-text="profile_user.phone" e-form="editable">
+                    {{ profile_user.phone }}
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="bold">
                     <span class="fa fa-twitter"></span> Twitter:
                 </span>
                 <br ng-show="editable.$visible">
@@ -75,19 +87,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <span class="bold">
-                    <span class="fa fa-phone"></span> Phone Number:
-                </span>
-                <br ng-show="editable.$visible">
-                <span id="phone" class="edit-text" data-title="Phone Number"
-                      data-type="text" editable-text="profile_user.phone" e-form="editable">
-                    {{ profile_user.phone }}
-                </span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <span class="bold">
-                    <span class="fa fa-phone"></span> Bio:
+                    <span class="fa fa-empire"></span> Bio:
                 </span>
                 <br ng-show="editable.$visible">
                 <span id="bio" class="edit-text" data-title="Biography"
@@ -99,7 +99,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <span class="bold">
-                    <span class="fa fa-phone"></span> Tags:
+                    <span class="fa fa-tags"></span> Tags:
                 </span>
                 <br >
                 <div ng-show="editable.$visible">
