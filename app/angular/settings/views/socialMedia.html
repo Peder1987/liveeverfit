@@ -84,6 +84,34 @@
                 </span>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="bold">
+                    <span class="fa fa-phone"></span> Bio:
+                </span>
+                <br ng-show="editable.$visible">
+                <span id="bio" class="edit-text" data-title="Biography"
+                      data-type="text" editable-textarea="profile_user.bio" e-form="editable">
+                    {{ profile_user.bio }}
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="bold">
+                    <span class="fa fa-phone"></span> Tags:
+                </span>
+                <br >
+                <div ng-show="editable.$visible">
+                    <tags-input ng-model="profile_user.tags" on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)" display-property="name">
+                    </tags-input>
+                </div>
+                <div ng-show="!editable.$visible" ng-repeat="tag in profile_user.tags" class="tag tag-blue tag-click ng-scope ng-binding">
+                    {{tag.name}}
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

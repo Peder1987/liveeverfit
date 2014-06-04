@@ -24,6 +24,7 @@ class UserViewSet(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SettingsSerializer
     filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
 
+
 class ProfileView(generics.RetrieveAPIView):
     model = User
     permission_classes = (AuthenticatedReadOnly,)
@@ -58,6 +59,12 @@ class ProfessionalObjView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SettingsProfessionalSerializer
     permission_classes = (IsAdminOrSelf,)
     filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
+
+    def post_save(self, obj, created=False):
+        if type(obj.tags) is list:
+            # If tags were provided in the request
+            pro = Professional.objects.get(pk=obj.pk)
+            pro.tags.set(*obj.tags)
 
 class CreditcardView(generics.RetrieveAPIView):
     model = User
