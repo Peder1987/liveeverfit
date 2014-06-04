@@ -5,8 +5,8 @@ define(['app', 'feed', 'calendar'], function (app) {
         function ($scope) {
             $scope.restricted();
         }]);
-    app.register.controller('profileController', ['$scope', "$state", "$stateParams", '$resource', '$modal', '$http', 'localStorageService', 'rest', 'tokenError', 'profileCalendar',
-        function ($scope, $state, $stateParams, $resource, $modal, $http, localStorageService, tokenError, profileCalendar) {
+    app.register.controller('profileController', ['$scope', "$state", "$stateParams", '$resource', '$modal', '$http', 'localStorageService', 'rest', 'tokenError',
+        function ($scope, $state, $stateParams, $resource, $modal, $http, localStorageService, tokenError) {
             angular.extend($scope, {
                 calendarShow: false,
                 user_id: localStorageService.get('user_id'),
@@ -68,7 +68,6 @@ define(['app', 'feed', 'calendar'], function (app) {
                         angular.forEach($scope.profile_user.referrals, function (value, key) {
                             angular.extend($scope.profile_user.referrals[key], {
                                 click: function () {
-                                    console.log('click')
                                     $state.go('profile.view', {view: $scope.profile_user.referrals[key].id});
                                     $scope.feedActive = true;
                                 }
@@ -108,8 +107,6 @@ define(['app', 'feed', 'calendar'], function (app) {
             });
             //init view
             $scope.$on('$stateChangeSuccess', $scope.getProfile);
-            nico = $scope;
-            profileCalendar = $scope.user_id;
         }
     ]);
 });

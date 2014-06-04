@@ -69,8 +69,8 @@ define(['app'], function (app, calendar) {
             };
 
         }]);
-    app.register.directive('profileCalendar', ['profileCalendar', 'localStorageService', '$resource', '$modal', 'rest', 'tokenError',
-        function (profileCalendar, localStorageService, $resource, $modal) {
+    app.register.directive('profileCalendar', ['localStorageService', '$resource', '$modal', 'rest', 'tokenError',
+        function (localStorageService, $resource, $modal) {
             return {
                 templateUrl: 'calendar/index.html',
                 require: '?ngModel',
