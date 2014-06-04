@@ -50,6 +50,7 @@ class SettingsProfessionalSerializer(serializers.ModelSerializer):
     img = serializers.ImageField(allow_empty_file=True, required=False)
     certifications = CertificationSerializer(many=True, allow_add_remove=True)
     tags = TagListSerializer(required=False)
+    primary_address = AddressSerializer(required=False)
 
     class Meta:
         model = Professional
@@ -74,7 +75,7 @@ class SettingsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',)
+        exclude = ('password','is_superuser','connection','groups','user_permissions',)
 
 
     def to_native(self, value):

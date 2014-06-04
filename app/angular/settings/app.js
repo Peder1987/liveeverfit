@@ -3,15 +3,16 @@
 define(['app'], function (app) {
     app.register.controller('settingsCtrl', ['$scope', '$resource', '$modal', '$http', 'localStorageService', 'rest', 'tokenError',
         function ($scope, $resource, $modal, $http, localStorageService, tokenError) {
+
             Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
             $scope.user_id = localStorageService.get('user_id');
             $scope.tags = [];
+
             var userResource = $resource(":protocol://:url/users/:id/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
                 id: $scope.user_id
             }, {update: { method: 'PUT' }});
-
             var professionalResource = $resource(":protocol://:url/users/professionals/:id/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
@@ -22,22 +23,21 @@ define(['app'], function (app) {
                 url: $scope.restURL,
                 id: $scope.user_id
             }, {update: { method: 'PUT' }});
+
             //init
             $scope.profile_user = userResource.get(function () {
-                console.log($scope.profile_user);
                 if ($scope.profile_user.type == "professional") {
                     $scope.profileResource = professionalResource
-
                 } else {
                     $scope.profileResource = userResource
                 }
-                // Lazy load credit card information so delay is unnoticed
-                // to user
+                // Lazy load credit card information so delay is unnoticed to user
                 creditcardResource.get(function (data) {
                     $scope.profile_user.creditcard = data.creditcard;
                 });
 
             }, $scope.checkTokenError);
+
             $scope.passwordChange = function (size) {
                 var modalInstance = $modal.open({
                     templateUrl: 'settings/modals/passwordChange.html',
@@ -45,10 +45,7 @@ define(['app'], function (app) {
                     size: size
                 });
                 modalInstance.result.then(function () {
-
                 }, function () {
-
-
                 });
             };
             $scope.emailChange = function (size) {
@@ -68,7 +65,6 @@ define(['app'], function (app) {
                             return $scope.profileResource
                         }
                     }
-
                 });
                 modalInstance.result.then(function (email) {
                     $scope.profile_user.email = email;
@@ -102,18 +98,12 @@ define(['app'], function (app) {
                             return $scope.profileResource
                         }
                     }
-
                 });
                 modalInstance.result.then(function () {
-
                 }, function () {
-
-
                 });
-
             };
             $scope.addCertification = function (size) {
-
                 var modalInstance = $modal.open({
                     templateUrl: 'settings/modals/addCertification.html',
                     controller: addCertificationCtrl,
@@ -129,20 +119,14 @@ define(['app'], function (app) {
                             return  $scope.profile_user;
                         }
                     }
-
                 });
                 modalInstance.result.then(function (certs) {
                     var temp = {};
                     $scope.profile_user.certifications.push(certs);
                     temp["certifications"] = $scope.profile_user.certifications
                     $scope.profileResource.update({id: $scope.profile_user.id, }, temp);
-
-
                 }, function () {
-
-
                 });
-
             };
             $scope.deleteCertification = function (removeCert) {
                 var certs = $scope.profile_user.certifications
@@ -153,23 +137,28 @@ define(['app'], function (app) {
                 // convert to clean format to return back to server
                 certs = angular.toJson($scope.profile_user.certifications)
                 temp["certifications"] = $scope.profile_user.certifications
-
                 $scope.profileResource.update({id: $scope.profile_user.id}, temp);
 
             };
             $scope.updateProfile = function () {
                 var resourceType;
-                var temp = $scope.profile_user
-                //removing image since it isn't required
-                delete temp['img']
-                $scope.tags = [];
-                $scope.profile_user.tags.forEach(function (obj) {
-                    $scope.tags.push(obj.name)
-                });
+                var temp = $scope.profile_user;
+                var img = temp['img'];
+                var ref = temp['referred_by'];
+                delete temp['img'];
+                delete temp['referred_by'];
+                // $scope.tags = [];
+                //This is a bug in tags for user not for pro
+                // $scope.profile_user.tags.forEach(function (obj) {
+                //     $scope.tags.push(obj.name)
+                // });
                 // returning tags in list form
-                temp.tags = $scope.tags
-                var obj = $scope.profileResource.update({id: $scope.profile_user.id}, temp);
-
+                // temp.tags = $scope.tags
+                var obj = $scope.profileResource.update({id: $scope.profile_user.id}, temp,
+                    function(){
+                        temp['img'] = img;
+                        temp['referred_by'] = ref;
+                });
             };
             $scope.cancelMembership = function (size) {
                 var modalInstance = $modal.open({
@@ -187,13 +176,7 @@ define(['app'], function (app) {
                             return  $scope.profile_user;
                         }
                     }
-
                 });
-
-            };
-            $scope.modifyTier = function () {
-                console.log('dib');
-
             };
             $scope.onTagAdd = function (tag) {
                 $scope.tags = [];
@@ -208,13 +191,76 @@ define(['app'], function (app) {
                 if ($scope.tags.indexOf(tag.text) != -1) {
                     var temp = $scope.tags.indexOf(tag.text);
                     $scope.tags.splice(temp, 1);
-
                 }
-                
                 console.log($scope.tags)
-
             };
-        }]);
+
+
+            $scope.address = {
+                street_line1: '',
+                street_line2: '',
+                city: '',
+                state: '',
+                country: '',
+                zipcode: '',
+                lat: '',
+                lng: ''
+            };
+            $scope.tempAddress = {
+                formatted_address:'',
+                street_line2:'',
+            };
+            $scope.setAddress = function() {
+                if ($scope.tempAddress.formatted_address !== "undefined")
+                {
+                    $scope.address = $scope.addressesInputs[$scope.tempAddress.formatted_address];
+                    if ($scope.address !== undefined){
+                        $scope.address.street_line2 = (!($scope.tempAddress.street_line2 === undefined)?$scope.tempAddress.street_line2 + ' ':'');
+                    }
+                    $scope.profile_user.primary_address = $scope.address
+                }
+            };
+
+            //$Google GeoLocation
+            $scope.addressesInputs = {};
+            $scope.getLocation = function(val) {
+                delete $http.defaults.headers.common['Authorization']
+                return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+                    params: {
+                    address: val,
+                    sensor: false,
+                    components:'country:USA'
+                    }
+                }).then(function(res){
+                    $scope.addressesInputs = {};
+                    var addresses = [];
+                    var types = {};
+                    angular.forEach(res.data.results, function(item){
+                        for (var i = 0; i < item.address_components.length; i++) {
+                            var addressType = item.address_components[i].types[0];
+                            types[addressType] = i;
+                        };
+                        addresses.push(item.formatted_address);
+                        for (var i = 0; i < item.address_components.length; i++) {
+                            $scope.addressesInputs[item.formatted_address] = {
+                                street_line1: (!(types['street_number'] === undefined)?item.address_components[types['street_number']]['short_name'] + ' ':'') + (!(types['route'] === undefined)?item.address_components[types['route']]['long_name'] + ' ':''),
+                                city: (!(types['locality'] === undefined)?item.address_components[types['locality']]['short_name']:!(types['sublocality'] === undefined)?item.address_components[types['sublocality']]['short_name']:!(types['neighborhood'] === undefined)?item.address_components[types['neighborhood']]['short_name'] + ' ':''),
+                                state: (!(types['administrative_area_level_1'] === undefined)?item.address_components[types['administrative_area_level_1']]['short_name'] + ' ':''),
+                                country: (!(types['country'] === undefined)?item.address_components[types['country']]['long_name'] + ' ':''),
+                                zipcode: (!(types['postal_code'] === undefined || item.address_components[types['postal_code']] === undefined)?item.address_components[types['postal_code']]['short_name']:''),
+                                lat: item.geometry.location.lat,
+                                lng: item.geometry.location.lng
+                            };
+                        };
+                    });
+                    $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
+                    return addresses;
+                });
+            };
+
+
+    }]);
+
 
     var passwordInstanceCtrl = function ($scope, $resource, $modalInstance, localStorageService) {
         $scope.current_password = '';
@@ -348,6 +394,7 @@ define(['app'], function (app) {
         $scope.cancel = function () {
             $modalInstance.dismiss();
         };
+
         //$Google GeoLocation
         $scope.addressesInputs = {};
         $scope.getLocation = function(val) {
