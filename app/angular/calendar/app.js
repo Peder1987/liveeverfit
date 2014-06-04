@@ -78,8 +78,6 @@ define(['app'], function (app, calendar) {
                     ngModel.$render = function () {
                         if (ngModel.$viewValue) {
                             $scope.profile_id = ngModel.$viewValue;
-                            //$scope.eventSources = [];
-                            $scope.events = [];
                             // Setup Rest
                             $scope.user_id = localStorageService.get('user_id');
                             var calendarCollection = $resource("http://:url/calendar/:id/", {
@@ -94,7 +92,7 @@ define(['app'], function (app, calendar) {
                                         value.start = new Date(value.start);
                                         value.end = new Date(value.end);
                                     });
-                                    $scope.eventSources.push($scope.events);
+                                    $scope.eventSources.splice(0, 1, $scope.events);
                                 }
                             }, $scope.checkTokenError);
                         }
@@ -117,44 +115,47 @@ define(['app'], function (app, calendar) {
                     };
                     //***Event Modal***
                     $scope.openEventModal = function (event) {
-                        var now = new Date(),
-                            index = $.inArray(event, $scope.events),
-                            defaultEvent = {
-                                title: 'Untitled event',
-                                start: new Date(),
-                                end: new Date(now.setHours(now.getHours() + 1)), // Add an hour to end date.
-                                allDay: false
-                            },
-                            modalInstance = $modal.open({
-                                templateUrl: 'eventModalTemplate.html',
-                                controller: 'EventModalCtrl',
-                                resolve: {
-                                    event: function () {
-                                        return $.extend({}, defaultEvent, event)
+                        if ($scope.user_id == $scope.profile_id) {
+                            var now = new Date(),
+                                index = $.inArray(event, $scope.events),
+                                defaultEvent = {
+                                    title: 'Untitled event',
+                                    start: new Date(),
+                                    end: new Date(now.setHours(now.getHours() + 1)), // Add an hour to end date.
+                                    allDay: false
+                                },
+                                modalInstance = $modal.open({
+                                    templateUrl: 'eventModalTemplate.html',
+                                    controller: 'EventModalCtrl',
+                                    resolve: {
+                                        event: function () {
+                                            return $.extend({}, defaultEvent, event)
+                                        }
+                                    }
+                                });
+                            modalInstance.result.then(function (newEvent) {
+                                if (index == -1) {
+                                    // This is a new event from the "Create" button.
+                                    $scope.events.push(newEvent);
+                                    // In case the Rest hasn't responded.
+                                    if (!$scope.eventSources.length) {
+                                        $scope.eventSources.push($scope.events);
                                     }
                                 }
-                            });
-                        modalInstance.result.then(function (newEvent) {
-                            if (index == -1) {
-                                // This is a new event from the "Create" button.
-                                $scope.events.push(newEvent);
-                                // In case the Rest hasn't responded.
-                                if (!$scope.eventSources.length) {
-                                    $scope.eventSources.push($scope.events);
+                                else {
+                                    // Let's add the ID so we can edit in back end.
+                                    $scope.events.splice(index, 1, $.extend({}, newEvent, {id: event.id}));
+                                    // Here I would add some sort of backend update
                                 }
-                            }
-                            else {
-                                // Let's add the ID so we can edit in back end.
-                                $scope.events.splice(index, 1, $.extend({}, newEvent, {id: event.id}));
-                                // Here I would add some sort of backend update
-                            }
-                        }, function (reason) {
-                            if (reason == "delete") {
-                                $scope.events.splice(index, 1);
-                                // Backend Delete
-                            }
-                            // Else Modal Closed.
-                        });
+                            }, function (reason) {
+                                if (reason == "delete") {
+                                    $scope.events.splice(index, 1);
+                                    // Backend Delete
+                                }
+                                // Else Modal Closed.
+                            });
+                        }
+
                     };
                     //config object
                     $scope.calendarConfig = {
@@ -172,11 +173,5 @@ define(['app'], function (app, calendar) {
                 }
             }
         }]);
-
-    app.register.service('profileCalendar', ['$rootScope', function ($rootScope) {
-        var myvar;
-        return myvar;
-    }]);
-
     return app;
 });
