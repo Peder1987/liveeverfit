@@ -75,6 +75,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     lat = models.CharField(_('latitude'), max_length=30, blank=True, default="29.760193")
     lng = models.CharField(_('longitude'), max_length=30, blank=True, default="-95.369390")
 
+    tags = TaggableManager(blank=True)
+
     twitter = models.CharField(_('twitter'), max_length=100, blank=True)
     facebook = models.CharField(_('facebook'), max_length=100, blank=True)
     instagram = models.CharField(_('instagram'), max_length=100, blank=True)
@@ -371,7 +373,6 @@ class Professional(CustomUser):
 
     queue = models.BooleanField(_("queue"), default=True)
     objects = ProfessionalManager()
-    tags = TaggableManager(blank=True)
 
     fitness_sales_experience = models.CharField(_('fitness sales experience'), max_length=100   , blank=True)
     education = models.CharField(_('education'), max_length=30, blank=True)
