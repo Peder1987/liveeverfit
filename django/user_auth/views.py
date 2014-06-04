@@ -105,6 +105,15 @@ def register(request):
         response['id'] = user.id
         response['email'] = user.email
         response['img'] = user.img.url
+        tier = user.tier
+        #depending on tier, depends on user dynamic type
+        if tier == 7 or tier == 6:
+            response['type'] = 'professional'
+        elif tier <= 5 and tier >= 2:
+            response['type'] = 'upgraded'
+        else:
+            response['type'] = 'user'
+
         user.shopify_create(user_data.get('password'))
         return Response(response, status=status.HTTP_201_CREATED)
     else:
@@ -148,6 +157,14 @@ def register_professional(request):
         response['id'] = user.id
         response['email'] = user.email
         response['img'] = user.img.url
+        tier = user.tier
+        #depending on tier, depends on user dynamic type
+        if tier == 7 or tier == 6:
+            response['type'] = 'professional'
+        elif tier <= 5 and tier >= 2:
+            response['type'] = 'upgraded'
+        else:
+            response['type'] = 'user'
         return Response(response, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
@@ -213,12 +230,20 @@ class ObtainExpiringAuthToken(ObtainAuthToken):
             id = serializer.object['user'].id
             email = serializer.object['user'].email
             img = serializer.object['user'].img.url
+            tier = serializer.object['user'].tier
+            #depending on tier, depends on user dynamic type
+            if tier == 7 or tier == 6:
+                type = 'professional'
+            elif tier <= 5 and tier >= 2:
+                type = 'upgraded'
+            else:
+                type = 'user'
             if not created:
                 # update the created time of the token to keep it valid
                 token.created = datetime.datetime.utcnow().replace(tzinfo=utc)
                 token.save()
 
-            return Response({'token': token.key, 'id': id, 'email':email, 'img': img, })
+            return Response({'token': token.key, 'id': id, 'email':email, 'img': img, 'type': type })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 obtain_expiring_auth_token = ObtainExpiringAuthToken.as_view()

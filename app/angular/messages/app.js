@@ -90,15 +90,21 @@ define(['app', 'videojs'], function (app) {
                             $scope.trashCollection.get({page:$scope.currentPage}, success);
                         },
                         new: function () {
-                            var recipient;
-                            $scope.connectionResource.get({id:$scope.user_id},function(data){
-                                recipient = data.connection;
-                            });  
                             $scope.newMessage = {
                                 body: '',
-                                recipient: $stateParams.recipient || '',
-                                subject: ''
+                                recipient: '',
+                                subject: '',
+                                type : ''
                             };
+                            $scope.connectionResource.get({id:$scope.user_id},function(data){
+                                $scope.newMessage.type = data.user_type
+                                if(data.connection){
+                                    $scope.newMessage.recipient = data.connection
+                                }else{
+                                    $scope.newMessage.type = null;
+                                }
+                                //console.log(recipient);
+                            });  
                         }
                     };
                 if($stateParams.view) {
