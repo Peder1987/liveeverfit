@@ -352,7 +352,11 @@ define(['app', 'masonry'], function (app, Masonry) {
                     // model -> view
                     if (ngModel) {
                         ngModel.$render = function () {
-                            if(ngModel.$viewValue) $scope.init();
+                            console.log('$render')
+                            if(ngModel.$viewValue) {
+                                $scope.init();
+                                $scope.filter = ngModel.$viewValue.filter;
+                            }
                         };
                         ngModel.$render();
                     }
