@@ -18,20 +18,24 @@ from schedule.filters import DatetimeFilterBackend, NowFilterBackend
 
 class EventViewSet(generics.ListCreateAPIView):
     model = Event
-    queryset = Event.objects.all()
     filter_backends = (DatetimeFilterBackend, NowFilterBackend, filters.OrderingFilter)
     filter_class = EventFilter
     ordering = ('start',)
     serializer_class = EventSerializer
     permission_classes = (IsAdminOrSelf,)
-
+    filter_fields = ('start__month', )
+    def get_queryset(self):
+        pk = self.kwargs.get('pk', None)
+        if pk:
+            return Event.objects.filter(user=pk)
+        else:
+            return Event.objects.filter(user=self.request.user)
+            
 
 class EventObjectViewSet(generics.RetrieveUpdateDestroyAPIView):
     model = Event
-    queryset = Event.objects.all()
-    filter_backends = (IsCalendarOwnerFilterBackend,)
     filter_class = EventFilter
     ordering = ('start',)
     serializer_class = EventSerializer
     permission_classes = (IsAdminOrSelf,)
-    filter_fields = ('start__month', )
+    

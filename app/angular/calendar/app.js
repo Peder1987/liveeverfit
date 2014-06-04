@@ -4,14 +4,11 @@ define(['app'], function (app, calendar) {
     app.register.controller('EventModalCtrl', ['localStorageService', '$scope', '$modalInstance', '$resource', 'event',
         function (localStorageService, $scope, $modalInstance, $resource, event) {
 
-            var eventResource = $resource("http://:url/calendar/event/:id/", {
+            var eventResource = $resource("http://:url/feed/event/:id/", {
                 url: $scope.restURL,
                 id: '@id'
             }, {update: { method: 'PUT' }});
 
-            var newEvent = $resource("http://:url/calendar/event/", {
-                url: $scope.restURL
-            });
 
 
             //***DatePicker***
@@ -50,7 +47,7 @@ define(['app'], function (app, calendar) {
                     event.calendar = $scope.user_id;
                     event.creator = $scope.user_id;
                     event.user = $scope.user_id;
-                    newEvent.save(event, function () {
+                    eventResource.save(event, function () {
                     }, function (error) {
                     });
                 }
@@ -95,19 +92,47 @@ define(['app'], function (app, calendar) {
                                     $scope.eventSources.splice(0, 1, $scope.events);
                                 }
                             }, $scope.checkTokenError);
+
                         }
                     };
                     ngModel.$render();
                 },
                 controller: function ($scope) {
                     $scope.eventSources = [];
+                    var eventResource = $resource("http://:url/feed/event/:id/", {
+                        url: $scope.restURL,
+                        id: '@id'
+                    }, {update: { method: 'PUT' }});
                     //alert on Drop
                     $scope.alertOnDrop = function (event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
                         console.log('Event Droped to make dayDelta ' + dayDelta);
+                        console.log(event);
+                        var tempEvent = {
+                            id: event.id,
+                            title: event.title,
+                            start: event.start,
+                            end: event.end,
+                            allDay: event.allDay,
+                            calendar: event.calendar,
+                            creator: event.creator,
+                            user: event.user
+                        };
+                        eventResource.update({id:event.id}, tempEvent);
                     };
                     //alert on Resize
                     $scope.alertOnResize = function (event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view) {
                         console.log('Event Resized to make dayDelta ' + minuteDelta);
+                        var tempEvent = {
+                            id: event.id,
+                            title: event.title,
+                            start: event.start,
+                            end: event.end,
+                            allDay: event.allDay,
+                            calendar: event.calendar,
+                            creator: event.creator,
+                            user: event.user
+                        };
+                        eventResource.update({id:event.id}, tempEvent);
                     };
                     //Change View
                     $scope.changeView = function (view, calendar) {
