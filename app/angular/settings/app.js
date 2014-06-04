@@ -262,6 +262,7 @@ define(['app'], function (app) {
     }]);
 
 
+
     var passwordInstanceCtrl = function ($scope, $resource, $modalInstance, localStorageService) {
         $scope.current_password = '';
         $scope.password1 = '';
@@ -313,6 +314,8 @@ define(['app'], function (app) {
             $modalInstance.dismiss();
         };
     };
+
+
     var paymentDetailCtrl = function ($scope, $resource, $modalInstance, localStorageService, $http, profile_user, profileResource) {
         $scope.message = '';
 
@@ -368,20 +371,13 @@ define(['app'], function (app) {
                 address_state: $scope.creditcard.address_state,
                 address_zip: $scope.creditcard.address_zip,
             }, function (status, response) {
-                console.log('stripeee');
-
-                console.log(response);
-                console.log(status);
                 if (response.error) {
-
-                    $scope.message = response.error.message;
-
-                    $scope.$apply()
+                    $scope.message = [response.error.message];
+                    $scope.$apply();
                 }
                 else {
                     $scope.message = '';
                     $scope.$apply()
-
                     stripeToken = response['id'];
                     response = paymentResource.update({id: profile_user.id, stripeToken: stripeToken}, function () {
                     })
@@ -432,16 +428,29 @@ define(['app'], function (app) {
             });
         };
 
-        $scope.setAddress = function () {
-            if ($scope.tempAddress.formatted_address !== "undefined") {
-                $scope.address = $scope.addressesInputs[$scope.tempAddress.formatted_address];
-                if ($scope.address !== undefined) {
-                    $scope.address.street_line2 = (!($scope.tempAddress.street_line2 === undefined) ? $scope.tempAddress.street_line2 + ' ' : '');
+        $scope.tempAddressPay = {
+                formatted_address:'',
+                street_line2:'',
+            };
+            $scope.setAddressPay = function() {
+                if ($scope.tempAddressPay.formatted_address !== "undefined")
+                {
+                    $scope.creditcard.address_line1 = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].street_line1 + ' ':'');
+                    $scope.creditcard.address_city = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].city + ' ':'');
+                    $scope.creditcard.address_country = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].country + ' ':'');
+                    $scope.creditcard.address_state = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].state + ' ':'');
+                    $scope.creditcard.address_zip = (!($scope.addressesInputs[$scope.tempAddressPay.formatted_address] === undefined)?$scope.addressesInputs[$scope.tempAddressPay.formatted_address].zipcode + ' ':'');
+
+                    if ($scope.creditcard !== undefined){
+                        $scope.creditcard.address_line2 = (!($scope.tempAddressPay.street_line2 === undefined)?$scope.tempAddressPay.street_line2 + ' ':'');
+                    }
                 }
-            }
-        };
+            };
 
     };
+
+
+
     var addCertificationCtrl = function ($scope, $resource, $modalInstance, localStorageService, profileResource, profile_user) {
         $scope.message = '';
 
