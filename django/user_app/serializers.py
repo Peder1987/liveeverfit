@@ -22,7 +22,7 @@ class CertificationSerializer(serializers.ModelSerializer):
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ('city', 'state')
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
