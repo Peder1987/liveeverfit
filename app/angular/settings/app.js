@@ -24,6 +24,7 @@ define(['app'], function (app) {
             }, {update: { method: 'PUT' }});
             //init
             $scope.profile_user = userResource.get(function () {
+                console.log($scope.profile_user);
                 if ($scope.profile_user.type == "professional") {
                     $scope.profileResource = professionalResource
 
@@ -347,37 +348,41 @@ define(['app'], function (app) {
         $scope.cancel = function () {
             $modalInstance.dismiss();
         };
-        $scope.getLocation = function (val) {
+        //$Google GeoLocation
+        $scope.addressesInputs = {};
+        $scope.getLocation = function(val) {
             delete $http.defaults.headers.common['Authorization']
-
             return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
                 params: {
-                    address: val,
-                    sensor: false,
-                    components: 'country:USA'
+                address: val,
+                sensor: false,
+                components:'country:USA'
                 }
-            }).then(function (res) {
+            }).then(function(res){
                 $scope.addressesInputs = {};
                 var addresses = [];
                 var types = {};
-                angular.forEach(res.data.results, function (item) {
+                angular.forEach(res.data.results, function(item){
                     for (var i = 0; i < item.address_components.length; i++) {
                         var addressType = item.address_components[i].types[0];
                         types[addressType] = i;
-                    }
-                    ;
+                    };
                     addresses.push(item.formatted_address);
                     for (var i = 0; i < item.address_components.length; i++) {
                         $scope.addressesInputs[item.formatted_address] = {
-                            city: (!(types['locality'] === undefined) ? item.address_components[types['locality']]['short_name'] : !(types['sublocality'] === undefined) ? item.address_components[types['sublocality']]['short_name'] : !(types['neighborhood'] === undefined) ? item.address_components[types['neighborhood']]['short_name'] + ' ' : ''),
-                            state: (!(types['administrative_area_level_1'] === undefined) ? item.address_components[types['administrative_area_level_1']]['short_name'] + ' ' : '')
+                            street_line1: (!(types['street_number'] === undefined)?item.address_components[types['street_number']]['short_name'] + ' ':'') + (!(types['route'] === undefined)?item.address_components[types['route']]['long_name'] + ' ':''),
+                            city: (!(types['locality'] === undefined)?item.address_components[types['locality']]['short_name']:!(types['sublocality'] === undefined)?item.address_components[types['sublocality']]['short_name']:!(types['neighborhood'] === undefined)?item.address_components[types['neighborhood']]['short_name'] + ' ':''),
+                            state: (!(types['administrative_area_level_1'] === undefined)?item.address_components[types['administrative_area_level_1']]['short_name'] + ' ':''),
+                            country: (!(types['country'] === undefined)?item.address_components[types['country']]['long_name'] + ' ':''),
+                            zipcode: (!(types['postal_code'] === undefined || item.address_components[types['postal_code']] === undefined)?item.address_components[types['postal_code']]['short_name']:''),
+                            lat: item.geometry.location.lat,
+                            lng: item.geometry.location.lng
                         };
-                    }
-                    ;
+                    };
                 });
+                $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
                 return addresses;
             });
-            $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
         };
 
         $scope.setAddress = function () {
