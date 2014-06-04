@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth import get_user_model
 User = get_user_model()
-
 from rest_framework import serializers
 from user_app.models import Professional, UniqueLocation, Certification, Address
 
@@ -12,6 +11,8 @@ from user_app.models import Professional, UniqueLocation, Certification, Address
 # a specific entry rather only the generic "Entry"
 from feed.models import SharedEntry
 from taggit.models import Tag
+
+
 
 class CertificationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,7 +29,6 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'first_name', 'last_name', 'lat', 'lng', 'gender',)
-
 
 
 class TagListSerializer(serializers.WritableField):
@@ -59,7 +59,8 @@ class SettingsProfessionalSerializer(serializers.ModelSerializer):
                 'profession', 'is_accepting', 'queue', 'fitness_sales_experience', 'education', 'tags')
 
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list")
-       
+  
+
 class SettingsSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(source='id', required=True)  
     first_name = serializers.CharField(source='first_name', required=False)
@@ -74,7 +75,6 @@ class SettingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions',)
-
 
 
     def to_native(self, value):
@@ -188,6 +188,7 @@ class UserLikeSerializer(serializers.ModelSerializer):
 
         return obj
 
+
 class FollowUserSerializer(serializers.ModelSerializer):
     user_id = serializers.CharField(max_length=50)
 
@@ -211,6 +212,7 @@ class FollowUserSerializer(serializers.ModelSerializer):
             value.relationships.add(user)
 
         return obj
+
 
 class ConnectUserSerializer(serializers.ModelSerializer):
     professional_id = serializers.CharField(max_length=50)
