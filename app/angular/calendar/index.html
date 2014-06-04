@@ -8,7 +8,7 @@
             </tabset>
         </div>
         <div class="col-xs-3 col-xs-offset-6">
-            <button type="button" class="btn btn-primary pull-right"
+            <button ng-if="user_id == profile_id" type="button" class="btn btn-primary pull-right"
                     ng-click="openEventModal()">Create
             </button>
         </div>

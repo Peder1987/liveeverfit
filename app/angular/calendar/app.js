@@ -69,31 +69,40 @@ define(['app'], function (app, calendar) {
             };
 
         }]);
-    app.register.directive('profileCalendar', ['localStorageService', '$resource', '$modal', 'rest', 'tokenError',
-        function (localStorageService, $resource, $modal) {
+    app.register.directive('profileCalendar', ['profileCalendar', 'localStorageService', '$resource', '$modal', 'rest', 'tokenError',
+        function (profileCalendar, localStorageService, $resource, $modal) {
             return {
                 templateUrl: 'calendar/index.html',
-                controller: function ($scope) {
-                    //***Calendar***
-                    $scope.eventSources = [];
-                    $scope.events = [];
-                    // Setup Rest
-                    $scope.user_id = localStorageService.get('user_id');
-                    var calendarCollection = $resource("http://:url/calendar/:id/", {
-                        url: $scope.restURL,
-                        id: $scope.user_id
-                    });
-                    // Fetch calendar data.
-                    $scope.calendarEvents = calendarCollection.get(function () {
-                        if ($scope.calendarEvents.results.length) {
-                            $scope.events = $scope.calendarEvents.results;
-                            angular.forEach($scope.events, function (value, key) {
-                                value.start = new Date(value.start);
-                                value.end = new Date(value.end);
+                require: '?ngModel',
+                link: function ($scope, element, attrs, ngModel) {
+                    ngModel.$render = function () {
+                        if (ngModel.$viewValue) {
+                            $scope.profile_id = ngModel.$viewValue;
+                            //$scope.eventSources = [];
+                            $scope.events = [];
+                            // Setup Rest
+                            $scope.user_id = localStorageService.get('user_id');
+                            var calendarCollection = $resource("http://:url/calendar/:id/", {
+                                url: $scope.restURL,
+                                id: $scope.profile_id
                             });
-                            $scope.eventSources.push($scope.events);
+                            // Fetch calendar data.
+                            $scope.calendarEvents = calendarCollection.get(function () {
+                                if ($scope.calendarEvents.results.length) {
+                                    $scope.events = $scope.calendarEvents.results;
+                                    angular.forEach($scope.events, function (value, key) {
+                                        value.start = new Date(value.start);
+                                        value.end = new Date(value.end);
+                                    });
+                                    $scope.eventSources.push($scope.events);
+                                }
+                            }, $scope.checkTokenError);
                         }
-                    }, $scope.checkTokenError);
+                    };
+                    ngModel.$render();
+                },
+                controller: function ($scope) {
+                    $scope.eventSources = [];
                     //alert on Drop
                     $scope.alertOnDrop = function (event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
                         console.log('Event Droped to make dayDelta ' + dayDelta);
@@ -164,6 +173,10 @@ define(['app'], function (app, calendar) {
             }
         }]);
 
-    return app;
+    app.register.service('profileCalendar', ['$rootScope', function ($rootScope) {
+        var myvar;
+        return myvar;
+    }]);
 
+    return app;
 });

@@ -1,12 +1,14 @@
 'use strict';
+var nico = false;
 define(['app', 'feed', 'calendar'], function (app) {
     app.register.controller('profileCtrl', ['$scope', 'restricted',
         function ($scope) {
             $scope.restricted();
         }]);
-    app.register.controller('profileController', ['$scope', "$state", "$stateParams", '$resource', '$modal', '$http', 'localStorageService', 'rest', 'tokenError',
-        function ($scope, $state, $stateParams, $resource, $modal, $http, localStorageService, tokenError) {
+    app.register.controller('profileController', ['$scope', "$state", "$stateParams", '$resource', '$modal', '$http', 'localStorageService', 'rest', 'tokenError', 'profileCalendar',
+        function ($scope, $state, $stateParams, $resource, $modal, $http, localStorageService, tokenError, profileCalendar) {
             angular.extend($scope, {
+                calendarShow: false,
                 user_id: localStorageService.get('user_id'),
                 feed: {
                     id: undefined,
@@ -106,7 +108,8 @@ define(['app', 'feed', 'calendar'], function (app) {
             });
             //init view
             $scope.$on('$stateChangeSuccess', $scope.getProfile);
+            nico = $scope;
+            profileCalendar = $scope.user_id;
         }
-    ])
-    ;
+    ]);
 });

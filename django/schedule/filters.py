@@ -5,60 +5,67 @@ from rest_framework import generics
 from schedule.models import Calendar, Event
 from schedule.serializers import CalendarSerializer
 
+
 class EventFilter(django_filters.FilterSet):
-	#start = django_filters.NumberFilter(name="price", lookup_type='gte')
+    # start = django_filters.NumberFilter(name="price", lookup_type='gte')
     #end = django_filters.NumberFilter(name="price", lookup_type='lte')
 
     class Meta:
         model = Event
-        fields = ['start',]
+        fields = ['start', ]
+
 
 class IsCalendarOwnerFilterBackend(filters.BaseFilterBackend):
-	"""
-	Filter that only allows users to see their own objects.
-	"""
-	def filter_queryset(self, request, queryset, view):
-		return queryset.filter(calendar__user=request.user)
+    """
+    Filter that only allows users to see their own objects.
+    """
 
-	class Meta:
-		model = Event
+    def filter_queryset(self, request, queryset, view):
+        return queryset.filter(calendar__user=request.user)
+
+    class Meta:
+        model = Event
+
 
 class DatetimeFilterBackend(filters.BaseFilterBackend):
-	"""
-	Giving month or year in query parameters allows to filter 
-	by either or
-	"""
-	def filter_queryset(self, request, queryset, view):
-		if 'month' in request.QUERY_PARAMS:
-			month = request.QUERY_PARAMS['month']
-			try:
-				queryset = queryset.filter(start__month=month)
-			except:
-				pass
+    """
+    Giving month or year in query parameters allows to filter
+    by either or
+    """
 
-		if 'year' in request.QUERY_PARAMS:
-			year = request.QUERY_PARAMS['year']
-			try:
-				queryset = queryset.filter(start__year=year)
-			except:
-				pass
+    def filter_queryset(self, request, queryset, view):
+        if 'month' in request.QUERY_PARAMS:
+            month = request.QUERY_PARAMS['month']
+            try:
+                queryset = queryset.filter(start__month=month)
+            except:
+                pass
 
-		return queryset
+        if 'year' in request.QUERY_PARAMS:
+            year = request.QUERY_PARAMS['year']
+            try:
+                queryset = queryset.filter(start__year=year)
+            except:
+                pass
 
-	class Meta:
-		model = Event
+        return queryset
+
+    class Meta:
+        model = Event
+
 
 class NowFilterBackend(filters.BaseFilterBackend):
-	"""
-	Filters by the current month/year
-	"""
-	def filter_queryset(self, request, queryset, view):
-		now_time = now()
-		queryset = queryset.filter(start__year=now_time.year, start__month=now_time.month)
-		return queryset
+    """
+    Filters by the current month/year
+    """
 
-		return queryset
+    def filter_queryset(self, request, queryset, view):
+        now_time = now()
+        queryset = queryset.filter(start__year=now_time.year, start__month=now_time.month)
+        return queryset
 
-	class Meta:
-		model = Event
+        return queryset
+
+    class Meta:
+        model = Event
 

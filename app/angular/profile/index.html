@@ -163,9 +163,10 @@
             <tab heading="videos" select="filter('video')"></tab>
             <tab heading="blogs" select="filter('blog')"></tab>
             <tab heading="events" select="filter('event')"></tab>
+            <tab heading="clients" select="filter('client')" ng-if="user_id == profile_user.id" ></tab>
             <tab heading="calendar" select="hideFeed()" active="feedActive">
-                <div ng-if="profile_user" class="google-map-outer">
-                    <div profile-calendar=""></div>
+                <div ng-if="profile_user.id" class="google-map-outer">
+                    <div profile-calendar ng-model="profile_user.id"></div>
                 </div>
             </tab>
             <tab heading="reach" select="initReach()">

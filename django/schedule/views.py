@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework import generics
 from django.contrib.auth import get_user_model
+
 User = get_user_model()
 from schedule.models import Calendar, Event
 from schedule.permissions import IsAdminOrSelf
@@ -15,23 +16,22 @@ from schedule.filters import EventFilter, IsCalendarOwnerFilterBackend
 from schedule.filters import DatetimeFilterBackend, NowFilterBackend
 
 
-
 class EventViewSet(generics.ListCreateAPIView):
-	model = Event
-	queryset = Event.objects.all()
-	filter_backends = (IsCalendarOwnerFilterBackend, DatetimeFilterBackend, NowFilterBackend, filters.OrderingFilter)
-	filter_class = EventFilter
-	ordering = ('start',)
-	serializer_class = EventSerializer
-	permission_classes = (IsAdminOrSelf,)
-	
+    model = Event
+    queryset = Event.objects.all()
+    filter_backends = (DatetimeFilterBackend, NowFilterBackend, filters.OrderingFilter)
+    filter_class = EventFilter
+    ordering = ('start',)
+    serializer_class = EventSerializer
+    permission_classes = (IsAdminOrSelf,)
+
 
 class EventObjectViewSet(generics.RetrieveUpdateDestroyAPIView):
-	model = Event
-	queryset = Event.objects.all()
-	filter_backends = (IsCalendarOwnerFilterBackend,)
-	filter_class = EventFilter
-	ordering = ('start',)
-	serializer_class = EventSerializer
-	permission_classes = (IsAdminOrSelf,)
-	filter_fields = ('start__month', )
+    model = Event
+    queryset = Event.objects.all()
+    filter_backends = (IsCalendarOwnerFilterBackend,)
+    filter_class = EventFilter
+    ordering = ('start',)
+    serializer_class = EventSerializer
+    permission_classes = (IsAdminOrSelf,)
+    filter_fields = ('start__month', )
