@@ -63,8 +63,8 @@ class ProfessionalObjView(generics.RetrieveUpdateDestroyAPIView):
     def post_save(self, obj, created=False):
         if type(obj.tags) is list:
             # If tags were provided in the request
-            pro = Professional.objects.get(pk=obj.pk)
-            pro.tags.set(*obj.tags)
+            user = User.objects.get(pk=obj.pk)
+            user.tags.set(*obj.tags)
 
 class CreditcardView(generics.RetrieveAPIView):
     model = User

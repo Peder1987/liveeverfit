@@ -25,6 +25,7 @@ define(['app'], function(app) {
 				password2: '',
 				gender: '',
 				referred_by: localStorageService.get('referral'),
+				tags: [],
 				tier: 1
 			};
 			$scope.pro = {
@@ -83,6 +84,14 @@ define(['app'], function(app) {
             },{update: { method: 'PUT' }});
 
 
+            $scope.tags = [];
+            $scope.onTagAdd = function (tag) {
+                $scope.user.tags.push(tag.name) 
+            }
+            $scope.onDeleteTag = function (tag) {
+            	var temp = $scope.user.tags.indexOf(tag.name);
+            	$scope.user.tags.splice(temp, 1);
+            };
 			$scope.getCurrentStep = function() {
 				return $scope.step;
 			};	

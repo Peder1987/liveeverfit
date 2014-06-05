@@ -48,15 +48,14 @@ class SettingsProfessionalSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='email', required=False)
     img = serializers.ImageField(allow_empty_file=True, required=False)
     certifications = CertificationSerializer(many=True, allow_add_remove=True)
-    tags = TagListSerializer(required=False)
     primary_address = AddressSerializer(required=False)
 
     class Meta:
         model = Professional
-        fields = ('email', 'img', 'certifications', 'tags', 'id', 'first_name', 'last_name', 'tier', 'gender', 
+        fields = ('email', 'img', 'certifications', 'id', 'first_name', 'last_name', 'tier', 'gender', 
                 'location', 'lat', 'lng', 'twitter', 'facebook', 'instagram', 'youtube', 'linkedin', 'plus', 
                 'bio', 'referred_by', 'shopify_id', 'chargify_id', 'stripe_id', 'url', 'phone', 'primary_address', 
-                'profession', 'is_accepting', 'queue', 'fitness_sales_experience', 'education', 'tags', 'date_joined')
+                'profession', 'is_accepting', 'queue', 'fitness_sales_experience', 'education', 'date_joined')
 
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list")
   
@@ -71,6 +70,7 @@ class SettingsSerializer(serializers.ModelSerializer):
     img = serializers.ImageField(allow_empty_file=True, required=False)
     referred_by = SettingsProfessionalSerializer(required=False)
     primary_address = AddressSerializer(required=False)
+    tags = TagListSerializer(required=False)
 
     class Meta:
         model = User
@@ -79,6 +79,7 @@ class SettingsSerializer(serializers.ModelSerializer):
 
     def to_native(self, value):
         obj = super(SettingsSerializer, self).to_native(value)
+        tags =  obj.get('tags')
         user_tier = obj.get('tier')
         user_id = obj.get('id')
         if user_tier == 7 or user_tier == 6:
@@ -87,6 +88,7 @@ class SettingsSerializer(serializers.ModelSerializer):
                 obj = SettingsProfessionalSerializer(instance=pro).data
                 obj['shopify_sales'] = pro.shopify_sales()
             obj['type'] = 'professional'
+            obj['tags'] = tags
         elif user_tier <= 5 and user_tier >= 2:
             obj['type'] = 'upgraded'
         else:

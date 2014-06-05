@@ -26,6 +26,7 @@ define(['app'], function (app) {
 
             //init
             $scope.profile_user = userResource.get(function () {
+                console.log($scope.profile_user);
                 if ($scope.profile_user.type == "professional") {
                     $scope.profileResource = professionalResource
                 } else {
@@ -185,14 +186,12 @@ define(['app'], function (app) {
                 $scope.profile_user.tags.forEach(function (obj) {
                     $scope.tags.push(obj.name)
                 });
-
             }
             $scope.onDeleteTag = function (tag) {
                 if ($scope.tags.indexOf(tag.text) != -1) {
                     var temp = $scope.tags.indexOf(tag.name);
                     $scope.tags.splice(temp, 1);
                 }
-                
             };
 
 

@@ -46,6 +46,7 @@ def register(request):
         user_data = {field: data for (field, data) in request.DATA.items()}
         pro_referred_by = user_data.pop('referred_by', None)
         temp_address = user_data.pop('primary_address', None)
+        tags = user_data.pop('tags', None)
         user_data.pop('password2', None)
         user_data.pop('profession', None)
         user_data.pop('education', None)
@@ -62,10 +63,12 @@ def register(request):
         user_data.pop('linkedin', None)
         user_data.pop('plus', None)
 
-
+        print user_data
         user = User.objects.create_user(
             **user_data
         )
+        user.tags.set(*tags)
+        user.save()
 
         if Professional.objects.filter(email = pro_referred_by).exists():
             pro_ref = Professional.objects.get(email = pro_referred_by)
