@@ -149,14 +149,13 @@ define(['app'], function (app) {
                 delete temp['img'];
                 delete temp['referred_by'];
                 
-                if($scope.profile_user.type == 'professional'){
-                    $scope.tags = [];
-                    $scope.profile_user.tags.forEach(function (obj) {
-                        $scope.tags.push(obj.name)
-                    });
-                    // returning tags in list form
-                    temp.tags = $scope.tags
-                }
+                $scope.tags = [];
+                $scope.profile_user.tags.forEach(function (obj) {
+                    $scope.tags.push(obj.name)
+                });
+                // returning tags in list form
+                temp.tags = $scope.tags
+                
                 var obj = $scope.profileResource.update({id: $scope.profile_user.id}, temp,
                     function(){
                         temp['img'] = img;

@@ -96,6 +96,22 @@
                                         </span>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <span class="bold">
+                                            <span class="fa fa-tags"></span> Tags:
+                                        </span>
+                                        <br >
+                                        <div ng-show="editable.$visible">
+                                            <tags-input ng-model="profile_user.tags" on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)" display-property="name">
+                                            </tags-input>
+                                        </div>
+                                        <div ng-show="!editable.$visible" ng-repeat="tag in profile_user.tags" class="tag tag-blue tag-click ng-scope ng-binding">
+                                            {{tag.name}}
+                                            
+                                        </div>
+                                    </div>
+                                </div>
                                 <div ng-hide="editable.$visible" ng-if="profile_user.type == 'professional'" class="row" style="padding-top: 13px;">
                                     <div class="col-xs-12">
                                         <span class="bold">

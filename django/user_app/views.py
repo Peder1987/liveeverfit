@@ -24,6 +24,12 @@ class UserViewSet(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SettingsSerializer
     filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
 
+    def post_save(self, obj, created=False):
+        if type(obj.tags) is list:
+            # If tags were provided in the request
+            user = User.objects.get(pk=obj.pk)
+            user.tags.set(*obj.tags)
+
 
 class ProfileView(generics.RetrieveAPIView):
     model = User

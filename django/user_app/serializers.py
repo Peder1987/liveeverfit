@@ -49,13 +49,14 @@ class SettingsProfessionalSerializer(serializers.ModelSerializer):
     img = serializers.ImageField(allow_empty_file=True, required=False)
     certifications = CertificationSerializer(many=True, allow_add_remove=True)
     primary_address = AddressSerializer(required=False)
+    tags = TagListSerializer(required=False)
 
     class Meta:
         model = Professional
-        fields = ('email', 'img', 'certifications', 'id', 'first_name', 'last_name', 'tier', 'gender', 
+        fields = ('email', 'img', 'certifications','id', 'first_name', 'last_name', 'tier', 'gender', 
                 'location', 'lat', 'lng', 'twitter', 'facebook', 'instagram', 'youtube', 'linkedin', 'plus', 
                 'bio', 'referred_by', 'shopify_id', 'chargify_id', 'stripe_id', 'url', 'phone', 'primary_address', 
-                'profession', 'is_accepting', 'queue', 'fitness_sales_experience', 'education', 'date_joined')
+                'profession', 'is_accepting', 'queue', 'fitness_sales_experience', 'education', 'date_joined', 'tags')
 
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list")
   
