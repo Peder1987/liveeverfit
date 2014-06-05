@@ -96,21 +96,27 @@ define(['app', 'videojs'], function (app) {
                             $scope.trashCollection.get({page:$scope.currentPage}, success);
                         },
                         new: function () {
-                            console.log($stateParams)
+                            
 
                             $scope.newMessage = {
                                 body: '',
                                 recipient: '',
                                 subject: '',
+                                input: ''
                                 
                             };
                             $scope.connectionResource.update({id:$scope.user_id, user_id:$stateParams.recipient || null},function(data){
                                 $scope.newMessage.type = data.user_type
-                                console.log(data)
-                                if($scope.user_type != 'professional' && data.connection){
+                                
+                                if($scope.user_type == 'user' && data.connection){
                                     $scope.newMessage.recipient = data.connection
-                                }else{
+                                }else if($scope.user_type == 'professional' && $stateParams.recipient){
+                                    $scope.newMessage.recipient = data.connection
+                                    $scope.pro_connection = true;
+                                }
+                                else{
                                     $scope.newMessage.recipient = null;
+                                    $scope.pro_connection = false;
                                 }
                                 //console.log(recipient);
                             });  
@@ -149,6 +155,7 @@ define(['app', 'videojs'], function (app) {
                 });
                 return deferred.promise;
             };
+
         }]);
 
     app.register.service('promiseService', function ($q, $rootScope) {

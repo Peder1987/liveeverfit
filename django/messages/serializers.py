@@ -130,21 +130,19 @@ class ConnectionSerializer(serializers.ModelSerializer):
         #print value
         obj = super(ConnectionSerializer, self).to_native(value)
 
-        # Exception for admin use
+        is_professional = Professional.objects.filter(id=value.id).exists()
         user_id = obj.get('user_id')
-        if User.objects.filter(id=user_id).exists():
-            user = User.objects.get(id=user_id)
+        user = None
+        if User.objects.filter(pk=user_id).exists():
+            user = User.objects.get(pk=user_id)
+
+        #if professional, all connections allowed
+        if is_professional and user:
+            obj['connection'] = AdminSerializer(instance=user).data
+        elif user:
+        # if admin, then allow connection to be made
             if user.is_staff:
-                obj['user_type'] = 'user'
                 obj['connection'] = AdminSerializer(instance=user).data
-                return obj
-
-        user_tier = value.tier
-        if user_tier == 7 or user_tier == 6:
-            obj['user_type'] = 'professional'
-        elif user_tier <= 5 and user_tier >= 2:
-            obj['user_type'] = 'upgraded'
-        else:
-            obj['user_type'] = 'user'
-
         return obj
+
+    
