@@ -89,10 +89,6 @@ class ComposeSerializer(serializers.ModelSerializer):
             pass
         return super(ComposeSerializer, self).__init__(*args, **kwargs)
 
-    def validate_recipient(self, attrs, source):
-        print attrs
-        
-        return attrs
 
 class ReplySerializer(serializers.ModelSerializer):
     class Meta:

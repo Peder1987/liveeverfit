@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^membership/', include('membership.urls')),
     url(r'^calendar/', include('schedule.urls')),
     url(r'^feed', include('feed.urls')),
+    url(r'^notifications', include('notifications.urls')),
 )
 
 

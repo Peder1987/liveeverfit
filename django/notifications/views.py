@@ -3,8 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.context import RequestContext
+from rest_framework import viewsets, status, filters
+from rest_framework import generics
 from .utils import slug2id
 from .models import Notification
+from .permissions import IsAdminOrSelf
+from .serializers import AllNotificationSerializer
 
 @login_required
 def all(request):
@@ -71,3 +75,11 @@ def mark_as_unread(request, slug=None):
         return redirect(next)
 
     return redirect('notifications:all')
+
+
+class AllNotificationViewSet(viewsets.ModelViewSet):
+    model = Notification
+    permission_classes = (IsAdminOrSelf,)
+    def get_queryset(self):
+        return self.request.user.notifications.all()
+            
