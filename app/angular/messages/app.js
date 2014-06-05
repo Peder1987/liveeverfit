@@ -40,6 +40,10 @@ define(['app', 'videojs'], function (app) {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
                 id: '@id'
+            }, { 
+                update: {
+                    method: 'PUT'
+                }
             });
             $scope.replyMessageResource = $resource(":protocol://:url/messages/reply/:id", {
                 id: '@id',
@@ -75,6 +79,7 @@ define(['app', 'videojs'], function (app) {
                         $scope.list = data.results;
                         $scope.totalItems = data.count;
                         if ($stateParams.index) {
+                            $scope.index = $stateParams.index;
                             $scope.detailIndex = $stateParams.index;
                             $scope.detail = $scope.list[$stateParams.index];
                         }
@@ -96,7 +101,7 @@ define(['app', 'videojs'], function (app) {
                                 subject: '',
                                 type : ''
                             };
-                            $scope.connectionResource.get({id:$scope.user_id},function(data){
+                            $scope.connectionResource.update({id:$scope.user_id, user_id:$stateParams.recipient || null},function(data){
                                 $scope.newMessage.type = data.user_type
                                 if(data.connection){
                                     $scope.newMessage.recipient = data.connection

@@ -256,7 +256,7 @@ class ReplyMessageObjView(generics.CreateAPIView):
     serializer_class = ReplySerializer
 
 
-class ConnectionView(generics.RetrieveAPIView):
+class ConnectionView(generics.UpdateAPIView):
     permission_classes = (IsAdminOrSelf,)
     model = User
     serializer_class = ConnectionSerializer

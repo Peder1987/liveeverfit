@@ -7,26 +7,34 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+class senderReceiverSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name', 'img')
+
+
 class InboxSerializer(serializers.ModelSerializer):
-    # sender = serializers.IntegerField(source='sender.email', required=True)  
-    # recipient = serializers.IntegerField(source='recipient.email', required=True)  
-    # img = serializers.IntegerField(source='sender.img.url', required=True)
-    #recipient = serializers.CharField(source='recipient.email', required=False)
+    sender = senderReceiverSerializer(read_only=True)
+    recipient = senderReceiverSerializer(read_only=True)
     
     class Meta:
         model = Message
+
+    def to_native(self, value):
+        obj = super(InboxSerializer, self).to_native(value)
+        #print obj
+        return obj
+
 class SentSerializer(InboxSerializer):
     pass
 class TrashSerializer(InboxSerializer):
     pass
 
 class DeleteSerializer(serializers.ModelSerializer):
-    # sender = serializers.SlugRelatedField(slug_field="email", required=False)  
-    # recipient = serializers.SlugRelatedField(slug_field="email", required=False)  
-    # view = serializers.CharField(required=True)  
+    view = serializers.CharField(required=True)  
     class Meta:
         model = Message
-        fields = ('id',)
+        fields = ('id', 'view',)
         exclude = ('img', 'body', 'subject')
 
     def restore_object(self, attrs, instance=None):
@@ -99,6 +107,10 @@ class ReplySerializer(serializers.ModelSerializer):
         obj = super(ReplySerializer, self).restore_object(attrs, instance)
         return obj
 
+class AdminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name', 'img',)
 
 class ProfessionalConnectionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -106,15 +118,27 @@ class ProfessionalConnectionSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'last_name', 'img',)
 
 class ConnectionSerializer(serializers.ModelSerializer):
-    connection = ProfessionalConnectionSerializer()
+    user_id = serializers.CharField(max_length=50, required=False)
+    connection = ProfessionalConnectionSerializer(required=False)
+
     class Meta:
         model = User
-        fields = ('id', 'connection')
-        read_only = ('connection')
+        fields = ('id', 'connection', 'user_id')
+        
 
     def to_native(self, value):
+        #print value
         obj = super(ConnectionSerializer, self).to_native(value)
-        user_id = value.id
+
+        # Exception for admin use
+        user_id = obj.get('user_id')
+        if User.objects.filter(id=user_id).exists():
+            user = User.objects.get(id=user_id)
+            if user.is_staff:
+                obj['user_type'] = 'user'
+                obj['connection'] = AdminSerializer(instance=user).data
+                return obj
+
         user_tier = value.tier
         if user_tier == 7 or user_tier == 6:
             obj['user_type'] = 'professional'
