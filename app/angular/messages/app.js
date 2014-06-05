@@ -13,6 +13,7 @@ define(['app', 'videojs'], function (app) {
         function ($state, $stateParams, $sce, $resource, rest, tokenError, localStorageService, $scope) {
             $scope.user_id = localStorageService.get('user_id');
             $scope.user_type = localStorageService.get('user_type');
+            $scope.selectedUser = null;
             $scope.inboxCollection = $resource(":protocol://:url/messages/inbox?page=:page", {
                 page: $scope.currentPage,
                 protocol: $scope.restProtocol,
@@ -61,6 +62,7 @@ define(['app', 'videojs'], function (app) {
                 }
             });
             $scope.submitMessage = function () {
+                $scope.newMessage.recipient = $scope.selectedUser
                 $scope.newMessageResource.save($scope.newMessage, function () {
                     $state.go('messages.view', {view: 'inbox'});
                 });
@@ -111,6 +113,7 @@ define(['app', 'videojs'], function (app) {
                                 if($scope.user_type == 'user' && data.connection){
                                     $scope.newMessage.recipient = data.connection
                                 }else if($scope.user_type == 'professional' && $stateParams.recipient){
+                                    $scope.selectedUser = $stateParams.recipient
                                     $scope.newMessage.recipient = data.connection
                                     $scope.pro_connection = true;
                                 }
@@ -154,6 +157,9 @@ define(['app', 'videojs'], function (app) {
                     deferred.resolve(data);
                 });
                 return deferred.promise;
+            };
+            $scope.onSelect = function ($item, $model, $label) {
+                $scope.selectedUser = $item.id;
             };
 
         }]);
