@@ -1,4 +1,5 @@
 #Django Libs
+from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
@@ -103,6 +104,11 @@ def register(request):
         except:
             pass
 
+        email = user.email
+        subject = 'Welcome to Live Ever Fit'
+        message = 'Thank you fo registering to Live Ever Fit'
+        send_mail(subject, message, 'info@test.com', [email])
+
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
         response['id'] = user.id
@@ -154,6 +160,11 @@ def register_professional(request):
             certification2 = Certification(user = pro, certification_name = certification_name2, certification_number = certification_number2)
             certification2.save()
         pro.save()
+
+        email = 'payroll@liveeverfit.com'
+        subject = 'New Professional'
+        message = 'New Professional in Live Ever Fit' + pro.email
+        send_mail(subject, message, 'info@test.com', [email])
         
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
