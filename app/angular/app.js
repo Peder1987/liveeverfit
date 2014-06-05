@@ -79,7 +79,7 @@ define(['angularAMD',
                     .state('settings', route.resolve('/settings', 'settings'))
                     .state('messages', route.resolve('/messages', 'messages'))
                     .state('messages.view', route.resolve('/:view', 'messages'))
-                    .state('messages.view.reply', route.resolve('/new/:recipient', 'messages'))
+                    .state('messages.view.reply', route.resolve('/reply/:recipient', 'messages'))
                     .state('messages.view.detail', route.resolve('/:index', 'messages'))
                     .state('workouts', route.resolve('/workouts', 'workouts'))
                     .state('workouts.video', route.resolve('/:id', 'workouts'))

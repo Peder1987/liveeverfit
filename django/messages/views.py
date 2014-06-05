@@ -23,10 +23,7 @@ from messages.permissions import IsAdminOrSelf
 User = get_user_model()
 
 
-if "notification" in settings.INSTALLED_APPS:
-    from notification import models as notification
-else:
-    notification = None
+from notifications import notify
 
 def compose(request, recipient=None, form_class=ComposeForm,
         template_name='messages/compose.html', success_url=None, recipient_filter=None):
@@ -247,7 +244,9 @@ class ComposeMessageObjView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
     model = Message
     serializer_class= ComposeSerializer
-        
+
+    def post_save(self, obj, created=False):
+        notify.send(self.request.user, recipient=obj.recipient, verb=u'messaged you!')
 
 
 class ReplyMessageObjView(generics.CreateAPIView):
@@ -256,7 +255,7 @@ class ReplyMessageObjView(generics.CreateAPIView):
     serializer_class = ReplySerializer
 
 
-class ConnectionView(generics.RetrieveAPIView):
+class ConnectionView(generics.UpdateAPIView):
     permission_classes = (IsAdminOrSelf,)
     model = User
     serializer_class = ConnectionSerializer

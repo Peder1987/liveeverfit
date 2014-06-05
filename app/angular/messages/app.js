@@ -12,6 +12,8 @@ define(['app', 'videojs'], function (app) {
         "$anchorScroll", "promiseService", "$http", 
         function ($state, $stateParams, $sce, $resource, rest, tokenError, localStorageService, $scope) {
             $scope.user_id = localStorageService.get('user_id');
+            $scope.user_type = localStorageService.get('user_type');
+            $scope.selectedUser = null;
             $scope.inboxCollection = $resource(":protocol://:url/messages/inbox?page=:page", {
                 page: $scope.currentPage,
                 protocol: $scope.restProtocol,
@@ -40,6 +42,10 @@ define(['app', 'videojs'], function (app) {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
                 id: '@id'
+            }, { 
+                update: {
+                    method: 'PUT'
+                }
             });
             $scope.replyMessageResource = $resource(":protocol://:url/messages/reply/:id", {
                 id: '@id',
@@ -56,6 +62,7 @@ define(['app', 'videojs'], function (app) {
                 }
             });
             $scope.submitMessage = function () {
+                $scope.newMessage.recipient = $scope.selectedUser
                 $scope.newMessageResource.save($scope.newMessage, function () {
                     $state.go('messages.view', {view: 'inbox'});
                 });
@@ -75,6 +82,7 @@ define(['app', 'videojs'], function (app) {
                         $scope.list = data.results;
                         $scope.totalItems = data.count;
                         if ($stateParams.index) {
+                            $scope.index = $stateParams.index;
                             $scope.detailIndex = $stateParams.index;
                             $scope.detail = $scope.list[$stateParams.index];
                         }
@@ -90,18 +98,28 @@ define(['app', 'videojs'], function (app) {
                             $scope.trashCollection.get({page:$scope.currentPage}, success);
                         },
                         new: function () {
+                            
+
                             $scope.newMessage = {
                                 body: '',
                                 recipient: '',
                                 subject: '',
-                                type : ''
+                                input: ''
+                                
                             };
-                            $scope.connectionResource.get({id:$scope.user_id},function(data){
+                            $scope.connectionResource.update({id:$scope.user_id, user_id:$stateParams.recipient || null},function(data){
                                 $scope.newMessage.type = data.user_type
-                                if(data.connection){
+                                
+                                if($scope.user_type == 'user' && data.connection){
                                     $scope.newMessage.recipient = data.connection
-                                }else{
-                                    $scope.newMessage.type = null;
+                                }else if($scope.user_type == 'professional' && $stateParams.recipient){
+                                    $scope.selectedUser = $stateParams.recipient
+                                    $scope.newMessage.recipient = data.connection
+                                    $scope.pro_connection = true;
+                                }
+                                else{
+                                    $scope.newMessage.recipient = null;
+                                    $scope.pro_connection = false;
                                 }
                                 //console.log(recipient);
                             });  
@@ -140,6 +158,10 @@ define(['app', 'videojs'], function (app) {
                 });
                 return deferred.promise;
             };
+            $scope.onSelect = function ($item, $model, $label) {
+                $scope.selectedUser = $item.id;
+            };
+
         }]);
 
     app.register.service('promiseService', function ($q, $rootScope) {

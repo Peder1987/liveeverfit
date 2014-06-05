@@ -275,9 +275,10 @@ class ProfessionalListSerializer(serializers.ModelSerializer):
 
 
 class ClientListSerializer(serializers.ModelSerializer):
+    full_name = serializers.Field(source="get_full_name")
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name',)
+        fields = ('id', 'email', 'full_name')
 
 
 class ModifyMembershipSerializer(serializers.ModelSerializer):
