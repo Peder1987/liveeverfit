@@ -107,7 +107,7 @@ def register(request):
         email = user.email
         subject = 'Welcome to Live Ever Fit'
         message = 'Thank you fo registering to Live Ever Fit'
-        send_mail(subject, message, 'info@test.com', [email])
+        send_mail(subject, message, 'info@liveeverfit.com', [email])
 
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
@@ -164,7 +164,7 @@ def register_professional(request):
         email = 'payroll@liveeverfit.com'
         subject = 'New Professional'
         message = 'New Professional in Live Ever Fit' + pro.email
-        send_mail(subject, message, 'info@test.com', [email])
+        send_mail(subject, message, 'info@liveeverfit.com', [email])
         
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key

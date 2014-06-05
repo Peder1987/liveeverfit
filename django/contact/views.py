@@ -20,7 +20,7 @@ def contact(request):
         email = data['email']
         subject = 'Contacted Us by ' + data['name']
         message = data['message']
-        send_mail(subject, message, email, ['info@test.com'])
+        send_mail(subject, message, email, ['info@liveeverfit.com'])
         return Response({'details':['Success Email']}, status=status.HTTP_200_OK)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
