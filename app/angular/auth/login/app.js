@@ -19,11 +19,13 @@ define(['app'], function(app) {
                 // AutoFill Fix
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
 				$scope.authToken = AuthToken.save($scope.user, function() {
+					console.log($scope.authToken);
 					localStorageService.add('Authorization', 'Token ' + $scope.authToken.token);
 					localStorageService.add('rest_token', $scope.authToken.token);
 					localStorageService.add('user_id', $scope.authToken.id);
 					localStorageService.add('user_email', $scope.authToken.email);
                     localStorageService.add('user_img', $scope.authToken.img);
+                    localStorageService.add('user_type', $scope.authToken.type);
 					window.location = "/";
 				},function(error) {
 					$scope.message = error.data;

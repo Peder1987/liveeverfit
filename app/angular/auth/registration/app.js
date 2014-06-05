@@ -186,6 +186,7 @@ define(['app'], function(app) {
 					localStorageService.add('user_id', $scope.authToken.id);
 					localStorageService.add('user_email', $scope.authToken.email);
                     localStorageService.add('user_img', $scope.authToken.img);
+                    localStorageService.add('user_type', $scope.authToken.type);
                     if($scope.user.tier == 1){
 						window.location = "/";
 					}
@@ -213,6 +214,7 @@ define(['app'], function(app) {
 					localStorageService.add('user_id', $scope.authToken.id);
 					localStorageService.add('user_email', $scope.authToken.email);
                     localStorageService.add('user_img', $scope.authToken.img);
+                    localStorageService.add('user_type', $scope.authToken.type);
 
                     $scope.proToken = ProAuthToken.save($scope.pro, function(){
 
