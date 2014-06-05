@@ -26,7 +26,6 @@ define(['app'], function (app) {
 
             //init
             $scope.profile_user = userResource.get(function () {
-                console.log($scope.profile_user);
                 if ($scope.profile_user.type == "professional") {
                     $scope.profileResource = professionalResource
                 } else {

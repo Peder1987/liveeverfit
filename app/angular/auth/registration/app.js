@@ -87,7 +87,7 @@ define(['app'], function(app) {
             $scope.tags = [];
             $scope.onTagAdd = function (tag) {
                 $scope.user.tags.push(tag.name) 
-            }
+            };
             $scope.onDeleteTag = function (tag) {
             	var temp = $scope.user.tags.indexOf(tag.name);
             	$scope.user.tags.splice(temp, 1);
