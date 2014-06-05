@@ -12,6 +12,7 @@ define(['app', 'videojs'], function (app) {
         "$anchorScroll", "promiseService", "$http", 
         function ($state, $stateParams, $sce, $resource, rest, tokenError, localStorageService, $scope) {
             $scope.user_id = localStorageService.get('user_id');
+            $scope.user_type = localStorageService.get('user_type');
             $scope.inboxCollection = $resource(":protocol://:url/messages/inbox?page=:page", {
                 page: $scope.currentPage,
                 protocol: $scope.restProtocol,
@@ -95,18 +96,21 @@ define(['app', 'videojs'], function (app) {
                             $scope.trashCollection.get({page:$scope.currentPage}, success);
                         },
                         new: function () {
+                            console.log($stateParams)
+
                             $scope.newMessage = {
                                 body: '',
                                 recipient: '',
                                 subject: '',
-                                type : ''
+                                
                             };
                             $scope.connectionResource.update({id:$scope.user_id, user_id:$stateParams.recipient || null},function(data){
                                 $scope.newMessage.type = data.user_type
-                                if(data.connection){
+                                console.log(data)
+                                if($scope.user_type != 'professional' && data.connection){
                                     $scope.newMessage.recipient = data.connection
                                 }else{
-                                    $scope.newMessage.type = null;
+                                    $scope.newMessage.recipient = null;
                                 }
                                 //console.log(recipient);
                             });  
