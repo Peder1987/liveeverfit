@@ -137,8 +137,8 @@
                                         <select ng-model="accepting" ng-change="filter()" id="accepting"
                                                 type="text" class="form-control">
                                             <option value="Both">Both</option>
-                                            <option value="True">Yes</option>
-                                            <option value="False">No</option>
+                                            <option value="true">Yes</option>
+                                            <option value="false">No</option>
                                         </select>
                                     </div>
                                 </div>
@@ -173,14 +173,15 @@
                      ng-mouseleave="proMouseOut(professional)"  ui-sref="profile.view({view: professional.id})">
                     <div class="thumbnail">
                         <img ng-src="media/{{professional.img}}"/>
-
                         <div class="caption">
-                            {{professional.first_name}} {{professional.last_name}}<br/>
-                            {{professional.profession}}<br>
-                            <!--{{professional.gender}}<br>-->
-                            {{professional.location}}<br>
-                            Accepting Clients: {{professional.is_accepting}}<br/>
-                            <!--Biography: {{professional.bio}}<br/>-->
+                            <div class="name">{{professional.first_name}} {{professional.last_name}}</div>
+                            <div class="title">Profession:</div>
+                            <div>{{professional.profession}}</div><br>
+                            <div class="title">Location:</div>
+                            <div>{{professional.location}}</div><br>
+                            <div class="title">Accepting Clients:</div>
+                            <span ng-if="professional.is_accepting">Yes</span>
+                            <span ng-if="!professional.is_accepting">No</span>
                         </div>
                     </div>
                 </div>
