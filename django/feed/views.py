@@ -110,7 +110,8 @@ class CommentViewSet(viewsets.ModelViewSet):
 	model = Comment
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = CommentSerializer
-
+	def post_save(self, obj, created=False):
+		notify.send(self.request.user, recipient=obj.recipient, verb=u'left you a comment!')
 
 class FlaggedCreateView(generics.CreateAPIView):
 	model = Flagged
