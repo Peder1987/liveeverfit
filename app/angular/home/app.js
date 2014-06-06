@@ -1,7 +1,7 @@
 'use strict';
 
 define(['app', 'feed'], function (app) {
-    app.register.controller('homeCtrl', ['localStorageService', '$scope', '$resource',
+    app.register.controller('homeCtrl', ['localStorageService', '$scope', '$resource', 'promiseService',
         function (localStorageService, $scope, $resource) {
             angular.extend($scope, {
                 token: localStorageService.get('Authorization'),
@@ -21,19 +21,28 @@ define(['app', 'feed'], function (app) {
                         filter: type ? '/' + type : ''
                     };
                 },
+                fanaticSearch : '',
                 fanaticList: [],
                 fanaticCollection : $resource(":protocol://:url/users/fanatics", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
-                })
+                }, {'query': {method: 'GET', isArray: false }}),
+                fanaticTypeahead : function (query) {
+                    var deferred = $scope.q.defer();
+                    $scope.fanaticCollection.query({
+                        search: query
+                    }, function (data) {
+                        deferred.resolve(data.results);
+                    });
+                    return deferred.promise;
+                }
 
             });
-
             $scope.fanaticCollection.get({}, function(data){
-                console.log(data)
                 $scope.fanaticList = data.results;
 
             });
+            
 
         }]);
     app.register.controller('BannerCtrl', ['$scope',
@@ -56,5 +65,8 @@ define(['app', 'feed'], function (app) {
                 }
             ];
         }]);
+    app.register.service('promiseService', function ($q, $rootScope) {
+        $rootScope.q = $q
+    });
     return app;
 });

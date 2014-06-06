@@ -120,6 +120,8 @@ class FanaticsListView(generics.ListAPIView):
     # has exact output as client, need to restructure
     # and unify/standardize this serializer
     serializer_class = ClientListSerializer
+    filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
+    search_fields = ('first_name', 'last_name',)
 
     def get_queryset(self):
         return self.request.user.relationships.following()
