@@ -279,7 +279,7 @@ class ClientListSerializer(serializers.ModelSerializer):
     full_name = serializers.Field(source="get_full_name")
     class Meta:
         model = User
-        fields = ('id', 'email', 'full_name')
+        fields = ('id', 'email', 'full_name', 'img')
 
 
 class ModifyMembershipSerializer(serializers.ModelSerializer):
