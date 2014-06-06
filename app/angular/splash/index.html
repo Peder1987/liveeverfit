@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html> <!--<![endif]-->
+    <head>
+        <style>
+        #splashBckd {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('background.jpg');
+            background-repeat: no-repeat;
+            background-position: center top;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: 100% auto;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        .form-container {
+           border: 1px solid #9e9e9e;
+           background: #eeeeee;
+           background: -webkit-gradient(linear, left top, left bottom, from(#eeeeee), to(#eeeeee));
+           background: -webkit-linear-gradient(top, #eeeeee, #eeeeee);
+           background: -moz-linear-gradient(top, #eeeeee, #eeeeee);
+           background: -ms-linear-gradient(top, #eeeeee, #eeeeee);
+           background: -o-linear-gradient(top, #eeeeee, #eeeeee);
+           background-image: -ms-linear-gradient(top, #eeeeee 0%, #eeeeee 100%);
+           -webkit-border-radius: 0px;
+           -moz-border-radius: 0px;
+           border-radius: 0px;
+           -webkit-box-shadow: rgba(000,000,000,0.9) 0 0px 2px, inset rgba(255,255,255,0.4) 0 0px 0;
+           -moz-box-shadow: rgba(000,000,000,0.9) 0 0px 2px, inset rgba(255,255,255,0.4) 0 0px 0;
+           box-shadow: rgba(000,000,000,0.9) 0 0px 2px, inset rgba(255,255,255,0.4) 0 0px 0;
+           font-family: 'Helvetica Neue',Helvetica,sans-serif;
+           text-decoration: none;
+           vertical-align: middle;
+           min-width:300px;
+           padding:20px;
+           width:300px;
+           }
+        .form-field {
+           border: 1px solid #ffffff;
+           background: #ffffff;
+           -webkit-border-radius: 0px;
+           -moz-border-radius: 0px;
+           border-radius: 0px;
+           color: #333333;
+           -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+           -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+           box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+           padding:8px;
+           margin-bottom:20px;
+           width:280px;
+           }
+        .form-field:focus {
+           background: #ededed;
+           color: #333333;
+           }
+        .form-container h2 {
+           text-shadow: #fdf2e4 0 1px 0;
+           font-size:18px;
+           margin: 0 0 10px 0;
+           font-weight:bold;
+           text-align:center;
+            }
+        .form-title {
+           margin-bottom:10px;
+           color: #178bff;
+           text-shadow: #fdf2e4 0 1px 0;
+           }
+        .submit-container {
+           margin:8px 0;
+           text-align:right;
+           }
+        .submit-button {
+           border: 1px solid #178bff;
+           background: #178bff;
+           background: -webkit-gradient(linear, left top, left bottom, from(#178bff), to(#178bff));
+           background: -webkit-linear-gradient(top, #178bff, #178bff);
+           background: -moz-linear-gradient(top, #178bff, #178bff);
+           background: -ms-linear-gradient(top, #178bff, #178bff);
+           background: -o-linear-gradient(top, #178bff, #178bff);
+           background-image: -ms-linear-gradient(top, #178bff 0%, #178bff 100%);
+           -webkit-border-radius: 0px;
+           -moz-border-radius: 0px;
+           border-radius: 0px;
+           -webkit-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+           -moz-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+           box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+           text-shadow: #ffffff 0 1px 0;
+           color: #ffffff;
+           font-family: helvetica, serif;
+           padding: 8.5px 18px;
+           font-size: 14px;
+           text-decoration: none;
+           vertical-align: middle;
+           }
+        .submit-button:hover {
+           border: 1px solid #447314;
+           text-shadow: #31540c 0 1px 0;
+           background: #6aa436;
+           background: -webkit-gradient(linear, left top, left bottom, from(#8dc059), to(#6aa436));
+           background: -webkit-linear-gradient(top, #8dc059, #6aa436);
+           background: -moz-linear-gradient(top, #8dc059, #6aa436);
+           background: -ms-linear-gradient(top, #8dc059, #6aa436);
+           background: -o-linear-gradient(top, #8dc059, #6aa436);
+           background-image: -ms-linear-gradient(top, #8dc059 0%, #6aa436 100%);
+           color: #fff;
+           }
+        .submit-button:active {
+           text-shadow: #31540c 0 1px 0;
+           border: 1px solid #447314;
+           background: #8dc059;
+           background: -webkit-gradient(linear, left top, left bottom, from(#6aa436), to(#6aa436));
+           background: -webkit-linear-gradient(top, #6aa436, #8dc059);
+           background: -moz-linear-gradient(top, #6aa436, #8dc059);
+           background: -ms-linear-gradient(top, #6aa436, #8dc059);
+           background: -o-linear-gradient(top, #6aa436, #8dc059);
+           background-image: -ms-linear-gradient(top, #6aa436 0%, #8dc059 100%);
+           color: #fff;
+           }
+
+        </style>
+        <script src="js/vendor/modernizr-2.6.1.min.js"></script>
+    </head>
+    <body>
+        <div id="splashBckd">
+            <!--
+            <form class="form-container">
+            <div class="form-title"><h2>Sign up</h2></div>
+            <div class="form-title"></div>
+            <input class="form-field" type="text" name="firstname" /><br />
+            <div class="form-title"></div>
+            <input class="form-field" type="text" name="email" /><br />
+            <div class="submit-container">
+            <input class="submit-button" type="submit" value="Submit" />
+            </div>
+            </form>
+            -->
+        </div>
+    </body>
+</html>
