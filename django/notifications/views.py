@@ -7,7 +7,7 @@ from rest_framework import viewsets, status, filters
 from rest_framework.response import Response
 from rest_framework import generics
 
-from .utils import slug2id
+
 from .models import Notification
 from .permissions import IsAdminOrSelf
 from .serializers import AllNotificationSerializer

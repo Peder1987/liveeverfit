@@ -4,7 +4,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.db import models
 from django.utils.timezone import utc
-from .utils import id2slug
 
 from .signals import notify
 
@@ -157,10 +156,6 @@ class Notification(models.Model):
         """
         from django.utils.timesince import timesince as timesince_
         return timesince_(self.timestamp, now)
-
-    @property
-    def slug(self):
-        return id2slug(self.id)
 
     def mark_as_read(self):
         if self.unread:
