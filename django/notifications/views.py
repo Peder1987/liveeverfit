@@ -4,12 +4,13 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.context import RequestContext
 from rest_framework import viewsets, status, filters
+from rest_framework.response import Response
 from rest_framework import generics
+
 from .utils import slug2id
 from .models import Notification
 from .permissions import IsAdminOrSelf
 from .serializers import AllNotificationSerializer
-
 @login_required
 def all(request):
     """
@@ -79,7 +80,36 @@ def mark_as_unread(request, slug=None):
 
 class AllNotificationViewSet(viewsets.ModelViewSet):
     model = Notification
+    serializer_class = AllNotificationSerializer
     permission_classes = (IsAdminOrSelf,)
+
     def get_queryset(self):
         return self.request.user.notifications.all()
+
+
+    def create(self, request):
+        """
+        Removes post functionality and marks all notifications and read,
+        can individually update notifications if owner
+        """
+        request.user.notifications.mark_all_as_read()
+        return Response({'status': 'notifications read'})
+        
+
+
             
+# unread
+# mark_all_as_read
+# mark_as_read
+# mark_as_unread
+# class UnreadNotificationView(generics.UpdateAPIView):
+#     model = Notification
+#     permission_classes = (IsAdminOrSelf,)
+#     def get_queryset(self):
+#         return self.request.user.notifications.all()
+
+# class MarkAllReadNotificationView(generics.UpdateAPIView):
+#     model = Notification
+#     permission_classes = (IsAdminOrSelf,)
+#     def get_queryset(self):
+#         return self.request.user.notifications.all()
