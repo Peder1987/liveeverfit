@@ -7,6 +7,7 @@ define(['app'], function (app) {
             Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
             $scope.user_id = localStorageService.get('user_id');
             $scope.tags = [];
+            $scope.webURL = window.location.host;
 
             var userResource = $resource(":protocol://:url/users/:id/", {
                 protocol: $scope.restProtocol,

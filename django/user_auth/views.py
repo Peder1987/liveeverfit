@@ -28,6 +28,7 @@ from rest_framework import serializers
 #Serializers
 from .serializers import EmailSerializer, CreateUserSerializer, ReturnUserSerializer, LogoutSerializer, PasswordSerializer, ForgotPasswordSerializer, ChangePasswordSerializer, ResetPasswordSerializer, CreateProSerializer
 #Models
+from notifications import notify
 from rest_framework.authtoken.models import Token
 from user_app.models import Professional, Address, UniqueLocation, Certification
 from django.contrib.auth import get_user_model
@@ -64,7 +65,6 @@ def register(request):
         user_data.pop('linkedin', None)
         user_data.pop('plus', None)
 
-        print user_data
         user = User.objects.create_user(
             **user_data
         )
@@ -76,6 +76,7 @@ def register(request):
             user.referred_by = pro_ref
             user.referred_by.save()
             user.relationships.add(pro_ref)
+            notify.send(user, recipient=pro_ref, verb=u'is following you')
 
         try:
             city = temp_address['city']
