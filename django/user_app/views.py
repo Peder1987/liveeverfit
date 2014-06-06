@@ -113,3 +113,13 @@ class ConnectUserView(generics.UpdateAPIView):
     model = User
     permission_classes = (IsAuthenticated,)
     serializer_class = ConnectUserSerializer
+
+class FanaticsListView(generics.ListAPIView):
+    model = User
+    permission_classes = (IsAdminOrSelf,)
+    # has exact output as client, need to restructure
+    # and unify/standardize this serializer
+    serializer_class = ClientListSerializer
+
+    def get_queryset(self):
+        return self.request.user.relationships.following()

@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from rest_framework import routers
 from .views import UserViewSet, GroupViewSet, ProfessionalListView, LocationViewSet, ProfessionalObjView, PaymentView, ModifyMembershipView
-from .views import ClientListView, CreditcardView, ProfileView, FollowUserView, ConnectUserView
+from .views import ClientListView, CreditcardView, ProfileView, FollowUserView, ConnectUserView, FanaticsListView
 
 
 
@@ -19,6 +19,7 @@ urlpatterns = patterns('',
 	url(r'^/follow/(?P<pk>[0-9]+)$', FollowUserView.as_view()),
 	url(r'^/connect/(?P<pk>[0-9]+)$', ConnectUserView.as_view()),
 	# Professionals
+	url(r'^/fanatics$', FanaticsListView.as_view()),
 	url(r'^/professionals$', ProfessionalListView.as_view()),
 	url(r'^/professionals/(?P<pk>[0-9]+)$', ProfessionalObjView.as_view()),
 	url(r'^/professionals/client-list$', ClientListView.as_view()),
