@@ -75,6 +75,7 @@ def register(request):
             pro_ref = Professional.objects.get(email = pro_referred_by)
             user.referred_by = pro_ref
             user.referred_by.save()
+            user.relationships.add(pro_ref)
 
         try:
             city = temp_address['city']
