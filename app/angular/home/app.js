@@ -1,8 +1,8 @@
 'use strict';
 
 define(['app', 'feed'], function (app) {
-    app.register.controller('homeCtrl', ['localStorageService', '$scope',
-        function (localStorageService, $scope) {
+    app.register.controller('homeCtrl', ['localStorageService', '$scope', '$resource',
+        function (localStorageService, $scope, $resource) {
             angular.extend($scope, {
                 token: localStorageService.get('Authorization'),
                 tabs: [
@@ -20,8 +20,21 @@ define(['app', 'feed'], function (app) {
                     $scope.feed = {
                         filter: type ? '/' + type : ''
                     };
-                }
+                },
+                fanaticList: [],
+                fanaticCollection : $resource(":protocol://:url/users/fanatics", {
+                    protocol: $scope.restProtocol,
+                    url: $scope.restURL
+                })
+
             });
+
+            $scope.fanaticCollection.get({}, function(data){
+                console.log(data)
+                $scope.fanaticList = data.results;
+
+            });
+
         }]);
     app.register.controller('BannerCtrl', ['$scope',
         function ($scope) {
