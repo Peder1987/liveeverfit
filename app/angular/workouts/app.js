@@ -76,8 +76,8 @@ define(['app', 'videojs'], function (app) {
                     if ($stateParams.id) {
                         $scope.videoStatus = 'loading';
                         $scope.video = videoResource.get({id: $stateParams.id}, function () {
-                            $scope.video.rtmp_url = $sce.trustAsResourceUrl("rtmp://206.225.86.237:1935/vod/_definst_/mp4:" + $scope.video.url_video);
-                            $scope.video.http_url = $sce.trustAsResourceUrl("http://206.225.86.237:1935/vod/content/" + $scope.video.url_video + "/playlist.m3u8");
+                            $scope.video.rtmp_url = $sce.trustAsResourceUrl("rtmp://54.236.203.1:1935/vod/_definst_/mp4:" + $scope.video.url_video);
+                            $scope.video.http_url = $sce.trustAsResourceUrl("http://54.236.203.1:1935/vod/content/" + $scope.video.url_video + "/playlist.m3u8");
                             $scope.videoStatus = 'difficultySelected';
                             commentCollection.get({id: $stateParams.id}, function (data) {
                                 $scope.commentNext = data.next;
