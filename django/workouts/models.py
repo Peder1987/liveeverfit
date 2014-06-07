@@ -11,6 +11,13 @@ import datetime
 from django.db.models import permalink
 from django.contrib.comments.moderation import CommentModerator, moderator
 from django.utils.timezone import now
+from django.core.files.storage import FileSystemStorage
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
+
+
+
+# fs = FileSystemStorage(location='/home/miguel/Desktop/')
 
 
 #Video Model
@@ -26,6 +33,7 @@ class Video(models.Model):
     likes = models.IntegerField(blank=True, null=True, default=0)
     likes_user = models.ManyToManyField(User, related_name='video_like', blank=True,null=True)
     views = models.IntegerField(blank=True, null=True, default=0)
+    # file = models.FileField(upload_to='videos', storage=fs, blank=True, null=True)
 
     DIFFICULTY_CHOICES = (
         ('beginner', 'Beginner'),
@@ -38,6 +46,11 @@ class Video(models.Model):
     #Metadata
     def __unicode__(self):
         return self.title
+
+
+# @receiver(pre_delete, sender=Video)
+# def video_delete(sender, instance, **kwargs):
+#     instance.file.delete(False)
 
 
 #Video Model
