@@ -77,6 +77,7 @@ define(['app', 'videojs'], function (app) {
                         $scope.videoStatus = 'loading';
                         $scope.video = videoResource.get({id: $stateParams.id}, function () {
                             $scope.video.rtmp_url = $sce.trustAsResourceUrl("rtmp://54.236.203.1:1935/vod/_definst_/mp4:" + $scope.video.url_video);
+                            //This link might now work with the temp wowoza, try deleting content after vod
                             $scope.video.http_url = $sce.trustAsResourceUrl("http://54.236.203.1:1935/vod/content/" + $scope.video.url_video + "/playlist.m3u8");
                             $scope.videoStatus = 'difficultySelected';
                             commentCollection.get({id: $stateParams.id}, function (data) {
