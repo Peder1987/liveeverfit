@@ -39,8 +39,18 @@ define(['app', 'masonry'], function (app, Masonry) {
                         getTrustedURL: function (url) {
                             return $sce.trustAsResourceUrl(url);
                         },
-                        getTrustedHtml: function (html) {
+                        getTrustedHtml: function (html, truncate) {
+                            if (html && truncate) {
+                                var inputWords = html.split(/\s+/);
+                                if (html.length > 21) {
+                                    html = inputWords.slice(0, 21).join(' ') + '...<br>';
+                                }
+                            }
                             return $sce.trustAsHtml(html);
+                        },
+                        readMore: function(entry) {
+                          entry.expand = true;
+                          $scope.refreshMasonry();
                         },
                         runMasonry: function () {
                             if ($scope.msnry)$scope.msnry.destroy();

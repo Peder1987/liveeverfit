@@ -3,28 +3,22 @@
     <div class="container" ng-if="profile_user">
         <div class="header">
             <div class="row">
-                <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h2 class="ef-header">{{profile_user.first_name}} {{profile_user.last_name}}
-                                <small> / {{profile_user.location}}</small>
-                            </h2>
-                        </div>
+                <div class="col-sm-6 col-xs-12 col-md-6">
+                    <h2 class="ef-header">{{profile_user.first_name}} {{profile_user.last_name}}
+                        <small> / {{profile_user.location}}</small>
+                    </h2>
+                </div>
+                <div class="col-sm-offset-2 col-md-offset-0 col-sm-2 col-xs-6 col-md-3">
+                    <div class="status-profile" style="text-align: center">
+                        live training in session
+                        <i class="circle green"></i>
                     </div>
                 </div>
-                <div class="col-md-4 col-xs-2"></div>
-                <div class="col-md-2 col-sm-4 col-xs-2">
+                <div class="col-sm-2 col-xs-6 col-md-3">
                     <div class="status-profile" style="text-align: center">
-                        Live training in session<br>
-                        <i class="fa fa-circle fa-2x red"></i>
-
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-2">
-                    <div class="status-profile" style="text-align: center">
-                        Accepting clients:<br>
-                        <i ng-class="{'fa fa-circle fa-2x red': (profile_user.is_accepting == false), 'fa fa-circle fa-2x green': (profile_user.is_accepting == true)}"></i>
-
+                        accepting clients
+                        <i class="circle"
+                           ng-class="{'red': !profile_user.is_accepting, 'green': profile_user.is_accepting}"></i>
                     </div>
                 </div>
             </div>
@@ -57,16 +51,11 @@
                         <!-- /.specialties-->
                     </div>
                     <!-- /.profile-left -->
-
                 </div>
                 <!-- /.col-md-4 -->
-
                 <div class="col-md-8">
-
                     <div class="profile-banner">
-
                         <div class="image-overlay">
-
                             <div class="buttons pull-left">
                                 <a href ng-if="user_id == profile_user.id" class="message" ui-sref="settings">
                                     <i class="fa fa-cog"></i>
@@ -97,44 +86,33 @@
                                     <i class="fa fa-exchange"></i>
                                     Unfollow
                                 </a>
-
                             </div>
                             <!-- /.buttons -->
                             <div class="report pull-right">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <div class="stat-report">
-                                            likes
-                                            <div class="number">
-                                                {{profile_user.likes}}
-                                            </div>
+                                    <div>
+                                        likes
+                                        <div class="number">
+                                            {{profile_user.likes}}
                                         </div>
                                     </div>
-                                    <div class="col-xs-3">
-                                        <div class="stat-report">
-                                            inspiration
-                                            <div class="number">
-                                                {{profile_user.inspiration}}
-                                            </div>
+                                    <div>
+                                        inspiration
+                                        <div class="number">
+                                            {{profile_user.inspiration}}
                                         </div>
                                     </div>
-                                    <div ng-show="profile_user.clients" class="col-xs-2 col-xs-offset-1">
-                                        <div class="stat-report">
-                                            clients
-                                            <div class="number">
-                                                {{profile_user.clients}}
-                                            </div>
+                                    <div ng-show="profile_user.clients">
+                                        clients
+                                        <div class="number">
+                                            {{profile_user.clients}}
                                         </div>
                                     </div>
-                                    <div class="col-xs-2 col-xs-offset-1">
-                                        <div class="stat-report">
-                                            fanatics
-                                            <div class="number">
-                                                {{profile_user.fanatics}}
-                                            </div>
+                                    <div>
+                                        fanatics
+                                        <div class="number">
+                                            {{profile_user.fanatics}}
                                         </div>
                                     </div>
-                                </div>
                             </div>
                             <!-- /.report -->
                             <div style="clear:both;"></div>
@@ -153,6 +131,7 @@
                 <div class="google-map-outer">
                     <div class="bio">
                         <h2 class="ef-header">bio</h2>
+
                         <div ng-if="!profile_user.bio">No bio.</div>
                         {{profile_user.bio}}
                     </div>
@@ -163,7 +142,8 @@
             <tab heading="videos" select="filter('video')"></tab>
             <tab heading="blogs" select="filter('blog')"></tab>
             <tab heading="events" select="filter('event')"></tab>
-            <tab heading="clients" select="clientFilter()" ng-if="user_id == profile_user.id && profile_user.type == 'professional'" ></tab>
+            <tab heading="clients" select="clientFilter()"
+                 ng-if="user_id == profile_user.id && profile_user.type == 'professional'"></tab>
             <tab heading="calendar" select="initCalendar()">
                 <div ng-if="profile_user.id && showCalendar" class="google-map-outer">
                     <div profile-calendar ng-model="profile_user.id"></div>

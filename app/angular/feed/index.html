@@ -139,7 +139,7 @@
         </div>
     </div>
 </div>
-<div class="item col-xs-12 col-md-6 col-lg-4" ng-repeat="entry in feedList">
+<div class="item col-xs-12" ng-class="{'col-md-12 col-lg-12': entry.expand, 'col-md-6 col-lg-4': !entry.expand}" ng-repeat="entry in feedList">
     <div class="post-outer">
         <div class="post-inner">
             <div class="post-header">
@@ -192,7 +192,9 @@
                 </div>
                 <div class="blog" ng-switch-when="blog">
                     {{entry.text}}
-                    <div ng-bind-html="getTrustedHtml(entry.body)"></div>
+                    <div ng-show="!entry.expand" ng-bind-html="getTrustedHtml(entry.body, true)"></div>
+                    <a href ng-show="!entry.expand" ng-click="readMore(entry)">read more</a>
+                    <div ng-show='entry.expand' ng-bind-html="getTrustedHtml(entry.body, false)"></div>
                 </div>
                 <div class="event" ng-switch-when="event">
                     <b>{{entry.text}}</b>
@@ -248,8 +250,10 @@
                             </div>
                         </div>
                         <div class="blog" ng-switch-when="blog">
-                            {{entry.text}}
-                            <div ng-bind-html="getTrustedHtml(entry.body)"></div>
+                            {{entry.shared_entry.text}}
+                            <div ng-show="!entry.expand" ng-bind-html="getTrustedHtml(entry.shared_entry.body, true)"></div>
+                            <a href ng-show="!entry.expand" ng-click="readMore(entry)">read more</a>
+                            <div ng-show='entry.expand' ng-bind-html="getTrustedHtml(entry.shared_entry.body, false)"></div>
                         </div>
                         <div class="event" ng-switch-when="event">
                             <b>{{entry.shared_entry.text}}</b>
@@ -278,10 +282,10 @@
                         {{ entry.likes }}
                         <i class="fa fa-thumbs-up"></i>
                             <span style="color: rgba(125,135,144,0.2)">|</span>
-                        <a ng-if="!entry.user_likes" title="Like">
+                        <a href ng-if="!entry.user_likes" title="Like">
                             <i class="fa fa-thumbs-o-up fa-lg"></i>
                         </a>
-                        <a ng-if="entry.user_likes" title="Unlike">
+                        <a href ng-if="entry.user_likes" title="Unlike">
                             <i class="fa fa-thumbs-o-down fa-lg"></i>
                         </a>
 
@@ -293,7 +297,7 @@
                         <span ng-if="entry.type != 'shared'">{{ entry.shares }}</span>
                         <i class="fa fa-retweet"></i>
                             <span style="color: rgba(125,135,144,0.2)">|</span>
-                        <a title="share">
+                        <a href title="share">
                             <i class="fa fa-retweet fa-lg"></i>
                         </a>
                 </span>
