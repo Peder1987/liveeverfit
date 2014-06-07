@@ -172,17 +172,34 @@
                      ng-repeat="professional in professionals" ng-mouseover="proMouseOver(professional)"
                      ng-mouseleave="proMouseOut(professional)"  ui-sref="profile.view({view: professional.id})">
                     <div class="thumbnail">
-                        <img ng-src="media/{{professional.img}}"/>
-                        <div class="caption">
-                            <div class="name">{{professional.first_name}} {{professional.last_name}}</div>
-                            <div class="title">Profession:</div>
-                            <div>{{professional.profession}}</div><br>
-                            <div class="title">Location:</div>
-                            <div>{{professional.location}}</div><br>
-                            <div class="title">Accepting Clients:</div>
-                            <span ng-if="professional.is_accepting">Yes</span>
-                            <span ng-if="!professional.is_accepting">No</span>
-                        </div>
+
+                            <div class="pro-overlay">
+                                <img class="img img-responsive"
+                                     alt="Responsive image"
+                                     ng-src="/fitness-professionals/img/profile-picture.jpg"/>
+                            </div>
+
+                        <a href class="pro-overlay" ui-sref="profile.view({view: $parent.professional.id})">
+
+                            <div class="clients">
+                                <i class="fa fa-circle fa-2x red': (profile_user.is_accepting == false)}" title="Not acepting Clients"></i>
+                                <i ng-class="{'fa fa-circle fa-2x green': (profile_user.is_accepting == true)}" title="Acepting Clients"></i>
+                            </div>
+
+                            <div class="pro-overlay-text">
+                                <div class="name">
+                                    {{professional.first_name}} {{professional.last_name}}
+                                </div>
+                                <div class="location">
+                                    {{professional.location}}
+                                </div>
+                                <div class="profession">
+                                    {{professional.profession}}
+                                </div>
+                            </div>
+
+                        </a>
+
                     </div>
                 </div>
             </div>

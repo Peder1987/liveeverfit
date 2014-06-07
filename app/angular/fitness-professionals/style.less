@@ -159,21 +159,47 @@
 }
 
 #trainer-results {
-  min-height: 400px;
 
-  .caption{
-    color:  @brand-primary;
-    font-size: 13px;
+  .pro-overlay {
 
-    .name{
-      font-size: 15px;
-      font-weight: 800;
+
+    width: 100%;
+    background: -moz-linear-gradient(top,  rgba(0,0,0,0) 30%, rgba(250, 250, 250, .9) 100%);
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 30%, rgba(250, 250, 250, .9) 100%);
+    background: -o-linear-gradient(top,  rgba(0,0,0,0) 30%, rgba(250, 250, 250, .9) 100%);
+    background: -ms-linear-gradient(top,  rgba(0,0,0,0) 30%, rgba(250, 250, 250, .9) 100%);
+    background: linear-gradient(to bottom,  rgba(0,0,0,0) 30%, rgba(250, 250, 250, .9) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#FF7d8790',GradientType=0 );
+
+
+    .clients {
+      position: absolute;
+      top: 10px;
+      right: 25px;
     }
-    .title {
-      font-size: 13px;
-      font-weight: 700;
-    }
 
+    .pro-overlay-text {
+      position: absolute;
+      bottom: 27px;
+      left: 25px;
+      right: 0;
+      padding: 0px;
+      .name {
+        color: @ever-blue;
+        font-size: 14px;
+      }
+      .location {
+        color: @brand-primary;
+        font-size: 13px;
+
+      }
+      .profession {
+        color: @brand-primary;
+        font-size: 13px;
+
+      }
+
+    }
   }
 }
 
