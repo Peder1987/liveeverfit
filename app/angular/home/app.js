@@ -1,8 +1,8 @@
 'use strict';
 
 define(['app', 'feed'], function (app) {
-    app.register.controller('homeCtrl', ['localStorageService', '$scope', '$resource', 'promiseService',
-        function (localStorageService, $scope, $resource) {
+    app.register.controller('homeCtrl', ['localStorageService', '$scope', '$resource', '$state', 'promiseService', 
+        function (localStorageService, $scope, $resource, $state) {
             angular.extend($scope, {
                 token: localStorageService.get('Authorization'),
                 tabs: [
@@ -42,6 +42,10 @@ define(['app', 'feed'], function (app) {
                 $scope.fanaticList = data.results;
 
             });
+            $scope.onSelect = function($item, $model, $label){
+                console.log($item);
+                $state.go('profile.view', {view: $item.id})
+            }
             
 
         }]);
