@@ -22,6 +22,47 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
 
+
+class EntryObjSerializer(serializers.ModelSerializer):
+	comments = CommentSerializer(source="comments")
+	likes = serializers.Field(source="likes.count")
+	#user = FeedUserSerializer()
+	
+	def to_native(self, value):
+		entry_subclass = Entry.objects.get_subclass(id=value.id)
+		class_type = entry_subclass.__class__.__name__
+		print class_type
+		if class_type == 'PhotoEntry':
+			obj = PhotoEntrySerializer(instance=entry_subclass).data
+		elif class_type == 'VideoEntry':
+			obj = VideoEntrySerializer(instance=entry_subclass).data
+		elif class_type == 'Event':
+			obj = EventEntrySerializer(instance=entry_subclass).data
+		elif class_type == 'BlogEntry':
+			obj = BlogEntrySerializer(instance=entry_subclass).data
+		elif class_type == 'BlogEntry':
+			obj = TextEntrySerializer(instance=entry_subclass).data
+		elif class_type == 'SharedEntry':
+			obj = SharedEntrySerializer(instance=entry_subclass).data
+		else:
+			obj = TextEntrySerializer(instance=entry_subclass).data
+
+
+		if 'request' in self.context:
+			user = self.context['request'].user
+			if value.likes.filter(pk=user.pk).exists():
+				obj['user_likes'] = True
+			else:
+				obj['user_likes'] = False
+
+		
+		obj['shares'] = SharedEntry.objects.filter(entry=value).count()
+		
+		return obj
+
+	class Meta:
+		model = Entry
+
 class AbstractEntrySerializer(serializers.ModelSerializer):
 	type = serializers.Field(source="type")
 	comments = CommentSerializer(source="comments", required=False)
