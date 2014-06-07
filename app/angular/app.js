@@ -26,7 +26,8 @@ define(['angularAMD',
         "xeditable",
         'jcrop',
         'angularFileUpload',
-        'bootstrap.wysihtml5.en-US'
+        'bootstrap.wysihtml5.en-US',
+        'socialShare'
     ],
     function (angularAMD) {
         'use strict';
@@ -48,7 +49,8 @@ define(['angularAMD',
             'google-maps',
             'xeditable',
             'geolocation',
-            'angularFileUpload'
+            'angularFileUpload',
+            'td.easySocialShare'
         ]);
 
         app.run(function ($http, localStorageService, editableOptions) {
@@ -91,6 +93,7 @@ define(['angularAMD',
                     .state('membership', route.resolve('/membership', 'membership'))
                     .state('calendar', route.resolve('/calendar', 'calendar'))
                     .state('profile', route.resolve('/profile', 'profile'))
+                    .state('profile.entry', route.resolve('/entry/:id', 'profile'))
                     .state('profile.view', route.resolve('/:view', 'profile'));
 
                 $urlRouterProvider.otherwise("/");
