@@ -1,8 +1,8 @@
 'use strict';
 
 define(['app', 'feed'], function (app) {
-    app.register.controller('homeCtrl', ['localStorageService', '$scope', '$resource',
-        function (localStorageService, $scope, $resource) {
+    app.register.controller('homeCtrl', ['localStorageService', '$scope', '$resource', '$state', 'promiseService', 
+        function (localStorageService, $scope, $resource, $state) {
             angular.extend($scope, {
                 token: localStorageService.get('Authorization'),
                 tabs: [
@@ -21,19 +21,32 @@ define(['app', 'feed'], function (app) {
                         filter: type ? '/' + type : ''
                     };
                 },
+                fanaticSearch : '',
                 fanaticList: [],
                 fanaticCollection : $resource(":protocol://:url/users/fanatics", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
-                })
+                }, {'query': {method: 'GET', isArray: false }}),
+                fanaticTypeahead : function (query) {
+                    var deferred = $scope.q.defer();
+                    $scope.fanaticCollection.query({
+                        search: query
+                    }, function (data) {
+                        deferred.resolve(data.results);
+                    });
+                    return deferred.promise;
+                }
 
             });
-
             $scope.fanaticCollection.get({}, function(data){
-                console.log(data)
                 $scope.fanaticList = data.results;
 
             });
+            $scope.onSelect = function($item, $model, $label){
+                console.log($item);
+                $state.go('profile.view', {view: $item.id})
+            }
+            
 
         }]);
     app.register.controller('BannerCtrl', ['$scope',
@@ -56,5 +69,8 @@ define(['app', 'feed'], function (app) {
                 }
             ];
         }]);
+    app.register.service('promiseService', function ($q, $rootScope) {
+        $rootScope.q = $q
+    });
     return app;
 });

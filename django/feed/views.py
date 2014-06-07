@@ -5,14 +5,14 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.decorators import api_view, authentication_classes, permission_classes, action, link
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
-from rest_framework import generics
+from rest_framework import generics, mixins
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
 from feed.permissions import IsOwnerOrReadOnly, ProfessionalOnly
 from feed.serializers import EntrySerializer, TextEntrySerializer, PhotoEntrySerializer, VideoEntrySerializer, EventEntrySerializer
 from feed.serializers import BlogEntrySerializer, CommentSerializer, FlaggedSerializer, EntryLikeSerializer, ListEntrySerializer
-from feed.serializers import SharedEntrySerializer, RelationshipTypeAheadSerializer
+from feed.serializers import SharedEntrySerializer, RelationshipTypeAheadSerializer, EntryObjSerializer
 from feed.models import TextEntry, PhotoEntry, VideoEntry, BlogEntry, SharedEntry, Entry, Comment, Flagged
 from schedule.models.events import Event
 
@@ -35,6 +35,12 @@ class EntryListView(generics.ListAPIView):
 			qs= Entry.objects.filter(user__in=following).select_subclasses()
 			qs2 = Entry.objects.filter(user=self.request.user)
 			return qs | qs2
+
+class EntryView(generics.RetrieveAPIView):
+	model = Entry
+	permission_classes = (IsOwnerOrReadOnly,)
+	serializer_class = EntryObjSerializer
+
 
 class TextEntryViewSet(viewsets.ModelViewSet):
 	model = TextEntry

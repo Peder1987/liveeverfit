@@ -69,7 +69,8 @@ require.config({
         'masonry': 'common/masonry/dist/masonry.pkgd',
         'app': 'app',
         'feed': 'feed/app',
-        'calendar': 'calendar/app'
+        'calendar': 'calendar/app',
+        'socialShare' : 'common/angular-easy-social-share/easy-social-share'
     },
 
     //Angular does not support AMD out of the box, put it in a shim
@@ -102,7 +103,8 @@ require.config({
         'bootstrap.wysihtml5': ['jquery', 'rangy','bootstrap.modal'],
         'bootstrap.wysihtml5.en-US': ['bootstrap.wysihtml5'],
         'feed': ['app'],
-        'calendar': ['app']
+        'calendar': ['app'],
+        'socialShare': ['angular']
     },
     //Kick start application
     deps: ['app']

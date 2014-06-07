@@ -3,7 +3,7 @@ from django.conf import settings
 from rest_framework import routers
 from feed.views import PhotoEntryViewSet, VideoEntryViewSet, BlogEntryViewSet, EntryListView, TextEntryViewSet, EventEntryViewSet
 from feed.views import CommentViewSet, FlaggedCreateView, EntryLikeView, ListSubEntryView, SharedEntryViewSet, ClientListView, ClientFilterView
-from feed.views import RelationshipTypeAheadView
+from feed.views import RelationshipTypeAheadView, EntryView
 
 router = routers.SimpleRouter(trailing_slash=False)
 router.register('/text', TextEntryViewSet)
@@ -19,6 +19,7 @@ router.register('/comment', CommentViewSet)
 urlpatterns = patterns('',
 	url(r'^', include(router.urls)),
 	url(r'^$', EntryListView.as_view()),
+	url(r'^/entry/(?P<pk>[0-9]+)$', EntryView.as_view()),
 	url(r'^/(?P<pk>[0-9]+)$', EntryListView.as_view()),
 	url(r'^/likes/(?P<pk>[0-9]+)$', EntryLikeView.as_view()),
 	url(r'^/flag$', FlaggedCreateView.as_view()),

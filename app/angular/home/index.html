@@ -52,14 +52,8 @@
                     <div class="row inf-search">
                         <div class="col-md-12">
                             <div class="form-search">
-                                <tags-input id="specialties" type="text" class="bootstrap"
-                                            placeholder="Search..."
-                                            ng-model="specialtySearch" display-property="name"
-                                            on-tag-removed="onDeleteTag($tag)"
-                                            on-tag-added="onTagAdd($tag)">
-                                    <auto-complete source="loadSpecialty($query)"
-                                                   min-length="1"></auto-complete>
-                                </tags-input>
+                                <input ng-model="fanaticSearch" class="form-control" name="recipient" type="text"
+                               typeahead="obj.full_name for obj in fanaticTypeahead($viewValue)" typeahead-on-select='onSelect($item, $model, $label)'>
                             </div>
 
                             <i class="fa fa-search fa-lg ico-search"></i>
@@ -75,9 +69,9 @@
                             <a class="col-md-8 name-user" ui-sref="profile.view({view: fanatic.id})">
                                 {{fanatic.full_name}}
                             </a>
-                            <div class="col-md-2 envelope">
+                            <!-- <div class="col-md-2 envelope">
                                 <i class="fa fa-envelope"></i>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
