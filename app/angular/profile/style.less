@@ -6,39 +6,9 @@
         padding: 5px;
       }
     }
-
     .status-profile {
-      width: 100px;
-      height: auto;
-      margin-top: 15px;
-
+      margin: 15px 0;
     }
-
-    .buttons{
-      margin-top: 10px;
-
-    }
-
-    .report {
-      text-align: center;
-      display: inline-block;
-      color: #FFFFFF;
-      margin-top: -17px;
-      padding-right: 20px;
-
-      .stat-report {
-        font-size: 15px;
-
-      }
-
-      .number {
-        font-size: 30px;
-        font-style: bold;
-        margin-top: -25px;
-      }
-    }
-
-
     h2{
       color: #FFFFFF;
       small {
@@ -63,11 +33,23 @@
       margin: 34px auto;
       background-color: rgba(250, 250, 250, 0.0);
     }
+    .circle {
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      display: block;
+      margin-top: 8px;
+      left: 50%;
+      margin-left: -11px;
+      position: absolute;
+    }
     .red {
-      color: #e80c0c;
+      background-color: #dd3e18;
+      box-shadow: rgba(0,0,0,0.5) 0 -1px 13px 1px, inset darken(#e80c0c, 21%) 0 -1px 8px, #e80c0c 0 1px 5px;
     }
     .green {
-      color: #40f60e;
+      background-color: #7D0;
+      box-shadow: rgba(0,0,0,0.5) 0 -1px 13px 1px, inset darken(#40f60e, 21%) 0 -1px 8px, #40f60e 0 1px 5px;
     }
     #profile h2, .header {
       color: #fff;
@@ -98,33 +80,49 @@
       }
     }
     .profile-left {
-      padding: 15px;
+      padding: 13px;
     }
     .profile-banner {
-      background-image: url('profile/img/profile-banner.jpg');
+      background-image: url('profile/img/banner.jpg');
       background-repeat: no-repeat;
-      background-position: center top;
+      background-position: center bottom;
       background-size: cover;
       width: 100%;
       height: 320px;
-    }
-    .image-overlay {
-      background: rgba(0, 0, 0, .6);
-      color: #fff;
-      height: 80px;
-      line-height: 50px;
-      padding: 20px;
-      position: absolute;
-      bottom: 0px;
-      width: 96.4%;
-    }
-    .image-overlay a {
-      color: #fff;
-      text-decoration: none;
-      background: #178aff;
-      height: 30px;
-      line-height: 30px;
-      padding: 10px;
+      position: relative;
+      .image-overlay {
+        background: rgba(0, 0, 0, .6);
+        color: #fff;
+        padding: 13px;
+        padding-bottom: 8px;
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        a {
+          color: #fff;
+          text-decoration: none;
+          background: #178aff;
+          height: 30px;
+          line-height: 30px;
+          padding: 10px;
+        }
+        .buttons{
+          margin-top: 13px;
+        }
+        .report {
+          text-align: center;
+          display: inline-block;
+          color: #FFFFFF;
+          > div {
+            display: inline-block;
+            padding: 0 13px;
+          }
+          .number {
+            font-size: 30px;
+            font-style: bold;
+          }
+        }
+      }
     }
 
     .filters ul {
