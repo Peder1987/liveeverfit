@@ -129,8 +129,8 @@ define(['angularAMD',
         }]);
 
 
-        app.controller('NavCtrl', ['localStorageService', '$resource', '$state', '$scope','toaster','rest',
-            function (localStorageService, $resource, $state, $scope,toaster) {
+        app.controller('NavCtrl', ['localStorageService', '$resource', '$state', '$timeout','$scope','toaster','rest',
+            function (localStorageService, $resource, $state, $timeout,$scope,toaster) {
                 $scope.isCollapsed = true;
                 $scope.token = localStorageService.get('Authorization');
 
@@ -144,9 +144,12 @@ define(['angularAMD',
                     url: $scope.restURL,
                 },{update: { method: 'PUT' }});
 
-                $scope.notifications = notificationsResource.get(function(){
-                   $scope.notificationsCount = $scope.notifications.count;
-                });
+                (function tick() {
+                    $scope.notifications = notificationsResource.get(function(){
+                       $scope.notificationsCount = $scope.notifications.count;
+                       $timeout(tick, 30000);
+                    });
+                })();
 
                 if ($scope.token) {
                     $scope.templateNav = {
