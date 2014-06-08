@@ -37,47 +37,30 @@
         <div entry-feed ng-model="$parent.feed"></div>
         </div>
 
-        <div class="col-md-2 hidden-xs hidden-sm chatfit">
-
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2 class="ef-header">fanatics</h2>
-
-                    <div class="row inf-costum">
-                        <div class="col-md-12">
-                            <i class="fa fa-comments fa-3x ico-comm"></i>
-                        </div>
-                    </div>
-
-                    <div class="row inf-search">
-                        <div class="col-md-12">
-                            <div class="form-search">
-                                <input ng-model="fanaticSearch" class="form-control" name="recipient" type="text"
-                               typeahead="obj.full_name for obj in fanaticTypeahead($viewValue)" typeahead-on-select='onSelect($item, $model, $label)'>
-                            </div>
-
-                            <i class="fa fa-search fa-lg ico-search"></i>
-                        </div>
-                    </div>
-                    <div class="list-fan">
-                        <div class="row inf-user" ng-repeat="fanatic in fanaticList">
-                            <div class="col-md-2 ico-user">
-                                <a ui-sref="profile.view({view: comment.user})">
+        <div class="col-md-2 hidden-xs hidden-sm">
+            <div class="fanaticsList">
+            <input type="checkbox" />
+            <label data-expanded="Close Fanatics List" data-collapsed="Open Fanatics List"></label>
+            <div class="fanaticsList-content">
+                <i class="fa fa-comments fa-3x ico-comm"></i>
+                <div class="list-fan">
+                    <div class="row inf-user" ng-repeat="fanatic in fanaticList">
+                        <div class="col-md-2 ico-user">
+                            <a ui-sref="profile.view({view: comment.user})">
                                 <img src="/media/{{fanatic.img}}"/>
-                                </a>
-                            </div>
-                            <a class="col-md-8 name-user" ui-sref="profile.view({view: fanatic.id})">
-                                {{fanatic.full_name}}
                             </a>
-                            <!-- <div class="col-md-2 envelope">
-                                <i class="fa fa-envelope"></i>
-                            </div> -->
                         </div>
+                        <a class="col-md-8 name-user" ui-sref="profile.view({view: fanatic.id})">
+                            {{fanatic.full_name}}
+                        </a>
+                        <!-- <div class="col-md-2 envelope">
+                            <i class="fa fa-envelope"></i>
+                        </div> -->
                     </div>
                 </div>
             </div>
-
+            </div>
         </div>
-
+    </div>
     </div>
 </div>
