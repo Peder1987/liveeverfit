@@ -1,7 +1,7 @@
 <div id="homeBg"></div>
 <div id="homePage" ng-if="token">
     <div class="container">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div ng-controller="BannerCtrl">
             <carousel interval="3000">
                 <slide ng-repeat="slide in slides" active="slide.active">
@@ -30,14 +30,14 @@
                 </div>
             </div>
         </div>
-        <tabset justified="true" type="pills">
+        <!--<tabset justified="true" type="pills">
             <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="feedFilter(tab.filter)"></tab>
-        </tabset>
+        </tabset>-->
         <!-- /.homePageButtons -->
         <div entry-feed ng-model="$parent.feed"></div>
         </div>
 
-        <div class="col-md-2 hidden-xs hidden-sm">
+        <div class="hidden-xs hidden-sm">
             <div class="fanaticsList">
             <input type="checkbox" />
             <label data-expanded="Close Fanatics List" data-collapsed="Open Fanatics List"></label>

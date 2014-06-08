@@ -130,7 +130,7 @@ define(['app', 'videojs'], function (app) {
             $scope.likeVideo = function () {
                 likeResource.update({
                     id: $stateParams.id,
-                    user_id: localStorageService.get("user_id")
+                    user_pk: localStorageService.get("user_id")
                 }, function (data) {
                     $scope.video.user_likes = data.user_likes;
                     if (data.user_likes) {
