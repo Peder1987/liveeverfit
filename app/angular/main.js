@@ -67,6 +67,8 @@ require.config({
         'bootstrap.modal': 'common/bootstrap/js/modal', // I needed this to get the wysihtml5 image and link modals working
         'rangy': 'common/rangy-1.3/rangy-core',
         'masonry': 'common/masonry/dist/masonry.pkgd',
+        'toasterjs': 'common/angularjs-toaster/toaster',
+        'angular-animate': 'common/angular-animate/angular-animate.min',
         'app': 'app',
         'feed': 'feed/app',
         'mention': 'feed/mention',
@@ -90,6 +92,8 @@ require.config({
         'autoFillEvent': ['angular'],
         'ui.utils': ['angular'],
         'ui.calendar': ['angular'],
+        'toasterjs': ['angular-animate'],
+        'angular-animate': ['angular'],
         'ngTagsInput': ['angular'],
         'stripe': ['angular', 'stripeJS'],
         'underscore': ['angular'],

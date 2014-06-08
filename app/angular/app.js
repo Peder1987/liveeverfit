@@ -30,6 +30,8 @@ define(['angularAMD',
         'socialShare',
         'mention',
         'caret',
+        'angular-animate',
+        'toasterjs',
         'bootstrap-typeahead'
     ],
     function (angularAMD) {
@@ -51,6 +53,7 @@ define(['angularAMD',
             'ui.bootstrap.pagination',
             'google-maps',
             'xeditable',
+            'toaster',
             'geolocation',
             'angularFileUpload',
             'td.easySocialShare'
@@ -103,6 +106,7 @@ define(['angularAMD',
             }
         ]);
 
+
         app.service('rest', ['$rootScope', function ($rootScope) {
             $rootScope.restProtocol = "http";
             $rootScope.restURL = "localhost:8000";
@@ -124,10 +128,26 @@ define(['angularAMD',
             }
         }]);
 
-        app.controller('NavCtrl', ['localStorageService', '$state', '$scope',
-            function (localStorageService, $state, $scope) {
+
+        app.controller('NavCtrl', ['localStorageService', '$resource', '$state', '$scope','toaster','rest',
+            function (localStorageService, $resource, $state, $scope,toaster) {
                 $scope.isCollapsed = true;
                 $scope.token = localStorageService.get('Authorization');
+
+                var notificationsResource = $resource(":protocol://:url/notifications/",{
+                    protocol: $scope.restProtocol,
+                    url: $scope.restURL,
+                },{update: { method: 'PUT' }});
+                var notificationsIdResource = $resource(":protocol://:url/notifications/:id",{
+                    id : '@id',
+                    protocol: $scope.restProtocol,
+                    url: $scope.restURL,
+                },{update: { method: 'PUT' }});
+
+                $scope.notifications = notificationsResource.get(function(){
+                   $scope.notificationsCount = $scope.notifications.count;
+                });
+
                 if ($scope.token) {
                     $scope.templateNav = {
                         url: 'navbar/index.html'
@@ -136,12 +156,25 @@ define(['angularAMD',
                         localStorageService.clearAll();
                         window.location = "/";
                     }
-                }
-            }]);
+                };
+
+                $scope.pop = function(){
+                    angular.forEach($scope.notifications.results, function(value, key){
+                        toaster.pop(value.level, value.level, value.message);
+                        $scope.notificationsCallback = notificationsIdResource.update({id:value.id},function(){
+                           console.log($scope.notificationsCallback);
+                        });
+                    });
+                    $scope.notificationsCount = 0;
+                };
+        }]);
+
+
+
         app.controller('PageCtrl', ['localStorageService', '$scope',
             function (localStorageService, $scope) {
                 $scope.token = localStorageService.get('Authorization');
-            }]);
+        }]);
         app.controller('footerCtrl', ['localStorageService', '$scope',
             function (localStorageService, $scope) {
                 $scope.isCollapsed = true;
@@ -149,8 +182,7 @@ define(['angularAMD',
                 $scope.templateNav = {
                     url: 'footer/index.html'
                 };
-            }]);
-
+        }]);
         app.directive('ng-blur', function () {
             return {
                 restrict: 'A',
@@ -249,7 +281,6 @@ define(['angularAMD',
                 }
             };
         }]);
-
         app.factory('fileReader', function ($q) {
             var onLoad = function (reader, deferred, scope) {
                 return function () {
