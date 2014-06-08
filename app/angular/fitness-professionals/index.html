@@ -176,13 +176,13 @@
                             <div class="pro-overlay">
                                 <img class="img img-responsive"
                                      alt="Responsive image"
-                                     ng-src="/fitness-professionals/img/profile-picture.jpg"/>
+                                     ng-src="/media/{{professional.img}}"/>
                             </div>
 
                         <a href class="pro-overlay" ui-sref="profile.view({view: $parent.professional.id})">
 
                             <div class="clients">
-                                <i class="fa fa-circle fa-2x red': (profile_user.is_accepting == false)}" title="Not acepting Clients"></i>
+                                <i ng-class="{'fa fa-circle fa-2x red': (profile_user.is_accepting == false)}" title="Not acepting Clients"></i>
                                 <i ng-class="{'fa fa-circle fa-2x green': (profile_user.is_accepting == true)}" title="Acepting Clients"></i>
                             </div>
 
