@@ -165,7 +165,6 @@ define(['angularAMD',
                     angular.forEach($scope.notifications.results, function(value, key){
                         toaster.pop(value.level, value.level, value.message);
                         $scope.notificationsCallback = notificationsIdResource.update({id:value.id},function(){
-                           console.log($scope.notificationsCallback);
                         });
                     });
                     $scope.notificationsCount = 0;
