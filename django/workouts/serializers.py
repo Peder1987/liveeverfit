@@ -31,15 +31,15 @@ class UserLikeSerializer(serializers.ModelSerializer):
 
 
 class VideoLikeSerializer(serializers.ModelSerializer):
-    user_id = serializers.CharField(max_length=50)
+    user_pk = serializers.CharField(max_length=50)
 
     class Meta:
         model = Video
-        fields = ('id', "user_id",)
+        fields = ('id', "user_pk",)
 
     def to_native(self, value):
         obj = super(VideoLikeSerializer, self).to_native(value)
-        user = User.objects.get(id=obj['user_id'])
+        user = User.objects.get(id=obj['user_pk'])
         # best quick solution for M2M, django doesn't provide
         # a clean solution.
         if value.likes_user.filter(pk=user.pk).exists():
@@ -52,7 +52,7 @@ class VideoLikeSerializer(serializers.ModelSerializer):
         return obj
 
     def validate_user_email(self, attrs, source):
-        if User.objects.filter(id=attrs['user_id']).exists():
+        if User.objects.filter(id=attrs['user_pk']).exists():
             pass
         else:
             raise serializers.ValidationError("User must exist to like content")
