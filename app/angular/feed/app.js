@@ -10,6 +10,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                     angular.extend($scope, {
                         user_id: localStorageService.get('user_id'),
                         usrImg: localStorageService.get('user_img'),
+                        feedActive: true,
                         entryInputPlaceHolder: $sce.trustAsHtml("Encourage, motivate, persevere, succeed..."),
                         entryInputText: "",
                         entryVideoURL: "",
@@ -18,6 +19,9 @@ define(['app', 'masonry'], function (app, Masonry) {
                         entryInputType: "text",
                         fromDatePickerOpened: false,
                         untilDatePickerOpened: false,
+                        goToProfile: function() {
+                          debugger;
+                        },
                         entryEvent: {
                             start: "",
                             end: "",

@@ -9,8 +9,7 @@
                      class="input"
                      role="textbox"
                      contenteditable
-                     ng-model="$parent.entryInputText"
-                     ng-enter="entrySubmit()"></div>
+                     ng-model="$parent.entryInputText"></div>
                 <div class="photo" ng-if="entryInputType=='photo'">
                     <div ng-if="!entryImgSrc&&!percent" class="upload">
                         <div class="well well-lg" ng-file-drop="onFileSelect($files)"
@@ -175,29 +174,29 @@
             </div>
             <div class="post-body" ng-switch="entry.type">
                 <div class="text" ng-switch-when="text">
-                    {{entry.text}}
+                    <span ng-bind-html="getTrustedHtml(entry.text, false)"></span>
                 </div>
                 <div class="photo" ng-switch-when="photo">
-                    {{entry.text}}
+                    <span ng-bind-html="getTrustedHtml(entry.text, false)"></span>
                     <div>
                         <img ng-src="/media/{{entry.img}}">
                     </div>
                 </div>
                 <div class="video" ng-switch-when="video">
-                    {{entry.text}}
+                    <span ng-bind-html="getTrustedHtml(entry.text, false)"></span>
                     <div>
                         <iframe width="100%" height="100%" ng-src="{{getTrustedURL(entry.url)}}" frameborder="0"
                                 allowfullscreen=""></iframe>
                     </div>
                 </div>
                 <div class="blog" ng-switch-when="blog">
-                    {{entry.text}}
+                    <span ng-bind-html="getTrustedHtml(entry.text, false)"></span>
                     <div ng-show="!entry.expand" ng-bind-html="getTrustedHtml(entry.body, true)"></div>
                     <a href ng-show="!entry.expand" ng-click="readMore(entry)">read more</a>
                     <div ng-show='entry.expand' ng-bind-html="getTrustedHtml(entry.body, false)"></div>
                 </div>
                 <div class="event" ng-switch-when="event">
-                    <b>{{entry.text}}</b>
+                    <b><span ng-bind-html="getTrustedHtml(entry.text, false)"></span></b>
                     <br><br>
 
                     <div class="row">
@@ -233,16 +232,16 @@
                     </div>
                     <div class="post-body" ng-switch="entry.shared_entry.type">
                         <div class="text" ng-switch-when="text">
-                            {{entry.shared_entry.text}}
+                            <span ng-bind-html="getTrustedHtml(entry.shared_entry.text, false)"></span>
                         </div>
                         <div class="photo" ng-switch-when="photo">
-                            {{entry.shared_entry.text}}
+                            <span ng-bind-html="getTrustedHtml(entry.shared_entry.text, false)"></span>
                             <div>
                                 <img ng-src="/media/{{entry.shared_entry.img}}">
                             </div>
                         </div>
                         <div class="video" ng-switch-when="video">
-                            {{entry.shared_entry.text}}
+                            <span ng-bind-html="getTrustedHtml(entry.shared_entry.text, false)"></span>
                             <div>
                                 <iframe width="100%" height="100%" ng-src="{{getTrustedURL(entry.shared_entry.url)}}"
                                         frameborder="0"
@@ -250,13 +249,13 @@
                             </div>
                         </div>
                         <div class="blog" ng-switch-when="blog">
-                            {{entry.shared_entry.text}}
+                            <span ng-bind-html="getTrustedHtml(entry.shared_entry.text, false)"></span>
                             <div ng-show="!entry.expand" ng-bind-html="getTrustedHtml(entry.shared_entry.body, true)"></div>
                             <a href ng-show="!entry.expand" ng-click="readMore(entry)">read more</a>
                             <div ng-show='entry.expand' ng-bind-html="getTrustedHtml(entry.shared_entry.body, false)"></div>
                         </div>
                         <div class="event" ng-switch-when="event">
-                            <b>{{entry.shared_entry.text}}</b>
+                            <b><span ng-bind-html="getTrustedHtml(entry.shared_entry.text, false)"></span></b>
                             <br><br>
 
                             <div class="row">
@@ -398,29 +397,29 @@
             </div>
             <div class="post-body" ng-switch="entry.type">
                 <div class="text" ng-switch-when="text">
-                    {{entry.text}}
+                    <span ng-bind-html="getTrustedHtml(entry.text, false)"></span>
                 </div>
                 <div class="photo" ng-switch-when="photo">
-                    {{entry.text}}
+                    <span ng-bind-html="getTrustedHtml(entry.text, false)"></span>
                     <div>
                         <img ng-src="/media/{{entry.img}}">
                     </div>
                 </div>
                 <div class="video" ng-switch-when="video">
-                    {{entry.text}}
+                    <span ng-bind-html="getTrustedHtml(entry.text, false)"></span>
                     <div>
                         <iframe width="100%" height="100%" ng-src="{{getTrustedURL(entry.url)}}" frameborder="0"
                                 allowfullscreen=""></iframe>
                     </div>
                 </div>
                 <div class="blog" ng-switch-when="blog">
-                    {{entry.text}}
+                    <span ng-bind-html="getTrustedHtml(entry.text, false)"></span>
                     <div ng-show="!entry.expand" ng-bind-html="getTrustedHtml(entry.body, true)"></div>
                     <a href ng-show="!entry.expand" ng-click="readMore(entry)">read more</a>
                     <div ng-show='entry.expand' ng-bind-html="getTrustedHtml(entry.body, false)"></div>
                 </div>
                 <div class="event" ng-switch-when="event">
-                    <b>{{entry.text}}</b>
+                    <b><span ng-bind-html="getTrustedHtml(entry.text, false)"></span></b>
                     <br><br>
 
                     <div class="row">
@@ -456,16 +455,16 @@
                     </div>
                     <div class="post-body" ng-switch="entry.shared_entry.type">
                         <div class="text" ng-switch-when="text">
-                            {{entry.shared_entry.text}}
+                            <span ng-bind-html="getTrustedHtml(entry.shared_entry.text, false)"></span>
                         </div>
                         <div class="photo" ng-switch-when="photo">
-                            {{entry.shared_entry.text}}
+                            <span ng-bind-html="getTrustedHtml(entry.shared_entry.text, false)"></span>
                             <div>
                                 <img ng-src="/media/{{entry.shared_entry.img}}">
                             </div>
                         </div>
                         <div class="video" ng-switch-when="video">
-                            {{entry.shared_entry.text}}
+                            <span ng-bind-html="getTrustedHtml(entry.shared_entry.text, false)"></span>
                             <div>
                                 <iframe width="100%" height="100%" ng-src="{{getTrustedURL(entry.shared_entry.url)}}"
                                         frameborder="0"
@@ -473,13 +472,13 @@
                             </div>
                         </div>
                         <div class="blog" ng-switch-when="blog">
-                            {{entry.shared_entry.text}}
+                            <span ng-bind-html="getTrustedHtml(entry.shared_entry.text, false)"></span>
                             <div ng-show="!entry.expand" ng-bind-html="getTrustedHtml(entry.shared_entry.body, true)"></div>
                             <a href ng-show="!entry.expand" ng-click="readMore(entry)">read more</a>
                             <div ng-show='entry.expand' ng-bind-html="getTrustedHtml(entry.shared_entry.body, false)"></div>
                         </div>
                         <div class="event" ng-switch-when="event">
-                            <b>{{entry.shared_entry.text}}</b>
+                            <b><span ng-bind-html="getTrustedHtml(entry.shared_entry.text, false)"></span></b>
                             <br><br>
 
                             <div class="row">

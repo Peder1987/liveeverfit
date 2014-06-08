@@ -27,7 +27,10 @@ define(['angularAMD',
         'jcrop',
         'angularFileUpload',
         'bootstrap.wysihtml5.en-US',
-        'socialShare'
+        'socialShare',
+        'mention',
+        'caret',
+        'bootstrap-typeahead'
     ],
     function (angularAMD) {
         'use strict';
@@ -197,12 +200,29 @@ define(['angularAMD',
                 }
             };
         });
-        app.directive('ngInput', function () {
+        app.directive('ngInput', ['$resource','rest', function ($resource) {
             return {
                 restrict: 'A', // only activate on element attribute
                 require: '?ngModel', // get a hold of NgModelController
                 link: function (scope, element, attrs, ngModel) {
                     if (!ngModel) return; // do nothing if no ng-model
+
+                    // Feed Typeahead
+                    var mentionCollection = $resource("http://:url/feed/typeahead", {
+                        url: scope.restURL
+                    });
+                    mentionCollection.get(function(mentions) {
+                        scope.mentions = mentions.results;
+                        element.mention({
+                            delimiter: '@',
+                            queryBy: ['name'],
+                            emptyQuery: true,
+                            users: scope.mentions,
+                            typeaheadOpts: {
+                                items: 8 // Max number of items you want to show
+                            }
+                        });
+                    });
 
                     // Specify how UI should be updated
                     ngModel.$render = function () {
@@ -210,14 +230,14 @@ define(['angularAMD',
                     };
 
                     // Listen for change events to enable binding
-                    element.on('blur keyup change', function () {
+                    element.on('blur keyup change', function (e) {
                         scope.$apply(readViewText);
                     });
 
-                    // No need to initialize, AngularJS will initialize the text based on ng-model attribute
-
                     // Write data to the model
                     function readViewText() {
+                        //var html = element.val();
+                        // Top line works for input and text area
                         var html = element.html();
                         // When we clear the content editable the browser leaves a <br> behind
                         // If strip-br attribute is provided then we strip this out
@@ -228,7 +248,7 @@ define(['angularAMD',
                     }
                 }
             };
-        });
+        }]);
 
         app.factory('fileReader', function ($q) {
             var onLoad = function (reader, deferred, scope) {

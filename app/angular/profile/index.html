@@ -11,14 +11,14 @@
                 <div class="col-sm-offset-2 col-md-offset-0 col-sm-2 col-xs-6 col-md-3">
                     <div class="status-profile" style="text-align: center">
                         live training in session
-                        <i class="circle green"></i>
+                        <span class="profile-circle red"></span>
                     </div>
                 </div>
                 <div class="col-sm-2 col-xs-6 col-md-3">
                     <div class="status-profile" style="text-align: center">
                         accepting clients
-                        <i class="circle"
-                           ng-class="{'red': !profile_user.is_accepting, 'green': profile_user.is_accepting}"></i>
+                        <span class="profile-circle"
+                           ng-class="{'red': !profile_user.is_accepting, 'green': profile_user.is_accepting}"></span>
                     </div>
                 </div>
             </div>

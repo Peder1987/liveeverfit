@@ -62,8 +62,8 @@
                                     <div class="form-space">
                                         <input id="location" type="text" class="form-control"
                                                placeholder="Example: Houston, TX" autocomplete="off"
-                                               ng-model="location" ng-change="locationOnChange()"
-                                               typeahead="location for location in locations"
+                                               ng-model="location"
+                                               typeahead="location for location in locations | filter:$viewValue | limitTo:8"
                                                typeahead-on-select="locationOnChange()"/>
                                     </div>
                                 </div>
