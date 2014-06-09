@@ -8,6 +8,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework import generics, mixins
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from notifications import notify
 
 from feed.permissions import IsOwnerOrReadOnly, ProfessionalOnly
 from feed.serializers import EntrySerializer, TextEntrySerializer, PhotoEntrySerializer, VideoEntrySerializer, EventEntrySerializer
@@ -15,8 +16,9 @@ from feed.serializers import BlogEntrySerializer, CommentSerializer, FlaggedSeri
 from feed.serializers import SharedEntrySerializer, RelationshipTypeAheadSerializer, EntryObjSerializer
 from feed.models import TextEntry, PhotoEntry, VideoEntry, BlogEntry, SharedEntry, Entry, Comment, Flagged
 from schedule.models.events import Event
-
 from user_app.models import Professional
+
+
 
 class EntryListView(generics.ListAPIView):
 	paginate_by = 21
@@ -36,6 +38,7 @@ class EntryListView(generics.ListAPIView):
 			qs2 = Entry.objects.filter(user=self.request.user)
 			return qs | qs2
 
+
 class EntryView(generics.RetrieveAPIView):
 	model = Entry
 	permission_classes = (IsOwnerOrReadOnly,)
@@ -53,6 +56,7 @@ class TextEntryViewSet(viewsets.ModelViewSet):
 		qs2 = TextEntry.objects.filter(user=self.request.user)
 		return qs | qs2
 
+
 class PhotoEntryViewSet(viewsets.ModelViewSet):
 	model = PhotoEntry
 	permission_classes = (IsOwnerOrReadOnly,)
@@ -64,7 +68,6 @@ class PhotoEntryViewSet(viewsets.ModelViewSet):
 		qs2 = PhotoEntry.objects.filter(user=self.request.user)
 		return qs | qs2
 	
-
 
 class VideoEntryViewSet(viewsets.ModelViewSet):
 	model = VideoEntry
@@ -101,6 +104,7 @@ class BlogEntryViewSet(viewsets.ModelViewSet):
 		qs2 = BlogEntry.objects.filter(user=self.request.user)
 		return qs | qs2
 
+
 class SharedEntryViewSet(viewsets.ModelViewSet):
 	model = SharedEntry
 	permission_classes = (IsOwnerOrReadOnly,)
@@ -112,12 +116,15 @@ class SharedEntryViewSet(viewsets.ModelViewSet):
 		qs2 = SharedEntry.objects.filter(user=self.request.user)
 		return qs | qs2
 
+
 class CommentViewSet(viewsets.ModelViewSet):
 	model = Comment
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = CommentSerializer
+	
 	def post_save(self, obj, created=False):
-		notify.send(self.request.user, recipient=obj.recipient, verb=u'left you a comment!')
+		notify.send(self.request.user, recipient=obj.entry.user, verb=u'left you a comment!')
+
 
 class FlaggedCreateView(generics.CreateAPIView):
 	model = Flagged
@@ -129,6 +136,17 @@ class EntryLikeView(generics.UpdateAPIView, generics.DestroyAPIView):
     model = Entry
     permission_classes = (IsAuthenticated,)
     serializer_class = EntryLikeSerializer
+
+    def update(self, request, pk=None):
+    	user = User.objects.get(id = request.DATA.get('user_id'))
+    	entry =  Entry.objects.get(pk = pk)
+        if entry.likes.filter(pk = user.pk).exists():
+        	entry.likes.remove(user)
+        	return Response({'user_likes':'false'}, status=status.HTTP_200_OK)
+        else:
+        	notify.send(self.request.user, recipient=entry.user, verb=u'liked your status')
+        	entry.likes.add(user)
+        	return Response({'user_likes':'true'}, status=status.HTTP_200_OK)
 
 
 class ListSubEntryView(generics.ListAPIView):
@@ -153,6 +171,7 @@ class ListSubEntryView(generics.ListAPIView):
 			return []
 		else:
 			return []
+
 
 class ClientListView(generics.ListAPIView):
 	paginate_by = 21
@@ -190,7 +209,6 @@ class ClientFilterView(generics.ListAPIView):
 			return []
 		else:
 			return []
-
 
 
 class RelationshipTypeAheadView(generics.ListAPIView):   
