@@ -19,7 +19,12 @@
       -moz-box-shadow:1px 1px 5px rgba(0,0,0,.8);
       box-shadow:1px 1px 5px rgba(0,0,0,.8);
       right:20px;
-      bottom:0px;
+
+      .img{
+        width: 20px;
+        height: 20px;
+      }
+
     }
 
     .fanaticsList > input[type="checkbox"] {
@@ -42,8 +47,7 @@
       display:block;
       height:24px;
       line-height:24px;
-      background-color:@ever-blue;
-      color:white;
+      color:@ever-blue;
       font-weight:bold;
       padding:0 1em 1px;
     }
@@ -53,13 +57,18 @@
     .fanaticsList .fanaticsList-content {
       padding:10px;
       display:none;
+
+      .ico-comm{
+        color: @ever-blue;
+        margin-right: -25px;
+      }
     }
 
     /* hover state */
-    .fanaticsList > input[type="checkbox"]:hover + label {background-color:@ever-blue}
+    .fanaticsList > input[type="checkbox"]:hover + label {background-color:@ever-blue; color: #fff; width: 35px;}
 
     /* checked state */
-    .fanaticsList > input[type="checkbox"]:checked + label {background-color:@ever-blue}
+    .fanaticsList > input[type="checkbox"]:checked + label {color: #fff;}
     .fanaticsList > input[type="checkbox"]:checked + label:before {content:attr(data-expanded)}
     .fanaticsList > input[type="checkbox"]:checked ~ .fanaticsList-content {display:block}
   }
