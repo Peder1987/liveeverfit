@@ -10,6 +10,7 @@ define(['app', 'feed', 'calendar'], function (app) {
             angular.extend($scope, {
                 calendarShow: false,
                 user_id: localStorageService.get('user_id'),
+                user_type: localStorageService.get('user_type'),
                 entry : '',
                 feed: {
                     id: undefined,
@@ -65,9 +66,15 @@ define(['app', 'feed', 'calendar'], function (app) {
                     });
                 },
                 connect: function () {
-                    $scope.connectResource.update({id: $scope.user_id, professional_id: $scope.profile_user.id}, function (data) {
-                        $scope.profile_user.user_connected = data.user_connected
-                    });
+                    if($scope.user_type == 'user'){
+                        console.log('redirecting to UPGRADE page')
+
+                        //$state.go('messages.view', {view: 'inbox'});
+                    }else{
+                        $scope.connectResource.update({id: $scope.user_id, professional_id: $scope.profile_user.id}, function (data) {
+                            $scope.profile_user.user_connected = data.user_connected
+                        });
+                    }
                 },
                 getProfile: function () {
                     if($stateParams.id){

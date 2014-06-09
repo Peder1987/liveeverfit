@@ -154,14 +154,17 @@ class ProfileSerializer(serializers.ModelSerializer):
         obj['inspiration'] = SharedEntry.objects.filter(entry__user=value).count() +  value.comments.count()
         # if the value of USER is the same as the logged in users
         # connection then they are connected
-        try:
-            if value.pk == user.connection.pk:
-                obj['user_connected'] = True
-            else:
-                obj['user_connected'] = False
-        except:
+        
+        if user.connection and value.pk == user.connection.pk:
+            obj['user_connected'] = True
+        else:
             obj['user_connected'] = False
 
+        if user.connected_on and ((now()  - user.connected_on ) < timedelta(days=30)):
+            obj['user_can_connect'] = False
+        else:
+            obj['user_can_connect'] = True
+        
         # check if user is following this profile
         if value.relationships.followers().filter(pk=user.pk).exists():
             obj['user_follows'] = True
@@ -236,7 +239,7 @@ class ConnectUserSerializer(serializers.ModelSerializer):
         value.connection = Professional.objects.get(pk=obj['professional_id'])
         value.connected_on = now()
         obj['user_connected'] = True
-        value.save()
+        #value.save()
     
         return obj
 
