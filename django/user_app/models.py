@@ -94,7 +94,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     url = models.CharField(_('url'), max_length=100, blank=True)
     phone = models.CharField(max_length=20, blank=True, default='')
     connection = models.ForeignKey('Professional', null=True, related_name='user_connections', blank=True)
-    connection_establish = models.DateTimeField(_('Connection established'), null=True, blank=True)
+    connected_on = models.DateTimeField(_('Connection on'), null=True, blank=True)
 
     primary_address = models.OneToOneField('Address', null=True, blank=True, on_delete=models.SET_NULL, related_name='owner')
 

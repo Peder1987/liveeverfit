@@ -229,6 +229,7 @@ class ConnectUserSerializer(serializers.ModelSerializer):
         obj = super(ConnectUserSerializer, self).to_native(value)
         print obj
 
+
         value.connection = Professional.objects.get(pk=obj['professional_id'])
         value.save()
         obj['user_connected'] = True
