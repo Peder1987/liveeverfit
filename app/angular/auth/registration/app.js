@@ -99,7 +99,6 @@ define(['app'], function(app) {
 				$scope.step = step;
 			};
 			$scope.setCurrentStepFormPar = function(step, valid){
-				console.log('Working');
 				if($scope.urlTier == 7 && $scope.urlPro !== undefined && $scope.urlPro != ''){
 					if($scope.urlPro == 'Trainer' || $scope.urlPro == 'Nutritionist' || $scope.urlPro == 'Promoter' ){
 						$scope.user.tier = $scope.urlTier;
@@ -109,17 +108,10 @@ define(['app'], function(app) {
 						};
 					};
 				}
-				else if($scope.urlTier >= 2 && $scope.urlTier <= 5){
-					$scope.user.tier = $scope.urlTier;
-					console.log($scope.user);
-					if(valid == true){
-						$scope.step = 'payment';
-					};
-				}
-				else if($scope.urlTier == 1){
+				else if($scope.urlTier >= 1 && $scope.urlTier <= 5){
 					$scope.user.tier = $scope.urlTier;
 					if(valid == true){
-						$scope.step = 'membershipSubmit';
+						$scope.step = 'tags';
 					};
 				}
 				else{

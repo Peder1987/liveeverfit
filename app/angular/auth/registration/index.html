@@ -105,19 +105,6 @@
                     <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
                 </div>
 
-
-                <div class="form-group">
-                    <label for="address" class="col-sm-2 control-label">
-                        Fitness Categories:
-                    </label>
-
-                     <div class="col-sm-10">
-                        <tags-input ng-model="tags" on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)" display-property="name">
-                        </tags-input>
-                    </div>
-                </div>
-
-
             </div>
         </div>
         <br>
@@ -134,6 +121,8 @@
 <!--end choice-->
 <div ng-include src="'auth/registration/views/user.html'"></div>
 <!--end user-->
+<div ng-include src="'auth/registration/views/tags.html'"></div>
+<!--end tags-->
 <div ng-include src="'auth/registration/views/membership/membershipUpgrade.html'"></div>
 <!--end membership-->
 <div ng-include src="'auth/registration/views/professional/professional.html'"></div>
