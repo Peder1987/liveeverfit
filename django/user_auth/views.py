@@ -299,7 +299,7 @@ def forgot_password(request):
 
         if check_password(temp_password, user.password):
             subject = 'Password Reset'
-            message = 'Change you password at http://0.0.0.0:9000/#/reset-password/' + temp_password + '/' + user.email
+            message = 'Change you password at http://dev.liveeverfit.com/#/reset-password/' + temp_password + '/' + user.email
             send_mail(subject, message, 'admin@test.com', [email])
             return Response({'details':['Email sent']}, status=status.HTTP_200_OK)
         else:

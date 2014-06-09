@@ -111,7 +111,7 @@ define(['app'], function(app) {
 				else if($scope.urlTier >= 1 && $scope.urlTier <= 5){
 					$scope.user.tier = $scope.urlTier;
 					if(valid == true){
-						$scope.step = 'user';
+						$scope.step = 'tags';
 					};
 				}
 				else{
