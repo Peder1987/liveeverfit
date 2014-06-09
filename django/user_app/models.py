@@ -54,8 +54,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     likes = models.ManyToManyField('self', related_name='liked', blank=True,null=True)
-    #Delete this following
-    following = models.ManyToManyField('self', related_name='followers', blank=True,null=True, symmetrical=False)
     #custom fields
     TIER_CHOICES = (
         (1, 'Tier 1'),
@@ -96,6 +94,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     url = models.CharField(_('url'), max_length=100, blank=True)
     phone = models.CharField(max_length=20, blank=True, default='')
     connection = models.ForeignKey('Professional', null=True, related_name='user_connections', blank=True)
+    connection_establish = models.DateTimeField(_('Connection established'), null=True, blank=True)
 
     primary_address = models.OneToOneField('Address', null=True, blank=True, on_delete=models.SET_NULL, related_name='owner')
 
