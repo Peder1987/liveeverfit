@@ -33,11 +33,11 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 user_id: $scope.user_id
                             }, function (data) {
                                 entry.user_likes = data.user_likes;
-                                if (data.user_likes) {
+                                if (data.user_likes == 'true') {
                                     entry.likes += 1;
                                 } else {
                                     entry.likes -= 1;
-                                }
+                                };
                             });
                         },
                         getTrustedURL: function (url) {

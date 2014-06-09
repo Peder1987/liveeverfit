@@ -67,7 +67,7 @@
                                     message
                                 </a>
                                 <a href
-                                   ng-if="user_id != profile_user.id && !profile_user.user_connected && profile_user.type == 'professional'"
+                                   ng-if="user_id != profile_user.id && !profile_user.user_connected && profile_user.is_accepting && profile_user.type == 'professional'"
                                    ng-click="connect()" class="connect">
                                     <i class="fa fa-envelope"></i>
                                     Train with me

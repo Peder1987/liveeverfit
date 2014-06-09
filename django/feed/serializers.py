@@ -4,9 +4,11 @@ from rest_framework.renderers import JSONRenderer
 from feed.models import Entry, TextEntry, PhotoEntry, VideoEntry, BlogEntry, Comment, Flagged, SharedEntry
 from django.contrib.auth import get_user_model
 
+from notifications import notify
 User = get_user_model()
 from schedule.models.events import Event
 from schedule.models.calendars import Calendar
+
 
 
 class FeedUserSerializer(serializers.ModelSerializer):
@@ -186,18 +188,6 @@ class EntryLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Entry
         fields = ('id', "user_id")
-
-    def to_native(self, obj):
-        temp = super(EntryLikeSerializer, self).to_native(obj)
-        user_id = temp.get('user_id')
-        user = User.objects.get(pk=user_id)
-        if obj.likes.filter(pk=user.pk).exists():
-            temp['user_likes'] = False
-            obj.likes.remove(user)
-        else:
-            temp['user_likes'] = True
-            obj.likes.add(user)
-        return temp
 
 
 class ListEntrySerializer(serializers.ModelSerializer):
