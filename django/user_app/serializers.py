@@ -137,6 +137,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             if Professional.objects.filter(pk = user_id).exists():
                 pro = Professional.objects.get(pk=user_id)
                 obj = ProfileProfessionalSerializer(instance=pro).data
+                print obj
             obj['type'] = 'professional'
         elif user_tier <= 5 and user_tier >= 2:
             obj['type'] = 'upgraded'
@@ -145,7 +146,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         #data about user logged in accessing this profile   
         user = self.context['request'].user
 
-        print value
+        
         obj['fanatics'] = value.relationships.followers().count()
         print SharedEntry.objects.filter(entry__user=value)
         obj['inspiration'] = SharedEntry.objects.filter(entry__user=value).count() +  value.comments.count()
@@ -240,6 +241,9 @@ class ConnectUserSerializer(serializers.ModelSerializer):
             pass
         else:
             raise serializers.ValidationError("Must be a Professional")
+
+        if not Professional.objects.get(pk=attrs['professional_id']).is_accepting:
+            raise serializers.ValidationError("Professional is currently not accepting")            
 
         return attrs
 
