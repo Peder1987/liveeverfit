@@ -262,9 +262,6 @@ define(['app'], function (app) {
 
 
     var passwordInstanceCtrl = function ($scope, $resource, $modalInstance, localStorageService) {
-        $scope.current_password = '';
-        $scope.password1 = '';
-        $scope.password2 = '';
         var AuthChange = $resource(":protocol://:url/accounts/change-password", {
             protocol: $scope.restProtocol,
             url: $scope.restURL
@@ -285,7 +282,8 @@ define(['app'], function (app) {
             // AutoFill Fix
             angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
             $scope.authToken = AuthChange.save($scope.user, function () {
-                window.location = "/#/logout";
+                localStorageService.clearAll();
+                window.location = "/";
             }, function (error) {
                 $scope.message = error.data;
             });
