@@ -59,10 +59,10 @@
                     <br><br>
 
                     <div class="row">
-                        <div class="col-xs-6"><b class="blue">From:</b><br> {{entry.start | date : 'mediumDate' }}
+                        <div class="col-xs-6"><i class="fa fa-calendar-o"></i><b class="blue">From:</b><br> {{entry.start | date : 'mediumDate' }}
                             <span ng-show="!entry.allday">{{entry.created | date : 'shortTime' }}</span>
                         </div>
-                        <div class="col-xs-6"><b class="blue">Until:</b><br> {{entry.end | date : 'mediumDate' }}
+                        <div class="col-xs-6"><i class="fa fa-calendar-o"></i><b class="blue">Until:</b><br> {{entry.end | date : 'mediumDate' }}
                             <span ng-show="!entry.allday">{{entry.created | date : 'shortTime' }}</span>
                         </div>
                     </div>
@@ -118,11 +118,11 @@
                             <br><br>
 
                             <div class="row">
-                                <div class="col-xs-6"><b class="blue">From:</b><br> {{entry.shared_entry.start | date :
+                                <div class="col-xs-6"><i class="fa fa-calendar-o"></i> <b class="blue">From:</b><br> {{entry.shared_entry.start | date :
                                     'mediumDate'}}
                                     <span ng-show="!entry.shared_entry.allday">{{entry.shared_entry.created | date : 'shortTime' }}</span>
                                 </div>
-                                <div class="col-xs-6"><b class="blue">Until:</b><br> {{entry.shared_entry.end | date :
+                                <div class="col-xs-6"><i class="fa fa-calendar-o"></i> <b class="blue">Until:</b><br> {{entry.shared_entry.end | date :
                                     'mediumDate'}}
                                     <span ng-show="!entry.shared_entry.allday">{{entry.shared_entry.created | date : 'shortTime' }}</span>
                                 </div>
@@ -176,7 +176,7 @@
                                 <a ui-sref="profile.view({view: comment.user})" >
                                 <img class="media-object pull-left"
                                      ng-src="{{comment.img}}"
-                                     style="width: 36px; height: 36px;" ui-sref="profile.view({view: comment.user})" >
+                                     style="width: 20px; height: 20px;" ui-sref="profile.view({view: comment.user})" >
                                  </a>
 
                                 <div class="media-body">
@@ -195,7 +195,7 @@
                             <div class="media">
                                 <img class="media-object pull-left"
                                      ng-src="{{usrImg}}"
-                                     style="width: 36px; height: 36px;">
+                                     style="width: 20px; height: 20px;">
 
                                 <div class="media-body">
                                     <label class="sr-only" for="entryComment">entry comment</label>
