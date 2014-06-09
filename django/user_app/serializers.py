@@ -239,7 +239,7 @@ class ConnectUserSerializer(serializers.ModelSerializer):
         value.connection = Professional.objects.get(pk=obj['professional_id'])
         value.connected_on = now()
         obj['user_connected'] = True
-        #value.save()
+        value.save()
     
         return obj
 
