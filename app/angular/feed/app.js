@@ -212,7 +212,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                         }
                                     }
                                 };
-                            if ($scope.entryInputText) {
+                            if ($scope.entryInputText || $scope.uploadImg || $scope.entryVideoURLID) {
                                 runEntrySubmit[$scope.entryInputType]();
                             } else {
                                 $scope.entryInputPlaceHolder = $sce.trustAsHtml("<b>Type something here...</b>");
