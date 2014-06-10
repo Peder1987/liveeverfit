@@ -1,9 +1,11 @@
 from django import forms
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth import get_user_model
+from django.utils.timezone import now
 User = get_user_model()
 from rest_framework import serializers
 from user_app.models import Professional, UniqueLocation, Certification, Address
+from datetime import  timedelta
 
 # This importation is implemented due to 
 # django and MTI (Multi Table inheritance)
@@ -152,14 +154,17 @@ class ProfileSerializer(serializers.ModelSerializer):
         obj['inspiration'] = SharedEntry.objects.filter(entry__user=value).count() +  value.comments.count()
         # if the value of USER is the same as the logged in users
         # connection then they are connected
-        try:
-            if value.pk == user.connection.pk:
-                obj['user_connected'] = True
-            else:
-                obj['user_connected'] = False
-        except:
+        
+        if user.connection and value.pk == user.connection.pk:
+            obj['user_connected'] = True
+        else:
             obj['user_connected'] = False
 
+        if user.connected_on and ((now()  - user.connected_on ) < timedelta(days=30)):
+            obj['user_can_connect'] = False
+        else:
+            obj['user_can_connect'] = True
+        
         # check if user is following this profile
         if value.relationships.followers().filter(pk=user.pk).exists():
             obj['user_follows'] = True
@@ -227,25 +232,29 @@ class ConnectUserSerializer(serializers.ModelSerializer):
 
     def to_native(self, value):
         obj = super(ConnectUserSerializer, self).to_native(value)
-        print obj
+        print value.connected_on
+        
 
-
+        
         value.connection = Professional.objects.get(pk=obj['professional_id'])
-        value.save()
+        value.connected_on = now()
         obj['user_connected'] = True
-
+        value.save()
+    
         return obj
 
     def validate_professional_id(self, attrs, source):
-
         if Professional.objects.filter(pk=attrs['professional_id']).exists():
             pass
         else:
             raise serializers.ValidationError("Must be a Professional")
 
         if not Professional.objects.get(pk=attrs['professional_id']).is_accepting:
-            raise serializers.ValidationError("Professional is currently not accepting")            
+            raise serializers.ValidationError("Professional is currently not accepting")    
 
+        user = self.context['request'].user
+        if user.connected_on and ((now()  - user.connected_on ) < timedelta(days=30)):
+            raise serializers.ValidationError("Cannot change professional for 30 days")
         return attrs
 
 

@@ -18,12 +18,12 @@ define(['app'], function(app) {
 			$scope.urlPro = $stateParams.pro;
 
     		$scope.user = {
-				first_name: 'miguel',
-				last_name: 'vazquez',
-				email: 'migueldv90@yahoo.com',
-				password: '123456789',
-				password2: '123456789',
-				gender: 'M',
+				first_name: '',
+				last_name: '',
+				email: '',
+				password: '',
+				password2: '',
+				gender: '',
 				referred_by: localStorageService.get('referral'),
 				tags: [],
 				tier: 1
@@ -55,11 +55,11 @@ define(['app'], function(app) {
 				lng: ''
 			};
 			$scope.creditcard = {
-				name : 'miguel',
-				number : '4242424242424242',
-				cvc : '123',
-				exp_month : '8',
-				exp_year : '2014',
+				name : '',
+				number : '',
+				cvc : '',
+				exp_month : '',
+				exp_year : '',
 				address_line1 : "",
 				address_line2 : "",
 				address_city : "",
@@ -99,7 +99,6 @@ define(['app'], function(app) {
 				$scope.step = step;
 			};
 			$scope.setCurrentStepFormPar = function(step, valid){
-				console.log('Working');
 				if($scope.urlTier == 7 && $scope.urlPro !== undefined && $scope.urlPro != ''){
 					if($scope.urlPro == 'Trainer' || $scope.urlPro == 'Nutritionist' || $scope.urlPro == 'Promoter' ){
 						$scope.user.tier = $scope.urlTier;
@@ -109,17 +108,10 @@ define(['app'], function(app) {
 						};
 					};
 				}
-				else if($scope.urlTier >= 2 && $scope.urlTier <= 5){
-					$scope.user.tier = $scope.urlTier;
-					console.log($scope.user);
-					if(valid == true){
-						$scope.step = 'payment';
-					};
-				}
-				else if($scope.urlTier == 1){
+				else if($scope.urlTier >= 1 && $scope.urlTier <= 5){
 					$scope.user.tier = $scope.urlTier;
 					if(valid == true){
-						$scope.step = 'membershipSubmit';
+						$scope.step = 'tags';
 					};
 				}
 				else{

@@ -128,19 +128,13 @@
 
 <script type="text/ng-template" id="navbar/icons.html">
     <li>
-        <a ng-click="pop()">
-            <span class="badge">{{notificationsCount}}</span><i class="fa fa-bell fa-lg"></i>&ZeroWidthSpace;
-        </a>
-    </li>
-    <li>
         <a href="http://store.liveeverfit.com/cart">
             <i class="fa fa-shopping-cart fa-lg xs-i-help"></i>&ZeroWidthSpace;
         </a>
     </li>
     <li>
-        <a ui-sref-active="active"
-           ui-sref="messages">
-            <i class="fa fa-envelope fa-lg xs-i-help"></i>&ZeroWidthSpace;
+        <a ng-click="pop()">
+            <i class="fa fa-bell fa-lg"></i>&ZeroWidthSpace;<span class="badge">{{notificationsCount}}</span>
         </a>
     </li>
     <li class="dropdown">
@@ -151,6 +145,11 @@
             <li>
                 <a ui-sref="profile" class="xs-i">
                     <i class="fa fa-user"></i> profile
+                </a>
+            </li>
+            <li ng-if="user_type != 'user'">
+                <a ui-sref="messages">
+                    <i class="fa fa-envelope fa-lg xs-i-help"></i> messages
                 </a>
             </li>
             <li>
