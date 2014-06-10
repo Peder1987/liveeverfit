@@ -10,7 +10,6 @@ define(['app', 'masonry'], function (app, Masonry) {
                     angular.extend($scope, {
                         user_id: localStorageService.get('user_id'),
                         usrImg: localStorageService.get('user_img'),
-                        feedActive: true,
                         entryInputPlaceHolder: $sce.trustAsHtml("Encourage, motivate, persevere, succeed..."),
                         entryInputText: "",
                         entryVideoURL: "",
@@ -213,7 +212,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                         }
                                     }
                                 };
-                            if ($scope.entryInputText) {
+                            if ($scope.entryInputText || $scope.uploadImg || $scope.entryVideoURLID) {
                                 runEntrySubmit[$scope.entryInputType]();
                             } else {
                                 $scope.entryInputPlaceHolder = $sce.trustAsHtml("<b>Type something here...</b>");
@@ -326,6 +325,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 method: 'PUT'
                             }
                         }),
+                        // Get list of entries.
                         feedCollection: $resource(":protocol://:url/feed:filter/:id", {
                             protocol: $scope.restProtocol,
                             url: $scope.restURL,
@@ -334,6 +334,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                         }, {
                             update: { method: 'PUT' }
                         }),
+                        // For submitting an entry.
                         entryResource: $resource(":protocol://:url/feed/:type/:id", {
                             id: "@id",
                             type: "@type",
@@ -356,6 +357,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                         init: function () {
                             $scope.feed_id = ngModel.$viewValue.id;
                             $scope.feedCollection.get({id: $scope.feed_id, filter: ngModel.$viewValue.filter}, function (data) {
+
                                 $scope.feedList = data.results;
                                 $scope.runMasonry();
                             }, $scope.checkTokenError);
