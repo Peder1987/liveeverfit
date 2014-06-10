@@ -60,7 +60,7 @@ class EntryObjSerializer(serializers.ModelSerializer):
 
         obj['shares'] = SharedEntry.objects.filter(entry=value).count()
 
-        return obj
+        return [obj]
 
     class Meta:
         model = Entry
