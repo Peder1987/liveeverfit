@@ -1,7 +1,7 @@
 @navbar-height: 62px;
 @navbar-bg: rgba(145, 153, 162, 0.37);
 @navbar-default-bg: #eeeded;
-@navbar-default-link-hover-color: #5d5d60;
+@navbar-default-link-hover-color: #fff;
 @navbar-default-link-hover-bg: #e2e2e2;
 @navbar-default-link-active-bg: #e2e2e2;
 
@@ -30,8 +30,27 @@
   z-index: 1;
 }
 
+.navbar-nav > li > a {
+    border-right:solid 1px #c3c3c3;
+    border-left:solid 1px #f6f5f5;
+}
+
+.navbar-brand {
+    border-left:solid 1px #c3c3c3;
+    border-right:solid 1px #c3c3c3;
+}
+
+ul.navbar-nav {
+border-right: solid 1px #f6f5f5;
+}
+
+ul.navbar-nav {
+border-right: solid 1px #f6f5f5;
+border-left: solid 1px #c3c3c3;
+}
+
 .navbar-default {
-  background: @navbar-bg;
+  /*background: @navbar-bg;
   background: -moz-linear-gradient(top, #eeeded 0%, #e2e2e2 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeded), color-stop(100%, #cdcdcd));
   background: -webkit-linear-gradient(top, #eeeded 0%, #e2e2e2 100%);
@@ -39,10 +58,19 @@
   background: -ms-linear-gradient(top, #eeeded 0%, #e2e2e2 100%);
   background: linear-gradient(to bottom, #eeeded 0%, #e2e2e2 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeded', endColorstr='#cdcdcd', GradientType=0);
+  */
+  background: #eeeded;
+  background: -moz-linear-gradient(top, #eeeded 0%, #cdcdcd 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeded), color-stop(100%,#cdcdcd));
+  background: -webkit-linear-gradient(top, #eeeded 0%,#cdcdcd 100%);
+  background: -o-linear-gradient(top, #eeeded 0%,#cdcdcd 100%);
+  background: -ms-linear-gradient(top, #eeeded 0%,#cdcdcd 100%);
+  background: linear-gradient(to bottom, #eeeded 0%,#cdcdcd 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeded', endColorstr='#cdcdcd',GradientType=0 );
   border-bottom: solid 3px #1a8cff;
   z-index: 3;
-  // -webkit-box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
-  // box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
   margin-bottom: 0px;
   font-size: 10px;
   font-family: 'Open Sans', sans-serif;

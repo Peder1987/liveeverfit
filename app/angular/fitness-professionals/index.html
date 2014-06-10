@@ -32,7 +32,7 @@
                             <label>Type</label>
 
                             <div class="row">
-                                <div class="col-sm-6 col-lg-6">
+                                <div class="col-sm-4 col-lg-4">
                                     <button id="Trainer" type="button"
                                             class="col-xs-12 btn toggle proffesional"
                                             ng-class="{selected: professionSelected['Trainer']}"
@@ -40,12 +40,20 @@
                                         <span class="fa fa-user pull-right"></span>Trainers
                                     </button>
                                 </div>
-                                <div class="col-sm-6 col-lg-6 col-">
+                                <div class="col-sm-4 col-lg-4">
                                     <button id="Nutritionist" type="button"
                                             class="col-xs-12 btn toggle proffesional"
                                             ng-class="{selected: professionSelected['Nutritionist']}"
                                             ng-click="professionOnClick('Nutritionist')">
                                         <span class="fa fa-heart pull-right"></span>Nutritionists
+                                    </button>
+                                </div>
+                                <div class="col-sm-4 col-lg-4">
+                                    <button id="Instructor" type="button"
+                                            class="col-xs-12 btn toggle proffesional"
+                                            ng-class="{selected: professionSelected['Instructor']}"
+                                            ng-click="professionOnClick('Instructor')">
+                                        <span class="fa fa-heart pull-right"></span>Instructors
                                     </button>
                                 </div>
                             </div>
