@@ -15,11 +15,15 @@ define(['app', 'masonry'], function (app, Masonry) {
                         entryVideoURL: "",
                         entryBlogBody: "",
                         entryVideoURLID: "",
+                        entryTags: [],
+                        tags: undefined,
                         entryInputType: "text",
                         fromDatePickerOpened: false,
                         untilDatePickerOpened: false,
-                        goToProfile: function() {
-                          debugger;
+                        loadSpecialty: function () {
+                            var deferred = $scope.q.defer();
+                            deferred.resolve($scope.tags.results);
+                            return deferred.promise;
                         },
                         entryEvent: {
                             start: "",
@@ -116,7 +120,8 @@ define(['app', 'masonry'], function (app, Masonry) {
                                     text: function () {
                                         this.entryCollection.save({
                                             text: $scope.entryInputText,
-                                            user: $scope.user_id
+                                            user: $scope.user_id,
+                                            tags: $scope.entryTags
                                         }, function (data) {
                                             $scope.feedList.unshift(data);
                                             $scope.entryInputText = '';
@@ -129,7 +134,8 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                 url: $scope.restProtocol + '://' + $scope.restURL + '/feed/photo',
                                                 data: {
                                                     user: $scope.user_id,
-                                                    text: $scope.entryInputText
+                                                    text: $scope.entryInputText,
+                                                    tags: $scope.entryTags
                                                 },
                                                 file: $scope.uploadImg,
                                                 fileFormDataName: 'img'
@@ -157,7 +163,8 @@ define(['app', 'masonry'], function (app, Masonry) {
                                             this.entryCollection.save({
                                                 text: $scope.entryInputText,
                                                 url: $scope.entryVideoURLID,
-                                                user: $scope.user_id
+                                                user: $scope.user_id,
+                                                tags: $scope.entryTags
                                             }, function (data) {
                                                 $scope.feedList.unshift(data);
                                                 $scope.entryInputText = '';
@@ -177,7 +184,8 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                 start: $scope.entryEvent.start,
                                                 end: $scope.entryEvent.end,
                                                 allDay: $scope.entryEvent.allDay,
-                                                user: $scope.user_id
+                                                user: $scope.user_id,
+                                                tags: $scope.entryTags
                                             }, function (data) {
                                                 $scope.feedList.unshift(data);
                                                 $scope.entryInputText = '';
@@ -196,7 +204,8 @@ define(['app', 'masonry'], function (app, Masonry) {
                                             this.entryCollection.save({
                                                 text: $scope.entryInputText,
                                                 body: $scope.entryBlogBody,
-                                                user: $scope.user_id
+                                                user: $scope.user_id,
+                                                tags: $scope.entryTags
                                             }, function (data) {
                                                 $scope.feedList.unshift(data);
                                                 $scope.entryInputText = '';
@@ -354,6 +363,10 @@ define(['app', 'masonry'], function (app, Masonry) {
                             protocol: $scope.restProtocol,
                             url: $scope.restURL
                         }),
+                        tagCollection: $resource(":protocol://:url/tags/", {
+                            protocol: $scope.restProtocol,
+                            url: $scope.restURL
+                        }),
                         init: function () {
                             $scope.feed_id = ngModel.$viewValue.id;
                             $scope.feedCollection.get({id: $scope.feed_id, filter: ngModel.$viewValue.filter}, function (data) {
@@ -363,6 +376,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                             }, $scope.checkTokenError);
                         }
                     });
+                    $scope.tags = $scope.tagCollection.get($.noop(), $scope.checkTokenError);
                     // model -> view
                     if (ngModel) {
                         ngModel.$render = function () {
