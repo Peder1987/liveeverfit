@@ -421,4 +421,5 @@ class Professional(CustomUser):
         self.save()
         return errors
 
-        
+class FeaturedProfessional(models.Model):
+    professional = models.ForeignKey(Professional)
