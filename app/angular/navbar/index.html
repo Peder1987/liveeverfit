@@ -137,12 +137,6 @@
             <i class="fa fa-shopping-cart fa-lg xs-i-help"></i>&ZeroWidthSpace;
         </a>
     </li>
-    <li>
-        <a ui-sref-active="active"
-           ui-sref="messages">
-            <i class="fa fa-envelope fa-lg xs-i-help"></i>&ZeroWidthSpace;
-        </a>
-    </li>
     <li class="dropdown">
         <a href class="dropdown-toggle">
             <i class="fa fa-user fa-lg xs-i-help"></i> <b class="caret"></b>
@@ -151,6 +145,11 @@
             <li>
                 <a ui-sref="profile" class="xs-i">
                     <i class="fa fa-user"></i> profile
+                </a>
+            </li>
+            <li ng-if="user_type != 'user'">
+                <a ui-sref="messages">
+                    <i class="fa fa-envelope fa-lg xs-i-help"></i> messages
                 </a>
             </li>
             <li>
