@@ -68,7 +68,7 @@ def user_tier(request):
         )
         user.save()
 
-        return Response({'details': 'success'}, status=status.HTTP_201_CREATED)
+        return Response({'details': 'upgraded'}, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -105,7 +105,7 @@ def upgrade_to_professional(request):
             certification2.save()
         pro.save()
 
-        return Response({'details': 'success'}, status=status.HTTP_201_CREATED)
+        return Response({'details': 'professional'}, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -126,6 +126,6 @@ def cancel(request):
             user.save()
             user.stripe_cancel_subscription()
 
-        return Response({'details': 'success'}, status=status.HTTP_201_CREATED)
+        return Response({'details': 'user'}, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
