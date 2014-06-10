@@ -15,8 +15,8 @@ define(['app'], function(app) {
 
 			$scope.step = 'auth';
 			$scope.auth = {
-				email: '',
-				password: ''
+				email: 'migueldv90@yahoo.com',
+				password: '123456789'
 			};
 			$scope.user = {
 				id: localStorageService.get('user_id'),
@@ -49,11 +49,11 @@ define(['app'], function(app) {
 				lng: ''
 			};
 			$scope.creditcard = {
-				name : '',
-				number : '',
-				cvc : '',
-				exp_month : '',
-				exp_year : '',
+				name : 'miguel',
+				number : '4242424242424242',
+				cvc : '123',
+				exp_month : '8',
+				exp_year : '2014',
 				address_line1 : "",
 				address_line2 : "",
 				address_city : "",
@@ -172,6 +172,7 @@ define(['app'], function(app) {
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
 
 				$scope.userUpdate = userResource.save($scope.user, function() {
+					localStorageService.add('user_type', $scope.userUpdate.details);
 					$scope.profile_user = localStorageService.get('user_id');
 					$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
 						window.location = "/";
@@ -186,6 +187,7 @@ define(['app'], function(app) {
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
 
 				$scope.proUpdate = professionalResource.save($scope.pro, function() {
+					localStorageService.add('user_type', $scope.proUpdate.details);
 					$scope.profile_user = localStorageService.get('user_id');
 					$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
 						window.location = "/";
@@ -199,6 +201,7 @@ define(['app'], function(app) {
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
 
 				$scope.cancelMembership = cancelResource.save($scope.user, function() {
+					localStorageService.add('user_type', $scope.cancelMembership.details);
 					window.location = '/';
 				},function(error) {
 					$scope.message = error.data;
