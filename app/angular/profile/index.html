@@ -8,13 +8,13 @@
                         <small> / {{profile_user.location}}</small>
                     </h2>
                 </div>
-                <div class="col-sm-offset-2 col-md-offset-0 col-sm-2 col-xs-6 col-md-3">
+                <div ng-if="profile_user.type == 'professional'" class="col-sm-offset-2 col-md-offset-0 col-sm-2 col-xs-6 col-md-3">
                     <div class="status-profile" style="text-align: center">
                         live training in session
                         <span class="profile-circle red"></span>
                     </div>
                 </div>
-                <div class="col-sm-2 col-xs-6 col-md-3">
+                <div ng-if="profile_user.type == 'professional'" class="col-sm-2 col-xs-6 col-md-3">
                     <div class="status-profile" style="text-align: center">
                         accepting clients
                         <span class="profile-circle"
