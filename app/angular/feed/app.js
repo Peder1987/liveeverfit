@@ -245,6 +245,10 @@ define(['app', 'masonry'], function (app, Masonry) {
                                     }, 300);
                                 }
                             },
+                            socialShareEntry: function(entry, where) {
+                                // Isaac - Social Sharing Link Here!!!
+                                console.log(where, entry)
+                            },
                             entryShare: function (entry) {
                                 var id,
                                     entryCollection = $resource(":protocol://:url/feed/shared", {

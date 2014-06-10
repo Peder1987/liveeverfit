@@ -176,6 +176,7 @@
                  ng-src="{{entry.profile_img}}"
                  style="width: 32px; height: 32px;">
         </a>
+
         <div class="media-body">
             <div class="posted-by"><a ui-sref="profile.view({view: entry.user})">{{entry.first_name}}
                 {{entry.last_name}}</a></div>
@@ -229,6 +230,7 @@
     <div class="shared" ng-switch-when="shared">
         <b>Shared</b>
         <br><br>
+
         <div class="media">
             <a ui-sref="profile.view({view: entry.shared_entry.user})">
                 <img class="media-object pull-left"
@@ -303,7 +305,29 @@
         {{tag.name}}
     </span>
 </div>
+<div class="post-social">
+
+</div>
 <div class="post-social pull-right">
+    <span class="dropdown push" title="Social Sharing">
+        <a class="dropdown-toggle" href>
+            <i class="fa fa-share-alt fa-lg"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a href ng-click="socialShareEntry(entry, 'facebook')">
+                    <i class="fa fa-facebook"></i> facebook
+                </a>
+                <a href ng-click="socialShareEntry(entry, 'google')">
+                    <i class="fa fa-google-plus"></i> google +
+                </a>
+                <a href ng-click="socialShareEntry(entry, 'twitter')">
+                    <i class="fa fa-twitter"></i> twitter
+                </a>
+            </li>
+
+        </ul>
+    </span>
     <span ng-click="likeEntry(entry)" title="Number of likes" class="push">
         {{ entry.likes }}
             <span style="color: rgba(125,135,144,0.2)">|</span>
