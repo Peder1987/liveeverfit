@@ -62,7 +62,7 @@
                                     settings
                                 </a>
                                 <a href ng-if="user_id != profile_user.id && profile_user.user_connected"
-                                   class="message">
+                                   class="message" ui-sref="messages.view({view:'new'})">
                                     <i class="fa fa-envelope"></i>
                                     message
                                 </a>
