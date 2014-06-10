@@ -30,7 +30,7 @@ from .serializers import EmailSerializer, CreateUserSerializer, ReturnUserSerial
 #Models
 from notifications import notify
 from rest_framework.authtoken.models import Token
-from user_app.models import Professional, Address, UniqueLocation, Certification
+from user_app.models import Professional, Address, UniqueLocation, Certification, FeaturedProfessional
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -77,7 +77,11 @@ def register(request):
             user.referred_by.save()
             user.relationships.add(pro_ref)
             notify.send(user, recipient=pro_ref, verb=u'is following you')
-
+        
+        for pro in FeaturedProfessional.objects.all():
+            pro_ref = pro.professional
+            user.relationships.add(pro_ref)
+            notify.send(user, recipient=pro_ref, verb=u'is following you')
         try:
             city = temp_address['city']
             city = str(city)
@@ -108,7 +112,7 @@ def register(request):
 
         email = user.email
         subject = 'Welcome to Live Ever Fit'
-        message = 'Thank you fo registering to Live Ever Fit'
+        message = 'Thank you for registering to Live Ever Fit'
         send_mail(subject, message, 'info@liveeverfit.com', [email])
 
         response = ReturnUserSerializer(instance=user).data
