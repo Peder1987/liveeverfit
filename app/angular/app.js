@@ -70,7 +70,7 @@ define(['angularAMD',
                 $stateProvider
                     //LoggedIn and LoggedOut
                     .state('home', route.resolve('/', 'home'))
-                    .state('home.referred', route.resolve('/:email', 'home'))
+                    .state('home.entry', route.resolve('entry/:id', 'home'))
                     .state('footer', route.resolve('/', 'footer'))
 
                     //LoggedOut
@@ -99,7 +99,6 @@ define(['angularAMD',
                     .state('membership', route.resolve('/membership', 'membership'))
                     .state('calendar', route.resolve('/calendar', 'calendar'))
                     .state('profile', route.resolve('/profile', 'profile'))
-                    .state('profile.entry', route.resolve('/entry/:id', 'profile'))
                     .state('profile.view', route.resolve('/:view', 'profile'));
 
                 $urlRouterProvider.otherwise("/");
@@ -129,25 +128,26 @@ define(['angularAMD',
         }]);
 
 
-        app.controller('NavCtrl', ['localStorageService', '$resource', '$state', '$timeout','$scope','toaster','rest',
-            function (localStorageService, $resource, $state, $timeout,$scope,toaster) {
+        app.controller('NavCtrl', ['localStorageService', '$resource', '$state', '$timeout', '$scope', 'toaster', 'rest',
+            function (localStorageService, $resource, $state, $timeout, $scope, toaster) {
                 $scope.isCollapsed = true;
                 $scope.token = localStorageService.get('Authorization');
+                $scope.user_type = localStorageService.get('user_type');
 
-                var notificationsResource = $resource(":protocol://:url/notifications/",{
+                var notificationsResource = $resource(":protocol://:url/notifications/", {
                     protocol: $scope.restProtocol,
-                    url: $scope.restURL,
-                },{update: { method: 'PUT' }});
-                var notificationsIdResource = $resource(":protocol://:url/notifications/:id",{
-                    id : '@id',
+                    url: $scope.restURL
+                }, {update: { method: 'PUT' }});
+                var notificationsIdResource = $resource(":protocol://:url/notifications/:id", {
+                    id: '@id',
                     protocol: $scope.restProtocol,
-                    url: $scope.restURL,
-                },{update: { method: 'PUT' }});
+                    url: $scope.restURL
+                }, {update: { method: 'PUT' }});
 
                 (function tick() {
-                    $scope.notifications = notificationsResource.get(function(){
-                       $scope.notificationsCount = $scope.notifications.count;
-                       $timeout(tick, 30000);
+                    $scope.notifications = notificationsResource.get(function () {
+                        $scope.notificationsCount = $scope.notifications.count;
+                        $timeout(tick, 30000);
                     });
                 })();
 
@@ -159,24 +159,24 @@ define(['angularAMD',
                         localStorageService.clearAll();
                         window.location = "/";
                     }
-                };
+                }
+                ;
 
-                $scope.pop = function(){
-                    angular.forEach($scope.notifications.results, function(value, key){
+                $scope.pop = function () {
+                    angular.forEach($scope.notifications.results, function (value, key) {
                         toaster.pop(value.level, value.level, value.message);
-                        $scope.notificationsCallback = notificationsIdResource.update({id:value.id},function(){
+                        $scope.notificationsCallback = notificationsIdResource.update({id: value.id}, function () {
                         });
                     });
                     $scope.notificationsCount = 0;
                 };
-        }]);
-
+            }]);
 
 
         app.controller('PageCtrl', ['localStorageService', '$scope',
             function (localStorageService, $scope) {
                 $scope.token = localStorageService.get('Authorization');
-        }]);
+            }]);
         app.controller('footerCtrl', ['localStorageService', '$scope',
             function (localStorageService, $scope) {
                 $scope.isCollapsed = true;
@@ -184,7 +184,7 @@ define(['angularAMD',
                 $scope.templateNav = {
                     url: 'footer/index.html'
                 };
-        }]);
+            }]);
         app.directive('ng-blur', function () {
             return {
                 restrict: 'A',
@@ -234,7 +234,7 @@ define(['angularAMD',
                 }
             };
         });
-        app.directive('ngInput', ['$resource','rest', function ($resource) {
+        app.directive('ngInput', ['$resource', 'rest', function ($resource) {
             return {
                 restrict: 'A', // only activate on element attribute
                 require: '?ngModel', // get a hold of NgModelController
@@ -245,7 +245,7 @@ define(['angularAMD',
                     var mentionCollection = $resource("http://:url/feed/typeahead", {
                         url: scope.restURL
                     });
-                    mentionCollection.get(function(mentions) {
+                    mentionCollection.get(function (mentions) {
                         scope.mentions = mentions.results;
                         element.mention({
                             delimiter: '@',
