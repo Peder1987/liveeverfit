@@ -70,7 +70,7 @@ define(['angularAMD',
                 $stateProvider
                     //LoggedIn and LoggedOut
                     .state('home', route.resolve('/', 'home'))
-                    .state('home.referred', route.resolve('/:email', 'home'))
+                    .state('home.entry', route.resolve('entry/:id', 'home'))
                     .state('footer', route.resolve('/', 'footer'))
 
                     //LoggedOut
@@ -99,7 +99,6 @@ define(['angularAMD',
                     .state('membership', route.resolve('/membership', 'membership'))
                     .state('calendar', route.resolve('/calendar', 'calendar'))
                     .state('profile', route.resolve('/profile', 'profile'))
-                    .state('profile.entry', route.resolve('/entry/:id', 'profile'))
                     .state('profile.view', route.resolve('/:view', 'profile'));
 
                 $urlRouterProvider.otherwise("/");

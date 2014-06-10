@@ -1,5 +1,5 @@
 <div id="homeBg"></div>
-<div id="homePage" ng-if="token">
+<div id="homePage" ng-if="token" ng-controller="homeController">
     <div class="container">
         <div class="col-md-12">
             <div ng-controller="BannerCtrl">
@@ -34,7 +34,7 @@
             <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="feedFilter(tab.filter)"></tab>
         </tabset>-->
         <!-- /.homePageButtons -->
-        <div entry-feed ng-model="$parent.feed"></div>
+        <div ng-if="feed.show" entry-feed ng-model="$parent.feed"></div>
         </div>
 
         <div class="hidden-xs hidden-sm">

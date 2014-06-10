@@ -1,8 +1,12 @@
 'use strict';
 
 define(['app', 'feed'], function (app) {
-    app.register.controller('homeCtrl', ['localStorageService', '$scope', '$resource', '$state', 'promiseService', 
-        function (localStorageService, $scope, $resource, $state) {
+    app.register.controller('homeCtrl', ['$scope', 'restricted',
+        function ($scope) {
+            $scope.restricted();
+        }]);
+    app.register.controller('homeController', ['localStorageService', '$scope', '$resource', '$state', '$stateParams', 'promiseService',
+        function (localStorageService, $scope, $resource, $state, $stateParams) {
             angular.extend($scope, {
                 token: localStorageService.get('Authorization'),
                 tabs: [
@@ -13,8 +17,15 @@ define(['app', 'feed'], function (app) {
                     {title: 'blogs', filter: 'blog'},
                     {title: 'events', filter: 'event'}
                 ],
+                initFeed: function() {
+                    $scope.feed = {
+                        filter: $stateParams.id ? '/entry/' + $stateParams.id : undefined,
+                        show: true
+                    };
+                },
                 feed: {
-                    filter: undefined
+                    filter: undefined,
+                    show: false
                 },
                 feedFilter: function (type) {
                     $scope.feed = {
@@ -38,12 +49,12 @@ define(['app', 'feed'], function (app) {
                 }
 
             });
+            $scope.$on('$stateChangeSuccess', $scope.initFeed);
+            $scope.initFeed();
             $scope.fanaticCollection.get({}, function(data){
                 $scope.fanaticList = data.results;
-
             });
             $scope.onSelect = function($item, $model, $label){
-                console.log($item);
                 $state.go('profile.view', {view: $item.id})
             }
             
