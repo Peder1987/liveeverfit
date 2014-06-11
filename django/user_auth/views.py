@@ -7,7 +7,6 @@ from django.utils import timezone
 from django.utils.timezone import utc, now
 from django.utils.timezone import utc
 from django.conf import settings
-from django.core.mail import send_mail
 from django.contrib.auth.models import check_password
 #Python Libs
 import json
@@ -71,12 +70,14 @@ def register(request):
         user.tags.set(*tags)
         user.save()
 
+
         if Professional.objects.filter(email = pro_referred_by).exists():
             pro_ref = Professional.objects.get(email = pro_referred_by)
             user.referred_by = pro_ref
             user.referred_by.save()
             user.relationships.add(pro_ref)
             notify.send(user, recipient=pro_ref, verb=u'is following you')
+            notify.send(pro_ref, recipient=user, verb=u'following')
         
         for pro in FeaturedProfessional.objects.all():
             pro_ref = pro.professional

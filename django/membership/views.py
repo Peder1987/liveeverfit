@@ -117,6 +117,7 @@ def cancel(request):
     if serialized.is_valid():
         user_data = {field: data for (field, data) in request.DATA.items()}
         user_id = user_data.get('id')
+        message = user_data.get('message')
     
         if User.objects.filter(id = user_id).exists():
             user = User.objects.get(id = user_id)
@@ -125,6 +126,11 @@ def cancel(request):
             user.tier = 1
             user.save()
             user.stripe_cancel_subscription()
+
+            email = user.email
+            subject = 'Reason For Cancellation'
+            message = message
+            send_mail(subject, message, email, ['info@liveeverfit.com'])
 
         return Response({'details': 'user'}, status=status.HTTP_201_CREATED)
     else:

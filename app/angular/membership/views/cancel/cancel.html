@@ -7,9 +7,8 @@
             <div class="alert alert-danger" ng-repeat="(error, msg) in message">
                 {{msg[0]}}
             </div>
-            <div ng-if="!message">
-                No Errors.
-            </div>
+            Reason For Cancellation
+            <textarea ng-model="user.message" type="text" class="form-control" name="msg" id="msg" placeholder="Write message" cols="20" rows="5" required></textarea>
         </div>
     </div>
     <br>
