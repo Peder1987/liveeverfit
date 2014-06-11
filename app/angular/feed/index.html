@@ -258,7 +258,7 @@
                 <span ng-bind-html="getTrustedHtml(entry.shared_entry.text, false)"></span>
 
                 <div>
-                    <img ng-src="/media/{{entry.shared_entry.img}}">
+                    <img ng-click="openLightbox(entry.shared_entry)" ng-src="/media/{{entry.shared_entry.img}}">
                 </div>
             </div>
             <div class="video" ng-switch-when="video">
