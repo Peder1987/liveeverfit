@@ -16,6 +16,7 @@ define(['app'], function(app) {
 			$scope.step = 'registration';
 			$scope.urlTier = $stateParams.tier;
 			$scope.urlPro = $stateParams.pro;
+			$scope.temTags = [];
 
     		$scope.user = {
 				first_name: '',
@@ -82,11 +83,28 @@ define(['app'], function(app) {
             	protocol: $scope.restProtocol,
             	url: $scope.restURL,
             },{update: { method: 'PUT' }});
+            var tagsResource = $resource(":protocol://:url/tags/",{
+            	protocol: $scope.restProtocol,
+            	url: $scope.restURL,
+            },{update: { method: 'PUT' }});
+
+
+            $scope.tagsCall = tagsResource.get($scope.user, function(){
+            	$scope.temTags = $scope.tagsCall.results;
+
+			},function(error) {
+				$scope.message = error.data;
+			});
+
 
 
             $scope.tags = [];
+            $scope.addTagBank = function(tag) {
+                $scope.tags.push(tag);
+                $scope.user.tags.push(tag.name);
+            };
             $scope.onTagAdd = function (tag) {
-                $scope.user.tags.push(tag.name) 
+                $scope.user.tags.push(tag.name);
             };
             $scope.onDeleteTag = function (tag) {
             	var temp = $scope.user.tags.indexOf(tag.name);

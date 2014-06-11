@@ -9,7 +9,7 @@ from taggit.models import TaggedItem, Tag
 from rest_framework import viewsets, status, filters
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import generics
 
 from taggit.serializers import TagSerializer
@@ -30,6 +30,6 @@ def tagged_object_list(request, slug, queryset, **kwargs):
 
 
 class TagViewSet(generics.ListAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     model = Tag
     serializer = TagSerializer

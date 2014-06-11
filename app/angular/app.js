@@ -144,12 +144,14 @@ define(['angularAMD',
                     url: $scope.restURL
                 }, {update: { method: 'PUT' }});
 
-                (function tick() {
-                    $scope.notifications = notificationsResource.get(function () {
-                        $scope.notificationsCount = $scope.notifications.count;
-                        $timeout(tick, 30000);
-                    });
-                })();
+                if ($scope.token !== null) {
+                    (function tick() {
+                        $scope.notifications = notificationsResource.get(function () {
+                            $scope.notificationsCount = $scope.notifications.count;
+                            $timeout(tick, 30000);
+                        });
+                    })();
+                };
 
                 if ($scope.token) {
                     $scope.templateNav = {
