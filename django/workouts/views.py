@@ -13,6 +13,7 @@ from workouts.models import Video, VideoComment
 from workouts.filters import DifficultyFilterBackend, WorkoutTagFilterBackend
 from workouts.serializers import TitleSerializer, VideoSerializer, VideoCommentSerializer, CommentSerializer, VideoLikeSerializer
 from workouts.permissions import IsAdminOrSelf
+from notifications import notify
 
 
 class VideoListView(generics.ListAPIView):
@@ -43,6 +44,10 @@ class CommentListView(generics.ListCreateAPIView):
     def get_queryset(self):
         video_id = self.kwargs['pk']        
         return VideoComment.objects.filter(video=video_id)
+
+    def post_save(self, obj, created=False):
+        if User.objects.filter(id = obj.video.user_id).exists():
+            notify.send(obj.user, recipient=obj.video.user, verb=u'commented on your video!')
 
 class CommentObjView(generics.RetrieveUpdateDestroyAPIView):
     model = VideoComment

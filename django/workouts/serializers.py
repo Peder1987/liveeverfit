@@ -3,8 +3,11 @@ from rest_framework import serializers
 from workouts.models import Video, VideoComment
 from django.db.models import F
 from django.contrib.auth import get_user_model
-
+from notifications import notify
 User = get_user_model()
+
+
+
 # for typeahead on workouts search
 class TitleSerializer(serializers.ModelSerializer):
     def to_native(self, obj):
@@ -40,15 +43,14 @@ class VideoLikeSerializer(serializers.ModelSerializer):
     def to_native(self, value):
         obj = super(VideoLikeSerializer, self).to_native(value)
         user = User.objects.get(id=obj['user_pk'])
-        # best quick solution for M2M, django doesn't provide
-        # a clean solution.
         if value.likes_user.filter(pk=user.pk).exists():
             obj['user_likes'] = False
             value.likes_user.remove(user)
         else:
             obj['user_likes'] = True
             value.likes_user.add(user)
-
+            if User.objects.filter(id = value.user_id).exists():
+                notify.send(user, recipient=value.user, verb=u'liked your video!')
         return obj
 
     def validate_user_email(self, attrs, source):
@@ -56,7 +58,6 @@ class VideoLikeSerializer(serializers.ModelSerializer):
             pass
         else:
             raise serializers.ValidationError("User must exist to like content")
-
         return attrs
 
 
