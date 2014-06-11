@@ -91,10 +91,19 @@
     </div>
     <br>
     <div class="row">
-        <button type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('choice')">
+        <button ng-show="urlTier == null" type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('choice')">
             Back
         </button>
-        <button type="submit" class="btn btn-primary col-xs-offset-9"
+        <button ng-show="urlTier == null" type="submit" class="btn btn-primary col-xs-offset-9"
+                ng-click="setCurrentStepForm('experience', professionalForm.$valid)">
+            Next
+        </button>
+
+
+        <button ng-show="urlTier != null" type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('registration')">
+            Back
+        </button>
+        <button ng-show="urlTier != null" type="submit" class="btn btn-primary col-xs-offset-9"
                 ng-click="setCurrentStepForm('experience', professionalForm.$valid)">
             Next
         </button>
