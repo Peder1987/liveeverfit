@@ -10,10 +10,15 @@
                     Interests:
                 </label>
 
-                 <div class="col-sm-10">
+                 <div class="col-sm-10 form-space">
                     <tags-input ng-model="tags" on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)" display-property="name">
                     </tags-input>
                 </div>
+
+                <div ng-repeat="tag in temTags" ng-click="addTagBank(tag)" class="tag tag-blue tag-click ng-scope ng-binding">
+                    {{tag.name}}
+                </div>
+
             </div>
            
         </div>
