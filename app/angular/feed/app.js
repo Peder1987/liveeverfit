@@ -35,10 +35,11 @@ define(['app', 'masonry'], function (app, Masonry) {
                                     id: entry.id,
                                     user_id: $scope.user_id
                                 }, function (data) {
-                                    entry.user_likes = data.user_likes;
                                     if (data.user_likes == 'true') {
+                                        entry.user_likes = true;
                                         entry.likes += 1;
                                     } else {
+                                         entry.user_likes = false;
                                         entry.likes -= 1;
                                     }
                                     ;
