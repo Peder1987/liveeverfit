@@ -305,9 +305,6 @@
         {{tag.name}}
     </span>
 </div>
-<div class="post-social">
-
-</div>
 <div class="post-social pull-right">
     <span class="dropdown push" title="Social Sharing">
         <a class="dropdown-toggle" href>
@@ -332,10 +329,10 @@
         {{ entry.likes }}
             <span style="color: rgba(125,135,144,0.2)">|</span>
         <a href ng-if="!entry.user_likes" title="Like">
-            <i class="fa fa-thumbs-o-up fa-lg"></i>
+            <i class="fa fa-thumbs-up fa-lg"></i>
         </a>
         <a href ng-if="entry.user_likes" title="Unlike">
-            <i class="fa fa-thumbs-o-down fa-lg"></i>
+            <i class="fa fa-thumbs-down fa-lg"></i>
         </a>
     </span>
     <span ng-click="entryShare(entry)" title="Number of shares">

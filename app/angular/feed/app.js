@@ -161,7 +161,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                     $scope.entryInputText = '';
                                                     $scope.runMasonry();
                                                     delete $scope.uploadImg;
-                                                    delete scope.entryImgSrc;
+                                                    delete $scope.entryImgSrc;
                                                     $scope.percent = scope.percent = false;
                                                 }).error(function (data) {
                                                     $scope.percent = false;
@@ -398,6 +398,9 @@ define(['app', 'masonry'], function (app, Masonry) {
                                         },
                                         feedPhotoList: function() {
                                             return $scope.feedPhotoList;
+                                        },
+                                        getTrustedHtml: function() {
+                                            return $scope.getTrustedHtml
                                         }
                                     }
                                 });
@@ -431,39 +434,33 @@ define(['app', 'masonry'], function (app, Masonry) {
                 }
             }
         }]);
-    var lightBoxController = function ($scope, $modalInstance, selected, feedPhotoList) {
-        $scope.path = "img";
-        $scope.tileWidth = 150;
-        $scope.tileHeight = 150;
+    var lightBoxController = function ($scope, $modalInstance, selected, feedPhotoList, getTrustedHtml) {
         $scope.images = feedPhotoList;
         $scope.selectedImg = selected;
+        $scope.getTrustedHtml = getTrustedHtml;
         $scope.displayImage = function (img) {
             $scope.selected = $scope.images.indexOf(img);
             $scope.selectedImg = img;
         };
-
         $scope.source = function (img) {
-            console.log(img)
-            return '/media/' + img[$scope.path];
+            return '/media/' + img['img'];
         };
-
         $scope.hasPrev = function () {
             return ($scope.selected !== 0);
         };
         $scope.hasNext = function () {
             return ($scope.selected < $scope.images.length - 1);
         };
-
         $scope.next = function () {
             $scope.selected = $scope.selected + 1;
             $scope.selectedImg = $scope.images[$scope.selected];
         };
-
         $scope.prev = function () {
             $scope.selected = $scope.selected - 1;
             $scope.selectedImg = $scope.images[$scope.selected];
         };
-        $scope.displayImage(selected)
+        // Init lightbox
+        $scope.displayImage(selected);
     };
     return app;
 })

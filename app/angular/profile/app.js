@@ -90,7 +90,6 @@ define(['app', 'feed', 'calendar'], function (app) {
                             angular.extend($scope.profile_user.referrals[key], {
                                 click: function () {
                                     $state.go('profile.view', {view: $scope.profile_user.referrals[key].id});
-                                    $scope.feedActive = true;
                                 }
                             });
                         });

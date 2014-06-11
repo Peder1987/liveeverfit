@@ -36,12 +36,14 @@
         font-size: 13px;
         padding: 13px 0;
         .blog {
-          img {max-width: 100%;}
+          img {
+            max-width: 100%;
+          }
         }
 
         .blog span {
-          font-size:2em;
-          font-weight:100;
+          font-size: 2em;
+          font-weight: 100;
         }
         .photo, .video {
           > div {
@@ -56,17 +58,16 @@
         }
       }
       .post-social {
-        color:@brand-primary;
+        color: @brand-primary;
 
-        a{
+        a {
           text-decoration: none;
 
         }
 
-        .push{
+        .push {
           padding-right: 10px;
         }
-
 
       }
 
@@ -180,26 +181,95 @@
   }
 }
 
-.mention_name{
-  font-size:12px;
+.mention_name {
+  font-size: 12px;
 }
-.mention_username{
-  font-size:12px;
-  color:#999;
+
+.mention_username {
+  font-size: 12px;
+  color: #999;
 }
-.mention_image{
+
+.mention_image {
   float: left;
-  margin-right: 5px!important;
+  margin-right: 5px !important;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
   width: 20px;
   height: 20px;
 }
-.active .mention_username{
-  color:#fff;
+
+.active .mention_username {
+  color: #fff;
 }
 
-[window-class="lightbox"] {
-  color: #000;
+.modal[window-class=lightbox] {
+  .modal-dialog {
+    width: 960px;
+    height: 650px;
+    box-shadow: 0px 5px 29px 0px rgba(0, 0, 0, 0.75);
+    .modal-content {
+      border-radius: 0;
+      .modal-body {
+        padding: 0;
+        position: relative;
+        .img-container {
+          position: relative;
+          text-align: center;
+          height: 100%;
+          width: 100%;
+          img {
+            max-width: 100%;
+            max-height: 100%;
+            cursor: pointer;
+          }
+          .fa {
+            position: absolute;
+            top: 50%;
+            margin-top: -5px;
+            color: @ever-blue;
+            cursor: pointer;
+          }
+          .fa-chevron-left {
+            left: 8px;
+          }
+          .fa-chevron-right {
+            //right: 308px;
+            right: 8px;
+          }
+
+        }
+        .side-bar {
+          position: absolute;
+          right: 0px;
+          width: 300px;
+          height: 100%;
+          top: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          padding: 13px;
+          .media {
+            margin-bottom: 13px;
+          }
+        }
+      }
+      .lightbox-tiles {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.5);
+        width: 1000px;
+        left: 50%;
+        margin-left: -500px;
+        padding: 13px;
+        bottom: -144px;
+        overflow-y: scroll;
+        img {
+          max-width: 89px;
+          max-height: 89px;
+          padding-right: 13px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
 }
