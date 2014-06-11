@@ -83,6 +83,7 @@ def register(request):
             pro_ref = pro.professional
             user.relationships.add(pro_ref)
             notify.send(user, recipient=pro_ref, verb=u'is following you')
+            notify.send(pro_ref, recipient=user, verb=u'is following you')
         try:
             city = temp_address['city']
             city = str(city)
