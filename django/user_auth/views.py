@@ -83,6 +83,7 @@ def register(request):
             pro_ref = pro.professional
             user.relationships.add(pro_ref)
             notify.send(user, recipient=pro_ref, verb=u'is following you')
+            notify.send(pro_ref, recipient=user, verb=u'is following you')
         try:
             city = temp_address['city']
             city = str(city)
@@ -305,7 +306,7 @@ def forgot_password(request):
         if check_password(temp_password, user.password):
             subject = 'Password Reset'
             message = 'Change you password at http://dev.liveeverfit.com/#/reset-password/' + temp_password + '/' + user.email
-            send_mail(subject, message, 'admin@test.com', [email])
+            send_mail(subject, message, 'info@liveeverfit.com', [email])
             return Response({'details':['Email sent']}, status=status.HTTP_200_OK)
         else:
             return Response({'email':['Email did not send']}, status=status.HTTP_400_BAD_REQUEST)
