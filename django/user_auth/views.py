@@ -7,7 +7,6 @@ from django.utils import timezone
 from django.utils.timezone import utc, now
 from django.utils.timezone import utc
 from django.conf import settings
-from django.core.mail import send_mail
 from django.contrib.auth.models import check_password
 #Python Libs
 import json
