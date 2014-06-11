@@ -414,6 +414,9 @@ define(['app', 'masonry'], function (app, Masonry) {
                                         if (value.type == 'photo') {
                                             $scope.feedPhotoList.push(value);
                                         }
+                                        else if (value.type == 'shared' && value.shared_entry.type == 'photo') {
+                                            $scope.feedPhotoList.push(value.shared_entry);
+                                        }
                                     });
                                 }, $scope.checkTokenError);
                             }
