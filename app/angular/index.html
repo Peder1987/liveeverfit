@@ -2,7 +2,9 @@
 <head>
     <script>
         if (window.location.hash.indexOf('?referral=') > -1 && !localStorage['ls.user_id']) {
-            localStorage['ls.referral'] = location.hash.replace("#/id?referral=", "");
+            var hash = location.hash +'';
+            hash = hash.slice(hash.indexOf("?referral=") + 10);
+            localStorage['ls.referral'] = hash;
             window.location = '/landing/';
         }
         if (window.location.href == "http://dev.liveeverfit.com/" && !localStorage['ls.Authorization']) window.location = '/landing/';

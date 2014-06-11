@@ -9,7 +9,7 @@
                 <div ng-input
                      class="input"
                      role="textbox"
-                     contenteditable
+                     contenteditable="true"
                      ng-model="$parent.entryInputText"></div>
 
                 <div class="photo" ng-if="entryInputType=='photo'">
@@ -194,7 +194,7 @@
         <span ng-bind-html="getTrustedHtml(entry.text, false)"></span>
 
         <div>
-            <img ng-src="/media/{{entry.img}}">
+            <img ng-click="openLightbox(entry)" ng-src="/media/{{entry.img}}">
         </div>
     </div>
     <div class="video" ng-switch-when="video">

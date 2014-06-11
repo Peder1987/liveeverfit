@@ -1,8 +1,8 @@
 'use strict';
 
 define(['app', 'masonry'], function (app, Masonry) {
-    app.register.directive('entryFeed', ['$resource', '$upload', '$sce', 'rest', 'localStorageService', 'fileReader', 'tokenError',
-        function ($resource, $upload, $sce, rest, localStorageService, fileReader, tokenError) {
+    app.register.directive('entryFeed', ['$modal', '$resource', '$upload', '$sce', 'rest', 'localStorageService', 'fileReader', 'tokenError',
+        function ($modal, $resource, $upload, $sce, rest, localStorageService, fileReader, tokenError) {
             return {
                 templateUrl: 'feed/index.html',
                 require: '?ngModel',
@@ -245,7 +245,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                     }, 300);
                                 }
                             },
-                            socialShareEntry: function(entry, where) {
+                            socialShareEntry: function (entry, where) {
                                 // Isaac - Social Sharing Link Here!!!
                                 console.log(where, entry)
                             },
@@ -386,12 +386,32 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 protocol: $scope.restProtocol,
                                 url: $scope.restURL
                             }),
+                            feedPhotoList: [],
+                            openLightbox: function(entry) {
+                                $modal.open({
+                                    templateUrl: 'feed/lightbox.html',
+                                    controller: lightBoxController,
+                                    windowClass: 'lightbox',
+                                    resolve: {
+                                        selected: function() {
+                                            return entry
+                                        },
+                                        feedPhotoList: function() {
+                                            return $scope.feedPhotoList;
+                                        }
+                                    }
+                                });
+                            },
                             init: function () {
                                 $scope.feed_id = ngModel.$viewValue.id;
                                 $scope.feedCollection.get({id: $scope.feed_id, filter: ngModel.$viewValue.filter}, function (data) {
-
                                     $scope.feedList = data.results;
                                     $scope.runMasonry();
+                                    angular.forEach(data.results, function (value, key) {
+                                        if (value.type == 'photo') {
+                                            $scope.feedPhotoList.push(value);
+                                        }
+                                    });
                                 }, $scope.checkTokenError);
                             }
                         }
@@ -410,8 +430,40 @@ define(['app', 'masonry'], function (app, Masonry) {
                     }
                 }
             }
-        }])
-    ;
+        }]);
+    var lightBoxController = function ($scope, $modalInstance, selected, feedPhotoList) {
+        $scope.path = "img";
+        $scope.tileWidth = 150;
+        $scope.tileHeight = 150;
+        $scope.images = feedPhotoList;
+        $scope.selectedImg = selected;
+        $scope.displayImage = function (img) {
+            $scope.selected = $scope.images.indexOf(img);
+            $scope.selectedImg = img;
+        };
+
+        $scope.source = function (img) {
+            console.log(img)
+            return '/media/' + img[$scope.path];
+        };
+
+        $scope.hasPrev = function () {
+            return ($scope.selected !== 0);
+        };
+        $scope.hasNext = function () {
+            return ($scope.selected < $scope.images.length - 1);
+        };
+
+        $scope.next = function () {
+            $scope.selected = $scope.selected + 1;
+            $scope.selectedImg = $scope.images[$scope.selected];
+        };
+
+        $scope.prev = function () {
+            $scope.selected = $scope.selected - 1;
+            $scope.selectedImg = $scope.images[$scope.selected];
+        };
+        $scope.displayImage(selected)
+    };
     return app;
 })
-;
