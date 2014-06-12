@@ -84,7 +84,11 @@ define(['app'], function(app) {
             	protocol: $scope.restProtocol,
             	url: $scope.restURL,
             },{update: { method: 'PUT' }});
-
+            var connectResource =  $resource(":protocol://:url/users/connect/:id/", {
+                protocol: $scope.restProtocol,
+                url: $scope.restURL,
+                id: "@id"
+            },{update: { method: 'PUT' }});
 
 
             $scope.getCurrentStep = function() {
@@ -174,8 +178,13 @@ define(['app'], function(app) {
 				$scope.userUpdate = userResource.save($scope.user, function() {
 					localStorageService.add('user_type', $scope.userUpdate.details);
 					$scope.profile_user = localStorageService.get('user_id');
+					$scope.pro_user = localStorageService.get('profesional');
 					$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
-						window.location = "/";
+						$scope.connect = connectResource.update({id: $scope.profile_user, professional_id: $scope.pro_user}, 
+							function (data) {
+								localStorageService.remove('profesional');
+								window.location = "/";
+                        });
 					});
 				},function(error) {
 					$scope.message = error.data;

@@ -231,11 +231,9 @@ class ConnectUserSerializer(serializers.ModelSerializer):
         fields = ('id', "professional_id",)
 
     def to_native(self, value):
+        print 'working'
         obj = super(ConnectUserSerializer, self).to_native(value)
         print value.connected_on
-        
-
-        
         value.connection = Professional.objects.get(pk=obj['professional_id'])
         value.connected_on = now()
         obj['user_connected'] = True
