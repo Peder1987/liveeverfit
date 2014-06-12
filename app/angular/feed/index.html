@@ -1,7 +1,8 @@
 <div class="newsFeed">
 <div class="row">
 <div ng-if="( !feed_id || feed_id == user_id) && filter != '/client' && (!filter || filter.indexOf('/entry') == -1)"
-     class="item col-xs-12 col-lg-4">
+     ng-class="{'col-md-6 col-lg-4': (entryInputType != 'blog')}"
+     class="item col-xs-12">
     <div class="post-outer ">
         <div class="entry-input">
             <form class="input-box {{entryInputType}}">
