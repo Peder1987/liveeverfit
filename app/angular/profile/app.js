@@ -54,6 +54,11 @@ define(['app', 'feed', 'calendar'], function (app) {
                     url: $scope.restURL,
                     id: "@id"
                 }, {update: { method: 'PUT' }}),
+                blockResource: $resource(":protocol://:url/users/block/:id/", {
+                    protocol: $scope.restProtocol,
+                    url: $scope.restURL,
+                    id: "@id"
+                }, {update: { method: 'PUT' }}),
                 connectResource: $resource(":protocol://:url/users/connect/:id/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL,
@@ -63,6 +68,12 @@ define(['app', 'feed', 'calendar'], function (app) {
                     $scope.followResource.update({id: $scope.user_id, user_id: $scope.profile_user.id}, function (data) {
 
                         $scope.profile_user.user_follows = data.user_follows;
+                    });
+                },
+                blockToggle: function () {
+                    $scope.blockResource.update({id: $scope.user_id, user_id: $scope.profile_user.id}, function (data) {
+
+                        $scope.profile_user.user_blocks = data.user_blocks;
                     });
                 },
                 connect: function () {
