@@ -125,6 +125,8 @@ def cancel(request):
                 return Response({'error': ['Already a canceled']}, status=status.HTTP_400_BAD_REQUEST)
             user.tier = 1
             user.save()
+            user.connection = None
+            user.connected_on = None
             user.stripe_cancel_subscription()
 
             email = user.email

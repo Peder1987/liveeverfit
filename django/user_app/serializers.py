@@ -1,4 +1,5 @@
 from django import forms
+from django.core.mail import send_mail
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth import get_user_model
 from django.utils.timezone import now
@@ -6,6 +7,7 @@ User = get_user_model()
 from rest_framework import serializers
 from user_app.models import Professional, UniqueLocation, Certification, Address
 from datetime import  timedelta
+from notifications import notify
 
 # This importation is implemented due to 
 # django and MTI (Multi Table inheritance)
@@ -231,14 +233,17 @@ class ConnectUserSerializer(serializers.ModelSerializer):
         fields = ('id', "professional_id",)
 
     def to_native(self, value):
-        print 'working'
         obj = super(ConnectUserSerializer, self).to_native(value)
-        print value.connected_on
-        value.connection = Professional.objects.get(pk=obj['professional_id'])
+        value.connection = Professional.objects.get(pk=obj.get('professional_id'))
         value.connected_on = now()
         obj['user_connected'] = True
         value.save()
-    
+        notify.send(value, recipient=value.connection, verb=u'has connected to you!')
+        notify.send(value.connection, recipient=value, verb=u'connected!')
+
+        subject = 'Connected To New Trainer'
+        message = 'Waiting on Templates'
+        send_mail(subject, message, value.connection.email, [value.email])
         return obj
 
     def validate_professional_id(self, attrs, source):

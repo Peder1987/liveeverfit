@@ -180,11 +180,16 @@ define(['app'], function(app) {
 					$scope.profile_user = localStorageService.get('user_id');
 					$scope.pro_user = localStorageService.get('profesional');
 					$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
-						$scope.connect = connectResource.update({id: $scope.profile_user, professional_id: $scope.pro_user}, 
-							function (data) {
-								localStorageService.remove('profesional');
-								window.location = "/";
-                        });
+						if($scope.pro_user != null){
+							$scope.connect = connectResource.update({id: $scope.profile_user, professional_id: $scope.pro_user}, 
+								function (data) {
+									localStorageService.remove('profesional');
+									window.location = "/";
+	                        });
+						}
+						else{
+							window.location = "/";
+						}
 					});
 				},function(error) {
 					$scope.message = error.data;
@@ -199,6 +204,7 @@ define(['app'], function(app) {
 					localStorageService.add('user_type', $scope.proUpdate.details);
 					$scope.profile_user = localStorageService.get('user_id');
 					$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
+						localStorageService.remove('profesional');
 						window.location = "/";
 					});
 				},function(error) {
