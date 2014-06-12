@@ -108,7 +108,7 @@ define(['angularAMD',
 
         app.service('rest', ['$rootScope', function ($rootScope) {
             $rootScope.restProtocol = "http";
-            $rootScope.restURL = "localhost:8000";
+            $rootScope.restURL = "192.168.1.100:8000";
         }]);
         app.service('restricted', ['$rootScope', 'localStorageService', function ($rootScope, localStorageService) {
             $rootScope.restricted = function () {
