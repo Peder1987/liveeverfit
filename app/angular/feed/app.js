@@ -107,6 +107,9 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 $event.stopPropagation();
                                 this.untilDatePickerOpened = !this.untilDatePickerOpened;
                             },
+                            entryAffiliate: function () {
+
+                            },
                             entryMention: function ($event) {
                                 $scope.entryInputText = $scope.entryInputText.concat('@');
                                 setTimeout(function () {
