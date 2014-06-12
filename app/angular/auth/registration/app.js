@@ -8,7 +8,12 @@ define(['app'], function(app) {
     }]);
 
 
-	app.register.controller('registrationController', ["localStorageService",'$stateParams',"$resource","$http","$scope","rest",
+    app.register.service('specialtyTags', function ($q, $rootScope) {
+        $rootScope.q = $q
+    });
+
+
+	app.register.controller('registrationController', ["localStorageService",'$stateParams',"$resource","$http","$scope","rest","specialtyTags",
 		function(localStorageService,$stateParams,$resource,$http,$scope) {
 
 			Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
@@ -19,12 +24,12 @@ define(['app'], function(app) {
 			$scope.temTags = [];
 
     		$scope.user = {
-				first_name: '',
-				last_name: '',
-				email: '',
-				password: '',
-				password2: '',
-				gender: '',
+				first_name: 'miguel',
+				last_name: 'vazquez',
+				email: 'migueldv90@yahoo.com',
+				password: '123456789',
+				password2: '123456789',
+				gender: 'M',
 				referred_by: localStorageService.get('referral'),
 				tags: [],
 				tier: 1
@@ -109,6 +114,11 @@ define(['app'], function(app) {
             $scope.onDeleteTag = function (tag) {
             	var temp = $scope.user.tags.indexOf(tag.name);
             	$scope.user.tags.splice(temp, 1);
+            };
+            $scope.loadSpecialty = function () {
+                var deferred = $scope.q.defer();
+                deferred.resolve($scope.temTags);
+                return deferred.promise;
             };
 			$scope.getCurrentStep = function() {
 				return $scope.step;
