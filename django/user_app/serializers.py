@@ -164,7 +164,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         else:
             obj['user_connected'] = False
 
-        if user.connected_on and ((now()  - user.connected_on ) < timedelta(days=30)):
+        if (user.connected_on and ((now()  - user.connected_on ) < timedelta(days=30))) or user in value.relationships.blocking():
             obj['user_can_connect'] = False
         else:
             obj['user_can_connect'] = True
@@ -282,10 +282,16 @@ class ConnectUserSerializer(serializers.ModelSerializer):
         else:
             raise serializers.ValidationError("Must be a Professional")
 
-        if not Professional.objects.get(pk=attrs['professional_id']).is_accepting:
-            raise serializers.ValidationError("Professional is currently not accepting")    
+        pro = Professional.objects.get(pk=attrs['professional_id'])
+        if not pro.is_accepting:
+            raise serializers.ValidationError("Professional is currently not accepting")
+
+
 
         user = self.context['request'].user
+        if user in pro.relationships.blocking():
+            raise serializers.ValidationError("Professional is currently blocking")
+
         if user.connected_on and ((now()  - user.connected_on ) < timedelta(days=30)):
             raise serializers.ValidationError("Cannot change professional for 30 days")
         return attrs
