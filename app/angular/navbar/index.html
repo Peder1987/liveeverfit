@@ -23,20 +23,20 @@
                 </li>
                 <li>
                     <a ui-sref-active="active"
-                       ui-sref="groups">
-                        GROUPS
+                       ui-sref="workouts">
+                        WORKOUTS
                     </a>
                 </li>
                 <li class="dropdown">
                     <a ui-sref-active="active"
-                       ui-sref="workouts" class="dropdown-toggle">
-                        SHOP <b class="caret"></b>
+                       class="dropdown-toggle">
+                        GROUPS <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li>
+                        <li ui-sref="groups({group: 'fitness'})">
                             <a>fitness</a>
                         </li>
-                        <li>
+                        <li ui-sref="groups({group: 'crossfit'})">
                             <a>crossfit</a>
                         </li>
                     </ul>
