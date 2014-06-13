@@ -118,11 +118,8 @@
                 </div>
                 <div class="clearfix">
                     <button ng-click="entryMention()" type="button" class="btn btn-primary btn-sm pull-left">mention</button>
-                    <span  class="dropdown push">
-                    
-                        <a class="dropdown-toggle" href>
-                            <button type="button" class="btn btn-primary btn-sm pull-left">affiliate</button>
-                        </a>
+                    <span  class="dropdown pull-left">
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle">affiliate</button>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href ng-click="entryAffiliate('facebook')">
@@ -135,7 +132,6 @@
                                     <i class="fa fa-twitter"></i> twitter
                                 </a>
                             </li>
-
                         </ul>
                     </span>
                     <button ng-show="entryInputType=='photo'" type="button" ng-click="entryTransformation()" class="btn btn-primary btn-sm pull-left">transformation</button>
