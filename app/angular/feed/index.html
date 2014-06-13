@@ -109,7 +109,7 @@
                 <div class="blog" ng-show="entryInputType=='blog'" rich-text-editor
                      ng-model="$parent.entryBlogBody"></div>
                 <div class="form-space">
-                    <tags-input type="text" class="tags-input"
+                    <tags-input type="text" add-from-autocomplete-only="true" class="tags-input"
                                 placeholder="Example: Crossfit, Nutrition"
                                 ng-model="entryTags" display-property="name">
                         <auto-complete source="loadSpecialty($query)"
