@@ -175,13 +175,26 @@ class GroupEntryView(generics.ListAPIView):
 	permission_classes = (IsAuthenticated,)
 	serializer_class = EntrySerializer
 	def get_queryset(self):
-		print 'dib'
-
 		type = self.kwargs.get('type', None)
-		if type:
-			blocking = self.request.user.relationships.blocking()
-			blockers = self.request.user.relationships.blockers()
-			return Entry.objects.filter(tags__name=type).exclude(user__in=blocking).exclude(user__in=blockers)
+		tag_name = self.kwargs.get('tag_name', None)
+		blocking = self.request.user.relationships.blocking()
+		blockers = self.request.user.relationships.blockers()
+		if tag_name and not type:
+			return Entry.objects.filter(tags__name=tag_name).exclude(user__in=blocking).exclude(user__in=blockers).select_subclasses()
+		elif tag_name and type:
+			if type == 'text':
+				return TextEntry.objects.filter(tags__name=tag_name).exclude(user__in=blocking).exclude(user__in=blockers)
+			elif type == 'photo':
+				return PhotoEntry.objects.filter(tags__name=tag_name).exclude(user__in=blocking).exclude(user__in=blockers)
+			elif type == 'video':
+				return VideoEntry.objects.filter(tags__name=tag_name).exclude(user__in=blocking).exclude(user__in=blockers)
+			elif type == 'event':
+				return Event.objects.filter(tags__name=tag_name).exclude(user__in=blocking).exclude(user__in=blockers)
+			elif type == 'blog':
+				return BlogEntry.objects.filter(tags__name=tag_name).exclude(user__in=blocking).exclude(user__in=blockers)
+			elif type == 'shared':
+				return SharedEntry.objects.filter(tags__name=tag_name).exclude(user__in=blocking).exclude(user__in=blockers)
+			return []
 		else:
 			return []
 
