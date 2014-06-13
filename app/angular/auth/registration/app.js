@@ -24,12 +24,12 @@ define(['app'], function(app) {
 			$scope.temTags = [];
 
     		$scope.user = {
-				first_name: 'miguel',
-				last_name: 'vazquez',
-				email: 'migueldv90@yahoo.com',
-				password: '123456789',
-				password2: '123456789',
-				gender: 'M',
+				first_name: '',
+				last_name: '',
+				email: '',
+				password: '',
+				password2: '',
+				gender: '',
 				referred_by: localStorageService.get('referral'),
 				tags: [],
 				tier: 1
