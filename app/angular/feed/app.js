@@ -175,19 +175,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                     data: {
                                                         user: $scope.user_id,
                                                         text: $scope.entryInputText,
-                                                        tags: $scope.entryTags
-                                                    },
-                                                    formDataAppender: function(fd, key, val) {
-                                                        
-                                                        if (angular.isArray(val)) {
-                                                            console.log(val)
-                                                            console.log(fd)
-                                                            angular.forEach(val, function(v) {
-                                                                fd.append(key, v);
-                                                            });
-                                                        } else {
-                                                            fd.append(key, val);
-                                                        }
+                                                        tags: JSON.stringify($scope.entryTags)
                                                     },
                                                     file: $scope.uploadImg,
                                                     fileFormDataName: 'img'
