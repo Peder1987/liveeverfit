@@ -1,7 +1,7 @@
 'use strict';
 
 define(['app', 'masonry'], function (app, Masonry) {
-    app.register.directive('entryFeed', ['$modal', '$resource', '$upload', '$sce', '$location', '$window',  'rest', 'localStorageService', 'fileReader', 'tokenError',
+    app.register.directive('entryFeed', ['$modal', '$resource', '$upload', '$sce', '$location', '$window',  'rest', 'localStorageService', 'fileReader', 'tokenError','specialtyTags',
         function ($modal, $resource, $upload, $sce, $location,  $window, rest, localStorageService, fileReader, tokenError) {
             return {
                 templateUrl: 'feed/index.html',
@@ -489,5 +489,11 @@ define(['app', 'masonry'], function (app, Masonry) {
         // Init lightbox
         $scope.displayImage(selected);
     };
+
+
+    app.register.service('specialtyTags', function ($q, $rootScope) {
+        $rootScope.q = $q
+    });
+
     return app;
 })
