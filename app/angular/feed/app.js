@@ -110,6 +110,9 @@ define(['app', 'masonry'], function (app, Masonry) {
                             entryAffiliate: function () {
 
                             },
+                            entryTransformation: function() {
+                                $scope.entryTags.push({name: 'transformation'});
+                            },
                             entryMention: function ($event) {
                                 $scope.entryInputText = $scope.entryInputText.concat('@');
                                 setTimeout(function () {

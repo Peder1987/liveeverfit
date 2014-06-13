@@ -45,7 +45,7 @@
                         <!-- /.row -->
 
                         <div class="specialties">
-                            <h3 class="ef-header">specialties</h3>
+                            <h3 class="ef-header" style="margin: 8px 0;">specialties</h3>
                             <span class="tag tag-blue tag-click" ng-repeat="tag in profile_user.tags">{{tag}}</span>
                         </div>
                         <!-- /.specialties-->
@@ -137,6 +137,7 @@
                     </div>
                 </div>
             </tab>
+            <tab heading="transformation" select="filter('transformation')"></tab>
             <tab heading="texts" select="filter('text')"></tab>
             <tab heading="photos" select="filter('photo')"></tab>
             <tab heading="videos" select="filter('video')"></tab>

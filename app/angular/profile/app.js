@@ -24,6 +24,14 @@ define(['app', 'feed', 'calendar'], function (app) {
                             show: false
                         });
                     }
+                    // IDK if this is neaded or if we can filter it in the backend by type...
+//                    else if (type == 'transformation') {
+//                        $scope.feed = {
+//                            id: $scope.profile_user.id,
+//                            filter: '/group/transformation',
+//                            show: true
+//                        };
+//                    }
                     else {
                         $scope.feed = {
                             id: $scope.profile_user.id,
