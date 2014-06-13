@@ -8,6 +8,8 @@ from rest_framework import serializers
 from user_app.models import Professional, UniqueLocation, Certification, Address
 from datetime import  timedelta
 from notifications import notify
+from relationships.models import RelationshipStatus
+Block = RelationshipStatus.objects.get(name='Blocking')
 
 # This importation is implemented due to 
 # django and MTI (Multi Table inheritance)
@@ -162,7 +164,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         else:
             obj['user_connected'] = False
 
-        if user.connected_on and ((now()  - user.connected_on ) < timedelta(days=30)):
+        if (user.connected_on and ((now()  - user.connected_on ) < timedelta(days=30))) or user in value.relationships.blocking():
             obj['user_can_connect'] = False
         else:
             obj['user_can_connect'] = True
@@ -172,6 +174,11 @@ class ProfileSerializer(serializers.ModelSerializer):
             obj['user_follows'] = True
         else:
             obj['user_follows'] = False
+
+        if value.relationships.blockers().filter(pk=user.pk).exists():
+            obj['user_blocks'] = True
+        else:
+            obj['user_blocks'] = False
 
         # If logged in user likes this user
         obj['user_likes'] = value.likes.filter(pk=user.pk).exists()
@@ -224,6 +231,29 @@ class FollowUserSerializer(serializers.ModelSerializer):
 
         return obj
 
+class BlockUserSerializer(serializers.ModelSerializer):
+    user_id = serializers.CharField(max_length=50)
+
+    class Meta:
+        model = User
+        fields = ('id', "user_id",)
+
+    def to_native(self, value):
+        obj = super(BlockUserSerializer, self).to_native(value)
+        user = User.objects.get(id=obj['user_id'])
+        
+        #print value.relationships.add(user)
+        print value.relationships.blocking()
+        if value.relationships.blocking().filter(pk=user.pk).exists():
+            obj['user_blocks'] = False
+            print 'unblocking'
+            value.relationships.remove(user, Block)
+        else:
+            print 'blocking'
+            obj['user_blocks'] = True
+            value.relationships.add(user, Block)
+
+        return obj
 
 class ConnectUserSerializer(serializers.ModelSerializer):
     professional_id = serializers.CharField(max_length=50)
@@ -252,10 +282,16 @@ class ConnectUserSerializer(serializers.ModelSerializer):
         else:
             raise serializers.ValidationError("Must be a Professional")
 
-        if not Professional.objects.get(pk=attrs['professional_id']).is_accepting:
-            raise serializers.ValidationError("Professional is currently not accepting")    
+        pro = Professional.objects.get(pk=attrs['professional_id'])
+        if not pro.is_accepting:
+            raise serializers.ValidationError("Professional is currently not accepting")
+
+
 
         user = self.context['request'].user
+        if user in pro.relationships.blocking():
+            raise serializers.ValidationError("Professional is currently blocking")
+
         if user.connected_on and ((now()  - user.connected_on ) < timedelta(days=30)):
             raise serializers.ValidationError("Cannot change professional for 30 days")
         return attrs

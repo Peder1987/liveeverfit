@@ -1,7 +1,8 @@
 <div class="newsFeed">
 <div class="row">
 <div ng-if="( !feed_id || feed_id == user_id) && filter != '/client' && (!filter || filter.indexOf('/entry') == -1)"
-     class="item col-xs-12 col-lg-4">
+     ng-class="{'col-md-6 col-lg-4': (entryInputType != 'blog')}"
+     class="item col-xs-12">
     <div class="post-outer ">
         <div class="entry-input">
             <form class="input-box {{entryInputType}}">
@@ -115,9 +116,12 @@
                                        min-length="1"></auto-complete>
                     </tags-input>
                 </div>
-                <button ng-click="entryMention()" class="btn btn-primary btn-sm pull-left">mention</button>
-                <button ng-click="entrySubmit()" class="btn btn-primary btn-sm pull-right">share</button>
-                <span class="clearfix"></span>
+                <div class="clearfix">
+                    <button ng-click="entryMention()" class="btn btn-primary btn-sm pull-left">mention</button>
+                    <button ng-click="entryAffiliate()" class="btn btn-primary btn-sm pull-left">affiliate</button>
+                    <button ng-show="entryInputType=='photo'" ng-click="entryTransformation()" class="btn btn-primary btn-sm pull-left">transformation</button>
+                    <button ng-click="entrySubmit()" class="btn btn-primary btn-sm pull-right">share</button>
+                </div>
             </form>
             <div class="row">
                 <div class="col-xs-offset-1 col-xs-2">
@@ -315,8 +319,8 @@
                 <a href ng-click="socialShareEntry(entry, 'facebook')">
                     <i class="fa fa-facebook"></i> facebook
                 </a>
-                <a href ng-click="socialShareEntry(entry, 'google')">
-                    <i class="fa fa-google-plus"></i> google +
+                <a href ng-click="socialShareEntry(entry, 'linkedin')">
+                    <i class="fa fa-linkedin"></i> linkedin
                 </a>
                 <a href ng-click="socialShareEntry(entry, 'twitter')">
                     <i class="fa fa-twitter"></i> twitter

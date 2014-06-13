@@ -1,14 +1,15 @@
 'use strict';
 
 define(['app', 'masonry'], function (app, Masonry) {
-    app.register.directive('entryFeed', ['$modal', '$resource', '$upload', '$sce', 'rest', 'localStorageService', 'fileReader', 'tokenError',
-        function ($modal, $resource, $upload, $sce, rest, localStorageService, fileReader, tokenError) {
+    app.register.directive('entryFeed', ['$modal', '$resource', '$upload', '$sce', '$location', '$window',  'rest', 'localStorageService', 'fileReader', 'tokenError',
+        function ($modal, $resource, $upload, $sce, $location,  $window, rest, localStorageService, fileReader, tokenError) {
             return {
                 templateUrl: 'feed/index.html',
                 require: '?ngModel',
                 link: function ($scope, element, attrs, ngModel) {
                     angular.extend($scope, {
                             user_id: localStorageService.get('user_id'),
+                            user_email: localStorageService.get('user_email'),
                             usrImg: localStorageService.get('user_img'),
                             entryInputPlaceHolder: $sce.trustAsHtml("Encourage, motivate, persevere, succeed..."),
                             entryInputText: "",
@@ -106,6 +107,12 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 $event.preventDefault();
                                 $event.stopPropagation();
                                 this.untilDatePickerOpened = !this.untilDatePickerOpened;
+                            },
+                            entryAffiliate: function () {
+
+                            },
+                            entryTransformation: function() {
+                                $scope.entryTags.push({name: 'transformation'});
                             },
                             entryMention: function ($event) {
                                 $scope.entryInputText = $scope.entryInputText.concat('@');
@@ -247,8 +254,24 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 }
                             },
                             socialShareEntry: function (entry, where) {
-                                // Isaac - Social Sharing Link Here!!!
-                                console.log(where, entry)
+                                var i,
+                                theLink,
+                                pageLink = encodeURIComponent($location.absUrl()+ "entry/" + entry.id + '?referral=' + $scope.user_email),
+                                pageTitleUri = encodeURIComponent('Join us at Liveeverfit!'),
+                                shareLinks = [];
+                                switch (where) {
+                                    case 'twitter':
+                                      theLink = 'http://twitter.com/intent/tweet?text=' + pageTitleUri + '%20' + pageLink;
+                                      break;
+                                    case 'facebook':
+                                      theLink = 'http://facebook.com/sharer.php?u=' + pageLink;
+                                      break;
+                                    case 'linkedin':
+                                      theLink = 'http://www.linkedin.com/shareArticle?mini=true&url=' + pageLink + '&title=' + pageTitleUri;
+                                      break;
+                                }
+                                $window.open(theLink);
+
                             },
                             entryShare: function (entry) {
                                 var id,
