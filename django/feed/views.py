@@ -30,11 +30,21 @@ class EntryListView(generics.ListAPIView):
 	def get_queryset(self):
 		pk = self.kwargs.get('pk', None)
 		if pk:
-			return Entry.objects.filter(user=pk).select_subclasses()
+			try: 
+				user = User.objects.get(pk=pk)
+				if self.request.user in user.relationships.blocking() or self.request.user in user.relationships.blockers():
+					raise # raise exception to return empty 
+				return Entry.objects.filter(user=pk).select_subclasses()
+			except:
+				#User id doesn't exist, return empty array
+				return Entry.objects.none()
 		else:
 			#RETURNS LIST OF USERS THAT USER IS FOLLOWING
 			following = self.request.user.relationships.following()
-			qs= Entry.objects.filter(user__in=following).select_subclasses()
+			blocking = self.request.user.relationships.blocking()
+			blockers = self.request.user.relationships.blockers()
+			qs= Entry.objects.filter(user__in=following).exclude(user__in=blocking).exclude(user__in=blockers).select_subclasses()
+									
 			qs2 = Entry.objects.filter(user=self.request.user)
 			return qs | qs2
 
@@ -52,7 +62,9 @@ class TextEntryViewSet(viewsets.ModelViewSet):
 
 	def get_queryset(self):
 		following = self.request.user.relationships.following()
-		qs= TextEntry.objects.filter(user__in=following)
+		blocking = self.request.user.relationships.blocking()
+		blockers = self.request.user.relationships.blockers()
+		qs= TextEntry.objects.filter(user__in=following).exclude(user__in=blocking).exclude(user__in=blockers)
 		qs2 = TextEntry.objects.filter(user=self.request.user)
 		return qs | qs2
 
@@ -64,7 +76,9 @@ class PhotoEntryViewSet(viewsets.ModelViewSet):
 
 	def get_queryset(self):
 		following = self.request.user.relationships.following()
-		qs= PhotoEntry.objects.filter(user__in=following)
+		blocking = self.request.user.relationships.blocking()
+		blockers = self.request.user.relationships.blockers()
+		qs= PhotoEntry.objects.filter(user__in=following).exclude(user__in=blocking).exclude(user__in=blockers)
 		qs2 = PhotoEntry.objects.filter(user=self.request.user)
 		return qs | qs2
 	
@@ -76,7 +90,9 @@ class VideoEntryViewSet(viewsets.ModelViewSet):
 
 	def get_queryset(self):
 		following = self.request.user.relationships.following()
-		qs= VideoEntry.objects.filter(user__in=following)
+		blocking = self.request.user.relationships.blocking()
+		blockers = self.request.user.relationships.blockers()
+		qs= VideoEntry.objects.filter(user__in=following).exclude(user__in=blocking).exclude(user__in=blockers)
 		qs2 = VideoEntry.objects.filter(user=self.request.user)
 		return qs | qs2
 	
@@ -88,7 +104,9 @@ class EventEntryViewSet(viewsets.ModelViewSet):
 
 	def get_queryset(self):
 		following = self.request.user.relationships.following()
-		qs= Event.objects.filter(user__in=following)
+		blocking = self.request.user.relationships.blocking()
+		blockers = self.request.user.relationships.blockers()
+		qs= Event.objects.filter(user__in=following).exclude(user__in=blocking).exclude(user__in=blockers)
 		qs2 = Event.objects.filter(user=self.request.user)
 		return qs | qs2
 
@@ -100,7 +118,9 @@ class BlogEntryViewSet(viewsets.ModelViewSet):
 
 	def get_queryset(self):
 		following = self.request.user.relationships.following()
-		qs= BlogEntry.objects.filter(user__in=following)
+		blocking = self.request.user.relationships.blocking()
+		blockers = self.request.user.relationships.blockers()
+		qs= BlogEntry.objects.filter(user__in=following).exclude(user__in=blocking).exclude(user__in=blockers)
 		qs2 = BlogEntry.objects.filter(user=self.request.user)
 		return qs | qs2
 
@@ -112,7 +132,9 @@ class SharedEntryViewSet(viewsets.ModelViewSet):
 
 	def get_queryset(self):
 		following = self.request.user.relationships.following()
-		qs= SharedEntry.objects.filter(user__in=following)
+		blocking = self.request.user.relationships.blocking()
+		blockers = self.request.user.relationships.blockers()
+		qs= SharedEntry.objects.filter(user__in=following).exclude(user__in=blocking).exclude(user__in=blockers)
 		qs2 = SharedEntry.objects.filter(user=self.request.user)
 		return qs | qs2
 
@@ -155,7 +177,10 @@ class ListSubEntryView(generics.ListAPIView):
 	def get_queryset(self):
 		pk = self.kwargs.get('pk', None)
 		type = self.kwargs.get('type', None)
-		if pk and type:
+		if User.objects.filter(pk=pk).exists() and type:
+			user = User.objects.get(pk=pk)
+			if self.request.user in user.relationships.blocking() or self.request.user in user.relationships.blockers():
+				return []
 			if type == 'text':
 				return TextEntry.objects.filter(user=pk).all()
 			elif type == 'photo':

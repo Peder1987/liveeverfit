@@ -27,7 +27,14 @@ class EventViewSet(generics.ListCreateAPIView):
     def get_queryset(self):
         pk = self.kwargs.get('pk', None)
         if pk:
-            return Event.objects.filter(user=pk)
+            try: 
+                user = User.objects.get(pk=pk)
+                if self.request.user in user.relationships.blocking() or self.request.user in user.relationships.blockers():
+                    raise # raise exception to return empty 
+                return Event.objects.filter(user=pk)
+            except:
+                #User id doesn't exist, return empty array
+                return Event.objects.none()
         else:
             return Event.objects.filter(user=self.request.user)
             
