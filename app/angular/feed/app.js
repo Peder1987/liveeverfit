@@ -1,7 +1,7 @@
 'use strict';
 
 define(['app', 'masonry'], function (app, Masonry) {
-    app.register.directive('entryFeed', ['$modal', '$resource', '$upload', '$sce', '$location', '$window',  'rest', 'localStorageService', 'fileReader', 'tokenError','specialtyTags',
+    app.register.directive('entryFeed', ['$modal', '$resource', '$upload', '$sce', '$location', '$window',  'rest', 'localStorageService', 'fileReader', 'tokenError',
         function ($modal, $resource, $upload, $sce, $location,  $window, rest, localStorageService, fileReader, tokenError) {
             return {
                 templateUrl: 'feed/index.html',
@@ -160,6 +160,18 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                         text: $scope.entryInputText,
                                                         tags: $scope.entryTags
                                                     },
+                                                    formDataAppender: function(fd, key, val) {
+                                                        
+                                                        if (angular.isArray(val)) {
+                                                            console.log(val)
+                                                            console.log(fd)
+                                                            angular.forEach(val, function(v) {
+                                                                fd.append(key, v);
+                                                            });
+                                                        } else {
+                                                            fd.append(key, val);
+                                                        }
+                                                    },
                                                     file: $scope.uploadImg,
                                                     fileFormDataName: 'img'
                                                 }).progress(function (evt) {
@@ -203,12 +215,13 @@ define(['app', 'masonry'], function (app, Masonry) {
                                         event: function () {
                                             if ($scope.entryEvent.start && $scope.entryEvent.end) {
                                                 this.entryCollection.save({
-                                                    text: $scope.entryInputText,
+                                                    title: $scope.entryInputText,
                                                     start: $scope.entryEvent.start,
                                                     end: $scope.entryEvent.end,
                                                     allDay: $scope.entryEvent.allDay,
                                                     user: $scope.user_id,
-                                                    tags: $scope.entryTags
+                                                    tags: $scope.entryTags,
+                                                    creator : $scope.user_id
                                                 }, function (data) {
                                                     $scope.feedList.unshift(data);
                                                     $scope.entryInputText = '';
@@ -489,11 +502,5 @@ define(['app', 'masonry'], function (app, Masonry) {
         // Init lightbox
         $scope.displayImage(selected);
     };
-
-
-    app.register.service('specialtyTags', function ($q, $rootScope) {
-        $rootScope.q = $q
-    });
-
     return app;
 })
