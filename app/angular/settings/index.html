@@ -103,7 +103,8 @@
                                         </span>
                                         <br >
                                         <div ng-show="editable.$visible">
-                                            <tags-input ng-model="profile_user.tags" on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)" display-property="name">
+                                            <tags-input class="tags-input" add-from-autocomplete-only="true" ng-model="profile_user.tags" on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)" display-property="name">
+                                            <auto-complete source="loadSpecialty($query)" min-length="1"></auto-complete>
                                             </tags-input>
                                         </div>
                                         <div ng-show="!editable.$visible" ng-repeat="tag in profile_user.tags" class="tag tag-blue tag-click ng-scope ng-binding">
