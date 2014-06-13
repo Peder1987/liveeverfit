@@ -98,8 +98,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <span class="bold">
-                                            <span class="fa fa-tags"></span> Fitness Categories:
+                                        <span ng-show="profile_user.type == 'professional'" class="bold">
+                                            <span class="fa fa-tags"></span> Specialties:
+                                        </span>
+                                        <span ng-show="profile_user.type != 'professional'"class="bold">
+                                            <span class="fa fa-tags"></span> Interests:
                                         </span>
                                         <br >
                                         <div ng-show="editable.$visible">
