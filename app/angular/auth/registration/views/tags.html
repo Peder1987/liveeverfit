@@ -14,12 +14,14 @@
                     <tags-input ng-model="tags" class="tags-input" add-from-autocomplete-only="true" on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)" display-property="name">
                     <auto-complete source="loadSpecialty($query)" min-length="1"></auto-complete>
                     </tags-input>
+                    <br>
+                    <label for="address" class="col-sm-2 control-label">
+                        Tags:
+                    </label>
+                    <div ng-repeat="tag in temTags" ng-click="addTagBank(tag)" class="tag tag-blue tag-click ng-scope ng-binding">
+                        {{tag.name}}
+                    </div>
                 </div>
-
-                <div ng-repeat="tag in temTags" ng-click="addTagBank(tag)" class="tag tag-blue tag-click ng-scope ng-binding">
-                    {{tag.name}}
-                </div>
-
             </div>
            
         </div>

@@ -102,11 +102,12 @@ define(['app'], function(app) {
 			});
 
 
-
             $scope.tags = [];
             $scope.addTagBank = function(tag) {
-                $scope.tags.push(tag);
-                $scope.user.tags.push(tag.name);
+            	if($scope.tags.indexOf(tag) == -1){
+            		$scope.tags.push(tag);
+            		$scope.user.tags.push(tag.name);
+            	}
             };
             $scope.onTagAdd = function (tag) {
                 $scope.user.tags.push(tag.name);
