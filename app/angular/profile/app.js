@@ -131,6 +131,11 @@ define(['app', 'feed', 'calendar'], function (app) {
             });
             //init view
             $scope.$on('$stateChangeSuccess', $scope.getProfile);
+
+            //Collapse dashboard
+            function CollapseCtrl($scope) {
+                $scope.isCollapsed = false;
+            }
         }
     ]);
 });

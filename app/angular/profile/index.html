@@ -1,28 +1,49 @@
 <div id="profileBg"></div>
 <div id="profile" ng-controller="profileController">
-    <div class="container" ng-if="profile_user">
-        <div class="header">
-            <div class="row">
-                <div class="col-sm-6 col-xs-12 col-md-6">
-                    <h2 class="ef-header">{{profile_user.first_name}} {{profile_user.last_name}}
-                        <small> / {{profile_user.location}}</small>
-                    </h2>
-                </div>
-                <div ng-if="profile_user.type == 'professional'" class="col-sm-offset-2 col-md-offset-0 col-sm-2 col-xs-6 col-md-3">
-                    <div class="status-profile" style="text-align: center">
-                        live training in session
-                        <span class="profile-circle red"></span>
-                    </div>
-                </div>
-                <div ng-if="profile_user.type == 'professional'" class="col-sm-2 col-xs-6 col-md-3">
-                    <div class="status-profile" style="text-align: center">
-                        accepting clients
-                        <span class="profile-circle"
-                           ng-class="{'red': !profile_user.is_accepting, 'green': profile_user.is_accepting}"></span>
-                    </div>
+
+    <div class="dashboard hidden-xs hidden-sm">
+        <div class="content">
+            <div ng-controller="CollapseCtrl">
+                <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <div collapse="isCollapsed">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a ui-sref="profile"><i class="fa fa-user"></i> profile</a></li>
+                        <li><a ui-sref="messages"><i class="fa fa-envelope"></i> messages</a></li>
+                        <li><a ui-sref="faq"><i class="fa fa-question"></i> faq</a></li>
+                        <li><a ui-sref="terms"><i class="fa fa-legal"></i> terms</a></li>
+                        <li><a ui-sref="settings"><i class="fa fa-cogs"></i> settings</a></li>
+                        <li><a ng-click="signOut();"><i class="fa fa-sign-out"></i> sign out</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
+
+        <div class="container" ng-if="profile_user">
+            <div class="header">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12 col-md-6">
+                        <h2 class="ef-header">{{profile_user.first_name}} {{profile_user.last_name}}
+                            <small> / {{profile_user.location}}</small>
+                        </h2>
+                    </div>
+                    <div ng-if="profile_user.type == 'professional'" class="col-sm-offset-2 col-md-offset-0 col-sm-2 col-xs-6 col-md-3">
+                        <div class="status-profile" style="text-align: center">
+                            live training in session
+                            <span class="profile-circle red"></span>
+                        </div>
+                    </div>
+                    <div ng-if="profile_user.type == 'professional'" class="col-sm-2 col-xs-6 col-md-3">
+                        <div class="status-profile" style="text-align: center">
+                            accepting clients
+                            <span class="profile-circle"
+                               ng-class="{'red': !profile_user.is_accepting, 'green': profile_user.is_accepting}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <div class="meta-banner">
             <div class="row">
                 <div class="col-md-4">
@@ -168,7 +189,5 @@
         </tabset>
         <!-- /.filters -->
         <div ng-if="feed.show" entry-feed ng-model="$parent.$parent.feed"></div>
-        
-    </div>
-    <!-- /.container -->
+        </div><!-- /.container -->
 </div><!-- /#profile -->
