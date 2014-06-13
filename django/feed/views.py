@@ -171,6 +171,20 @@ class EntryLikeView(generics.UpdateAPIView, generics.DestroyAPIView):
         	return Response({'user_likes':'true'}, status=status.HTTP_200_OK)
 
 
+class GroupEntryView(generics.ListAPIView):
+	permission_classes = (IsAuthenticated,)
+	serializer_class = EntrySerializer
+	def get_queryset(self):
+		print 'dib'
+
+		type = self.kwargs.get('type', None)
+		if type:
+			blocking = self.request.user.relationships.blocking()
+			blockers = self.request.user.relationships.blockers()
+			return Entry.objects.filter(tags__name=type).exclude(user__in=blocking).exclude(user__in=blockers)
+		else:
+			return []
+
 class ListSubEntryView(generics.ListAPIView):
 	permission_classes = (IsAuthenticated,)
 	serializer_class = ListEntrySerializer
@@ -196,7 +210,6 @@ class ListSubEntryView(generics.ListAPIView):
 			return []
 		else:
 			return []
-
 
 class ClientListView(generics.ListAPIView):
 	paginate_by = 21

@@ -9,13 +9,16 @@ import os
 from model_utils.models import TimeStampedModel, TimeFramedModel
 from model_utils.managers import InheritanceManager
 
-
+from taggit.managers import TaggableManager
+from taggit.models import TaggedItemBase
 
 def get_upload_path(instance, filename):
     now_time = now().strftime("%m_%d_%Y_%H_%M_%S_%f_")
     os.path.join(
           "users","%d" % instance.user.id, instance.type, now_time+filename )
 
+class TaggedEntry(TaggedItemBase):
+    content_object = models.ForeignKey('Entry')
 
 class Entry(TimeStampedModel):
     """
@@ -27,7 +30,7 @@ class Entry(TimeStampedModel):
     text = models.CharField(_('text'), max_length=300, blank=True)
     likes = models.ManyToManyField(User, related_name='entries_liked', blank=True,null=True)
     objects = InheritanceManager()
-
+    tags = TaggableManager(through=TaggedEntry)
     def __unicode__(self):
         return str(self.id)
 
