@@ -108,7 +108,24 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 $event.stopPropagation();
                                 this.untilDatePickerOpened = !this.untilDatePickerOpened;
                             },
-                            entryAffiliate: function () {
+                            entryAffiliate: function (where) {
+                                var i,
+                                theLink,
+                                pageLink = encodeURIComponent($location.absUrl()+ "profile/" + $scope.user_id + '?referral=' + $scope.user_email),
+                                pageTitleUri = encodeURIComponent('Check my page out on Liveeverfit! '),
+                                shareLinks = [];
+                                switch (where) {
+                                    case 'twitter':
+                                      theLink = 'http://twitter.com/intent/tweet?text=' + pageTitleUri + '%20' + pageLink;
+                                      break;
+                                    case 'facebook':
+                                      theLink = 'http://facebook.com/sharer.php?u=' + pageLink;
+                                      break;
+                                    case 'linkedin':
+                                      theLink = 'http://www.linkedin.com/shareArticle?mini=true&url=' + pageLink + '&title=' + pageTitleUri;
+                                      break;
+                                }
+                                $window.open(theLink);
 
                             },
                             entryTransformation: function() {
