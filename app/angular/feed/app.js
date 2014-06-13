@@ -160,6 +160,15 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                         text: $scope.entryInputText,
                                                         tags: $scope.entryTags
                                                     },
+                                                    formDataAppender: function(fd, key, val) {
+                                                        if (angular.isArray(val)) {
+                                                            angular.forEach(val, function(v) {
+                                                                fd.append(key, v);
+                                                            });
+                                                        } else {
+                                                            fd.append(key, val);
+                                                        }
+                                                    },
                                                     file: $scope.uploadImg,
                                                     fileFormDataName: 'img'
                                                 }).progress(function (evt) {
