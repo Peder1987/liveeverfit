@@ -136,6 +136,28 @@
             <ul class="nav navbar-nav pull-right hidden-xs" ng-include src="'navbar/icons.html'"></ul>
         </div>
     </div>
+
+    <div class="dashboard hidden-xs hidden-sm">
+            <div class="btn position" ng-click="dashCollapsed = !dashCollapsed">
+                <i class="fa fa-bars"></i>
+            </div>
+        <div class="content" collapse="dashCollapsed">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a ui-sref="profile"><i class="fa fa-user"></i> profile</a></li>
+                <li><a ui-sref="messages"><i class="fa fa-envelope"></i> messages</a></li>
+                <li><a ui-sref="faq"><i class="fa fa-question"></i> faq</a></li>
+                <li><a ui-sref="terms"><i class="fa fa-legal"></i> terms</a></li>
+                <li><a ui-sref="settings"><i class="fa fa-cogs"></i> settings</a></li>
+                <li><a ng-click="signOut();"><i class="fa fa-sign-out"></i> sign out</a></li>
+            </ul>
+           <div>
+               <image src="navbar/img/ef-logo-nogrunge.png"/>
+           </div>
+        </div>
+    </div>
+
+</div>
+
 </div>
 
 

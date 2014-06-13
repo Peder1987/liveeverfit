@@ -132,6 +132,7 @@ define(['angularAMD',
         app.controller('NavCtrl', ['localStorageService', '$resource', '$state', '$timeout', '$scope', 'toaster', 'rest',
             function (localStorageService, $resource, $state, $timeout, $scope, toaster) {
                 $scope.isCollapsed = true;
+                $scope.dashCollapsed = true;
                 $scope.token = localStorageService.get('Authorization');
                 $scope.user_type = localStorageService.get('user_type');
 
