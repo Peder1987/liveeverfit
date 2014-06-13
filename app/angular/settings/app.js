@@ -1,7 +1,7 @@
 'use strict';
 
 define(['app'], function (app) {
-    app.register.controller('settingsCtrl', ['$scope', '$resource', '$modal', '$http', 'localStorageService', 'rest', 'tokenError',
+    app.register.controller('settingsCtrl', ['$scope', '$resource', '$modal', '$http', 'localStorageService', 'rest', 'tokenError','specialtyTags',
         function ($scope, $resource, $modal, $http, localStorageService, tokenError) {
 
             Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
@@ -180,6 +180,20 @@ define(['app'], function (app) {
                     }
                 });
             };
+
+            var tagsResource = $resource(":protocol://:url/tags/",{
+                protocol: $scope.restProtocol,
+                url: $scope.restURL,
+            },{update: { method: 'PUT' }});
+
+
+            $scope.tagsCall = tagsResource.get($scope.user, function(){
+                $scope.temTags = $scope.tagsCall.results;
+
+            },function(error) {
+                $scope.message = error.data;
+            });
+            
             $scope.onTagAdd = function (tag) {
                 $scope.tags = [];
                 $scope.profile_user.tags.forEach(function (obj) {
@@ -192,7 +206,11 @@ define(['app'], function (app) {
                     $scope.tags.splice(temp, 1);
                 }
             };
-
+            $scope.loadSpecialty = function () {
+                var deferred = $scope.q.defer();
+                deferred.resolve($scope.temTags);
+                return deferred.promise;
+            };
 
             $scope.address = {
                 street_line1: '',
@@ -258,6 +276,11 @@ define(['app'], function (app) {
 
 
     }]);
+
+
+    app.register.service('specialtyTags', function ($q, $rootScope) {
+        $rootScope.q = $q
+    });
 
 
 

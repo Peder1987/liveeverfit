@@ -10,8 +10,16 @@ from django.utils.timezone import utc, now
 ##############################################
 
 
-from user_app.models import Professional
+from feed.models import Entry, TextEntry, PhotoEntry
 
-from schedule.models import Calendar
-for user in User.objects.all():
-	Calendar.objects.get_or_create(user=user)
+#Entry.objects.filter(tags__name__in=["delicious"])
+# user = User.objects.get(email='admin@test.com')
+for entry in PhotoEntry.objects.all():
+	print entry
+ 	entry.tags.add('fitness')
+
+for entry in TextEntry.objects.all():
+	print entry
+ 	entry.tags.add('fitness')
+
+print Entry.objects.filter(tags__name__in=['fitness'])
