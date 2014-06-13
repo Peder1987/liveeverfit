@@ -117,9 +117,10 @@
                     </tags-input>
                 </div>
                 <div class="clearfix">
-                    <button ng-click="entryMention()" class="btn btn-primary btn-sm pull-left">mention</button>
-                    <button ng-click="entryAffiliate()" class="btn btn-primary btn-sm pull-left">affiliate</button>
-                    <button ng-show="entryInputType=='photo'" ng-click="entryTransformation()" class="btn btn-primary btn-sm pull-left">transformation</button>
+                    <button ng-click="entryMention()" type="button" class="btn btn-primary btn-sm pull-left">mention</button>
+                    <button ng-click="entryAffiliate()" type="button" class="btn btn-primary btn-sm pull-left">affiliate</button>
+                    <button ng-show="entryInputType=='photo'" type="button" ng-click="entryTransformation()" class="btn btn-primary btn-sm pull-left">transformation</button>
+                    <button ng-show="false">fix</button>
                     <button ng-click="entrySubmit()" class="btn btn-primary btn-sm pull-right">share</button>
                 </div>
             </form>
@@ -300,13 +301,13 @@
             </div>
             <span ng-repeat="tag in entry.shared_entry.tags"
                   class="tag tag-blue tag-click">
-                {{tag.name}}
+                {{tag}}
             </span>
         </div>
     </div>
     <span ng-repeat="tag in entry.tags"
           class="tag tag-blue tag-click">
-        {{tag.name}}
+        {{tag}}
     </span>
 </div>
 <div class="post-social pull-right">

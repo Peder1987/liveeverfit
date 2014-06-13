@@ -161,7 +161,10 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                         tags: $scope.entryTags
                                                     },
                                                     formDataAppender: function(fd, key, val) {
+                                                        
                                                         if (angular.isArray(val)) {
+                                                            console.log(val)
+                                                            console.log(fd)
                                                             angular.forEach(val, function(v) {
                                                                 fd.append(key, v);
                                                             });
@@ -212,12 +215,13 @@ define(['app', 'masonry'], function (app, Masonry) {
                                         event: function () {
                                             if ($scope.entryEvent.start && $scope.entryEvent.end) {
                                                 this.entryCollection.save({
-                                                    text: $scope.entryInputText,
+                                                    title: $scope.entryInputText,
                                                     start: $scope.entryEvent.start,
                                                     end: $scope.entryEvent.end,
                                                     allDay: $scope.entryEvent.allDay,
                                                     user: $scope.user_id,
-                                                    tags: $scope.entryTags
+                                                    tags: $scope.entryTags,
+                                                    creator : $scope.user_id
                                                 }, function (data) {
                                                     $scope.feedList.unshift(data);
                                                     $scope.entryInputText = '';

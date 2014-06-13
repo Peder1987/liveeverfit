@@ -1,5 +1,6 @@
 from django import forms
 from django.core.mail import send_mail
+from django.core.mail.message import EmailMessage
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth import get_user_model
 from django.utils.timezone import now
@@ -271,9 +272,14 @@ class ConnectUserSerializer(serializers.ModelSerializer):
         notify.send(value, recipient=value.connection, verb=u'has connected to you!')
         notify.send(value.connection, recipient=value, verb=u'connected!')
 
-        subject = 'Connected To New Trainer'
-        message = 'Waiting on Templates'
-        send_mail(subject, message, value.connection.email, [value.email])
+        email = EmailMessage()
+        email.subject = "Connected To New Trainer"
+        email.body = 'Complete attached document and send back to your Trainer'
+        email.from_email = value.connection.email
+        email.to = [ value.email, ]
+        email.attach_file("email/Client Questionarre-ReleaseEverFIT.docx")
+        email.send()
+
         return obj
 
     def validate_professional_id(self, attrs, source):

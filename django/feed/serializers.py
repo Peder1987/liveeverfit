@@ -65,6 +65,20 @@ class EntryObjSerializer(serializers.ModelSerializer):
     class Meta:
         model = Entry
 
+class TagListSerializer(serializers.WritableField):
+    def from_native(self, data):
+        """Format given by user"""
+        if type(data) is not list:
+            raise serializers.ValidationError("Expected a list for tags")
+        
+        return [tag["name"] for tag in data]
+     
+    def to_native(self, obj):
+        """Format to return to user"""
+        if type(obj) is not list:
+            return [tag.name for tag in obj.all()]
+        return obj 
+
 
 class AbstractEntrySerializer(serializers.ModelSerializer):
     type = serializers.Field(source="type")
@@ -74,7 +88,7 @@ class AbstractEntrySerializer(serializers.ModelSerializer):
     profile_img = serializers.CharField(source='user.img.url', required=False)
     first_name = serializers.CharField(source='user.first_name', required=False)
     last_name = serializers.CharField(source='user.last_name', required=False)
-
+    tags = TagListSerializer(required=False)
 
 class TextEntrySerializer(AbstractEntrySerializer):
     class Meta:
@@ -108,7 +122,10 @@ class EventEntrySerializer(AbstractEntrySerializer):
 
     def validate_calendar(self, attrs, source):
         creator = attrs.get('creator')
-        attrs['calendar'] = Calendar.objects.get(user=creator)
+        if creator:
+            attrs['calendar'] = Calendar.objects.get(user=creator)
+        else:
+            raise serializers.ValidationError("Creator doesnt exist or not")
         return attrs
 
     def validate_title(self, attrs, source):
