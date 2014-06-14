@@ -374,3 +374,9 @@ class PaymentSerializer(serializers.ModelSerializer):
         stripe_token = obj.get('stripeToken')
         value.stripe_edit_creditcard(stripe_token)
         value.stripe_update_subscription()
+
+class GroupTagSerializer(serializers.ModelSerializer):    
+
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name')
