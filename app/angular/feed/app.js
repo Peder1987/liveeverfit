@@ -175,7 +175,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                     data: {
                                                         user: $scope.user_id,
                                                         text: $scope.entryInputText,
-                                                        tags: JSON.stringify($scope.entryTags)
+                                                        tags: $scope.entryTags
                                                     },
                                                     file: $scope.uploadImg,
                                                     fileFormDataName: 'img'
