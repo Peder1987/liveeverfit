@@ -12,11 +12,7 @@ from .filters import UserFilter, GenderFilterBackend, ProfessionFilterBackend, L
 from .filters import OwnerFilterBackend, QueueFilterBackend
 from .serializers import SettingsSerializer, PasswordSerializer, GroupSerializer, ProfessionalListSerializer, LocationSerializer, ClientListSerializer
 from .serializers import PaymentSerializer, ModifyMembershipSerializer, CreditcardSerializer, SettingsProfessionalSerializer, ProfileSerializer, UserLikeSerializer
-<<<<<<< HEAD
-from .serializers import FollowUserSerializer, BlockUserSerializer, ConnectUserSerializer, GroupTagSerializer
-=======
-from .serializers import FollowUserSerializer, BlockUserSerializer, ConnectUserSerializer, StaticTagSerializer
->>>>>>> 45b31b090a7a7612fa8fa7abec868b70a1882231
+from .serializers import FollowUserSerializer, BlockUserSerializer, ConnectUserSerializer, GroupTagSerializer, StaticTagSerializer
 from .permissions import IsAdminOrSelf, IsOwnerOrReadOnly, AuthenticatedReadOnly
 from .models import Professional, UniqueLocation, StaticTags
 

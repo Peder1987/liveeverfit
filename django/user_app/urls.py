@@ -1,13 +1,9 @@
 from django.conf.urls import patterns, include, url
 from rest_framework import routers
 from .views import UserViewSet, GroupViewSet, ProfessionalListView, LocationViewSet, ProfessionalObjView, PaymentView, ModifyMembershipView
-<<<<<<< HEAD
-from .views import ClientListView, CreditcardView, ProfileView, FollowUserView, BlockUserView, ConnectUserView, FanaticsListView 
-from .views import GroupTagView
-=======
-from .views import ClientListView, CreditcardView, ProfileView, FollowUserView, BlockUserView, ConnectUserView, FanaticsListView, StaticTagViewSet 
 
->>>>>>> 45b31b090a7a7612fa8fa7abec868b70a1882231
+from .views import ClientListView, CreditcardView, ProfileView, FollowUserView, BlockUserView, ConnectUserView, FanaticsListView 
+from .views import GroupTagView, StaticTagViewSet
 
 
 router = routers.SimpleRouter(trailing_slash=False)
