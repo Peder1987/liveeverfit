@@ -37,8 +37,8 @@
                         GROUPS <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ui-sref="groups({group: 'fitness'})">
-                            <a>fitness</a>
+                        <li ui-sref="groups({group: '{{item.name}}'})" ng-repeat="item in tagsCall.results">
+                            <a>{{item.name}}</a>
                         </li>
                         <li ui-sref="groups({group: 'crossfit'})">
                             <a>crossfit</a>

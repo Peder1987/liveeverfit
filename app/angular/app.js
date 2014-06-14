@@ -151,6 +151,18 @@ define(['angularAMD',
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
                 }, {update: { method: 'PUT' }});
+                var tagsResource = $resource(":protocol://:url/tags/",{
+                    protocol: $scope.restProtocol,
+                    url: $scope.restURL,
+                },{update: { method: 'PUT' }});
+
+
+                $scope.tagsCall = tagsResource.get($scope.user, function(){
+                    $scope.temTags = $scope.tagsCall.results;
+
+                },function(error) {
+                    $scope.message = error.data;
+                });
 
                 if ($scope.token !== null) {
                     (function tick() {
