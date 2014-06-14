@@ -5,16 +5,16 @@ User = get_user_model()
 from rest_framework import viewsets, status, filters
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
 from rest_framework import generics
 
 from .filters import UserFilter, GenderFilterBackend, ProfessionFilterBackend, LocationFilterBackend, AcceptingFilterBackend, TagFilterBackend
 from .filters import OwnerFilterBackend, QueueFilterBackend
 from .serializers import SettingsSerializer, PasswordSerializer, GroupSerializer, ProfessionalListSerializer, LocationSerializer, ClientListSerializer
 from .serializers import PaymentSerializer, ModifyMembershipSerializer, CreditcardSerializer, SettingsProfessionalSerializer, ProfileSerializer, UserLikeSerializer
-from .serializers import FollowUserSerializer, BlockUserSerializer, ConnectUserSerializer
+from .serializers import FollowUserSerializer, BlockUserSerializer, ConnectUserSerializer, StaticTagSerializer
 from .permissions import IsAdminOrSelf, IsOwnerOrReadOnly, AuthenticatedReadOnly
-from .models import Professional, UniqueLocation
+from .models import Professional, UniqueLocation, StaticTags
 
 
 
@@ -129,3 +129,10 @@ class FanaticsListView(generics.ListAPIView):
 
     def get_queryset(self):
         return self.request.user.relationships.following()
+
+
+class StaticTagViewSet(generics.ListAPIView):
+    model = StaticTags
+    permission_classes = (AllowAny,)
+    serializer_class = StaticTagSerializer
+

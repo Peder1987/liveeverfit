@@ -27,9 +27,7 @@ def tagged_object_list(request, slug, queryset, **kwargs):
     return ListView.as_view(request, qs, **kwargs)
 
 
-
-
 class TagViewSet(generics.ListAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     model = Tag
     serializer = TagSerializer

@@ -9,6 +9,7 @@ from django.contrib.auth.models import BaseUserManager
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from taggit.models import Tag
 from rest_framework.authtoken.models import Token
 from taggit.managers import TaggableManager
 from shopify_app import shopify_call
@@ -421,5 +422,19 @@ class Professional(CustomUser):
         self.save()
         return errors
 
+
 class FeaturedProfessional(models.Model):
     professional = models.ForeignKey(Professional)
+
+
+class StaticTags(models.Model):
+    tags = models.ForeignKey(Tag, blank=True, null=True)
+
+    def __unicode__(self):
+        return str(self.pk)
+
+    class Meta:
+        verbose_name = _('StaticTags')
+        verbose_name_plural = _('StaticTags')
+
+

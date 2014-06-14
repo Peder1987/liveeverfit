@@ -5,8 +5,8 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.auth import get_user_model
 from django.utils.timezone import now
 User = get_user_model()
-from rest_framework import serializers
-from user_app.models import Professional, UniqueLocation, Certification, Address
+from rest_framework import serializers, generics
+from user_app.models import Professional, UniqueLocation, Certification, Address, StaticTags
 from datetime import  timedelta
 from notifications import notify
 from relationships.models import RelationshipStatus
@@ -374,3 +374,21 @@ class PaymentSerializer(serializers.ModelSerializer):
         stripe_token = obj.get('stripeToken')
         value.stripe_edit_creditcard(stripe_token)
         value.stripe_update_subscription()
+
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+
+
+class StaticTagSerializer(serializers.ModelSerializer):
+    tags = TagSerializer(required=False)
+    class Meta:
+        model = StaticTags
+
+    def to_native(self, value):
+        obj = super(StaticTagSerializer, self).to_native(value)
+        return obj.get('tags')
+
+
+
