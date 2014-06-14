@@ -375,6 +375,11 @@ class PaymentSerializer(serializers.ModelSerializer):
         value.stripe_edit_creditcard(stripe_token)
         value.stripe_update_subscription()
 
+class GroupTagSerializer(serializers.ModelSerializer):    
+
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name')
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
@@ -389,6 +394,4 @@ class StaticTagSerializer(serializers.ModelSerializer):
     def to_native(self, value):
         obj = super(StaticTagSerializer, self).to_native(value)
         return obj.get('tags')
-
-
 

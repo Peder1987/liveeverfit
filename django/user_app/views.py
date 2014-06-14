@@ -12,7 +12,7 @@ from .filters import UserFilter, GenderFilterBackend, ProfessionFilterBackend, L
 from .filters import OwnerFilterBackend, QueueFilterBackend
 from .serializers import SettingsSerializer, PasswordSerializer, GroupSerializer, ProfessionalListSerializer, LocationSerializer, ClientListSerializer
 from .serializers import PaymentSerializer, ModifyMembershipSerializer, CreditcardSerializer, SettingsProfessionalSerializer, ProfileSerializer, UserLikeSerializer
-from .serializers import FollowUserSerializer, BlockUserSerializer, ConnectUserSerializer, StaticTagSerializer
+from .serializers import FollowUserSerializer, BlockUserSerializer, ConnectUserSerializer, GroupTagSerializer, StaticTagSerializer
 from .permissions import IsAdminOrSelf, IsOwnerOrReadOnly, AuthenticatedReadOnly
 from .models import Professional, UniqueLocation, StaticTags
 
@@ -131,6 +131,20 @@ class FanaticsListView(generics.ListAPIView):
         return self.request.user.relationships.following()
 
 
+class GroupTagView(generics.ListAPIView):
+    model = User
+    permission_classes = (IsAdminOrSelf,)
+    # has exact output as client, need to restructure
+    # and unify/standardize this serializer
+    serializer_class = GroupTagSerializer
+    filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
+    
+    def get_queryset(self):
+        type = self.kwargs.get('type', None)
+        if type:
+            return User.objects.filter(tags__name=type)
+        else:
+            return []
 class StaticTagViewSet(generics.ListAPIView):
     model = StaticTags
     permission_classes = (AllowAny,)

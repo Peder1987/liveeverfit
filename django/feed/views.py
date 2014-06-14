@@ -181,6 +181,8 @@ class ListSubEntryView(generics.ListAPIView):
 				return BlogEntry.objects.filter(user=pk).all()
 			elif type == 'shared':
 				return SharedEntry.objects.filter(user=pk).all()
+			elif type == 'transformation':
+				return PhotoEntry.objects.filter(user=pk).filter(tags__name='transformation')
 			return []
 		else:
 			return []
