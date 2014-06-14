@@ -166,6 +166,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                 $scope.feedList.unshift(data);
                                                 $scope.entryInputText = '';
                                                 $scope.runMasonry();
+                                                $scope.entryTags = [];
                                             });
                                         },
                                         photo: function () {
@@ -188,6 +189,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                     delete $scope.uploadImg;
                                                     delete $scope.entryImgSrc;
                                                     $scope.percent = scope.percent = false;
+                                                    $scope.entryTags = [];
                                                 }).error(function (data) {
                                                     $scope.percent = false;
                                                     console.log("Upload photo error.")
@@ -212,6 +214,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                     $scope.entryVideoURLID = "";
                                                     $scope.entryVideoURLIDTrusted = "";
                                                     $scope.runMasonry();
+                                                    $scope.entryTags = [];
                                                 })
                                             } else {
                                                 $scope.entryVideoURL = "";
@@ -230,6 +233,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                 }, function (data) {
                                                     $scope.feedList.unshift(data);
                                                     $scope.entryInputText = '';
+                                                    $scope.entryTags = [];
                                                     $scope.entryEvent = {
                                                         start: "",
                                                         end: "",
@@ -252,6 +256,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                     $scope.entryInputText = '';
                                                     $scope.entryBlogBody = '';
                                                     $scope.runMasonry();
+                                                    $scope.entryTags = [];
                                                 });
                                             }
                                             else {
