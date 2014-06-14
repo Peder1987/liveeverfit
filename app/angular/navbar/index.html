@@ -7,6 +7,11 @@
                 <span class="sr-only">Toggle navigation</span>
                 <span class="fa fa-bars fa-lg"></span>
             </button>
+            <a href class="navbar-brand" ng-click="dashCollapsed = !dashCollapsed">
+                <div class="dashboard-btn" >
+                    <i class="fa fa-bars"></i>
+                </div>
+            </a>
             <a class="navbar-brand" ng-class="{active:$uiRoute}" ui-route="/" ui-sref="home">
                 <image src="common/img/navbar/logo.png"/>
             </a>
@@ -135,13 +140,12 @@
             </ul>
             <ul class="nav navbar-nav pull-right hidden-xs" ng-include src="'navbar/icons.html'"></ul>
         </div>
-    </div>
 
+
+    </div>
     <div class="dashboard hidden-xs hidden-sm">
-            <div class="btn position" ng-click="dashCollapsed = !dashCollapsed">
-                <i class="fa fa-bars"></i>
-            </div>
-        <div class="content" collapse="dashCollapsed">
+
+        <div class="content" ng-class="{'open': !dashCollapsed}">
             <ul class="nav nav-pills nav-stacked">
                 <li class="dash-title"><i class="fa fa-dashboard fa-4x"></i> DashBoard</li>
                 <li><a ui-sref="profile"><i class="fa fa-user"></i> profile</a></li>
@@ -162,10 +166,6 @@
     </div>
 
 </div>
-
-</div>
-
-
 <script type="text/ng-template" id="navbar/icons.html">
     <li>
         <a href="http://store.liveeverfit.com/cart">
