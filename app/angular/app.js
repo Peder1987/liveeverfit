@@ -343,6 +343,15 @@ define(['angularAMD',
             return { readAsDataUrl: readAsDataURL };
         });
 
+        app.directive('disableNgAnimate', ['$animate', function($animate) {
+            return {
+                restrict: 'A',
+                link: function(scope, element) {
+                    $animate.enabled(false, element);
+                }
+            };
+        }]);
+
         //Bootstrap Angular
         angularAMD.bootstrap(app);
         return app;
