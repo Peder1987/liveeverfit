@@ -68,6 +68,10 @@ class EntryObjSerializer(serializers.ModelSerializer):
 class TagListSerializer(serializers.WritableField):
     def from_native(self, data):
         """Format given by user"""
+        try: # this is done when $upload.upload module on front end sends a list
+            data = json.loads(data)
+        except:
+            pass
         if type(data) is not list:
             raise serializers.ValidationError("Expected a list for tags")
         
