@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
+from user_app.views import StaticTagViewSet
 from django.contrib import admin
 admin.autodiscover()
 
@@ -10,7 +11,8 @@ urlpatterns = patterns('',
     url(r'^users', include('user_app.urls')),
     url(r'^accounts/', include('user_auth.urls')),
     url(r'^docs/', include('rest_framework_swagger.urls')),
-    url(r'^tags', include('taggit.urls')),
+    # url(r'^tags', include('taggit.urls')),
+    url(r'^tags', StaticTagViewSet.as_view()),
     url(r'^workouts/', include('workouts.urls')),
     url(r'^messages/', include('messages.urls')),
     url(r'^upload-image/', include('cicu.urls')),

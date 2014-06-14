@@ -5,16 +5,20 @@ User = get_user_model()
 from rest_framework import viewsets, status, filters
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
 from rest_framework import generics
 
 from .filters import UserFilter, GenderFilterBackend, ProfessionFilterBackend, LocationFilterBackend, AcceptingFilterBackend, TagFilterBackend
 from .filters import OwnerFilterBackend, QueueFilterBackend
 from .serializers import SettingsSerializer, PasswordSerializer, GroupSerializer, ProfessionalListSerializer, LocationSerializer, ClientListSerializer
 from .serializers import PaymentSerializer, ModifyMembershipSerializer, CreditcardSerializer, SettingsProfessionalSerializer, ProfileSerializer, UserLikeSerializer
+<<<<<<< HEAD
 from .serializers import FollowUserSerializer, BlockUserSerializer, ConnectUserSerializer, GroupTagSerializer
+=======
+from .serializers import FollowUserSerializer, BlockUserSerializer, ConnectUserSerializer, StaticTagSerializer
+>>>>>>> 45b31b090a7a7612fa8fa7abec868b70a1882231
 from .permissions import IsAdminOrSelf, IsOwnerOrReadOnly, AuthenticatedReadOnly
-from .models import Professional, UniqueLocation
+from .models import Professional, UniqueLocation, StaticTags
 
 
 
@@ -145,3 +149,8 @@ class GroupTagView(generics.ListAPIView):
             return User.objects.filter(tags__name=type)
         else:
             return []
+class StaticTagViewSet(generics.ListAPIView):
+    model = StaticTags
+    permission_classes = (AllowAny,)
+    serializer_class = StaticTagSerializer
+

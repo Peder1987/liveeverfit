@@ -8,7 +8,7 @@ from django.utils.safestring import mark_safe
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail, EmailMessage
 
-from user_app.models import CustomUser, Address, Professional, UniqueLocation, Certification, FeaturedProfessional
+from user_app.models import CustomUser, Address, Professional, UniqueLocation, Certification, FeaturedProfessional, StaticTags
 from user_app.forms import CustomUserChangeForm, CustomUserCreationForm
 
 
@@ -87,8 +87,9 @@ admin.site.register(Professional, ProfessionalAdmin)
 class FeaturedProfessionalAdmin(admin.ModelAdmin):
     list_display = ('professional',)
 
-admin.site.register(FeaturedProfessional ,FeaturedProfessionalAdmin)
 
+admin.site.register(FeaturedProfessional ,FeaturedProfessionalAdmin)
+admin.site.register(StaticTags)
 admin.site.register(UniqueLocation)
 admin.site.register(Address)
 admin.site.register(Certification)

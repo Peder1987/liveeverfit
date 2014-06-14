@@ -1,8 +1,13 @@
 from django.conf.urls import patterns, include, url
 from rest_framework import routers
 from .views import UserViewSet, GroupViewSet, ProfessionalListView, LocationViewSet, ProfessionalObjView, PaymentView, ModifyMembershipView
+<<<<<<< HEAD
 from .views import ClientListView, CreditcardView, ProfileView, FollowUserView, BlockUserView, ConnectUserView, FanaticsListView 
 from .views import GroupTagView
+=======
+from .views import ClientListView, CreditcardView, ProfileView, FollowUserView, BlockUserView, ConnectUserView, FanaticsListView, StaticTagViewSet 
+
+>>>>>>> 45b31b090a7a7612fa8fa7abec868b70a1882231
 
 
 router = routers.SimpleRouter(trailing_slash=False)
@@ -30,6 +35,7 @@ urlpatterns = patterns('',
 	# Retrieve Creditcards
 	url(r'^/creditcards/(?P<pk>[0-9]+)$', CreditcardView.as_view()),
 	url(r'^/group/(?P<type>[a-z]+)', GroupTagView.as_view()),
+	url(r'^/tags$', StaticTagViewSet.as_view()),
 	url(r'^', include(router.urls)),
 	
 )
