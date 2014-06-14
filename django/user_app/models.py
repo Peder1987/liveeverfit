@@ -431,7 +431,7 @@ class StaticTags(models.Model):
     tags = models.ForeignKey(Tag, blank=True, null=True)
 
     def __unicode__(self):
-        return str(self.pk)
+        return str(self.tags)
 
     class Meta:
         verbose_name = _('StaticTags')
