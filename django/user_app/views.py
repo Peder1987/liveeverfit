@@ -146,6 +146,7 @@ class GroupTagView(generics.ListAPIView):
         else:
             return []
 class StaticTagViewSet(generics.ListAPIView):
+    paginate_by = None
     model = StaticTags
     permission_classes = (AllowAny,)
     serializer_class = StaticTagSerializer
