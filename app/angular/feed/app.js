@@ -1,7 +1,7 @@
 'use strict';
 
 define(['app', 'masonry'], function (app, Masonry) {
-    app.register.directive('entryFeed', ['$modal', '$resource', '$upload', '$sce', '$location', '$window',  'rest', 'localStorageService', 'fileReader', 'tokenError','specialtyTags',
+    app.register.directive('entryFeed', ['$modal', '$resource', '$upload', '$sce', '$location', '$window',  'rest', 'localStorageService', 'fileReader', 'tokenError',
         function ($modal, $resource, $upload, $sce, $location,  $window, rest, localStorageService, fileReader, tokenError) {
             return {
                 templateUrl: 'feed/index.html',
@@ -108,7 +108,24 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 $event.stopPropagation();
                                 this.untilDatePickerOpened = !this.untilDatePickerOpened;
                             },
-                            entryAffiliate: function () {
+                            entryAffiliate: function (where) {
+                                var i,
+                                theLink,
+                                pageLink = encodeURIComponent($location.absUrl()+ "profile/" + $scope.user_id + '?referral=' + $scope.user_email),
+                                pageTitleUri = encodeURIComponent('Check my page out on Liveeverfit! '),
+                                shareLinks = [];
+                                switch (where) {
+                                    case 'twitter':
+                                      theLink = 'http://twitter.com/intent/tweet?text=' + pageTitleUri + '%20' + pageLink;
+                                      break;
+                                    case 'facebook':
+                                      theLink = 'http://facebook.com/sharer.php?u=' + pageLink;
+                                      break;
+                                    case 'linkedin':
+                                      theLink = 'http://www.linkedin.com/shareArticle?mini=true&url=' + pageLink + '&title=' + pageTitleUri;
+                                      break;
+                                }
+                                $window.open(theLink);
 
                             },
                             entryTransformation: function() {
@@ -158,7 +175,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                     data: {
                                                         user: $scope.user_id,
                                                         text: $scope.entryInputText,
-                                                        tags: $scope.entryTags
+                                                        tags: JSON.stringify($scope.entryTags)
                                                     },
                                                     file: $scope.uploadImg,
                                                     fileFormDataName: 'img'
@@ -203,12 +220,13 @@ define(['app', 'masonry'], function (app, Masonry) {
                                         event: function () {
                                             if ($scope.entryEvent.start && $scope.entryEvent.end) {
                                                 this.entryCollection.save({
-                                                    text: $scope.entryInputText,
+                                                    title: $scope.entryInputText,
                                                     start: $scope.entryEvent.start,
                                                     end: $scope.entryEvent.end,
                                                     allDay: $scope.entryEvent.allDay,
                                                     user: $scope.user_id,
-                                                    tags: $scope.entryTags
+                                                    tags: $scope.entryTags,
+                                                    creator : $scope.user_id
                                                 }, function (data) {
                                                     $scope.feedList.unshift(data);
                                                     $scope.entryInputText = '';
@@ -489,11 +507,5 @@ define(['app', 'masonry'], function (app, Masonry) {
         // Init lightbox
         $scope.displayImage(selected);
     };
-
-
-    app.register.service('specialtyTags', function ($q, $rootScope) {
-        $rootScope.q = $q
-    });
-
     return app;
 })

@@ -14,7 +14,7 @@ from taggit.models import TaggedItemBase
 
 def get_upload_path(instance, filename):
     now_time = now().strftime("%m_%d_%Y_%H_%M_%S_%f_")
-    os.path.join(
+    return os.path.join(
           "users","%d" % instance.user.id, instance.type, now_time+filename )
 
 class TaggedEntry(TaggedItemBase):

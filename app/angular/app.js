@@ -64,8 +64,8 @@ define(['angularAMD',
             $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
         });
 
-        app.config(['routeResolverProvider', '$stateProvider', '$urlRouterProvider',
-            function (routeResolverProvider, $stateProvider, $urlRouterProvider) {
+        app.config(['routeResolverProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider',
+            function (routeResolverProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
                 var route = routeResolverProvider.route;
                 $stateProvider
                     //LoggedIn and LoggedOut
@@ -103,6 +103,12 @@ define(['angularAMD',
                     .state('profile.view', route.resolve('/:view', 'profile'));
 
                 $urlRouterProvider.otherwise("/");
+
+                //Reset headers to avoid OPTIONS request (aka preflight)
+                $httpProvider.defaults.headers.common = {};
+                $httpProvider.defaults.headers.post = {};
+                $httpProvider.defaults.headers.put = {};
+                $httpProvider.defaults.headers.patch = {};
             }
         ]);
 

@@ -118,7 +118,22 @@
                 </div>
                 <div class="clearfix">
                     <button ng-click="entryMention()" type="button" class="btn btn-primary btn-sm pull-left">mention</button>
-                    <button ng-click="entryAffiliate()" type="button" class="btn btn-primary btn-sm pull-left">affiliate</button>
+                    <span  class="dropdown pull-left">
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle">affiliate</button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href ng-click="entryAffiliate('facebook')">
+                                    <i class="fa fa-facebook"></i> facebook
+                                </a>
+                                <a href ng-click="entryAffiliate('linkedin')">
+                                    <i class="fa fa-linkedin"></i> linkedin
+                                </a>
+                                <a href ng-click="entryAffiliate('twitter')">
+                                    <i class="fa fa-twitter"></i> twitter
+                                </a>
+                            </li>
+                        </ul>
+                    </span>
                     <button ng-show="entryInputType=='photo'" type="button" ng-click="entryTransformation()" class="btn btn-primary btn-sm pull-left">transformation</button>
                     <button ng-show="false">fix</button>
                     <button ng-click="entrySubmit()" class="btn btn-primary btn-sm pull-right">share</button>
@@ -301,13 +316,13 @@
             </div>
             <span ng-repeat="tag in entry.shared_entry.tags"
                   class="tag tag-blue tag-click">
-                {{tag.name}}
+                {{tag}}
             </span>
         </div>
     </div>
     <span ng-repeat="tag in entry.tags"
           class="tag tag-blue tag-click">
-        {{tag.name}}
+        {{tag}}
     </span>
 </div>
 <div class="post-social pull-right">

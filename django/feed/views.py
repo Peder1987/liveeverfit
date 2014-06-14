@@ -55,89 +55,50 @@ class EntryView(generics.RetrieveAPIView):
 	serializer_class = EntryObjSerializer
 
 
-class TextEntryViewSet(viewsets.ModelViewSet):
+class AbstractEntryViewSet(viewsets.ModelViewSet):	
+	def get_queryset(self):
+		following = self.request.user.relationships.following()
+		blocking = self.request.user.relationships.blocking()
+		blockers = self.request.user.relationships.blockers()
+		qs= self.model.objects.filter(user__in=following).exclude(user__in=blocking).exclude(user__in=blockers)
+		qs2 = self.model.objects.filter(user=self.request.user)
+		return qs | qs2
+
+	def post_save(self, obj, created=False):
+		if type(obj.tags) is list:
+		# If tags were provided in the request
+			# user = User.objects.get(pk=obj.pk)
+			self.model.objects.get(pk=obj).tags.set(*obj.tags)
+
+class TextEntryViewSet(AbstractEntryViewSet):
 	model = TextEntry
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = TextEntrySerializer
 
-	def get_queryset(self):
-		following = self.request.user.relationships.following()
-		blocking = self.request.user.relationships.blocking()
-		blockers = self.request.user.relationships.blockers()
-		qs= TextEntry.objects.filter(user__in=following).exclude(user__in=blocking).exclude(user__in=blockers)
-		qs2 = TextEntry.objects.filter(user=self.request.user)
-		return qs | qs2
-
-
-class PhotoEntryViewSet(viewsets.ModelViewSet):
+class PhotoEntryViewSet(AbstractEntryViewSet):
 	model = PhotoEntry
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = PhotoEntrySerializer
 
-	def get_queryset(self):
-		following = self.request.user.relationships.following()
-		blocking = self.request.user.relationships.blocking()
-		blockers = self.request.user.relationships.blockers()
-		qs= PhotoEntry.objects.filter(user__in=following).exclude(user__in=blocking).exclude(user__in=blockers)
-		qs2 = PhotoEntry.objects.filter(user=self.request.user)
-		return qs | qs2
-	
-
-class VideoEntryViewSet(viewsets.ModelViewSet):
+class VideoEntryViewSet(AbstractEntryViewSet):
 	model = VideoEntry
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = VideoEntrySerializer
 
-	def get_queryset(self):
-		following = self.request.user.relationships.following()
-		blocking = self.request.user.relationships.blocking()
-		blockers = self.request.user.relationships.blockers()
-		qs= VideoEntry.objects.filter(user__in=following).exclude(user__in=blocking).exclude(user__in=blockers)
-		qs2 = VideoEntry.objects.filter(user=self.request.user)
-		return qs | qs2
-	
-
-class EventEntryViewSet(viewsets.ModelViewSet):
+class EventEntryViewSet(AbstractEntryViewSet):
 	model = Event
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = EventEntrySerializer
 
-	def get_queryset(self):
-		following = self.request.user.relationships.following()
-		blocking = self.request.user.relationships.blocking()
-		blockers = self.request.user.relationships.blockers()
-		qs= Event.objects.filter(user__in=following).exclude(user__in=blocking).exclude(user__in=blockers)
-		qs2 = Event.objects.filter(user=self.request.user)
-		return qs | qs2
-
-
-class BlogEntryViewSet(viewsets.ModelViewSet):
+class BlogEntryViewSet(AbstractEntryViewSet):
 	model = BlogEntry
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = BlogEntrySerializer
 
-	def get_queryset(self):
-		following = self.request.user.relationships.following()
-		blocking = self.request.user.relationships.blocking()
-		blockers = self.request.user.relationships.blockers()
-		qs= BlogEntry.objects.filter(user__in=following).exclude(user__in=blocking).exclude(user__in=blockers)
-		qs2 = BlogEntry.objects.filter(user=self.request.user)
-		return qs | qs2
-
-
-class SharedEntryViewSet(viewsets.ModelViewSet):
+class SharedEntryViewSet(AbstractEntryViewSet):
 	model = SharedEntry
 	permission_classes = (IsOwnerOrReadOnly,)
 	serializer_class = SharedEntrySerializer
-
-	def get_queryset(self):
-		following = self.request.user.relationships.following()
-		blocking = self.request.user.relationships.blocking()
-		blockers = self.request.user.relationships.blockers()
-		qs= SharedEntry.objects.filter(user__in=following).exclude(user__in=blocking).exclude(user__in=blockers)
-		qs2 = SharedEntry.objects.filter(user=self.request.user)
-		return qs | qs2
-
 
 class CommentViewSet(viewsets.ModelViewSet):
 	model = Comment
