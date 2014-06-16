@@ -1,7 +1,9 @@
+import csv
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.template import RequestContext
 from django.template.loader import get_template
+from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import models as auth_models
 from django.utils.safestring import mark_safe
@@ -42,6 +44,44 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(CustomUser, CustomUserAdmin)
 
+
+def export_as_csv(modeladmin, request, queryset):
+    """
+    Generic csv export admin action.
+    based on http://djangosnippets.org/snippets/1697/
+    HIGHLY MODIFIED, quick code to finish :p 
+    """
+    opts = modeladmin.model._meta
+    field_names = set([field.name for field in opts.fields])
+    fields = ['first_name', 'last_name', 'shopify_sales']
+    if fields:
+        fieldset = set(fields)
+        field_names = field_names & fieldset
+    elif exclude:
+        excludeset = set(exclude)
+        field_names = field_names - excludeset
+
+    response = HttpResponse(mimetype='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=%s.csv' % unicode(opts).replace('.', '_')
+    writer = csv.writer(response)
+    if True:
+        writer.writerow(list(field_names))
+    for obj in Professional.objects.all():
+        shopifyObj = obj.shopify_sales()
+        try:
+            sales = shopifyObj['total_earned']
+        except:
+            sales = 'No_Shopify_Account'
+
+        try:
+            customers = shopifyObj['total_customers']
+        except:
+            customers = 'No_Shopify_Account'
+
+        writer.writerow([obj.first_name, obj.last_name, obj.email, sales, customers])
+
+    return response
+
 def make_active(modeladmin, request, queryset):
     for obj in queryset:
         obj.queue = False
@@ -80,12 +120,13 @@ class ProfessionalAdmin(UserAdmin):
     list_display = ('email', 'first_name', 'last_name', 'queue')
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
-    actions = [make_active, make_inactive] 
+    actions = [make_active, make_inactive, export_as_csv] 
 
 admin.site.register(Professional, ProfessionalAdmin)
 
 class FeaturedProfessionalAdmin(admin.ModelAdmin):
     list_display = ('professional',)
+
 
 
 admin.site.register(FeaturedProfessional ,FeaturedProfessionalAdmin)
