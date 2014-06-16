@@ -52,35 +52,47 @@ def export_as_csv(modeladmin, request, queryset):
     HIGHLY MODIFIED, quick code to finish :p 
     """
     opts = modeladmin.model._meta
+
     field_names = set([field.name for field in opts.fields])
-    fields = ['first_name', 'last_name', 'shopify_sales']
+    fields = ["email", "first_name", "last_name", "tier", "gender", "location", "lat", "lng", 
+            "twitter", "facebook", "instagram", "youtube", "linkedin", "plus", "img", "bio", "shopify_id", 
+            "chargify_id", "stripe_id", "profession", "is_accepting", ]
+    exclude = ['password']
+
     if fields:
         fieldset = set(fields)
         field_names = field_names & fieldset
-    elif exclude:
+    if exclude:
         excludeset = set(exclude)
         field_names = field_names - excludeset
 
     response = HttpResponse(mimetype='text/csv')
     response['Content-Disposition'] = 'attachment; filename=%s.csv' % unicode(opts).replace('.', '_')
+
     writer = csv.writer(response)
-    if True:
+    header=True
+    if header:
         writer.writerow(list(field_names))
     for obj in Professional.objects.all():
+        tempArray = []
+        for field in fields:
+            temp = unicode(getattr(obj, field)).encode("utf-8","replace")
+            tempArray.append(temp.replace(" ", "-"))
+
         shopifyObj = obj.shopify_sales()
         try:
             sales = shopifyObj['total_earned']
         except:
             sales = 'No_Shopify_Sales'
-
+        tempArray.append(sales)
         try:
             customers = shopifyObj['total_customers']
         except:
             customers = 'No_Shopify_Account'
-
-        writer.writerow([obj.first_name, obj.last_name, obj.email, sales, customers])
-
+        tempArray.append(customers)
+        writer.writerow(tempArray)
     return response
+
 
 def make_active(modeladmin, request, queryset):
     for obj in queryset:

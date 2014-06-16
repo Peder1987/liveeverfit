@@ -398,7 +398,8 @@ class Professional(CustomUser):
     class Meta:
         verbose_name = _('Professional')
         verbose_name_plural = _('Professionals')
-
+    def get_model_fields(model):
+        return model._meta.fields
 
 
     def get_all_data(self):
