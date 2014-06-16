@@ -71,7 +71,7 @@ def export_as_csv(modeladmin, request, queryset):
         try:
             sales = shopifyObj['total_earned']
         except:
-            sales = 'No_Shopify_Account'
+            sales = 'No_Shopify_Sales'
 
         try:
             customers = shopifyObj['total_customers']

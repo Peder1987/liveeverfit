@@ -169,7 +169,7 @@ def customer_sales_to_date(self): # shopify_sales
         for customer in customers:
             total_earned += float(customer['total_spent'])
             try:
-                user = LefUser.objects.get(email=customer['email']).get_all_data()
+                user = CustomUser.objects.get(email=customer['email']).get_all_data()
                 user['total_spent'] = "$" + (customer['total_spent'])
                 users.append(user)
             except:
@@ -212,7 +212,7 @@ def test_function():
 def update_local_host():
     from user_app.models import CustomUser
 
-    lef_users = LefUser.objects.all()
+    lef_users = CustomUser.objects.all()
     for user in lef_users:
 
         customer = requests_search(user.email)
