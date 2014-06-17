@@ -72,7 +72,7 @@ def export_as_csv(modeladmin, request, queryset):
     writer = csv.writer(response)
     header=True
     if header:
-        writer.writerow(list(field_names))
+        writer.writerow(list(fields) + ['Shopify_Total_Sales', 'Shopify_Total_Customers'])
     for obj in Professional.objects.all():
         tempArray = []
         for field in fields:
