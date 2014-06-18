@@ -195,7 +195,8 @@ INSTALLED_APPS = (
 )
 
 CORS_ORIGIN_ALLOW_ALL = True
-
+CSRF_COOKIE_DOMAIN = ".liveeverfit.com"
+SESSION_COOKIE_DOMAIN = ".liveeverfit.com"
 # MISC APP VARIABLES
 TOKEN_EXPIRE = True
 # Defaults to 14
