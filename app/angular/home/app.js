@@ -11,7 +11,7 @@ define(['app', 'feed'], function (app) {
                 token: localStorageService.get('Authorization'),
                 tabs: [
                     {title: 'all', filter: '', active: true},
-                    {title: 'texts', filter: 'text'},
+                    {title: 'statuses', filter: 'text'},
                     {title: 'photos', filter: 'photo'},
                     {title: 'videos', filter: 'video'},
                     {title: 'blogs', filter: 'blog'},

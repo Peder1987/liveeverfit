@@ -100,6 +100,7 @@ define(['angularAMD',
                     .state('membership', route.resolve('/membership', 'membership'))
                     .state('calendar', route.resolve('/calendar', 'calendar'))
                     .state('profile', route.resolve('/profile', 'profile'))
+                    .state('upgrade', route.resolve('/upgrade', 'upgrade'))
                     .state('profile.view', route.resolve('/:view', 'profile'));
 
                 $urlRouterProvider.otherwise("/");
