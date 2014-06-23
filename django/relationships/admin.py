@@ -20,6 +20,6 @@ class UserRelationshipAdmin(admin.ModelAdmin):
 class RelationshipStatusAdmin(admin.ModelAdmin):
     form = RelationshipStatusAdminForm
 
-admin.site.unregister(User)
-admin.site.register(User, UserRelationshipAdmin)
+# admin.site.unregister(User)
+# admin.site.register(User, UserRelationshipAdmin)
 admin.site.register(RelationshipStatus, RelationshipStatusAdmin)

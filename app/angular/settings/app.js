@@ -524,7 +524,7 @@ define(['app'], function (app) {
             $scope.onFileSelect = function ($files) {
                 $scope.uploadImg = $files[0];
                 $scope.upload = $upload.upload({
-                    url: $scope.restProtocol + '://' + $scope.restURL + '/upload-image/upload-profile-picture/',
+                    url: $scope.restProtocol + '://' + $scope.restURL + '/upload-image/upload-profile-picture',
                     file: $scope.uploadImg
                 }).progress(function (evt) {
                     $scope.percent = parseInt(100.0 * evt.loaded / evt.total);
@@ -545,7 +545,7 @@ define(['app'], function (app) {
                     var cords = $scope.cords,
                         widthHeight = $scope.widthHeight;
                     $scope.upload = $upload.upload({
-                        url: $scope.restProtocol + '://' + $scope.restURL + '/upload-image/crop-profile-picture/',
+                        url: $scope.restProtocol + '://' + $scope.restURL + '/upload-image/crop-profile-picture',
                         data: {
                             id: $scope.returnData.id,
                             cropping: cords.x + ',' + cords.y + ',' + cords.x2 + ',' + cords.y2,

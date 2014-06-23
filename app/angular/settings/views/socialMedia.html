@@ -96,6 +96,32 @@
                 </span>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="bold">
+                    <span class="fa fa-money"></span> Shopify Sales:
+                </span>
+                
+                <span id="bio" class="edit-text" data-title="total"
+                      data-type="text">
+                    {{ profile_user.shopify_sales.total_earned }}
+                    <div ng-if="!profile_user.shopify_sales.total_earned">Contact Administrator</div>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="bold">
+                    <span class="fa fa-empire"></span> Total Customers:
+                </span>
+                
+                <span id="bio" class="edit-text" data-title="total"
+                      data-type="text">
+                    {{ profile_user.shopify_sales.total_customers }}
+                    <div ng-if="!profile_user.shopify_sales.total_customers || profile_user.shopify_sales.total_customers != 0 ">Contact Administrator</div>
+                </span>
+            </div>
+        </div>
     </div>
 </div>
 
