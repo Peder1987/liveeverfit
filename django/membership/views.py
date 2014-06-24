@@ -105,6 +105,12 @@ def upgrade_to_professional(request):
             certification2.save()
         pro.save()
 
+        email = 'payroll@liveeverfit.com'
+        subject = 'New Professional'
+        message = 'New Professional in Live Ever Fit ' + pro.email + '\n' + 'phone: ' + pro.phone + '\n' + 'address: ' + pro.primary_address.street_line1 + ' ' + pro.primary_address.street_line2 + ' ' + pro.primary_address.city + ' ' + pro.primary_address.state + ' ' + pro.primary_address.zipcode   
+        send_mail(subject, message, 'info@liveeverfit.com', [email])
+        
+
         return Response({'details': 'professional'}, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
