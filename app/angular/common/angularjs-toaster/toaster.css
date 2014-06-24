@@ -74,7 +74,7 @@ button.toast-close-button {
   left: 12px;
 }
 .toast-top-right {
-  top: 12px;
+  top: 70px;
   right: 12px;
 }
 .toast-bottom-right {
@@ -143,22 +143,22 @@ button.toast-close-button {
   margin: auto;
 }
 .toast {
-  background-color: #030303;
+  background-color: #1488FD;
 }
 .toast-success {
-  background-color: #51a351;
+  background-color: #1488FD;
 }
 .toast-error {
-  background-color: #bd362f;
+  background-color: #1488FD;
 }
 .toast-info {
-  background-color: #2f96b4;
+  background-color: #1488FD;
 }
 .toast-wait {
-  background-color: #2f96b4;
+  background-color: #1488FD;
 }
 .toast-warning {
-  background-color: #f89406;
+  background-color: #1488FD;
 }
 /*Responsive Design*/
 @media all and (max-width: 240px) {

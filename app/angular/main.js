@@ -75,7 +75,8 @@ require.config({
         'bootstrap-typeahead': 'feed/bootstrap-typeahead',
         'caret': 'feed/jquery.caret.min',
         'calendar': 'calendar/app',
-        'socialShare' : 'common/angular-easy-social-share/easy-social-share'
+        'socialShare' : 'common/angular-easy-social-share/easy-social-share',
+        'joyride' : 'common/joyride/jquery.joyride-2.1.js'
     },
 
     //Angular does not support AMD out of the box, put it in a shim

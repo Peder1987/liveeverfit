@@ -57,10 +57,10 @@
                     <div class="profile-banner">
                         <div class="image-overlay">
                             <div class="buttons pull-left">
-                                <a href ng-if="user_id == profile_user.id" class="message" ui-sref="settings">
+                                <!--<a href ng-if="user_id == profile_user.id" class="message" ui-sref="settings">
                                     <i class="fa fa-cog"></i>
                                     settings
-                                </a>
+                                </a>-->
                                 <a href ng-if="user_id != profile_user.id && profile_user.user_connected"
                                    class="message" ui-sref="messages.view({view:'new'})">
                                     <i class="fa fa-envelope"></i>
@@ -180,4 +180,30 @@
         <!-- /.filters -->
         <div ng-if="feed.show" entry-feed ng-model="$parent.$parent.feed"></div>
         </div><!-- /.container -->
+        <div class="fanaticsList hidden-xs">
+        <input type="checkbox" />
+        <label data-expanded="-" data-collapsed="+"></label>
+        <div class="fanaticsList-content">
+            <div class="ef-header">fanatics</div>
+            <div>
+                Search: <input ng-model="searchText">
+            </div>
+            <i class="fa fa-comments fa-3x ico-comm"></i>
+            <div class="list-fan">
+                <div class="row inf-user" ng-repeat="fanatic in fanaticList | filter:searchText">
+                    <div class="col-md-2 ico-user">
+                        <a class="img" ui-sref="profile.view({view: comment.user})">
+                            <img class="img-responsive" alt="Responsive image" src="/media/{{fanatic.img}}"/>
+                        </a>
+                    </div>
+                    <a class="col-md-8 name-user" ui-sref="profile.view({view: fanatic.id})">
+                        {{fanatic.full_name}}
+                    </a>
+                    <!-- <div class="col-md-2 envelope">
+                             <i class="fa fa-envelope"></i>
+                         </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
 </div><!-- /#profile -->

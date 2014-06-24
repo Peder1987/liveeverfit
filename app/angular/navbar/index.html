@@ -97,25 +97,6 @@
                                 </a></li>
                             </ul>
                         </li>
-                        <li class="dropdown-submenu" ng-class="{open: foodsHover}">
-                            <a href="http://beta.liveeverfit.com/f3-foods-home/" data-toggle="dropdown"
-                               ng-mouseenter="foodsHover = true;" ng-mouseleave="foodsHover = false;">
-                                f3 foods
-                            </a>
-                            <ul class="dropdown-menu" style="left: 160px;"
-                                ng-mouseenter="foodsHover = true;" ng-mouseleave="foodsHover = false;">
-                                <li><a href="http://beta.liveeverfit.com/f3-foods-home/#Getfit-Program">
-                                    the get fit program
-                                </a></li>
-                                <li><a href="http://beta.liveeverfit.com/f3-foods-stayfit/">
-                                    the stay fit program
-                                </a>
-                                </li>
-                                <li><a href="http://beta.liveeverfit.com/f3-foods-philosophy/">
-                                    philosophy
-                                </a></li>
-                            </ul>
-                        </li>
                         <li>
                             <a href="http://store.liveeverfit.com/collections/featured-products">featured items</a>
                         </li>
@@ -174,19 +155,19 @@
             <i class="fa fa-bell fa-lg"></i>&ZeroWidthSpace;<span class="badge">{{notificationsCount}}</span>
         </a>
     </li>
+    <li>
+        <a href="/#/profile">
+            <i class="fa fa-user fa-lg"></i>&ZeroWidthSpace;
+        </a>
+    </li>
     <li class="dropdown">
         <a href class="dropdown-toggle">
-            <i class="fa fa-user fa-lg xs-i-help"></i> <b class="caret"></b>
+            <i class="fa fa-cog fa-lg xs-i-help"></i> <b class="caret"></b>
         </a>
         <ul class="dropdown-menu dropdown-menu-right">
-            <li>
-                <a ui-sref="profile" class="xs-i">
-                    <i class="fa fa-user"></i> profile
-                </a>
-            </li>
             <li ng-if="user_type != 'user'">
                 <a ui-sref="messages">
-                    <i class="fa fa-envelope fa-lg xs-i-help"></i> messages
+                    <i class="fa fa-envelope xs-i-help"></i> messages
                 </a>
             </li>
             <li>
