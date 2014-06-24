@@ -22,6 +22,8 @@ ADMINS = (
 
 # Sends email to the console for debugging purposes, comment out for production
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = os.path.join(PROJECT_PATH, 'email')
 
 MANAGERS = ADMINS
 if DEBUG:
@@ -143,8 +145,7 @@ ROOT_URLCONF = 'django_server.urls'
 WSGI_APPLICATION = 'django_server.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # the rest of these templates should be app_name/templates
-    # ex: 'taggit/templates',
+    os.path.join(DJANGO_PATH, "templates"),
 )
 
 AUTHENTICATION_BACKENDS = (
