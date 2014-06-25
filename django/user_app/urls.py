@@ -3,7 +3,7 @@ from rest_framework import routers
 from .views import UserViewSet, GroupViewSet, ProfessionalListView, LocationViewSet, ProfessionalObjView, PaymentView, ModifyMembershipView
 
 from .views import ClientListView, CreditcardView, ProfileView, FollowUserView, BlockUserView, ConnectUserView, FanaticsListView 
-from .views import GroupTagView, StaticTagViewSet
+from .views import GroupTagView, StaticTagViewSet, UserListView
 
 
 router = routers.SimpleRouter(trailing_slash=False)
@@ -15,6 +15,7 @@ router.register(r'/location', LocationViewSet)
 
 urlpatterns = patterns('',
 	# Main View
+	url(r'^/$', UserListView.as_view()),
 	url(r'^/(?P<pk>[0-9]+)$', UserViewSet.as_view()),
 	url(r'^/profile/(?P<pk>[0-9]+)$', ProfileView.as_view()),
 	url(r'^/follow/(?P<pk>[0-9]+)$', FollowUserView.as_view()),

@@ -333,6 +333,13 @@ class ProfessionalListSerializer(serializers.ModelSerializer):
         model = Professional
         fields = ('id',"first_name", "last_name", "profession", "gender", "location", "is_accepting", "img", 'lat', 'lng', 'queue',)
 
+class UserListSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source='email', required=False)
+    img = serializers.ImageField(allow_empty_file=True, required=False)
+    class Meta:
+        model = Professional
+        fields = ('id',"first_name", "last_name", "gender", "location",  "img", 'lat', 'lng',)
+
 
 class ClientListSerializer(serializers.ModelSerializer):
     full_name = serializers.Field(source="get_full_name")
