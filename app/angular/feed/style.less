@@ -98,9 +98,17 @@
 
     .tags-input .tags {
       border-radius:0px;
+      background-color:#edeef0;
+      color:#333;
     }
     .form-space {
       margin-bottom:0px;
+    }
+    .entry-meta {
+      background-color:#69737b
+    }
+    .btn-primary {
+      background:none;
     }
     .event, .typeahead {
       text-align: left;
@@ -279,4 +287,19 @@
     }
   }
 
+}
+input::-webkit-input-placeholder {
+   color: red;
+}
+
+input:-moz-placeholder { /* Firefox 18- */
+   color: red;  
+}
+
+input::-moz-placeholder {  /* Firefox 19+ */
+   color: red;  
+}
+
+input:-ms-input-placeholder {  
+   color: red;  
 }

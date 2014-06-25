@@ -76,7 +76,7 @@ require.config({
         'caret': 'feed/jquery.caret.min',
         'calendar': 'calendar/app',
         'socialShare' : 'common/angular-easy-social-share/easy-social-share',
-        'joyride' : 'common/joyride/jquery.joyride-2.1.js'
+        'mm-foundation' : 'common/mm-foundation/mm-foundation-0.2.2'
     },
 
     //Angular does not support AMD out of the box, put it in a shim
@@ -115,7 +115,8 @@ require.config({
         'bootstrap.wysihtml5.en-US': ['bootstrap.wysihtml5'],
         'feed': ['app'],
         'calendar': ['app'],
-        'socialShare': ['angular']
+        'socialShare': ['angular'],
+        'mm-foundation': ['angular']
     },
     //Kick start application
     deps: ['app']
