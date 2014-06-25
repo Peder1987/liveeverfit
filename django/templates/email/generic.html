@@ -1,5 +1,382 @@
-<html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>LEF</title>
+    <style type="text/css">
+        #outlook a {
+            padding: 0;
+        }
+
+        body {
+            width: 100% !important;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            margin: 0;
+            padding: 0;
+            color: #9c9a9a !important;
+            font-family: "Open Sans", arial, sans-serif;
+        }
+
+        .ExternalClass {
+            width: 100%;
+        }
+
+        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {
+            line-height: 100%;
+        }
+
+        .backgroundTable {
+            background-image: url('http://dev.liveeverfit.com/media/email/generic.jpg');
+            background-color: #ffffff;
+            margin: auto;
+            padding: 0;
+            line-height: 100% !important;
+            width: 700px !important;
+            color: #ffffff !important;
+            font-family: "Open Sans", arial, sans-serif !important;
+        }
+
+        img {
+            outline: none;
+            text-decoration: none;
+            -ms-interpolation-mode: bicubic;
+        }
+
+        a img {
+            border: none;
+        }
+
+        .image_fix {
+            display: block;
+        }
+
+        p {
+            margin: 1em 0;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: black !important;
+        }
+
+        h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+            color: blue !important;
+        }
+
+        h1 a:active, h2 a:active, h3 a:active, h4 a:active, h5 a:active, h6 a:active {
+            color: red !important;
+        }
+
+        h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
+            color: purple !important;
+        }
+
+        table td {
+            border-collapse: collapse;
+        }
+
+        table {
+            border-collapse: collapse;
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+            font-size: 13px !important;
+        }
+
+        a {
+            color: #9c9a9a !important;
+            text-decoration: none !important;
+        }
+
+        .social a:hover {
+            text-decoration: none;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .social a {
+            display: inline-block;
+            margin: 0 1px;
+        }
+
+        .social a img {
+            margin: 0;
+        }
+
+        .btn, button, input {
+            margin-left: 7px;
+            height: 32px;
+            -webkit-appearance: none;
+            -webkit-user-select: none;
+            align-items: flex-start;
+            background-color: #1489ff;
+            border: none;
+            border-radius: 4px;
+            box-sizing: border-box;
+            color: rgb(255, 255, 255) !important;
+            cursor: pointer;
+            display: block;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            float: left;
+            letter-spacing: normal;
+            line-height: 20px;
+            padding-bottom: 6px;
+            padding-left: 12px;
+            padding-right: 12px;
+            padding-top: 6px;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+            word-spacing: 0px;
+        }
+
+        button:hover {
+            background-color: #007eff;
+        }
+
+        button:active {
+            -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            -webkit-appearance: none;
+            -webkit-user-select: none;
+            outline: none;
+        }
+
+        input {
+            background-color: #282828;
+            color: #b5b5b5 !important;
+            cursor: text;
+            text-align: left;
+            -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+        }
+
+        @media only screen and (max-device-width: 480px) {
+            a[href^="tel"], a[href^="sms"] {
+                text-decoration: none;
+                color: #ffffff !important; /* or whatever your want */
+                pointer-events: none;
+                cursor: default;
+            }
+
+            .mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
+                text-decoration: default;
+                color: #ffffff !important;
+                pointer-events: auto;
+                cursor: default;
+            }
+        }
+
+        @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+            a[href^="tel"], a[href^="sms"] {
+                text-decoration: none;
+                color: #ffffff !important; /* or whatever your want */
+                pointer-events: none;
+                cursor: default;
+            }
+
+            .mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
+                text-decoration: default;
+                color: #ffffff !important;
+                pointer-events: auto;
+                cursor: default;
+            }
+        }
+
+        @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+            /* Put your iPhone 4g styles in here */
+        }
+
+        @media only screen and (-webkit-device-pixel-ratio: .75) {
+            /* Put CSS for low density (ldpi) Android layouts in here */
+        }
+
+        @media only screen and (-webkit-device-pixel-ratio: 1) {
+            /* Put CSS for medium density (mdpi) Android layouts in here */
+        }
+
+        @media only screen and (-webkit-device-pixel-ratio: 1.5) {
+            /* Put CSS for high density (hdpi) Android layouts in here */
+        }
+
+    </style>
+</head>
 <body>
-    
+<table cellpadding="0" cellspacing="0" border="0" class="backgroundTable" background="http://dev.liveeverfit.com/media/email/generic.jpg"
+       style="background: url('http://dev.liveeverfit.com/media/email/generic.jpg') no-repeat; background-color: #ffffff;margin: auto;padding: 0;line-height: 100% !important;width: 700px !important;color: #9c9a9a!important;font-family: 'Open Sans', arial, sans-serif!important;">
+    <tr>
+        <td>
+            <table width="77%" style="margin-top: 300px;" cellpadding="0"
+                   cellspacing="0" border="0" align="center">
+                <tr height="30px">
+                    <td colspan="2">
+                        <span style="color: #1489ff;">Need some help?</span>
+                    </td>
+
+                </tr>
+                <tr style="line-height: 14px;">
+                    <td width="15%" valign="top"><a href="tel: 800-787-7348" style="vertical-align: bottom;"><span
+                            style="margin: 0px 5px -2px 0px;"><img
+                            src="http://dev.liveeverfit.com/media/email/phone.png"/></span> 800 SUPR-FIT</a>
+                    </td>
+                    <td width="25%" valign="top"><a href="mailto: info@liveeverfit.com" style="vertical-align: bottom;"><span
+                            style="margin: 0px 5px -2px 0px;"><img
+                            src="http://dev.liveeverfit.com/media/email/mail.png"/></span> info@liveeverfit.com</a>
+                    </td>
+                </tr>
+                <tr height="44px"></tr>
+                <tr>
+                    <td colspan="3" style="color: #1489ff; font-size: 16px; padding-left: 140px;line-height: normal;">
+                        Outstanding! You are now a registered EverFit User!
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="padding-left: 140px;line-height: 26px;">
+                        We thank you for registering for EverFit Lyte... you are now part of the fastest growing fitness
+                        network! We look forward to hearng all about your fitness goals and sharing with you tips and
+                        best practices to help you acheive them! Ever Fit!
+                    </td>
+                </tr>
+            </table>
+            <table width="77%" style="margin-top: 320px;" cellpadding="0"
+                   cellspacing="0" border="0" align="center">
+                <tr>
+                    <td colspan="3" style="color: #1489ff; font-size: 16px; padding-left: 140px;line-height: normal;">
+                        The Trainer
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="padding-left: 140px;line-height: 26px;">
+                        EverFit is reinventing the fitness world indefinitely and we are recruiting the top fitness
+                        professionals from all over the country to participate in forging the “tomorrow” of fitness. By
+                        joining the EverFit team, we become your marketing -
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="line-height: 26px;margin-top: 10px;">
+                        agent, your web deigner, your Store/Merchandise coordinator and your personal assistant! Through
+                        our state-of-the-art fitness network and our Professional Branding, we will increase your
+                        personal marketability and overall exposure to potential clients, freeing you up to do what you
+                        do best… train! Become part of the fastest growing online fitness network in the nation, and
+                        take control of your future! <a
+                            href="http://dev.liveeverfit.com/landing/"
+                            style="color: #1489ff!important;">Read
+                        More</a>
+                    </td>
+                </tr>
+            </table>
+            <table width="77%" style="margin-top: 47px;" cellpadding="0"
+                   cellspacing="0" border="0" align="center">
+                <tr>
+                    <td colspan="3" style="color: #1489ff; font-size: 16px; padding-left: 140px;line-height: normal;">
+                        The Nutritionist
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="padding-left: 140px;line-height: 26px;">
+                        Along with the top fitness professionals, we’re looking for the very elite of Nutritionist to
+                        recruit for this massive colliding of fitness and technolgy. Is your passion sharing good health
+                        and wellness through nutrition? We want you!
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="line-height: 26px;margin-top: 10px;">
+                        Join the Everfit Team and reach more folks than you ever thought possible utilizing our
+                        innovative tools and marketing. We have built the brand, created the technology and newtork...
+                        question is, what are you going to do with it? <a
+                            href="http://dev.liveeverfit.com/landing/"
+                            style="color: #1489ff!important;">Read
+                        More</a>
+                    </td>
+                </tr>
+            </table>
+            <table width="77%" style="margin-top: 72px;" cellpadding="0"
+                   cellspacing="0" border="0" align="center">
+                <tr>
+                    <td colspan="3" style="color: #1489ff; font-size: 16px; padding-left: 286px;line-height: normal;">
+                        The Promoter
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="padding-left: 286px;line-height: 26px;">
+                        If you are a fitness fanatic like we are, but not a certified trainer or nutritionist, we still
+                        have a spot for you on the team! You can become an EverFit...
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="padding-left: 141px; line-height: 26px; padding-top: 10px">
+                        Promoter and still enjoy all of the benefits that EverFit provides. If you are a trainer or...
+                        nutritionist that does not want to take part in our online training program, being a promoter is
+                        also an option for you. You can increase your personal income and increase your personal
+                        marketability by inspiring others to get fit and stay fit. So join our team and share your
+                        fitness story! Sign up today. <a
+                            href="http://dev.liveeverfit.com/landing/"
+                            style="color: #1489ff!important;">Read
+                        More</a>
+                    </td>
+                </tr>
+            </table>
+            <table width="92%" style=" margin-top: 340px;" cellpadding="0"
+                   cellspacing="0" border="0" align="center">
+                <tr>
+                    <td width="40%" style="font-size: 11px">
+                        <img src="http://dev.liveeverfit.com/media/email/newsletter-inverse.png"/>
+
+                        <div style="margin-left: 5px; color: #585757`;">Get news, tips, coupons and much more!</div>
+                        <form action="" style="margin-top: 10px">
+                            <input name="email" width="164px;" placeholder="Subscribe..." style="box-sizing: border-box;"/>
+                            <button type="submit" style="padding: 5px 14px 4px; margin-top: 0;height: 32px;pointer: cursor;"><img alt="Subscribe"
+                                                                                                     border="0"
+                                                                                                     src="http://dev.liveeverfit.com/media/email/chevron.png"/>
+                            </button>
+                        </form>
+
+                    </td>
+                </tr>
+            </table>
+            <table width="90%" style=" margin-top: 130px; margin-bottom: 22px; text-align: right" cellpadding="0"
+                   cellspacing="0" border="0" align="center">
+                <tr>
+                    <td width="100%" style="font-size: 11px">
+                        <div style="font-size: 15px;margin-bottom: 8px;margin-right: 5px; color: #ffffff!important"">Follow
+                            Us!
+                        </div>
+                        <div class="social clearfix">
+                            <a href="http://www.youtube.com/channel/UCgNYk2E_nPRclZCbAA51vAg" class="youtube">
+                                <img src="http://dev.liveeverfit.com/media/email/social-ico-youtube.png">
+                            </a>
+                            <a href="https://www.facebook.com/LiveEverFit" class="facebook">
+                                <img src="http://dev.liveeverfit.com/media/email/social-ico-facebook.png">
+                            </a>
+                            <a href="https://twitter.com/liveeverfit" class="twitter">
+                                <img src="http://dev.liveeverfit.com/media/email/social-ico-twitter.png">
+                            </a>
+                            <a href="https://plus.google.com/102337651698679248767/videos" class="Google+">
+                                <img src="http://dev.liveeverfit.com/media/email/social-ico-google.png">
+                            </a>
+                            <a href="http://www.linkedin.com/pub/rory-caton/13/939/787" class="LinkedIn">
+                                <img src="http://dev.liveeverfit.com/media/email/social-ico-linkedin.png">
+                            </a>
+                        </div>
+                        <div style="color: #1489ff; margin-top: 10px">
+                            <a href="http://dev.liveeverfit.com/landing/" style="color: #ffffff!important">Home</a> |
+                            <a href="http://dev.liveeverfit.com/landing/" style="color: #ffffff!important">Workouts</a> |
+                            <a href="http://dev.liveeverfit.com/landing/" style="color: #ffffff!important">Fitness Professionals</a> |
+                            <a href="http://store.liveeverfit.com/" style="color: #ffffff!important">Shop</a> |
+                            <a href="http://dev.liveeverfit.com/landing/" style="color: #ffffff!important">Contact</a> |
+                            <a href="http://dev.liveeverfit.com/landing/" style="color: #ffffff!important">Ever Green</a>
+                        </div>
+                        <div style="margin-top: 5px; color: #ffffff!important">
+                            Copyright &copy; 2014 All Rights Reserved | <a href="http://dev.liveeverfit.com/landing/"  style="color: #ffffff!important">www.liveeverfit.com</a>
+                            | Houston, TX
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<!-- End of wrapper table -->
 </body>
 </html>
