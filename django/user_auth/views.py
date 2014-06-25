@@ -1,5 +1,8 @@
 #Django Libs
 from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context, Template
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
@@ -115,7 +118,12 @@ def register(request):
         email = user.email
         subject = 'Welcome to Live Ever Fit'
         message = 'Thank you for registering to Live Ever Fit'
-        send_mail(subject, message, 'info@liveeverfit.com', [email])
+        template = get_template('email/generic.html')
+        context = Context({})
+        output = template.render(context)
+        msg = EmailMultiAlternatives(subject, message, 'info@liveeverfit.com', [email])
+        msg.attach_alternative(output, "text/html")
+        msg.send()
 
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
@@ -171,7 +179,7 @@ def register_professional(request):
 
         email = 'payroll@liveeverfit.com'
         subject = 'New Professional'
-        message = 'New Professional in Live Ever Fit' + pro.email
+        message = 'New Professional in Live Ever Fit ' + pro.email + '\n' + 'phone: ' + pro.phone + '\n' + 'address: ' + pro.primary_address.street_line1 + ' ' + pro.primary_address.street_line2 + ' ' + pro.primary_address.city + ' ' + pro.primary_address.state + ' ' + pro.primary_address.zipcode   
         send_mail(subject, message, 'info@liveeverfit.com', [email])
         
         response = ReturnUserSerializer(instance=user).data

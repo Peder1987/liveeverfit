@@ -110,13 +110,13 @@
                      ng-model="$parent.entryBlogBody"></div>
                 <div class="form-space">
                     <tags-input type="text" class="tags-input"
-                                placeholder="Example: Crossfit, Nutrition"
+                                placeholder="Tags: Crossfit, Nutrition, etc."
                                 ng-model="entryTags" display-property="name">
                         <auto-complete source="loadSpecialty($query)"
                                        min-length="1"></auto-complete>
                     </tags-input>
                 </div>
-                <div class="clearfix">
+                <div class="clearfix entry-meta">
                     <button ng-click="entryMention()" type="button" class="btn btn-primary btn-sm pull-left">mention</button>
                     <span  class="dropdown pull-left">
                         <button type="button" class="btn btn-primary btn-sm dropdown-toggle">affiliate</button>

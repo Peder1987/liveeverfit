@@ -87,7 +87,7 @@ define(['app', 'feed', 'calendar'], function (app) {
                 connect: function () {
                     if($scope.user_type == 'user'){
                         localStorageService.add('profesional', $scope.profile_user.id);
-                        $state.go('membership');
+                        $state.go('upgrade');
                     }else{
                         $scope.connectResource.update({id: $scope.user_id, professional_id: $scope.profile_user.id}, function (data) {
                             $scope.profile_user.user_connected = data.user_connected
