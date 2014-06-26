@@ -40,28 +40,11 @@ define(['app', 'feed'], function (app) {
                         filter: type ? '/' + type : ''
                     };
                 },
-                fanaticSearch : '',
-                fanaticList: [],
-                fanaticCollection : $resource(":protocol://:url/users/fanatics", {
-                    protocol: $scope.restProtocol,
-                    url: $scope.restURL
-                }, {'query': {method: 'GET', isArray: false }}),
-                fanaticTypeahead : function (query) {
-                    var deferred = $scope.q.defer();
-                    $scope.fanaticCollection.query({
-                        search: query
-                    }, function (data) {
-                        deferred.resolve(data.results);
-                    });
-                    return deferred.promise;
-                }
-
+                
             });
             $scope.$on('$stateChangeSuccess', $scope.initFeed);
             $scope.initFeed();
-            $scope.fanaticCollection.get({}, function(data){
-                $scope.fanaticList = data.results;
-            });
+
             $scope.onSelect = function($item, $model, $label){
                 $state.go('profile.view', {view: $item.id})
             }

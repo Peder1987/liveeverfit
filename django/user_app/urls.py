@@ -15,7 +15,7 @@ router.register(r'/location', LocationViewSet)
 
 urlpatterns = patterns('',
 	# Main View
-	url(r'^/$', UserListView.as_view()),
+	url(r'^$', UserListView.as_view()),
 	url(r'^/(?P<pk>[0-9]+)$', UserViewSet.as_view()),
 	url(r'^/profile/(?P<pk>[0-9]+)$', ProfileView.as_view()),
 	url(r'^/follow/(?P<pk>[0-9]+)$', FollowUserView.as_view()),
