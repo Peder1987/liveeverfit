@@ -195,13 +195,13 @@ define(['angularAMD',
                     });
                     $scope.notificationsCount = 0;
                 };
-            }]);
+        }]);
 
 
         app.controller('PageCtrl', ['localStorageService', '$scope',
             function (localStorageService, $scope) {
                 $scope.token = localStorageService.get('Authorization');
-            }]);
+        }]);
         app.controller('footerCtrl', ['localStorageService', '$scope',
             function (localStorageService, $scope) {
                 $scope.isCollapsed = true;
@@ -209,7 +209,31 @@ define(['angularAMD',
                 $scope.templateNav = {
                     url: 'footer/index.html'
                 };
-            }]);
+        }]);
+        app.controller('fanaticsCtrl', ['localStorageService', '$scope', '$resource',
+            function (localStorageService, $scope, $resource) {
+                angular.extend($scope, {
+                    fanaticSearch : '',
+                    fanaticList: [],
+                    fanaticCollection : $resource(":protocol://:url/users/fanatics", {
+                        protocol: $scope.restProtocol,
+                        url: $scope.restURL
+                    }, {'query': {method: 'GET', isArray: false }}),
+                    fanaticTypeahead : function (query) {
+                        var deferred = $scope.q.defer();
+                        $scope.fanaticCollection.query({
+                            search: query
+                        }, function (data) {
+                            deferred.resolve(data.results);
+                        });
+                        return deferred.promise;
+                    }
+
+                })
+                $scope.fanaticCollection.get({}, function(data){
+                    $scope.fanaticList = data.results;
+                });
+        }]);
         app.directive('ng-blur', function () {
             return {
                 restrict: 'A',

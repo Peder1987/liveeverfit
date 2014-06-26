@@ -1,0 +1,26 @@
+<div class="fanaticsList hidden-xs" ng-controller="fanaticsCtrl">
+        <input type="checkbox" />
+        <label data-expanded="-" data-collapsed="+"></label>
+        <div class="fanaticsList-content">
+            <div class="ef-header">Find Fit Friends</div>
+            <div>
+                Search: <input ng-model="searchText">
+            </div>
+            <i class="fa fa-comments fa-3x ico-comm"></i>
+            <div class="list-fan">
+                <div class="row inf-user" ng-repeat="fanatic in fanaticList | filter:searchText">
+                    <div class="col-md-2 ico-user">
+                        <a class="img" ui-sref="profile.view({view: comment.user})">
+                            <img class="img-responsive" alt="Responsive image" src="/media/{{fanatic.img}}"/>
+                        </a>
+                    </div>
+                    <a class="col-md-8 name-user" ui-sref="profile.view({view: fanatic.id})">
+                        {{fanatic.full_name}}
+                    </a>
+                    <!-- <div class="col-md-2 envelope">
+                             <i class="fa fa-envelope"></i>
+                         </div> -->
+                </div>
+            </div>
+    </div>
+</div>
