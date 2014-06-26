@@ -32,8 +32,7 @@ define(['angularAMD',
         'caret',
         'angular-animate',
         'toasterjs',
-        'bootstrap-typeahead',
-        'mm-foundation'
+        'bootstrap-typeahead'
     ],
     function (angularAMD) {
         'use strict';
@@ -57,8 +56,7 @@ define(['angularAMD',
             'toaster',
             'geolocation',
             'angularFileUpload',
-            'td.easySocialShare',
-            'mm.foundation'
+            'td.easySocialShare'
         ]);
 
         app.run(function ($http, localStorageService, editableOptions) {
