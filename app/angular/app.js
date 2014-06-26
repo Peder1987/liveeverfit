@@ -210,8 +210,8 @@ define(['angularAMD',
                     url: 'footer/index.html'
                 };
         }]);
-        app.controller('fanaticsCtrl', ['localStorageService', '$scope', '$resource',
-            function (localStorageService, $scope, $resource) {
+        app.controller('fanaticsCtrl', ['localStorageService', '$scope', '$resource', '$q',
+            function (localStorageService, $scope, $resource, $q) {
                 angular.extend($scope, {
                     fanaticSearch : '',
                     fanaticList: [],
@@ -219,9 +219,13 @@ define(['angularAMD',
                         protocol: $scope.restProtocol,
                         url: $scope.restURL
                     }, {'query': {method: 'GET', isArray: false }}),
+                    fitFriendsCollection : $resource(":protocol://:url/users", {
+                        protocol: $scope.restProtocol,
+                        url: $scope.restURL
+                    }, {'query': {method: 'GET', isArray: false }}),
                     fanaticTypeahead : function (query) {
-                        var deferred = $scope.q.defer();
-                        $scope.fanaticCollection.query({
+                        var deferred = $q.defer();
+                        $scope.fitFriendsCollection.query({
                             search: query
                         }, function (data) {
                             deferred.resolve(data.results);
