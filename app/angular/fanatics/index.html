@@ -4,7 +4,7 @@
         <div class="fanaticsList-content">
             <div class="ef-header">Find Fit Friends</div>
             <div>
-                Search: <input ng-model="searchText" typeahead="obj.full_name for obj in fanaticTypeahead($viewValue)">
+                Search: <input ng-model="searchText" typeahead="obj.full_name for obj in fanaticTypeahead($viewValue)" typeahead-on-select="onSelect($item)">
             </div>
             <i class="fa fa-comments fa-3x ico-comm"></i>
             <div class="list-fan">
