@@ -188,7 +188,7 @@ define(['angularAMD',
                 $scope.pop = function () {
                     angular.forEach($scope.notifications.results, function (value, key) {
                         toaster.pop(value.level, value.level, value.message);
-                        $scope.notificationsCallback = notificationsIdResource.update({id: value.id}, function () {
+                        $scope.notifications$4Callback = notificationsIdResource.update({id: value.id}, function () {
                         });
                     });
                     $scope.notificationsCount = 0;
@@ -208,8 +208,8 @@ define(['angularAMD',
                     url: 'footer/index.html'
                 };
         }]);
-        app.controller('fanaticsCtrl', ['localStorageService', '$scope', '$resource', '$q',
-            function (localStorageService, $scope, $resource, $q) {
+        app.controller('fanaticsCtrl', ['localStorageService', '$scope', '$resource', '$q', '$state',
+            function (localStorageService, $scope, $resource, $q, $state) {
                 angular.extend($scope, {
                     fanaticSearch : '',
                     fanaticList: [],
@@ -229,6 +229,9 @@ define(['angularAMD',
                             deferred.resolve(data.results);
                         });
                         return deferred.promise;
+                    },
+                    onSelect : function($item){
+                        $state.go('profile.view', {view: $item.id})
                     }
 
                 })
