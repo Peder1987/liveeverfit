@@ -30,15 +30,15 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="profile-picture">
-                                    <img ng-src="/media/{{profile_user.img}}" class=""/>
+                                    <img ng-src="http://dev.liveeverfit.com/media/{{profile_user.img}}" class=""/>
                                 </div>
                                 <!-- /.profile-picture -->
                             </div>
                             <!-- /.col-md-6 -->
                             <div class="col-sm-4">
                                 <img ng-if="profile_user.profession"
-                                     ng-src="/profile/img/{{profile_user.profession}}.png"/>
-                                <img ng-if="!profile_user.profession" ng-src="/profile/img/user.png"/>
+                                     ng-src="profile/img/{{profile_user.profession}}.png"/>
+                                <img ng-if="!profile_user.profession" ng-src="profile/img/user.png"/>
                             </div>
                             <!-- /.col-md-6 -->
                         </div>

@@ -193,7 +193,7 @@
     <div class="media">
         <a ui-sref="profile.view({view: entry.user})">
             <img class="media-object pull-left"
-                 ng-src="{{entry.profile_img}}"
+                 ng-src="http://dev.liveeverfit.com/{{entry.profile_img}}"
                  style="width: 32px; height: 32px;">
         </a>
 
@@ -214,7 +214,7 @@
         <span ng-bind-html="getTrustedHtml(entry.text, false)"></span>
 
         <div>
-            <img ng-click="openLightbox(entry)" ng-src="/media/{{entry.img}}">
+            <img ng-click="openLightbox(entry)" ng-src="http://dev.liveeverfit.com/media/{{entry.img}}">
         </div>
     </div>
     <div class="video" ng-switch-when="video">
@@ -254,7 +254,7 @@
         <div class="media">
             <a ui-sref="profile.view({view: entry.shared_entry.user})">
                 <img class="media-object pull-left"
-                     ng-src="{{entry.shared_entry.profile_img}}"
+                     ng-src="http://dev.liveeverfit.com/{{entry.shared_entry.profile_img}}"
                      style="width: 32px; height: 32px;">
             </a>
 
@@ -278,7 +278,7 @@
                 <span ng-bind-html="getTrustedHtml(entry.shared_entry.text, false)"></span>
 
                 <div>
-                    <img ng-click="openLightbox(entry.shared_entry)" ng-src="/media/{{entry.shared_entry.img}}">
+                    <img ng-click="openLightbox(entry.shared_entry)" ng-src="http://dev.liveeverfit.com/media/{{entry.shared_entry.img}}">
                 </div>
             </div>
             <div class="video" ng-switch-when="video">
@@ -383,7 +383,7 @@
                     </button>
                     <a ui-sref="profile.view({view: comment.user})">
                         <img class="media-object pull-left"
-                             ng-src="{{comment.img}}"
+                             ng-src="http://dev.liveeverfit.com/{{comment.img}}"
                              style="width: 36px; height: 36px;" ui-sref="profile.view({view: comment.user})">
                     </a>
 
@@ -404,7 +404,7 @@
             <div class="list-group-item">
                 <div class="media">
                     <img class="media-object pull-left"
-                         ng-src="{{usrImg}}"
+                         ng-src="{{serverProtocal}}://{{serverURL}}/{{usrImg}}"
                          style="width: 36px; height: 36px;">
 
                     <div class="media-body">

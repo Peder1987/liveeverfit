@@ -3,7 +3,7 @@
 define(['app'], function(app) {
 
 	
-    app.register.controller('loginCtrl', ["localStorageService","$resource","$scope", "rest",
+    app.register.controller('loginCtrl', ["localStorageService","$resource","$scope", "rest", 'restricted',
     	function(localStorageService, $resource, $scope) {
 
     		var AuthToken =  $resource("http://:url/accounts/login", {
@@ -26,7 +26,11 @@ define(['app'], function(app) {
 					localStorageService.add('user_email', $scope.authToken.email);
                     localStorageService.add('user_img', $scope.authToken.img);
                     localStorageService.add('user_type', $scope.authToken.type);
-					window.location = "/";
+                    $scope.restricted();
+                    setTimeout(function() {
+                        window.location = "#/";
+                    });
+
 				},function(error) {
 					$scope.message = error.data;
 				});

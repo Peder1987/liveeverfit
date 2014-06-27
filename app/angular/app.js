@@ -61,7 +61,10 @@ define(['angularAMD',
             'mm.foundation'
         ]);
 
-        app.run(function ($http, localStorageService, editableOptions) {
+        app.run(function ($rootScope, $http, $tour, localStorageService, editableOptions) {
+            $rootScope.startTour = $tour.start;
+            $rootScope.serverProtocal = "http";
+            $rootScope.serverURL = "dev.liveeverfit.com";
             editableOptions.theme = 'bs3';
             $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
         });
@@ -108,31 +111,33 @@ define(['angularAMD',
                 $urlRouterProvider.otherwise("/");
 
                 /*//Reset headers to avoid OPTIONS request (aka preflight)
-                $httpProvider.defaults.headers.common = {};
-                $httpProvider.defaults.headers.post = {};
-                $httpProvider.defaults.headers.put = {};
-                $httpProvider.defaults.headers.patch = {};*/
+                 $httpProvider.defaults.headers.common = {};
+                 $httpProvider.defaults.headers.post = {};
+                 $httpProvider.defaults.headers.put = {};
+                 $httpProvider.defaults.headers.patch = {};*/
             }
         ]);
 
 
         app.service('rest', ['$rootScope', function ($rootScope) {
             $rootScope.restProtocol = "http";
-            $rootScope.restURL = "localhost:8000";
+            $rootScope.restURL = "api.liveeverfit.com";
         }]);
         app.service('restricted', ['$rootScope', 'localStorageService', function ($rootScope, localStorageService) {
             $rootScope.restricted = function () {
                 $rootScope.token = localStorageService.get('Authorization');
-                if ($rootScope.token === null) {
-                    window.location = "/#/";
-                }
+                setTimeout(function () {
+                    if ($rootScope.token === null) {
+                        window.location = "#/login";
+                    }
+                });
             }
         }]);
         app.service('tokenError', ['localStorageService', '$rootScope', function (localStorageService, $rootScope) {
             $rootScope.checkTokenError = function (error) {
                 if (error.data && error.data['detail'] == 'Invalid token') {
                     localStorageService.clearAll();
-                    window.location = "/";
+                    $rootScope.restricted();
                 }
             }
         }]);
@@ -154,16 +159,16 @@ define(['angularAMD',
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
                 }, {update: { method: 'PUT' }});
-                var tagsResource = $resource(":protocol://:url/tags/",{
+                var tagsResource = $resource(":protocol://:url/tags/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL,
-                },{update: { method: 'PUT' }});
+                }, {update: { method: 'PUT' }});
 
 
-                $scope.tagsCall = tagsResource.get($scope.user, function(){
+                $scope.tagsCall = tagsResource.get($scope.user, function () {
                     $scope.temTags = $scope.tagsCall.results;
 
-                },function(error) {
+                }, function (error) {
                     $scope.message = error.data;
                 });
 
@@ -174,7 +179,7 @@ define(['angularAMD',
                             $timeout(tick, 30000);
                         });
                     })();
-                };
+                }
 
                 if ($scope.token) {
                     $scope.templateNav = {
@@ -182,10 +187,9 @@ define(['angularAMD',
                     };
                     $scope.signOut = function () {
                         localStorageService.clearAll();
-                        window.location = "/";
+                        $scope.restricted();
                     }
                 }
-                ;
 
                 $scope.pop = function () {
                     angular.forEach($scope.notifications.results, function (value, key) {
@@ -377,10 +381,10 @@ define(['angularAMD',
             return { readAsDataUrl: readAsDataURL };
         });
 
-        app.directive('disableNgAnimate', ['$animate', function($animate) {
+        app.directive('disableNgAnimate', ['$animate', function ($animate) {
             return {
                 restrict: 'A',
-                link: function(scope, element) {
+                link: function (scope, element) {
                     $animate.enabled(false, element);
                 }
             };

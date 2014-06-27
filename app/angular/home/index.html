@@ -1,6 +1,6 @@
 <div id="homeBg"></div>
 <div id="homePage">
-<div ng-controller="TourDemoCtrl">
+<div>
   <button ng-click="startTour()">Start tour</button>
   <div class="panel"
     step-text="Hello, this is the first step of the tour."
@@ -23,7 +23,7 @@
 <div ng-if="token" ng-controller="homeController">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-xs-12">
                 <div ng-controller="BannerCtrl">
                     <carousel interval="3000" disable-ng-animate>
                         <slide ng-repeat="slide in slides" active="slide.active">

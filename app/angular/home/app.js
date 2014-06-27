@@ -1,13 +1,4 @@
 'use strict';
-
-var TourDemoCtrl = function ($scope, $tour) {
-    $(document).ready(function(){
-  $scope.startTour = $tour.start;
-  console.log($tour);
-  console.log($scope);
-});
-};
-
 define(['app', 'feed'], function (app) {
     app.register.controller('homeCtrl', ['$scope', 'restricted',
         function ($scope) {
@@ -21,6 +12,7 @@ define(['app', 'feed'], function (app) {
         }]);*/
     app.register.controller('homeController', ['localStorageService', '$scope', '$resource', '$state', '$stateParams', 'promiseService',
         function (localStorageService, $scope, $resource, $state, $stateParams) {
+            console.log("Here")
             angular.extend($scope, {
                 token: localStorageService.get('Authorization'),
                 tabs: [

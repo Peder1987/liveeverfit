@@ -7545,9 +7545,9 @@ i {
     position: absolute;
     left: 50%;
     top: 0px;
-    width: 145px;
+    width: 178px;
     height: 62px;
-    margin-left: -72px;
+    margin-left: -89px;
   }
   .nav-xs-icon a {
     color: #797878;
@@ -9480,6 +9480,7 @@ ol.pricely-indicators li {
 }
 #page > div:not(.exclude):nth-child(2) {
   overflow-y: scroll;
+  overflow-x: hidden;
   padding-top: 34px;
   padding-bottom: 34px;
 }
