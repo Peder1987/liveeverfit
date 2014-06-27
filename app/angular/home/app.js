@@ -1,18 +1,24 @@
 'use strict';
 
+var TourDemoCtrl = function ($scope, $tour) {
+    $(document).ready(function(){
+  $scope.startTour = $tour.start;
+  console.log($tour);
+  console.log($scope);
+});
+};
 
 define(['app', 'feed'], function (app) {
     app.register.controller('homeCtrl', ['$scope', 'restricted',
         function ($scope) {
             $scope.restricted();
         }]);
-    /*app.register.controller('tourCtrl'), ['$scope', 'restricted',
-        function ($scope) {
-            $scope.restricted();
-        }]);
-    app.register.controller('tourController', '$scope', '$tour',
-        $scope.startTour = $tour.start;
-        )]);*/
+    /*app.register.controller('TourDemoCtrl', ['$scope', 'restricted',
+        function ($scope, $tour) {
+            console.log($tour);
+            console.log($scope);
+            $scope.startTour = $tour.start;
+        }]);*/
     app.register.controller('homeController', ['localStorageService', '$scope', '$resource', '$state', '$stateParams', 'promiseService',
         function (localStorageService, $scope, $resource, $state, $stateParams) {
             angular.extend($scope, {

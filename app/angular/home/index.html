@@ -1,5 +1,26 @@
 <div id="homeBg"></div>
-<div id="homePage" ng-if="token" ng-controller="homeController">
+<div id="homePage">
+<div ng-controller="TourDemoCtrl">
+  <button ng-click="startTour()">Start tour</button>
+  <div class="panel"
+    step-text="Hello, this is the first step of the tour."
+    step-index="1"
+    step-placement="bottom">
+    First tour step points here
+  </div>
+  <div class="panel"
+    step-text="This is another step of the tour."
+    step-index="2"
+    step-placement="right">
+    Second tour step points here
+  </div>
+  <div class="panel"
+    step-text="Last step. Finally."
+    step-index="3">
+    Third tour step points here
+  </div>
+</div>
+<div ng-if="token" ng-controller="homeController">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -25,7 +46,7 @@
                             </a>
                         </div>
                         <div class="col-xs-4">
-                            <a href="http://store.liveeverfit.com/cart">
+                            <a href="http://store.liveeverfit.com">
                                 <img src="home/img/the-shop.png"/>
                             </a>
                         </div>
@@ -40,4 +61,5 @@
         </div>
     </div>
     <div ng-include="'/fanatics/index.html'"> </div>
+</div>
 </div>
