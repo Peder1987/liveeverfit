@@ -10,6 +10,10 @@
             <a href class="navbar-brand" ng-click="dashCollapsed = !dashCollapsed">
                 <div class="dashboard-btn" >
                     <i class="fa fa-bars"></i>
+                    <div    style="position:absolute; top: 55px;; left: -23px; z-index: 10000;"
+                            step-text="Check out your profile, messages, FAQ, and account settings here!"
+                            step-index="2"
+                            step-placement="bottom"></div>
                 </div>
             </a>
             <a class="navbar-brand" ng-class="{active:$uiRoute}" ui-route="/" ui-sref="home">
@@ -36,6 +40,10 @@
                     <a href class="dropdown-toggle">
                         GROUPS <b class="caret"></b>
                     </a>
+                    <div    style="position:absolute; top: 65px;; left: 0px; z-index: 10000;"
+                            step-text="Share your stoke with other like-minded Fanatics through all of our fitness groups! Join one, or join them all!"
+                            step-index="9"
+                            step-placement="bottom"></div>
                     <ul class="dropdown-menu">
                         <li ui-sref="groups({group: '{{item.name}}'})" ng-repeat="item in tagsCall.results">
                             <a>{{item.name}}</a>
@@ -158,6 +166,10 @@
     <li>
         <a href ng-click="pop()">
             <i class="fa fa-bell fa-lg"></i>&ZeroWidthSpace;<span class="badge">{{notificationsCount}}</span>
+            <div    style="position:absolute; top: 60px; left: -15px; z-index: 10000;"
+                    step-text="See who’s interacting with your profile!"
+                    step-index="3"
+                    step-placement="bottom"></div>
         </a>
     </li>
     <li>

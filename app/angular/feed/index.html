@@ -117,9 +117,19 @@
                     </tags-input>
                 </div>
                 <div class="clearfix entry-meta">
-                    <button ng-click="entryMention()" type="button" class="btn btn-primary btn-sm pull-left">mention</button>
+                    <button step-text="Tag a friend or EverFit Pro with this button!"
+                            step-index="5"
+                            step-placement="right"
+                            ng-click="entryMention()" type="button" class="btn btn-primary btn-sm pull-left">mention</button>
                     <span  class="dropdown pull-left">
-                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle">affiliate</button>
+                        <button step-text="EverFit is so unique because of our reward structure for Professionals and Users! Share this affiliate link on your profile, as well as other social media platforms! The more Fanatics that are tied to your affiliate link the better your rewards!"
+                                step-index="6"
+                                step-placement="bottom"
+                                type="button" class="btn btn-primary btn-sm dropdown-toggle">affiliate</button>
+                        <div    style="position:absolute; top: 34px; left: 0px; z-index: 10000;"
+                                step-text="Want to share your link to your email contacts? Use “Setting” button on your banner image to copy and paste the link to your email!"
+                                step-index="7"
+                                step-placement="bottom"></div>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href ng-click="entryAffiliate('facebook')">
@@ -136,7 +146,10 @@
                     </span>
                     <button ng-show="entryInputType=='photo'" type="button" ng-click="entryTransformation()" class="btn btn-primary btn-sm pull-left">transformation</button>
                     <button ng-show="false">fix</button>
-                    <button ng-click="entrySubmit()" class="btn btn-primary btn-sm pull-right">share</button>
+                    <button step-text="Share a cool post on EverFit, as well as other social media platforms! Start inspiring the world!"
+                            step-index="8"
+                            step-placement="bottom"
+                            ng-click="entrySubmit()" class="btn btn-primary btn-sm pull-right">share</button>
                 </div>
             </form>
             <div class="row">

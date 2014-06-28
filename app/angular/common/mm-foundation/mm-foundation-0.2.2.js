@@ -533,8 +533,13 @@ angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation
     setCurrentStep( currentIndex + 1 );
   };
 
+  this.finished = function() {
+
+  };
+
   this.end = function () {
     setCurrentStep( 0 );
+    this.finished();
   };
 }])
 

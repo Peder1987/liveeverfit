@@ -62,8 +62,18 @@ define(['angularAMD',
         ]);
 
         app.run(function ($rootScope, $http, $tour, localStorageService, editableOptions) {
-            $rootScope.startTour = $tour.start;
+            $rootScope.startTour = function() {
+                $rootScope.fanaticsCollapsed = true;
+                $rootScope.dashCollapsed = false;
+                $tour.start();
+            }
+            $tour.finished = function() {
+                $rootScope.fanaticsCollapsed = false;
+                $rootScope.dashCollapsed = true;
+            };
+            $rootScope.dashCollapsed = true;
             $rootScope.serverProtocal = "http";
+            $rootScope.fanaticsCollapsed =  false;
             $rootScope.serverURL = "dev.liveeverfit.com";
             editableOptions.theme = 'bs3';
             $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
@@ -146,7 +156,6 @@ define(['angularAMD',
         app.controller('NavCtrl', ['localStorageService', '$resource', '$state', '$timeout', '$scope', 'toaster', 'rest',
             function (localStorageService, $resource, $state, $timeout, $scope, toaster) {
                 $scope.isCollapsed = true;
-                $scope.dashCollapsed = true;
                 $scope.token = localStorageService.get('Authorization');
                 $scope.user_type = localStorageService.get('user_type');
 
@@ -236,11 +245,10 @@ define(['angularAMD',
                         });
                         return deferred.promise;
                     },
-                    onSelect : function($item){
+                    onSelect : function($item) {
                         $state.go('profile.view', {view: $item.id})
                     }
-
-                })
+                });
                 $scope.fanaticCollection.get({}, function(data){
                     $scope.fanaticList = data.results;
                 });
