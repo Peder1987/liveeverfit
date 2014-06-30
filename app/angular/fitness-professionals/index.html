@@ -6,7 +6,7 @@
             <div>
                 <div class="closeBg"></div>
                 <div class="pro-overlay">
-                    <img class="img" ng-src="/media/{{professional.img}}"/>
+                    <img class="img" ng-src="{{serverProtocal}}://{{serverURL}}/media/{{professional.img}}"/>
                 </div>
                 <a href class="pro-overlay" ui-sref="profile.view({view: $parent.professional.id})">
                     <div class="pro-overlay-text">
@@ -183,7 +183,7 @@
 
                             <div class="pro-overlay">
                                 <img class="img"
-                                     ng-src="/media/{{professional.img}}"/>
+                                     ng-src="{{serverProtocal}}://{{serverURL}}/media/{{professional.img}}"/>
                             </div>
 
                         <a href class="pro-overlay" ui-sref="profile.view({view: $parent.professional.id})">

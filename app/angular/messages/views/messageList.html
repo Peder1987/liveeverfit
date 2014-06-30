@@ -7,9 +7,14 @@
                class="list-group-item">
                 <button ng-show="view != 'deleted'" class="close" ng-click="deleteMessage($index, msg)">&times;</button>
                 <div class="media">
-                    <img class="media-object pull-left"
-                         ng-src="/media/{{msg.sender.img}}"
-                         style="width: 36px; height: 36px;">
+                    <img ng-if="view == 'sent'"
+                         class="media-object pull-left"
+                         ng-src="{{serverProtocal}}://{{serverURL}}/media/{{detail.recipient.img}}"
+                         style="width: 64px; height: 64px;">
+                    <img ng-if="view == 'inbox'"
+                         class="media-object pull-left"
+                         ng-src="{{serverProtocal}}://{{serverURL}}/media/{{detail.sender.img}}"
+                         style="width: 64px; height: 64px;">
 
                     <div class="media-body">
                         <div class="col-xs-12 col-sm-9">
@@ -28,8 +33,13 @@
     </div>
     <div ng-if="detail" class="col-xs-7">
         <div class="media">
-            <img class="media-object pull-left"
-                 ng-src="/media/{{detail.sender.img}}"
+            <img ng-if="view == 'sent'"
+                 class="media-object pull-left"
+                 ng-src="{{serverProtocal}}://{{serverURL}}/media/{{detail.recipient.img}}"
+                 style="width: 64px; height: 64px;">
+            <img ng-if="view == 'inbox'"
+                 class="media-object pull-left"
+                 ng-src="{{serverProtocal}}://{{serverURL}}/media/{{detail.sender.img}}"
                  style="width: 64px; height: 64px;">
 
             <div class="media-body" style="padding-top: 24px;">

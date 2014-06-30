@@ -79,7 +79,7 @@
         <div class="col-xs-6 col-lg-4" ng-repeat="video in videos">
             <div class="ef-workout-video">
                 <a ui-sref="workouts.video(video)"><img
-                        ng-src="http://beta.liveeverfit.com/media/{{ video.img }}"/></a>
+                        ng-src="{{serverProtocal}}://{{serverURL}}/media/{{ video.img }}"/></a>
             </div>
             <a ui-sref="workouts.video(video)">
                 <div class="workout-title">
@@ -168,7 +168,7 @@
                                     <div class="media">
                                         <a ui-sref="profile.view({view: comment.user})">
                                             <img class="media-object pull-left"
-                                                 ng-src="{{comment.img}}"
+                                                 ng-src="{{serverProtocal}}://{{serverURL}}/{{comment.img}}"
                                                  style="width: 36px; height: 36px;">
                                         </a>
 
@@ -188,7 +188,7 @@
                                 <div class="list-group-item">
                                     <div class="media">
                                         <img class="media-object pull-left"
-                                             ng-src="{{usrImg}}"
+                                             ng-src="{{serverProtocal}}://{{serverURL}}/{{usrImg}}"
                                              style="width: 36px; height: 36px;">
 
                                         <div class="media-body">
