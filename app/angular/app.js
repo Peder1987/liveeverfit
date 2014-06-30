@@ -76,6 +76,7 @@ define(['angularAMD',
             $rootScope.fanaticsCollapsed =  false;
             $rootScope.serverURL = "dev.liveeverfit.com";
             editableOptions.theme = 'bs3';
+            $rootScope.token = localStorageService.get('Authorization');
             $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
         });
 
@@ -141,7 +142,7 @@ define(['angularAMD',
                         window.location = "#/login";
                     }
                 });
-            }
+            };
         }]);
         app.service('tokenError', ['localStorageService', '$rootScope', function (localStorageService, $rootScope) {
             $rootScope.checkTokenError = function (error) {
@@ -153,12 +154,11 @@ define(['angularAMD',
         }]);
 
 
-        app.controller('NavCtrl', ['localStorageService', '$resource', '$state', '$timeout', '$scope', 'toaster', 'rest',
-            function (localStorageService, $resource, $state, $timeout, $scope, toaster) {
+        app.controller('NavCtrl', ['$rootScope', 'localStorageService', '$resource', '$state', '$timeout', '$scope', 'toaster', 'rest', 'restricted',
+            function ($rootScope, localStorageService, $resource, $state, $timeout, $scope, toaster) {
                 $scope.isCollapsed = true;
-                $scope.token = localStorageService.get('Authorization');
                 $scope.user_type = localStorageService.get('user_type');
-
+                $rootScope.restricted();
                 var notificationsResource = $resource(":protocol://:url/notifications/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
@@ -170,18 +170,17 @@ define(['angularAMD',
                 }, {update: { method: 'PUT' }});
                 var tagsResource = $resource(":protocol://:url/tags/", {
                     protocol: $scope.restProtocol,
-                    url: $scope.restURL,
+                    url: $scope.restURL
                 }, {update: { method: 'PUT' }});
 
 
                 $scope.tagsCall = tagsResource.get($scope.user, function () {
                     $scope.temTags = $scope.tagsCall.results;
-
                 }, function (error) {
                     $scope.message = error.data;
                 });
 
-                if ($scope.token !== null) {
+                if ($rootScope.token !== null) {
                     (function tick() {
                         $scope.notifications = notificationsResource.get(function () {
                             $scope.notificationsCount = $scope.notifications.count;
@@ -190,10 +189,7 @@ define(['angularAMD',
                     })();
                 }
 
-                if ($scope.token) {
-                    $scope.templateNav = {
-                        url: 'navbar/index.html'
-                    };
+                if ($rootScope.token) {
                     $scope.signOut = function () {
                         localStorageService.clearAll();
                         $scope.restricted();

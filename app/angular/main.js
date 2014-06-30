@@ -118,7 +118,9 @@ require.config({
         'socialShare': ['angular'],
         'mm.foundation' : ['angular']
     },
-    //Kick start application
+    // Version the app to avoid cache issues
+    urlArgs: "0.0.8",
+    // Kick start application
     deps: ['app']
 });
 
