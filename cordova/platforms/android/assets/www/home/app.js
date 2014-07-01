@@ -13,7 +13,6 @@ define(['app', 'feed'], function (app) {
     app.register.controller('homeController', ['localStorageService', '$scope', '$resource', '$state', '$stateParams', 'promiseService', 'restricted',
         function (localStorageService, $scope, $resource, $state, $stateParams) {
             angular.extend($scope, {
-                //token: localStorageService.get('Authorization'),
                 tabs: [
                     {title: 'all', filter: '', active: true},
                     {title: 'statuses', filter: 'text'},
