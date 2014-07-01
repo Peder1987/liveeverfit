@@ -32,9 +32,7 @@
  ######################################################*/
 
 require.config({
-
     baseUrl: "",
-
     paths: {
         'angular': 'common/angular/angular',
         'angularLocalStorage': 'common/angular-local-storage/angular-local-storage',
@@ -119,7 +117,7 @@ require.config({
         'mm.foundation' : ['angular']
     },
     // Version the app to avoid cache issues
-    urlArgs: "0.0.8",
+    urlArgs: "0.0.10",
     // Kick start application
     deps: ['app']
 });

@@ -19,8 +19,8 @@
     <title>liveEverFit.com</title>
 </head>
 <body>
-<div ng-controller="NavCtrl" ng-include="templateNav.url"></div>
-<div id="page" ng-controller="PageCtrl" ui-view autoscroll="false" ng-class="{'no-nav': token == null}"></div>
+<div ng-controller="NavCtrl" ng-include="'navbar/index.html'"></div>
+<div id="page" ng-controller="PageCtrl" ui-view autoscroll="false"></div>
 <!--<footer ng-controller="footerCtrl" ng-include="templateNav.url"></footer>-->
 <script src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
 <script src="common/require/require.js" data-main="main.js"></script>

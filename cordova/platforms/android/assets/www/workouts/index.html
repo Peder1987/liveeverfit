@@ -79,7 +79,7 @@
         <div class="col-xs-6 col-lg-4" ng-repeat="video in videos">
             <div class="ef-workout-video">
                 <a ui-sref="workouts.video(video)"><img
-                        ng-src="http://beta.liveeverfit.com/media/{{ video.img }}"/></a>
+                        ng-src="{{serverProtocal}}://{{serverURL}}/media/{{ video.img }}"/></a>
             </div>
             <a ui-sref="workouts.video(video)">
                 <div class="workout-title">
@@ -168,7 +168,7 @@
                                     <div class="media">
                                         <a ui-sref="profile.view({view: comment.user})">
                                             <img class="media-object pull-left"
-                                                 ng-src="{{comment.img}}"
+                                                 ng-src="{{serverProtocal}}://{{serverURL}}/{{comment.img}}"
                                                  style="width: 36px; height: 36px;">
                                         </a>
 
@@ -188,7 +188,7 @@
                                 <div class="list-group-item">
                                     <div class="media">
                                         <img class="media-object pull-left"
-                                             ng-src="{{usrImg}}"
+                                             ng-src="{{serverProtocal}}://{{serverURL}}/{{usrImg}}"
                                              style="width: 36px; height: 36px;">
 
                                         <div class="media-body">
@@ -211,30 +211,5 @@
 </div>
 </div>
 </div>
-<div class="fanaticsList hidden-xs">
-        <input type="checkbox" />
-        <label data-expanded="-" data-collapsed="+"></label>
-        <div class="fanaticsList-content">
-            <div class="ef-header">fanatics</div>
-            <div>
-                Search: <input ng-model="searchText">
-            </div>
-            <i class="fa fa-comments fa-3x ico-comm"></i>
-            <div class="list-fan">
-                <div class="row inf-user" ng-repeat="fanatic in fanaticList | filter:searchText">
-                    <div class="col-md-2 ico-user">
-                        <a class="img" ui-sref="profile.view({view: comment.user})">
-                            <img class="img-responsive" alt="Responsive image" src="/media/{{fanatic.img}}"/>
-                        </a>
-                    </div>
-                    <a class="col-md-8 name-user" ui-sref="profile.view({view: fanatic.id})">
-                        {{fanatic.full_name}}
-                    </a>
-                    <!-- <div class="col-md-2 envelope">
-                             <i class="fa fa-envelope"></i>
-                         </div> -->
-                </div>
-            </div>
-        </div>
-    </div>
+<div ng-include="'/fanatics/index.html'"> </div>
 </div>

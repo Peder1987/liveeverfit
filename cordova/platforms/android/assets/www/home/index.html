@@ -1,68 +1,62 @@
-<div id="homeBg"></div>
-<div id="homePage" ng-if="token" ng-controller="homeController">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div ng-controller="BannerCtrl">
-                    <carousel interval="3000" disable-ng-animate>
-                        <slide ng-repeat="slide in slides" active="slide.active">
-                            <img ng-src="{{slide.image}}" style="margin:auto;">
-                        </slide>
-                    </carousel>
-                </div>
-                <div class="homePageButtons xs-up">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <a ui-sref-active="active"
-                               ui-sref="fitness-professionals">
-                                <img src="home/img/find-a-pro.png"/>
-                            </a>
-                        </div>
-                        <div class="col-xs-4">
-                            <a ui-sref-active="active"
-                               ui-sref="workouts">
-                                <img src="home/img/workouts.png"/>
-                            </a>
-                        </div>
-                        <div class="col-xs-4">
-                            <a href="http://store.liveeverfit.com/cart">
-                                <img src="home/img/the-shop.png"/>
-                            </a>
+<div id="homeBg">
+    <div style="position: fixed; bottom: 120px; right: 234px; z-index: 10000;"
+         step-text="See who’s online, and Live Chat with professionals and fanatics alike!"
+         step-index="10"
+         step-placement="left"></div>
+</div>
+<div id="homePage">
+    <div ng-controller="homeController">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class="btn btn-primary btn-tour" ng-click="startTour()">take tour</button>
+                    <div style="position:absolute; top: -10px;; left: 165px; z-index: 10000;"
+                         step-text="Welcome! Let’s take a quick run through to show you all of the awesome features on EVERFIT!"
+                         step-index="1"
+                         step-placement="right"></div>
+                    <div ng-controller="BannerCtrl">
+                        <carousel interval="3000" disable-ng-animate>
+                            <slide ng-repeat="slide in slides" active="slide.active">
+                                <img ng-src="{{slide.image}}" style="margin:auto;">
+                            </slide>
+                        </carousel>
+                    </div>
+                    <div class="homePageButtons xs-up">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <a ui-sref-active="active"
+                                   ui-sref="fitness-professionals">
+                                    <img src="home/img/find-a-pro.png"/>
+                                </a>
+                            </div>
+                            <div class="col-xs-4">
+                                <a ui-sref-active="active"
+                                   ui-sref="workouts">
+                                    <img src="home/img/workouts.png"/>
+                                </a>
+                            </div>
+                            <div class="col-xs-4">
+                                <a href="http://store.liveeverfit.com">
+                                    <img src="home/img/the-shop.png"/>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!--<tabset justified="true" type="pills">
-                    <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="feedFilter(tab.filter)"></tab>
-                </tabset>-->
-                <!-- /.homePageButtons -->
-                <div ng-if="feed.show" entry-feed ng-model="$parent.feed"></div>
-            </div>
-        </div>
-    </div>
-    <div class="fanaticsList hidden-xs">
-        <input type="checkbox" />
-        <label data-expanded="- fanatics list" data-collapsed="+ fanatics list"></label>
-        <div class="fanaticsList-content">
-            <div class="ef-header">Find Fit Friends</div>
-            <div>
-                <input ng-model="searchText">
-            </div>
-            <i class="fa fa-comments fa-3x ico-comm"></i>
-            <div class="list-fan">
-                <div class="row inf-user" ng-repeat="fanatic in fanaticList | filter:searchText">
-                    <div class="col-md-2 ico-user">
-                        <a class="img" ui-sref="profile.view({view: comment.user})">
-                            <img class="img-responsive" alt="Responsive image" src="/media/{{fanatic.img}}"/>
-                        </a>
-                    </div>
-                    <a class="col-md-8 name-user" ui-sref="profile.view({view: fanatic.id})">
-                        {{fanatic.full_name}}
-                    </a>
-                    <!-- <div class="col-md-2 envelope">
-                             <i class="fa fa-envelope"></i>
-                         </div> -->
+                    <!--<tabset justified="true" type="pills">
+                        <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="feedFilter(tab.filter)"></tab>
+                    </tabset>-->
+                    <!-- /.homePageButtons -->
+                    <div step-text="Use the status bar to create a post. You can include text, photos, and video. You can also write an awesome blog, and let other fanatics know an event you have coming up!"
+                         step-index="4"
+                         step-placement="top"
+                         ng-if="feed.show" entry-feed ng-model="$parent.feed"></div>
                 </div>
             </div>
         </div>
+        <div ng-include="'/fanatics/index.html'"></div>
     </div>
 </div>
+
+
+
+

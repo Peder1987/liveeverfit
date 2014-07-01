@@ -8,13 +8,13 @@
                    typeahead="obj.full_name for obj in getClientTypeAhead($viewValue)" typeahead-on-select="onSelect($item, $model, $label)" required>
             <a ng-show="user_type == 'professional' && pro_connection" ui-sref="profile.view({view: newMessage.recipient.id})" >
                 <img class="media-object pull-left"
-                     ng-src="/media/{{newMessage.recipient.img}}"
+                     ng-src="{{serverProtocal}}://{{serverURL}}/media/{{newMessage.recipient.img}}"
                      style="width: 36px; height: 36px;" ui-sref="profile.view({view: newMessage.recipient.id})" >
                 <div> {{newMessage.recipient.first_name}} {{newMessage.recipient.last_name}} </div>
             </a>
             <a ng-show="user_type == 'user' && newMessage.recipient" ui-sref="profile.view({view: newMessage.recipient.id})" >
                 <img class="media-object pull-left"
-                     ng-src="/media/{{newMessage.recipient.img}}"
+                     ng-src="{{serverProtocal}}://{{serverURL}}/media/{{newMessage.recipient.img}}"
                      style="width: 36px; height: 36px;" ui-sref="profile.view({view: newMessage.recipient.id})" >
                 <div> {{newMessage.recipient.first_name}} {{newMessage.recipient.last_name}} </div>
             </a>

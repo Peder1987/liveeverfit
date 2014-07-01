@@ -96,7 +96,7 @@
                         }
                     }
                     var replace = queryText.substring(i, caratPos);
-                    data = data.replace(replace, '<a href="#/profile/' + itemValues[0] + '">' + itemValues[1] + '</a>');
+                    data = data.replace(replace, '<a class="mention-link" href="#/profile/' + itemValues[0] + '">' + itemValues[1] + '</a>');
 
                     this.tempQuery = data;
                     return data;

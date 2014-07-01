@@ -1,23 +1,18 @@
 'use strict';
-
-
 define(['app', 'feed'], function (app) {
     app.register.controller('homeCtrl', ['$scope', 'restricted',
         function ($scope) {
             $scope.restricted();
         }]);
-    /*app.register.controller('tourCtrl'), ['$scope', 'restricted',
-        function ($scope) {
-            $scope.restricted();
-        }]);
-    app.register.controller('tourController', '$scope', '$tour',
-        $scope.startTour = $tour.start;
-        )]);*/
-    app.register.controller('homeController', ['localStorageService', '$scope', '$resource', '$state', '$stateParams', 'promiseService',
+    /*app.register.controller('TourDemoCtrl', ['$scope', 'restricted',
+        function ($scope, $tour) {
+            console.log($tour);
+            console.log($scope);
+            $scope.startTour = $tour.start;
+        }]);*/
+    app.register.controller('homeController', ['localStorageService', '$scope', '$resource', '$state', '$stateParams', 'promiseService', 'restricted',
         function (localStorageService, $scope, $resource, $state, $stateParams) {
-            console.log("Here")
             angular.extend($scope, {
-                token: localStorageService.get('Authorization'),
                 tabs: [
                     {title: 'all', filter: '', active: true},
                     {title: 'statuses', filter: 'text'},
@@ -40,29 +35,11 @@ define(['app', 'feed'], function (app) {
                     $scope.feed = {
                         filter: type ? '/' + type : ''
                     };
-                },
-                fanaticSearch : '',
-                fanaticList: [],
-                fanaticCollection : $resource(":protocol://:url/users/fanatics", {
-                    protocol: $scope.restProtocol,
-                    url: $scope.restURL
-                }, {'query': {method: 'GET', isArray: false }}),
-                fanaticTypeahead : function (query) {
-                    var deferred = $scope.q.defer();
-                    $scope.fanaticCollection.query({
-                        search: query
-                    }, function (data) {
-                        deferred.resolve(data.results);
-                    });
-                    return deferred.promise;
                 }
-
             });
             $scope.$on('$stateChangeSuccess', $scope.initFeed);
             $scope.initFeed();
-            $scope.fanaticCollection.get({}, function(data){
-                $scope.fanaticList = data.results;
-            });
+
             $scope.onSelect = function($item, $model, $label){
                 $state.go('profile.view', {view: $item.id})
             }

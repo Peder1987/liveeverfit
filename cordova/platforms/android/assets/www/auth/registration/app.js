@@ -2,7 +2,7 @@
 
 define(['app'], function(app) {
 
-	app.register.controller('registrationCtrl', ['$scope', 'restricted',
+	app.register.controller('registrationCtrl', ['$scope',
         function ($scope) {
 
     }]);

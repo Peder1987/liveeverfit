@@ -38,6 +38,7 @@
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/cordova.js \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/cordova_plugins.js \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/evergreen \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/fanatics \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/faq \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/feed \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/fitness-professionals \
@@ -2112,6 +2113,8 @@
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/evergreen/img/evergreen-logos-right.png \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/evergreen/img/loginfacebook-green.png \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/evergreen/img/twitterlogin-green.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/fanatics/app.js \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/fanatics/index.html \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/faq/app.js \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/faq/img \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/faq/index.html \
@@ -2159,6 +2162,7 @@
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/cover_vectorized_3_1.png \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/default-profile.svg \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/dunk.jpg \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/Flyer.jpg \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/image-crop \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/IMG_20131103_224040.jpg \
@@ -2180,6 +2184,30 @@
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/Screen Shot 2014-06-10 at 8.16.35 PM.png \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/upload-image \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/user_app \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/chevron.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/download-nutritionist.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/download-promoter.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/download.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/generic.jpg \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/mail.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/marketing-nutritionist.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/marketing-promoter.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/marketing.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/newsletter-inverse.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/newsletter-nutritionist.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/newsletter-promoter.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/newsletter.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/nutritionist.jpg \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/phone.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/promoter \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/promoter.jpg \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/social-ico-facebook.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/social-ico-google.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/social-ico-instagram.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/social-ico-linkedin.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/social-ico-twitter.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/social-ico-youtube.png \
+/Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/email/trainer.jpg \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/upload-image/549d2793d63b4abca47d81e769174f49-me.jpg \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/upload-image/689bd6805f744bbb9ab70ced2244687a-me.jpg \
 /Users/nicolas/Development/LEF_env/LEF/cordova/platforms/android/assets/www/media/upload-image/6d36dd6cfc5a48919c1bb82108401f1d-me.jpg \

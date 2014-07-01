@@ -2,23 +2,35 @@
     <toaster-container></toaster-container>
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed" data-toggle="collapse"
+            <button type="button" class="navbar-toggle" ng-click="$parent.isCollapsed = !$parent.isCollapsed" data-toggle="collapse"
                     data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="fa fa-bars fa-lg"></span>
             </button>
-            <a href class="navbar-brand" ng-click="dashCollapsed = !dashCollapsed">
+            <a ng-if="token" href class="navbar-brand" ng-click="$parent.dashCollapsed = !$parent.dashCollapsed">
                 <div class="dashboard-btn" >
                     <i class="fa fa-bars"></i>
+                    <div    style="position:absolute; top: 55px;; left: -23px; z-index: 10000;"
+                            step-text="Check out your profile, messages, FAQ, and account settings here!"
+                            step-index="2"
+                            step-placement="bottom"></div>
                 </div>
             </a>
             <a class="navbar-brand" ng-class="{active:$uiRoute}" ui-route="/" ui-sref="home">
                 <image src="common/img/navbar/logo.png"/>
             </a>
-            <ul class="nav nav-xs-icon visible-xs" ng-include src="'navbar/icons.html'"></ul>
+            <ul ng-if="token" class="nav nav-xs-icon visible-xs" ng-include src="'navbar/icons.html'"></ul>
+        </div>
+        <div ng-if="!token" class="navbar-collapse collapse" collapse="isCollapsed">
+            <ul class="nav navbar-nav">
+                <li><a ui-sref-active="active"
+                       ui-sref="registration">
+                        REGISTER
+                </a></li>
+            </ul>
         </div>
         <!--Logged in navbar-->
-        <div class="navbar-collapse collapse" collapse="isCollapsed">
+        <div ng-if="token" class="navbar-collapse collapse" collapse="isCollapsed">
             <ul class="nav navbar-nav">
                 <li>
                     <a ui-sref-active="active"
@@ -36,6 +48,10 @@
                     <a href class="dropdown-toggle">
                         GROUPS <b class="caret"></b>
                     </a>
+                    <div    style="position:absolute; top: 65px;; left: 0px; z-index: 10000;"
+                            step-text="Share your stoke with other like-minded Fanatics through all of our fitness groups! Join one, or join them all!"
+                            step-index="9"
+                            step-placement="bottom"></div>
                     <ul class="dropdown-menu">
                         <li ui-sref="groups({group: '{{item.name}}'})" ng-repeat="item in tagsCall.results">
                             <a>{{item.name}}</a>
@@ -55,7 +71,7 @@
                             <ul class="dropdown-menu" style="left: 160px;"
                                 ng-mouseenter="equipmentHover = true;" ng-mouseleave="equipmentHover = false;">
                                 <li><a href="http://store.liveeverfit.com/collections/equipment/benches-weight-racks">
-                                    benchesand weight racks
+                                    benches and weight racks
                                 </a></li>
                                 <li><a href="http://store.liveeverfit.com/collections/equipment/dumbells">
                                     dumbells
@@ -103,6 +119,12 @@
                         <li>
                             <a href="http://store.liveeverfit.com/collections/supplements">supplements</a>
                         </li>
+                        <li>
+                            <a href="http://store.liveeverfit.com/collections/trx">trx</a>
+                        </li>
+                        <li>
+                            <a href="http://store.liveeverfit.com/collections/esutras-organics">esutras</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
@@ -118,11 +140,8 @@
             </ul>
             <ul class="nav navbar-nav pull-right hidden-xs" ng-include src="'navbar/icons.html'"></ul>
         </div>
-
-
     </div>
-    <div class="dashboard hidden-xs hidden-sm">
-
+    <div class="dashboard" ng-if="token">
         <div class="content" ng-class="{'open': !dashCollapsed}">
             <ul class="nav nav-pills nav-stacked">
                 <li class="dash-title"><i class="fa fa-dashboard fa-4x"></i> DashBoard</li>
@@ -131,7 +150,7 @@
                 <li><a ui-sref="faq"><i class="fa fa-question"></i> faq</a></li>
                 <li><a ui-sref="terms"><i class="fa fa-legal"></i> terms</a></li>
                 <li><a ui-sref="settings"><i class="fa fa-cogs"></i> settings</a></li>
-                <li><a ng-click="signOut();"><i class="fa fa-sign-out"></i> sign out</a></li>
+                <li><a ng-click="$parent.signOut();"><i class="fa fa-sign-out"></i> sign out</a></li>
             </ul>
            <div class="dash-logo">
                <image src="navbar/img/ef-logo-nogrunge.png" style="width:55.5px;height:108px"/>
@@ -141,7 +160,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <script type="text/ng-template" id="navbar/icons.html">
     <li>
@@ -152,6 +170,10 @@
     <li>
         <a href ng-click="pop()">
             <i class="fa fa-bell fa-lg"></i>&ZeroWidthSpace;<span class="badge">{{notificationsCount}}</span>
+            <div    style="position:absolute; top: 60px; left: -15px; z-index: 10000;"
+                    step-text="See who’s interacting with your profile!"
+                    step-index="3"
+                    step-placement="bottom"></div>
         </a>
     </li>
     <li>
@@ -185,7 +207,7 @@
                 </a>
             </li>
             <li>
-                <a href ng-click="signOut();">
+                <a href ng-click="$parent.$parent.signOut();">
                     <i class="fa fa-sign-out"></i> sign out
                 </a>
             </li>

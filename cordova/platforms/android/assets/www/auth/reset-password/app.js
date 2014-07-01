@@ -1,8 +1,5 @@
 'use strict';
-
 define(['app'], function(app) {
-
-
     app.register.controller('reset-passwordCtrl', ['$resource','$scope', '$stateParams', 'rest',
     	function($resource, $scope, $stateParams) {
     		var AuthReset =  $resource('http://:url/accounts/reset-password', {
@@ -13,8 +10,8 @@ define(['app'], function(app) {
     			email: $stateParams.email,
     			change_password_token: $stateParams.change_password_token,
 				password: '',
-				password2: '',
-			}
+				password2: ''
+			};
 	
 			$scope.submit = function() {
                 // AutoFill Fix
@@ -25,8 +22,5 @@ define(['app'], function(app) {
 					$scope.message = error.data;
 				});
 			}
-	
 	}]);
-
-
 });

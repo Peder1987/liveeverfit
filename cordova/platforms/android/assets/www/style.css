@@ -7545,7 +7545,7 @@ i {
     position: absolute;
     left: 50%;
     top: 0px;
-    width: 178px;
+    width: 180px;
     height: 62px;
     margin-left: -89px;
   }
@@ -7930,6 +7930,9 @@ i {
   padding: 21px;
   margin: 34px auto;
 }
+#accountSettingsPage .container .edit-password {
+  cursor: pointer;
+}
 #accountSettingsPage .container .entry-title {
   font-size: 28px;
   color: #9e9e9e !important;
@@ -8031,6 +8034,11 @@ i {
 }
 .newsFeed .item {
   margin-bottom: 21px;
+}
+.newsFeed .mention-link {
+  color: #1a8cff;
+  font-weight: bold;
+  cursor: pointer;
 }
 .newsFeed .post-outer {
   padding: 13px;
@@ -8594,6 +8602,7 @@ a:focus {
   background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 30%, rgba(250, 250, 250, 0.9) 100%);
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 30%, rgba(250, 250, 250, 0.9) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#FF7d8790', GradientType=0);
+  cursor: pointer;
 }
 #trainer-results .pro-overlay .clients {
   position: absolute;
@@ -8762,103 +8771,130 @@ a:focus {
 #resetPasswordBg {
   background-image: url('workouts/img/workouts_bg.jpg');
 }
-.pricely-chart .icon-check,
-.pricely-chart .icon-star {
+#upgrade {
+  /*!
+  * Pricely v1.0
+  *
+  * Copyright 2013 - Forever, Weborithm.com
+  *
+  * Designed and built by Weborithm
+  */
+  /* Parent Pricely Holder */
+  /* Fonts */
+  /* Vertical Alignment
+  #pricely-vertical { display: table; width: 100%; }
+  #pricely-align { display: table-cell; vertical-align: middle; } */
+  /* Headings */
+  /* Headings Formatting */
+  /* Headings - Backgrounds */
+  /* Panel + Panel Header + Panel Footer */
+  /* Collapse */
+  /* Images */
+  /* Call to Action Buttons */
+  /* Pricely Indicators */
+  /* Tooltip */
+  /* Modal */
+  /* Buttons */
+  /* Icons */
+  /*===== Price Chart Specific =====*/
+  /* Classic */
+  /* Business */
+  /* Professional */
+  /* Wizard */
+  /*!
+  * Pricely Effects v1.0
+  *
+  * via http://tympanus.net/codrops/2013/08/06/creative-link-effects/
+  *
+  * License to be used commercially provided by http://tympanus.net
+  */
+  /* Effect 2: 3D rolling links, idea from http://hakim.se/thoughts/rolling-links */
+  /* Effect 10: reveal, push out */
+}
+#upgrade .pricely-chart .icon-check,
+#upgrade .pricely-chart .icon-star {
   color: #589686;
 }
-.pricely-pro {
+#upgrade .pricely-pro {
   border-left: 2px solid #ddd;
 }
-/*!
-* Pricely v1.0
-*
-* Copyright 2013 - Forever, Weborithm.com
-*
-* Designed and built by Weborithm
-*/
-.pricely-pro .panel-heading {
+#upgrade .pricely-pro .panel-heading {
   border-right: 1px solid #ddd;
   border-top: 1px solid #ddd;
   background-color: #1489ff;
   border-color: #1489ff;
 }
-.panel-danger > .panel-heading {
+#upgrade .panel-danger > .panel-heading {
   background-color: #90baaf;
   border-color: #90baaf;
   color: white;
 }
-.panel-success > .panel-heading {
+#upgrade .panel-success > .panel-heading {
   background-color: #73ac9d;
   border-color: #73ac9d;
   color: white;
 }
-.panel-warning > .panel-heading {
+#upgrade .panel-warning > .panel-heading {
   background-color: #589686;
   border-color: #589686;
   color: white;
 }
-.pricely-pro .list-group {
+#upgrade .pricely-pro .list-group {
   padding: 0px;
   margin-left: 0px;
 }
-.list-group-item {
+#upgrade .list-group-item {
   line-height: 45px;
 }
-.pricely-pro li,
-.row-fluid [class*="span"] {
+#upgrade .pricely-pro li,
+#upgrade .row-fluid [class*="span"] {
   margin-left: 0px;
 }
-.pricely-pro li {
+#upgrade .pricely-pro li {
   border: 1px solid #ddd;
   border-left: 0px;
 }
-.pricely-pro li.pricely-first-heading li.list-group-item,
-.pricely-pro li li.list-group-item {
+#upgrade .pricely-pro li.pricely-first-heading li.list-group-item,
+#upgrade .pricely-pro li li.list-group-item {
   list-style: none;
 }
-.pricely-chart h1,
-.pricely-chart h2,
-.pricely-chart h3,
-.pricely-chart h4 {
+#upgrade .pricely-chart h1,
+#upgrade .pricely-chart h2,
+#upgrade .pricely-chart h3,
+#upgrade .pricely-chart h4 {
   line-height: 0px;
 }
-.pricely-chart:after,
-.pricely-chart:after,
-.pricely-pro:after,
-.pricely-chart-three:after,
-.panel-heading li:after {
+#upgrade .pricely-chart:after,
+#upgrade .pricely-chart:after,
+#upgrade .pricely-pro:after,
+#upgrade .pricely-chart-three:after,
+#upgrade .panel-heading li:after {
   content: " ";
   display: table;
   clear: both;
 }
-/* Parent Pricely Holder */
-/* Fonts */
-.pricely-chart {
+#upgrade .pricely-chart {
   font-family: 'Karla', sans-serif;
 }
-.pricely-chart h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+#upgrade .pricely-chart h1,
+#upgrade h2,
+#upgrade h3,
+#upgrade h4,
+#upgrade h5,
+#upgrade h6 {
   font-family: 'Raleway', sans-serif;
   font-weight: 300;
 }
-.pricely-chart .glyphicon {
+#upgrade .pricely-chart .glyphicon {
   color: #9b9b9b;
 }
-/* Vertical Alignment	
-#pricely-vertical { display: table; width: 100%; }
-#pricely-align { display: table-cell; vertical-align: middle; } */
-/* Headings */
-.pricely-chart .panel-heading {
+#upgrade .pricely-chart .panel-heading {
   font-size: 22px;
   margin: 0;
   padding: 30px 20px;
   text-align: center;
 }
-.pricely-chart-one h3 span {
+#upgrade .pricely-chart-one h3 span {
   display: block;
   font-size: 13px;
   font-weight: 300;
@@ -8866,121 +8902,114 @@ h6 {
   padding: 5px 0 0;
   text-transform: uppercase;
 }
-/* Headings Formatting */
-.pricely-label {
+#upgrade .pricely-label {
   display: block;
   font-size: 13px;
   letter-spacing: 1px;
   margin: 0 auto 10px;
   text-transform: uppercase;
 }
-.pricely-first-heading .pricely-label {
+#upgrade .pricely-first-heading .pricely-label {
   font-weight: 600;
 }
-.pricely-figure {
+#upgrade .pricely-figure {
   padding: 20px 0 30px;
   position: relative;
 }
-.pricely-currency {
+#upgrade .pricely-currency {
   display: inline-block;
   font-size: 20px;
   font-weight: 400;
   position: absolute;
   top: 10px;
 }
-.pricely-amount {
+#upgrade .pricely-amount {
   display: inline-block;
   font-size: 70px;
   line-height: 70px;
   padding: 0 0 0 0px;
 }
-.pricely-foreword {
+#upgrade .pricely-foreword {
   display: block;
   font-family: 'Karla', sans-serif;
   font-size: 14px;
   font-style: italic;
   padding: 0;
 }
-.pricely-paragraph {
+#upgrade .pricely-paragraph {
   font-size: 14px;
   line-height: 20px;
   margin: 20px;
   text-align: left;
 }
-.pricely-paragraph span {
+#upgrade .pricely-paragraph span {
   font-size: 28px;
 }
-/* Headings - Backgrounds */
-.pricely-chart .with-diagonal {
+#upgrade .pricely-chart .with-diagonal {
   background-image: url(../img/diagonal-left.png);
 }
-.pricely-chart .with-featured-diagonal {
+#upgrade .pricely-chart .with-featured-diagonal {
   background-image: url(../img/diagonal-right.png);
   font-weight: 600;
 }
-.pricely-chart .with-boxes {
+#upgrade .pricely-chart .with-boxes {
   background-image: url(../img/boxes.png);
 }
-.pricely-chart .with-checks-1 {
+#upgrade .pricely-chart .with-checks-1 {
   background-image: url(../img/checks_1.png);
 }
-.pricely-chart .with-checks-2 {
+#upgrade .pricely-chart .with-checks-2 {
   background-image: url(../img/checks_2.png);
 }
-.pricely-chart .with-checks-3 {
+#upgrade .pricely-chart .with-checks-3 {
   background-image: url(../img/checks_3.png);
 }
-/* Panel + Panel Header + Panel Footer */
-.pricely-chart .panel {
+#upgrade .pricely-chart .panel {
   margin: 0;
 }
-.pricely-chart-two .panel,
-.pricely-chart-two .panel-heading {
+#upgrade .pricely-chart-two .panel,
+#upgrade .pricely-chart-two .panel-heading {
   border-radius: 0;
 }
-.pricely-chart .panel-footer {
+#upgrade .pricely-chart .panel-footer {
   padding: 10px;
 }
-.pricely-chart-two .panel-footer {
+#upgrade .pricely-chart-two .panel-footer {
   border-width: 0 1px 1px 1px;
   margin: 0px 0px 10px;
   padding: 0;
   border-radius: 0;
 }
-/* Collapse */
-.pricely-chart .panel-collapse p {
+#upgrade .pricely-chart .panel-collapse p {
   margin: 10px 0;
 }
-/* Images */
-.pricely-chart .img-responsive {
+#upgrade .pricely-chart .img-responsive {
   max-width: inherit;
   width: 100%;
 }
-/* Call to Action Buttons */
-.pricely-chart-one .pricely-call a {
+#upgrade .pricely-chart-one .pricely-call a {
   font-size: 18px;
 }
-.col-md-2 .pricely-call a {
+#upgrade .col-md-2 .pricely-call a {
   font-size: 16px;
   /* Smaller font for narrow columsn */
 }
-.pricely-chart-two .pricely-call a {
+#upgrade .pricely-chart-two .pricely-call a {
   font-size: 20px;
 }
-/* Pricely Indicators */
-ol.pricely-indicators {
+#upgrade ol.pricely-indicators {
   position: static;
   width: auto;
   margin: 0;
   padding: 0;
   text-align: right;
 }
-ol.pricely-indicators li.active {
+#upgrade ol.pricely-indicators li.active {
   background: #f7931f;
   border-color: #f7931f;
   margin: 1px 3px;
 }
-ol.pricely-indicators li {
+#upgrade ol.pricely-indicators li {
   background: #fff;
   border-color: #ebebeb;
   height: 12px;
@@ -8988,129 +9017,120 @@ ol.pricely-indicators li {
   margin: 1px 3px;
   padding: 6px;
 }
-/* Tooltip */
-.tooltip {
+#upgrade .tooltip {
   font-family: 'Karla', sans-serif;
 }
-.pricely-tooltip:hover {
+#upgrade .pricely-tooltip:hover {
   cursor: pointer;
 }
-/* Modal */
-.pricely-chart .modal p {
+#upgrade .pricely-chart .modal p {
   margin: 0;
 }
-.pricely-chart .modal-body {
+#upgrade .pricely-chart .modal-body {
   padding: 0;
 }
-.pricely-chart .modal-body .thumbnail {
+#upgrade .pricely-chart .modal-body .thumbnail {
   border: 0;
   border-radius: 0;
   padding: 0;
 }
-.modal-backdrop.in {
+#upgrade .modal-backdrop.in {
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
-/* Buttons */
-.panel-footer .btn {
+#upgrade .panel-footer .btn {
   line-height: 44px;
 }
-.btn-wide {
+#upgrade .btn-wide {
   border: 0;
   padding: 0;
   border-radius: 0;
   width: 100%;
 }
-/* Icons */
-.pricely-pro .glyphicon {
+#upgrade .pricely-pro .glyphicon {
   display: block;
   text-align: center;
 }
-.pricely-pro .glyphicon {
+#upgrade .pricely-pro .glyphicon {
   color: #3A87AD;
 }
-.pricely-pro .x {
+#upgrade .pricely-pro .x {
   color: #B94A61;
 }
-/*===== Price Chart Specific =====*/
-/* Classic */
-/* Business */
-/* Professional */
-.pricely-pro .panel-heading {
+#upgrade .pricely-pro .panel-heading {
   border-radius: 0;
   min-height: 280px;
 }
-.pricely-pro li li.list-group-item {
+#upgrade .pricely-pro li li.list-group-item {
   border-left-width: 1px;
   border-radius: 0;
   min-height: 45px;
 }
-.pricely-pro li.pricely-first-heading li.list-group-item {
+#upgrade .pricely-pro li.pricely-first-heading li.list-group-item {
   border-left-width: 1px;
   border-radius: 0;
   min-height: 45px;
 }
-.pricely-pro {
+#upgrade .pricely-pro {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.pricely-pro li.pricely-first-heading,
-.pricely-pro li.pricely-inner {
+#upgrade .pricely-pro li.pricely-first-heading,
+#upgrade .pricely-pro li.pricely-inner {
   padding: 0;
 }
-.pricely-pro .panel-heading {
+#upgrade .pricely-pro .panel-heading {
   border-right: 1px solid #ddd;
   border-top: 1px solid #ddd;
 }
-.pricely-pro li:first-child .panel-heading {
+#upgrade .pricely-pro li:first-child .panel-heading {
   border-left: 1px solid #ddd;
 }
-.pricely-professional li.list-group-item .feature-hide {
+#upgrade .pricely-professional li.list-group-item .feature-hide {
   display: none;
 }
-.pricely-professional li .glyphicon {
+#upgrade .pricely-professional li .glyphicon {
   display: inline-block;
 }
-.pricely-professional li .pricely-paragraph .glyphicon {
+#upgrade .pricely-professional li .pricely-paragraph .glyphicon {
   display: block;
 }
-.pricely-professional li.list-group-item {
+#upgrade .pricely-professional li.list-group-item {
   text-align: center;
 }
-/* Wizard */
-.pricely-wizard {
+#upgrade .pricely-wizard {
   text-align: center;
 }
-.pricely-wizard .dropdown-menu {
+#upgrade .pricely-wizard .dropdown-menu {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
 }
-.pricely-wizard .dropdown-menu span {
+#upgrade .pricely-wizard .dropdown-menu span {
   display: block;
   padding: 5px 10px;
 }
-.pricely-wizard .pricely-inline {
+#upgrade .pricely-wizard .pricely-inline {
   display: inline;
 }
-.pricely-wizard p.dropdown {
+#upgrade .pricely-wizard p.dropdown {
   background: #eee;
   border: 1px solid #fff;
   padding: 3px 9px;
   border-radius: 3px;
   text-align: left;
 }
-.pricely-wizard p.dropdown:hover {
+#upgrade .pricely-wizard p.dropdown:hover {
   background: #f9f9f9;
   border-color: #eee;
   color: #fff;
 }
-.pricely-wizard p.dropdown a:focus,
-.pricely-wizard p.dropdown a:hover {
+#upgrade .pricely-wizard p.dropdown a:focus,
+#upgrade .pricely-wizard p.dropdown a:hover {
   text-decoration: none;
 }
-.pricely-wizard p.dropdown span a {
+#upgrade .pricely-wizard p.dropdown span a {
   -webkit-transition: 0.2s ease-in-out;
   /** Chrome & Safari **/
   -moz-transition: 0.2s ease-in-out;
@@ -9118,7 +9138,7 @@ ol.pricely-indicators li {
   -o-transition: 0.2s ease-in-out;
   /** Opera **/
 }
-.pricely-wizard p.dropdown span a:hover {
+#upgrade .pricely-wizard p.dropdown span a:hover {
   padding-left: 3px;
   -webkit-transition: 0.2s ease-in-out;
   /** Chrome & Safari **/
@@ -9128,7 +9148,7 @@ ol.pricely-indicators li {
   /** Opera **/
   text-decoration: none;
 }
-.pricely-wizard p.pricely-wizard-selection {
+#upgrade .pricely-wizard p.pricely-wizard-selection {
   background: #5BC0DE;
   color: #fff;
   display: inline-block;
@@ -9137,109 +9157,103 @@ ol.pricely-indicators li {
   text-transform: uppercase;
   border-radius: 3px;
 }
-.pricely-wizard .tab-pane span.glyphicon {
+#upgrade .pricely-wizard .tab-pane span.glyphicon {
   font-size: 24px;
   margin: 0 10px 0 0;
   position: relative;
   top: 7px;
 }
-.pricely-wizard .tab-inner {
+#upgrade .pricely-wizard .tab-inner {
   margin: 20px 0 0;
   padding: 0;
 }
-.pricely-wizard .tab-inner-child {
+#upgrade .pricely-wizard .tab-inner-child {
   margin: 1px 0 0;
   padding: 20px 0 0;
 }
-.pricely-wizard .panel {
+#upgrade .pricely-wizard .panel {
   border: 0 !important;
   border-radius: 0;
   box-shadow: none;
   padding: 0;
 }
-.pricely-wizard .panel .panel-heading {
+#upgrade .pricely-wizard .panel .panel-heading {
   border: 0;
   box-shadow: none;
   padding: 20px 0;
 }
 @media screen and (min-width: 0) {
-  /* Specific to IE */
-  .pricely-currency {
+  #upgrade {
+    /* Specific to IE */
+  }
+  #upgrade .pricely-currency {
     display: inline-block;
     font-size: 20px;
     font-weight: 400;
     position: relative;
     top: -30px;
   }
-  .pricely-amount {
+  #upgrade .pricely-amount {
     font-size: 65px;
     line-height: 65px;
   }
-  .pricely-chart .panel-footer {
+  #upgrade .pricely-chart .panel-footer {
     margin: 0 0 20px;
     padding: 0;
   }
 }
 @media screen and (max-width: 991px) {
-  .pricely-chart-one {
+  #upgrade .pricely-chart-one {
     margin-bottom: 20px;
   }
-  .tab-content {
+  #upgrade .tab-content {
     border-left: 0;
   }
-  .pricely-pro li li.list-group-item {
+  #upgrade .pricely-pro li li.list-group-item {
     border-left-width: 1px;
     text-align: center;
   }
-  .pricely-chart .panel-heading {
+  #upgrade .pricely-chart .panel-heading {
     padding: 15px 10px;
   }
-  .pricely-pro .panel-heading {
+  #upgrade .pricely-pro .panel-heading {
     border-left: 1px solid #ddd;
     min-height: inherit;
   }
-  .pricely-professional li.list-group-item .feature-hide {
+  #upgrade .pricely-professional li.list-group-item .feature-hide {
     display: inline;
     padding: 0 0 0 10px;
   }
-  .pricely-pro li.pricely-first-heading {
+  #upgrade .pricely-pro li.pricely-first-heading {
     display: none;
   }
-  .pricely-pro .glyphicon {
+  #upgrade .pricely-pro .glyphicon {
     display: inline-block;
     text-align: center;
   }
-  .pricely-foreword,
-  .pricely-label {
+  #upgrade .pricely-foreword,
+  #upgrade .pricely-label {
     display: inline-block;
     margin: 0;
   }
-  .pricely-foreword:before {
+  #upgrade .pricely-foreword:before {
     content: " ";
   }
 }
 @media screen and (max-width: 767px) {
-  #pricely-align {
+  #upgrade #pricely-align {
     display: inherit;
     margin: 0 0 40px;
     vertical-align: none;
   }
 }
-/*!
-* Pricely Effects v1.0
-*
-* via http://tympanus.net/codrops/2013/08/06/creative-link-effects/
-*
-* License to be used commercially provided by http://tympanus.net
-*/
-/* Effect 2: 3D rolling links, idea from http://hakim.se/thoughts/rolling-links */
-.cl-effect-2 a {
+#upgrade .cl-effect-2 a {
   line-height: 44px;
   -webkit-perspective: 1000px;
   -moz-perspective: 1000px;
   perspective: 1000px;
 }
-.cl-effect-2 a span {
+#upgrade .cl-effect-2 a span {
   position: relative;
   width: 100%;
   display: inline-block;
@@ -9255,7 +9269,7 @@ ol.pricely-indicators li {
   -moz-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
-.csstransforms3d .cl-effect-2 a span::before {
+#upgrade .csstransforms3d .cl-effect-2 a span::before {
   position: absolute;
   top: 100%;
   left: 0;
@@ -9274,35 +9288,34 @@ ol.pricely-indicators li {
   -moz-transform-origin: 50% 0;
   transform-origin: 50% 0;
 }
-.cl-effect-2 a:hover span,
-.cl-effect-2 a:focus span {
+#upgrade .cl-effect-2 a:hover span,
+#upgrade .cl-effect-2 a:focus span {
   -webkit-transform: rotateX(90deg) translateY(-22px);
   -moz-transform: rotateX(90deg) translateY(-22px);
   transform: rotateX(90deg) translateY(-22px);
 }
-.csstransforms3d .cl-effect-2 a:hover span::before,
-.csstransforms3d .cl-effect-2 a:focus span::before {
+#upgrade .csstransforms3d .cl-effect-2 a:hover span::before,
+#upgrade .csstransforms3d .cl-effect-2 a:focus span::before {
   background: #39b3d7;
 }
-/* Effect 10: reveal, push out */
-.cl-effect-10 {
+#upgrade .cl-effect-10 {
   position: relative;
   z-index: 1;
 }
-.cl-effect-10 a {
+#upgrade .cl-effect-10 a {
   position: relative;
   overflow: hidden;
   margin: 0;
   display: inline-block;
 }
-.cl-effect-10 a span {
+#upgrade .cl-effect-10 a span {
   display: block;
   padding: 10px 20px;
   -webkit-transition: -webkit-transform 0.3s;
   -moz-transition: -moz-transform 0.3s;
   transition: transform 0.3s;
 }
-.cl-effect-10 a::before {
+#upgrade .cl-effect-10 a::before {
   font-size: 16px;
   position: absolute;
   top: 0;
@@ -9318,42 +9331,43 @@ ol.pricely-indicators li {
   transition: transform 0.3s;
   -webkit-transform: translateX(-25%);
 }
-.cl-effect-10 a:hover span,
-.cl-effect-10 a:focus span {
+#upgrade .cl-effect-10 a:hover span,
+#upgrade .cl-effect-10 a:focus span {
   -webkit-transform: translateX(100%);
   -moz-transform: translateX(100%);
   transform: translateX(100%);
 }
-.cl-effect-10 a:hover::before,
-.cl-effect-10 a:focus::before {
+#upgrade .cl-effect-10 a:hover::before,
+#upgrade .cl-effect-10 a:focus::before {
   -webkit-transform: translateX(0%);
   -moz-transform: translateX(0%);
   transform: translateX(0%);
 }
-.panel-default .cl-effect-10 a span {
+#upgrade .panel-default .cl-effect-10 a span {
   color: #333333;
   background-color: #f5f5f5;
 }
-.panel-info .cl-effect-10 a span {
+#upgrade .panel-info .cl-effect-10 a span {
   color: #3a87ad;
   background-color: #d9edf7;
 }
-.panel-primary .cl-effect-10 a span {
+#upgrade .panel-primary .cl-effect-10 a span {
   color: #ffffff;
   background-color: #428bca;
 }
-.panel-danger .cl-effect-10 a span {
+#upgrade .panel-danger .cl-effect-10 a span {
   color: #b94a48;
   background-color: #f2dede;
 }
-.panel-warning .cl-effect-10 a span {
+#upgrade .panel-warning .cl-effect-10 a span {
   color: #c09853;
   background-color: #fcf8e3;
 }
-.panel-success .cl-effect-10 a span {
+#upgrade .panel-success .cl-effect-10 a span {
   color: #468847;
   background-color: #dff0d8;
 }
+.dropdown-menu > li > a,
 .nav-tabs > li > a {
   cursor: pointer;
 }
@@ -10105,4 +10119,17 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="blue"] {
 }
 ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   background: orange !important;
+}
+.button,
+.joyride-close-tip {
+  cursor: pointer;
+}
+.btn-tour {
+  position: absolute;
+  top: -50px;
+  right: 16px;
+  font-size: 13px;
+}
+#profile .btn-tour {
+  right: 0px;
 }
