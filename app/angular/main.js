@@ -32,9 +32,7 @@
  ######################################################*/
 
 require.config({
-
     baseUrl: "",
-
     paths: {
         'angular': 'common/angular/angular',
         'angularLocalStorage': 'common/angular-local-storage/angular-local-storage',

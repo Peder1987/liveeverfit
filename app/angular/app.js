@@ -159,7 +159,6 @@ define(['angularAMD',
             function ($rootScope, localStorageService, $resource, $state, $timeout, $scope, toaster) {
                 $scope.isCollapsed = true;
                 $scope.user_type = localStorageService.get('user_type');
-                $rootScope.restricted();
                 var notificationsResource = $resource(":protocol://:url/notifications/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
