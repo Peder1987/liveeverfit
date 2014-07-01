@@ -134,9 +134,10 @@ define(['angularAMD',
             $rootScope.restProtocol = "http";
             $rootScope.restURL = "api.liveeverfit.com";
         }]);
-        app.service('restricted', ['$rootScope', 'localStorageService', function ($rootScope, localStorageService) {
+        app.service('restricted', ['$rootScope', 'localStorageService', '$http', function ($rootScope, localStorageService, $http) {
             $rootScope.restricted = function () {
                 $rootScope.token = localStorageService.get('Authorization');
+                $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
                 setTimeout(function () {
                     if ($rootScope.token === null) {
                         window.location = "#/login";
@@ -189,11 +190,9 @@ define(['angularAMD',
                     })();
                 }
 
-                if ($rootScope.token) {
-                    $scope.signOut = function () {
-                        localStorageService.clearAll();
-                        $scope.restricted();
-                    }
+                $scope.signOut = function () {
+                    localStorageService.clearAll();
+                    $scope.restricted();
                 }
 
                 $scope.pop = function () {

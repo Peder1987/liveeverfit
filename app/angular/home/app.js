@@ -10,10 +10,10 @@ define(['app', 'feed'], function (app) {
             console.log($scope);
             $scope.startTour = $tour.start;
         }]);*/
-    app.register.controller('homeController', ['localStorageService', '$scope', '$resource', '$state', '$stateParams', 'promiseService',
+    app.register.controller('homeController', ['localStorageService', '$scope', '$resource', '$state', '$stateParams', 'promiseService', 'restricted',
         function (localStorageService, $scope, $resource, $state, $stateParams) {
             angular.extend($scope, {
-                token: localStorageService.get('Authorization'),
+                //token: localStorageService.get('Authorization'),
                 tabs: [
                     {title: 'all', filter: '', active: true},
                     {title: 'statuses', filter: 'text'},
@@ -36,8 +36,7 @@ define(['app', 'feed'], function (app) {
                     $scope.feed = {
                         filter: type ? '/' + type : ''
                     };
-                },
-                
+                }
             });
             $scope.$on('$stateChangeSuccess', $scope.initFeed);
             $scope.initFeed();
