@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-xs-4 col-sm-4">
                         <a ng-click="photoChange()" class="thumbnail">
-                            <img ng-src="/media/{{profile_user.img}}" />
+                            <img ng-src="{{serverProtocal}}://{{serverURL}}/media/{{profile_user.img}}" />
                         </a>
                     </div>
                     <div class="col-xs-12 col-sm-8">
@@ -91,7 +91,7 @@
                                     <div class="col-xs-12">
                                         <span class="bold">
                                             <span editable-checkbox="profile_user.is_accepting" e-form="editable" e-title="Accept clients?">
-                                                <span class="fa" ng-class="{'fa-check': profile_user.is_accepting, 'fa-times': !profile_user.is_accepting}"></span> {{ profile_user.is_accepting && "Accepting clients" || "Not Accepting clients" }}
+                                                <span class="fa" ng-class="{'fa-check': profile_user.is_accepting, 'fa-times': !profile_user.is_accepting}"></span> {{ profile_user.is_accepting && "Accepting clients" || "Not accepting clients" }}
                                             </span>
                                         </span>
                                     </div>

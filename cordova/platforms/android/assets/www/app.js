@@ -33,7 +33,7 @@ define(['angularAMD',
         'angular-animate',
         'toasterjs',
         'bootstrap-typeahead',
-        'mm-foundation'
+        'mm.foundation'
     ],
     function (angularAMD) {
         'use strict';
@@ -61,8 +61,22 @@ define(['angularAMD',
             'mm.foundation'
         ]);
 
-        app.run(function ($http, localStorageService, editableOptions) {
+        app.run(function ($rootScope, $http, $tour, localStorageService, editableOptions) {
+            $rootScope.startTour = function() {
+                $rootScope.fanaticsCollapsed = true;
+                $rootScope.dashCollapsed = false;
+                $tour.start();
+            }
+            $tour.finished = function() {
+                $rootScope.fanaticsCollapsed = false;
+                $rootScope.dashCollapsed = true;
+            };
+            $rootScope.dashCollapsed = true;
+            $rootScope.serverProtocal = "http";
+            $rootScope.fanaticsCollapsed =  false;
+            $rootScope.serverURL = "dev.liveeverfit.com";
             editableOptions.theme = 'bs3';
+            $rootScope.token = localStorageService.get('Authorization');
             $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
         });
 
@@ -128,7 +142,7 @@ define(['angularAMD',
                         window.location = "#/login";
                     }
                 });
-            }
+            };
         }]);
         app.service('tokenError', ['localStorageService', '$rootScope', function (localStorageService, $rootScope) {
             $rootScope.checkTokenError = function (error) {
@@ -140,13 +154,11 @@ define(['angularAMD',
         }]);
 
 
-        app.controller('NavCtrl', ['localStorageService', '$resource', '$state', '$timeout', '$scope', 'toaster', 'rest',
-            function (localStorageService, $resource, $state, $timeout, $scope, toaster) {
+        app.controller('NavCtrl', ['$rootScope', 'localStorageService', '$resource', '$state', '$timeout', '$scope', 'toaster', 'rest', 'restricted',
+            function ($rootScope, localStorageService, $resource, $state, $timeout, $scope, toaster) {
                 $scope.isCollapsed = true;
-                $scope.dashCollapsed = true;
-                $scope.token = localStorageService.get('Authorization');
                 $scope.user_type = localStorageService.get('user_type');
-
+                $rootScope.restricted();
                 var notificationsResource = $resource(":protocol://:url/notifications/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
@@ -158,18 +170,17 @@ define(['angularAMD',
                 }, {update: { method: 'PUT' }});
                 var tagsResource = $resource(":protocol://:url/tags/", {
                     protocol: $scope.restProtocol,
-                    url: $scope.restURL,
+                    url: $scope.restURL
                 }, {update: { method: 'PUT' }});
 
 
                 $scope.tagsCall = tagsResource.get($scope.user, function () {
                     $scope.temTags = $scope.tagsCall.results;
-
                 }, function (error) {
                     $scope.message = error.data;
                 });
 
-                if ($scope.token !== null) {
+                if ($rootScope.token !== null) {
                     (function tick() {
                         $scope.notifications = notificationsResource.get(function () {
                             $scope.notificationsCount = $scope.notifications.count;
@@ -178,10 +189,7 @@ define(['angularAMD',
                     })();
                 }
 
-                if ($scope.token) {
-                    $scope.templateNav = {
-                        url: 'navbar/index.html'
-                    };
+                if ($rootScope.token) {
                     $scope.signOut = function () {
                         localStorageService.clearAll();
                         $scope.restricted();
@@ -191,18 +199,18 @@ define(['angularAMD',
                 $scope.pop = function () {
                     angular.forEach($scope.notifications.results, function (value, key) {
                         toaster.pop(value.level, value.level, value.message);
-                        $scope.notificationsCallback = notificationsIdResource.update({id: value.id}, function () {
+                        $scope.notifications$4Callback = notificationsIdResource.update({id: value.id}, function () {
                         });
                     });
                     $scope.notificationsCount = 0;
                 };
-            }]);
+        }]);
 
 
         app.controller('PageCtrl', ['localStorageService', '$scope',
             function (localStorageService, $scope) {
                 $scope.token = localStorageService.get('Authorization');
-            }]);
+        }]);
         app.controller('footerCtrl', ['localStorageService', '$scope',
             function (localStorageService, $scope) {
                 $scope.isCollapsed = true;
@@ -210,7 +218,37 @@ define(['angularAMD',
                 $scope.templateNav = {
                     url: 'footer/index.html'
                 };
-            }]);
+        }]);
+        app.controller('fanaticsCtrl', ['localStorageService', '$scope', '$resource', '$q', '$state',
+            function (localStorageService, $scope, $resource, $q, $state) {
+                angular.extend($scope, {
+                    fanaticSearch : '',
+                    fanaticList: [],
+                    fanaticCollection : $resource(":protocol://:url/users/fanatics", {
+                        protocol: $scope.restProtocol,
+                        url: $scope.restURL
+                    }, {'query': {method: 'GET', isArray: false }}),
+                    fitFriendsCollection : $resource(":protocol://:url/users", {
+                        protocol: $scope.restProtocol,
+                        url: $scope.restURL
+                    }, {'query': {method: 'GET', isArray: false }}),
+                    fanaticTypeahead : function (query) {
+                        var deferred = $q.defer();
+                        $scope.fitFriendsCollection.query({
+                            search: query
+                        }, function (data) {
+                            deferred.resolve(data.results);
+                        });
+                        return deferred.promise;
+                    },
+                    onSelect : function($item) {
+                        $state.go('profile.view', {view: $item.id})
+                    }
+                });
+                $scope.fanaticCollection.get({}, function(data){
+                    $scope.fanaticList = data.results;
+                });
+        }]);
         app.directive('ng-blur', function () {
             return {
                 restrict: 'A',
