@@ -155,6 +155,8 @@ define(['app'], function (app) {
                 });
                 // returning tags in list form
                 temp.tags = $scope.tags
+
+
                 
                 var obj = $scope.profileResource.update({id: $scope.profile_user.id}, temp,
                     function(){
@@ -234,6 +236,9 @@ define(['app'], function (app) {
                         $scope.address.street_line2 = (!($scope.tempAddress.street_line2 === undefined)?$scope.tempAddress.street_line2 + ' ':'');
                     }
                     $scope.profile_user.primary_address = $scope.address;
+                    //set lat and lng of the user for google map marker
+                    $scope.profile_user.lat = $scope.address.lat
+                    $scope.profile_user.lng = $scope.address.lng
                 }
             };
 
