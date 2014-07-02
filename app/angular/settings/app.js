@@ -8,6 +8,26 @@ define(['app'], function (app) {
             $scope.user_id = localStorageService.get('user_id');
             $scope.tags = [];
             $scope.webURL = window.location.host;
+            // holds the address to format it into 1 variable
+            //$scope.addressHolder = '';
+            $scope.tempAddressPay = {
+            formatted_address:'',
+            street_line2:'',
+            };
+            $scope.address = {
+                street_line1: '',
+                street_line2: '',
+                city: '',
+                state: '',
+                country: '',
+                zipcode: '',
+                lat: '',
+                lng: ''
+            };
+            $scope.tempAddress = {
+                formatted_address:'',
+                street_line2:'',
+            };
 
             var userResource = $resource(":protocol://:url/users/:id/", {
                 protocol: $scope.restProtocol,
@@ -32,6 +52,12 @@ define(['app'], function (app) {
                 } else {
                     $scope.profileResource = userResource
                 }
+                //holds a formatted variable
+                $scope.tempAddress.formatted_address = $scope.profile_user.primary_address.street_line1 + $scope.profile_user.primary_address.street_line2 
+                                        + $scope.profile_user.primary_address.city + $scope.profile_user.primary_address.state;
+                
+
+
                 // Lazy load credit card information so delay is unnoticed to user
                 creditcardResource.get(function (data) {
                     $scope.profile_user.creditcard = data.creditcard;
@@ -214,24 +240,10 @@ define(['app'], function (app) {
                 return deferred.promise;
             };
 
-            $scope.address = {
-                street_line1: '',
-                street_line2: '',
-                city: '',
-                state: '',
-                country: '',
-                zipcode: '',
-                lat: '',
-                lng: ''
-            };
-            $scope.tempAddress = {
-                formatted_address:'',
-                street_line2:'',
-            };
-            $scope.setAddress = function() {
+            $scope.setAddress = function($data) {
                 if ($scope.tempAddress.formatted_address !== "undefined")
                 {
-                    $scope.address = $scope.addressesInputs[$scope.tempAddress.formatted_address];
+                    $scope.address = $scope.addressesInputs[$data];
                     if ($scope.address !== undefined){
                         $scope.address.street_line2 = (!($scope.tempAddress.street_line2 === undefined)?$scope.tempAddress.street_line2 + ' ':'');
                     }
@@ -453,10 +465,7 @@ define(['app'], function (app) {
             });
         };
 
-        $scope.tempAddressPay = {
-            formatted_address:'',
-            street_line2:'',
-        };
+
         $scope.setAddressPay = function() {
             if ($scope.tempAddressPay.formatted_address !== "undefined")
             {
