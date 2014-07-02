@@ -59,71 +59,71 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="http://store.liveeverfit.com/" class="dropdown-toggle" data-toggle="dropdown">
+                    <a ui-sref="shop" class="dropdown-toggle" data-toggle="dropdown">
                         SHOP <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-submenu" ng-class="{open: equipmentHover}">
-                            <a href="http://store.liveeverfit.com/collections/supplements"
+                            <a ui-sref="shop.collection({collection: 'equipment'})"
                                ng-mouseenter="equipmentHover = true;" ng-mouseleave="equipmentHover = false;">
                                 equipment
                             </a>
                             <ul class="dropdown-menu" style="left: 160px;"
                                 ng-mouseenter="equipmentHover = true;" ng-mouseleave="equipmentHover = false;">
-                                <li><a href="http://store.liveeverfit.com/collections/equipment/benches-weight-racks">
+                                <li><a ui-sref="shop.collection.type({collection: 'equipment', type: 'benches-weight-racks'})">
                                     benches and weight racks
                                 </a></li>
-                                <li><a href="http://store.liveeverfit.com/collections/equipment/dumbells">
+                                <li><a ui-sref="shop.collection.type({collection: 'equipment', type: 'dumbells'})">
                                     dumbells
                                 </a>
                                 </li>
-                                <li><a href="http://store.liveeverfit.com/collections/equipment/jumpropes">
+                                <li><a ui-sref="shop.collection.type({collection: 'equipment', type: 'jumpropes'})">
                                     jump ropes
                                 </a></li>
-                                <li><a href="http://store.liveeverfit.com/collections/equipment/kettlebells">
+                                <li><a ui-sref="shop.collection.type({collection: 'equipment', type: 'kettlebells'})">
                                     kettle bells
                                 </a></li>
-                                <li><a href="http://store.liveeverfit.com/collections/equipment/kickboxing">
+                                <li><a ui-sref="shop.collection.type({collection: 'equipment', type: 'kickboxing'})">
                                     kickboxing
                                 </a>
                                 </li>
-                                <li><a href="http://store.liveeverfit.com/collections/equipment/medicine-balls">
+                                <li><a ui-sref="shop.collection.type({collection: 'equipment', type: 'medicine-balls'})">
                                     medicine balls
                                 </a></li>
-                                <li><a href="http://store.liveeverfit.com/collections/equipment/metronome-ginometer">
+                                <li><a ui-sref="shop.collection.type({collection: 'equipment', type: 'metronome-ginometer'})">
                                     metronome &amp; ginometer
                                 </a></li>
-                                <li><a href="http://store.liveeverfit.com/collections/equipment/misc">
+                                <li><a ui-sref="shop.collection.type({collection: 'equipment', type: 'misc'})">
                                     misc
                                 </a></li>
-                                <li><a href="http://store.liveeverfit.com/collections/equipment/speed-agility">
+                                <li><a ui-sref="shop.collection.type({collection: 'equipment', type: 'speed-agility'})">
                                     speed &amp; angility
                                 </a></li>
-                                <li><a href="http://store.liveeverfit.com/collections/equipment/stability-balls">
+                                <li><a ui-sref="shop.collection.type({collection: 'equipment', type: 'stability-balls'})">
                                     stability balls
                                 </a></li>
-                                <li><a href="http://store.liveeverfit.com/collections/equipment/step-and-risers">
+                                <li><a  ui-sref="shop.collection.type({collection: 'equipment', type: 'step-and-risers'})">
                                     step &amp; risers
                                 </a></li>
-                                <li><a href="http://store.liveeverfit.com/collections/equipment/tubing-loop-tubing">
+                                <li><a  ui-sref="shop.collection.type({collection: 'equipment', type: 'tubing-loop-tubing'})">
                                     tubing &amp; lube tubing
                                 </a></li>
-                                <li><a href="http://store.liveeverfit.com/collections/equipment/yoga">
+                                <li><a ui-sref="shop.collection.type({collection: 'equipment', type: 'yoga'})">
                                     yoga
                                 </a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="http://store.liveeverfit.com/collections/featured-products">featured items</a>
+                            <a ui-sref="shop.collection({collection: 'featured-products'})">featured items</a>
                         </li>
                         <li>
-                            <a href="http://store.liveeverfit.com/collections/supplements">supplements</a>
+                            <a ui-sref="shop.collection({collection: 'supplements'})">supplements</a>
                         </li>
                         <li>
-                            <a href="http://store.liveeverfit.com/collections/trx">trx</a>
+                            <a ui-sref="shop.collection({collection: 'trx'})">trx</a>
                         </li>
                         <li>
-                            <a href="http://store.liveeverfit.com/collections/esutras-organics">esutras</a>
+                            <a ui-sref="shop.collection({collection: 'esutras-organics'})">esutras</a>
                         </li>
                     </ul>
                 </li>
