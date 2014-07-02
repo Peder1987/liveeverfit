@@ -129,7 +129,7 @@ define(['app'], function(app) {
 			};
 			$scope.setCurrentStepFormPar = function(step, valid){
 				if($scope.urlTier == 7 && $scope.urlPro !== undefined && $scope.urlPro != ''){
-					if($scope.urlPro == 'Trainer' || $scope.urlPro == 'Nutritionist' || $scope.urlPro == 'Promoter' ){
+					if($scope.urlPro == 'Trainer' || $scope.urlPro == 'Nutritionist' || $scope.urlPro == 'Promoter' || $scope.urlPro == 'Instructor' ){
 						$scope.user.tier = $scope.urlTier;
 						$scope.pro.profession = $scope.urlPro;
 						if(valid == true){
