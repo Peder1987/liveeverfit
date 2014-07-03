@@ -31,29 +31,24 @@
                                 Date joined: {{ profile_user.date_joined | date:"MMM dd, yyyy" }}
                             </div>
 
-
-                            <div class="row" ng-hide="editable.$visible">
-                                <div class="col-xs-12">
-                                    <span class="bold">
-                                        Primary Address:
-                                    </span>
-                                    <br ng-show="editable.$visible">
-                                    <span id="bio" class="edit-text" data-title="address"
-                                          data-type="text" e-form="editable">
-                                        {{profile_user.primary_address.street_line1}} {{profile_user.primary_address.street_line2}} {{profile_user.primary_address.city}}, {{profile_user.primary_address.state}}
-                                    </span>
-                                </div>
-                            </div>
+                            <div ng-show="editable.$visible">Primary Address</div>
+                            <span editable-text="tempAddress.formatted_address"
+                                  e-form="editable" 
+                                  e-typeahead="address for address in getLocation($viewValue)"
+                                  e-typeahead-loading="loadingLocations"
+                                  e-typeahead-on-select="setAddress($data)" >
+                                {{ tempAddress.formatted_address }}&ZeroWidthSpace;
+                            </span>
+                            
                        
-                            <div ng-show="editable.$visible">
+                            <!-- <div ng-show="editable.$visible">
                                 <span class="bold">
                                     Primary Address
                                 </span>
                                 <input id="address" type="text" ng-model="tempAddress.formatted_address"
-                                       placeholder="{{profile_user.primary_address.street_line1}} {{profile_user.primary_address.city}}, {{profile_user.primary_address.state}}"
                                        typeahead="address for address in getLocation($viewValue)"
                                        typeahead-loading="loadingLocations"
-                                       ng-change="setAddress()" typeahead-on-select="setAddress()" class="form-control"
+                                       typeahead-on-select="setAddress()" class="form-control"
                                        required>
 
                                 <input ng-show="editable.$visible" type="text" class="form-control" name="firstName" id="firstName"
@@ -61,7 +56,7 @@
                                        ng-change="setAddress()"
                                        ng-model="tempAddress.street_line2">
                                  <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="row seperate-bottom">
