@@ -2,11 +2,6 @@
     <toaster-container></toaster-container>
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" ng-click="$parent.isCollapsed = !$parent.isCollapsed" data-toggle="collapse"
-                    data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="fa fa-bars fa-lg"></span>
-            </button>
             <a ng-if="token" href class="navbar-brand" ng-click="$parent.dashCollapsed = !$parent.dashCollapsed">
                 <div class="dashboard-btn" >
                     <i class="fa fa-bars"></i>
@@ -16,6 +11,11 @@
                             step-placement="bottom"></div>
                 </div>
             </a>
+            <button type="button" class="navbar-toggle" ng-click="$parent.isCollapsed = !$parent.isCollapsed" data-toggle="collapse"
+                    data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="fa fa-bars fa-lg"></span>
+            </button>
             <a class="navbar-brand" ng-class="{active:$uiRoute}" ui-route="/" ui-sref="home">
                 <image src="common/img/navbar/logo.png"/>
             </a>
