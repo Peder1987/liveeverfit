@@ -93,6 +93,16 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12">
+                                        <span class="bold">
+                                            <span class="fa fa-empire"></span> Bio:
+                                        </span>
+                                        <br ng-show="editable.$visible">
+                                        <span id="bio" class="edit-text" data-title="Biography"
+                                              data-type="text" editable-textarea="profile_user.bio" e-form="editable">
+                                            {{ profile_user.bio | limitTo: 20 }}
+                                        </span>
+                                    </div>
+                                    <div class="col-xs-12">
                                         <span ng-show="profile_user.type == 'professional'" class="bold">
                                             <span class="fa fa-tags"></span> Specialties:
                                         </span>
