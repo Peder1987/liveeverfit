@@ -183,19 +183,23 @@ define(['angularAMD',
                     $scope.message = error.data;
                 });
 
-                if ($rootScope.token !== null) {
-                    (function tick() {
+                $scope.tick = function() {
+                    if ($rootScope.token !== null) {
                         $scope.notifications = notificationsResource.get(function () {
                             $scope.notificationsCount = $scope.notifications.count;
-                            $timeout(tick, 30000);
+                            $timeout($scope.tick, 30000);
                         });
-                    })();
-                }
+                    }
+                    else {
+                        $timeout($scope.tick, 30000);
+                    }
+                };
+                $scope.tick();
 
                 $scope.signOut = function () {
                     localStorageService.clearAll();
                     $scope.restricted();
-                }
+                };
 
                 $scope.pop = function () {
                     angular.forEach($scope.notifications.results, function (value, key) {
