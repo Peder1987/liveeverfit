@@ -124,11 +124,7 @@ define(['angularAMD',
 
                 $urlRouterProvider.otherwise("/");
 
-                /*//Reset headers to avoid OPTIONS request (aka preflight)
-                 $httpProvider.defaults.headers.common = {};
-                 $httpProvider.defaults.headers.post = {};
-                 $httpProvider.defaults.headers.put = {};
-                 $httpProvider.defaults.headers.patch = {};*/
+                $httpProvider.interceptors.push('httpInterceptor');
             }
         ]);
 
@@ -398,6 +394,70 @@ define(['angularAMD',
                 }
             };
         }]);
+
+        app.factory('httpInterceptor', function ($q, $rootScope, $log) {
+            /* 
+            Http interceptor for when making an API request, allows 
+            easy integration with the "loader" directive to add the spinner
+            anywhere easily. 
+            */
+            var numLoadings = 0;
+            return {
+                request: function (config) {
+                    numLoadings++;
+                    // Show loader
+                    $rootScope.$broadcast("loader_show");
+                    return config || $q.when(config)
+
+                },
+                response: function (response) {
+                    if ((--numLoadings) === 0) {
+                        // Hide loader
+                        $rootScope.$broadcast("loader_hide");
+                    }
+                    return response || $q.when(response);
+
+                },
+                responseError: function (response) {
+                    if (!(--numLoadings)) {
+                        // Hide loader
+                        $rootScope.$broadcast("loader_hide");
+                    }
+                    return $q.reject(response);
+                }
+            };
+        });
+        app.directive("loader", function ($rootScope) {
+            return function ($scope, element, attrs) {
+                // on first load, hides all spinners until
+                // the broadcast calls them
+                element.hide();
+                $scope.$on("loader_show", function () {
+                    return element.show();
+                });
+                return $scope.$on("loader_hide", function () {
+                    return element.hide();
+                });
+            };
+        });
+
+        app.directive('clickOnce', function($timeout) {
+            return {
+                restrict: 'A',
+                link: function(scope, element, attrs) {
+                    var replacementText = attrs.clickOnce;
+
+                    element.bind('click', function() {
+                        $timeout(function() {
+                            if (replacementText) {
+                                element.html(replacementText);
+                            }
+                            element.attr('disabled', true);
+                        }, 0);
+                    });
+                }
+            };
+        });
 
         //Bootstrap Angular
         angularAMD.bootstrap(app);
