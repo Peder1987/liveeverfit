@@ -360,7 +360,7 @@
     </span>
     <span ng-click="likeEntry(entry)" title="Number of likes" class="push">
         {{ entry.likes }}
-            <span style="color: rgba(125,135,144,0.2)">|</span>
+        <span style="color: rgba(125,135,144,0.2)">|</span>
         <a href ng-if="!entry.user_likes" title="Like">
             <i class="fa fa-thumbs-up fa-lg"></i>
         </a>
@@ -371,7 +371,7 @@
     <span ng-click="entryShare(entry)" title="Number of shares">
         <span ng-if="entry.type == 'shared'">{{ entry.shared_entry.shares }}</span>
         <span ng-if="entry.type != 'shared'">{{ entry.shares }}</span>
-            <span style="color: rgba(125,135,144,0.2)">|</span>
+        <span style="color: rgba(125,135,144,0.2)">|</span>
         <a href title="share">
             <i class="fa fa-retweet fa-lg"></i>
         </a>
