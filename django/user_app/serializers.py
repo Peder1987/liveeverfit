@@ -114,7 +114,6 @@ class ProfileProfessionalSerializer(serializers.ModelSerializer):
     def to_native(self, value):
         obj = super(ProfileProfessionalSerializer, self).to_native(value)
         obj['clients'] = value.user_connections.count()
-        print value.user_reference.all()
         return obj
     class Meta:
         model = Professional
@@ -131,6 +130,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     joined_on = serializers.DateTimeField(source='date_joined', read_only=True)
     img = serializers.ImageField(allow_empty_file=True, required=False)
     likes = serializers.Field(source="likes.count")
+    tags = TagListSerializer(required=False)
     
     class Meta:
         model = User
@@ -138,14 +138,15 @@ class ProfileSerializer(serializers.ModelSerializer):
         
     def to_native(self, value):
         obj = super(ProfileSerializer, self).to_native(value)
+        tags =  obj.get('tags')
         user_tier = obj.get('tier')
         user_id = obj.get('id')
         if user_tier == 7 or user_tier == 6:
             if Professional.objects.filter(pk = user_id).exists():
                 pro = Professional.objects.get(pk=user_id)
                 obj = ProfileProfessionalSerializer(instance=pro).data
-                print obj
             obj['type'] = 'professional'
+            obj['tags'] = tags
         elif user_tier <= 5 and user_tier >= 2:
             obj['type'] = 'upgraded'
         else:
@@ -155,7 +156,6 @@ class ProfileSerializer(serializers.ModelSerializer):
 
         
         obj['fanatics'] = value.relationships.followers().count()
-        print SharedEntry.objects.filter(entry__user=value)
         obj['inspiration'] = SharedEntry.objects.filter(entry__user=value).count() +  value.comments.count()
         # if the value of USER is the same as the logged in users
         # connection then they are connected
@@ -219,14 +219,10 @@ class FollowUserSerializer(serializers.ModelSerializer):
         obj = super(FollowUserSerializer, self).to_native(value)
         user = User.objects.get(id=obj['user_id'])
         
-        #print value.relationships.add(user)
-        print value.relationships.following()
         if value.relationships.following().filter(pk=user.pk).exists():
             obj['user_follows'] = False
-            print 'unfollowing'
             value.relationships.remove(user)
         else:
-            print 'following'
             obj['user_follows'] = True
             value.relationships.add(user)
 
@@ -243,14 +239,10 @@ class BlockUserSerializer(serializers.ModelSerializer):
         obj = super(BlockUserSerializer, self).to_native(value)
         user = User.objects.get(id=obj['user_id'])
         
-        #print value.relationships.add(user)
-        print value.relationships.blocking()
         if value.relationships.blocking().filter(pk=user.pk).exists():
             obj['user_blocks'] = False
-            print 'unblocking'
             value.relationships.remove(user, Block)
         else:
-            print 'blocking'
             obj['user_blocks'] = True
             value.relationships.add(user, Block)
 
