@@ -1,7 +1,7 @@
 <div class="modal-body">
     <div class="img-container">
         <span class="fa fa-chevron-left fa-3x" data-ng-show="hasPrev()" data-ng-click="prev()"></span>
-        <img data-ng-src={{source(selectedImg)}}>
+        <img data-ng-src={{serverProtocal}}://{{serverURL}}/{{source(selectedImg)}}>
         <span class="fa fa-chevron-right fa-3x" data-ng-show="hasNext()" data-ng-click="next()"></span>
     </div>
     <!--Disabling The Side Bar for now SUPER BUGGY LOL-->
@@ -9,7 +9,7 @@
         <div class="media">
             <a ui-sref="profile.view({view: entry.shared_entry.user})">
                 <img class="media-object pull-left"
-                     ng-src="{{selectedImg.profile_img}}"
+                     ng-src="{{serverProtocal}}://{{serverURL}}/{{selectedImg.profile_img}}"
                      style="width: 32px; height: 32px;">
             </a>
             <div class="media-body">
@@ -86,7 +86,7 @@
                             </button>
                             <a ui-sref="profile.view({view: comment.user})">
                                 <img class="media-object pull-left"
-                                     ng-src="{{comment.img}}"
+                                     ng-src="{{serverProtocal}}://{{serverURL}}/{{comment.img}}"
                                      style="width: 36px; height: 36px;" ui-sref="profile.view({view: comment.user})">
                             </a>
 
@@ -107,7 +107,7 @@
                     <div class="list-group-item">
                         <div class="media">
                             <img class="media-object pull-left"
-                                 ng-src="{{usrImg}}"
+                                 ng-src="{{serverProtocal}}://{{serverURL}}/{{usrImg}}"
                                  style="width: 36px; height: 36px;">
 
                             <div class="media-body">
@@ -128,7 +128,7 @@
 
 <div class="lightbox-tiles">
     <span data-ng-repeat="i in images" data-ng-click="displayImage(i)">
-        <img data-ng-src="{{source(i)}}">
+        <img data-ng-src="{{serverProtocal}}://{{serverURL}}/{{source(i)}}">
     </span>
 </div>
 

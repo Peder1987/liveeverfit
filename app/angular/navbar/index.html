@@ -141,29 +141,29 @@
             <ul class="nav navbar-nav pull-right hidden-xs" ng-include src="'navbar/icons.html'"></ul>
         </div>
     </div>
-    <div class="dashboard" ng-if="token">
-        <div class="content" ng-class="{'open': !dashCollapsed}">
-            <ul class="nav nav-pills nav-stacked">
-                <li class="dash-title"><i class="fa fa-dashboard fa-4x"></i> DashBoard</li>
-                <li><a ui-sref="profile"><i class="fa fa-user"></i> profile</a></li>
-                <li><a ui-sref="messages"><i class="fa fa-envelope"></i> messages</a></li>
-                <li><a ui-sref="faq"><i class="fa fa-question"></i> faq</a></li>
-                <li><a ui-sref="terms"><i class="fa fa-legal"></i> terms</a></li>
-                <li><a ui-sref="settings"><i class="fa fa-cogs"></i> settings</a></li>
-                <li><a ng-click="$parent.signOut();"><i class="fa fa-sign-out"></i> sign out</a></li>
-            </ul>
-           <div class="dash-logo">
-               <image src="navbar/img/ef-logo-nogrunge.png" style="width:55.5px;height:108px"/>
-           </div>
-            <div class="txt-inf">
-               <div><i class="fa fa-envelope"></i>info@liveeverfit.com</div>
-            </div>
+</div>
+<div class="dashboard" ng-if="token">
+    <div class="content" ng-class="{'open': !dashCollapsed}">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="dash-title"><i class="fa fa-dashboard fa-4x"></i> DashBoard</li>
+            <li><a ui-sref="profile"><i class="fa fa-user"></i> profile</a></li>
+            <li><a ui-sref="messages"><i class="fa fa-envelope"></i> messages</a></li>
+            <li><a ui-sref="faq"><i class="fa fa-question"></i> faq</a></li>
+            <li><a ui-sref="terms"><i class="fa fa-legal"></i> terms</a></li>
+            <li><a ui-sref="settings"><i class="fa fa-cogs"></i> settings</a></li>
+            <li><a ng-click="$parent.signOut();"><i class="fa fa-sign-out"></i> sign out</a></li>
+        </ul>
+        <div class="dash-logo">
+            <image src="navbar/img/ef-logo-nogrunge.png" style="width:55.5px;height:108px"/>
+        </div>
+        <div class="txt-inf">
+            <div><i class="fa fa-envelope"></i>info@liveeverfit.com</div>
         </div>
     </div>
 </div>
 <script type="text/ng-template" id="navbar/icons.html">
     <li>
-        <a href="http://store.liveeverfit.com/cart">
+        <a ui-sref="shop.cart">
             <i class="fa fa-shopping-cart fa-lg xs-i-help"></i>&ZeroWidthSpace;
         </a>
     </li>

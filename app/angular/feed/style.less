@@ -3,6 +3,9 @@
   .item {
     margin-bottom: 21px;
   }
+  .grey-override {
+    color:#333;
+  }
   .mention-link {
     color:@ever-blue;
     font-weight:bold;
@@ -18,6 +21,7 @@
       position: relative;
       .media {
         margin-top: 0;
+        color:rgb(125, 136, 148);
         .timestamp {
           font-size: .7em;
         }
@@ -99,6 +103,11 @@
     text-align: center;
     .photo, .blog, .video iframe {
       margin-bottom: 15px;
+    }
+
+    .blog > textarea {
+      // Font color for blog input!!!
+      color: #000;
     }
 
     .tags-input .tags {
@@ -292,19 +301,4 @@
     }
   }
 
-}
-input::-webkit-input-placeholder {
-   color: red;
-}
-
-input:-moz-placeholder { /* Firefox 18- */
-   color: red;  
-}
-
-input::-moz-placeholder {  /* Firefox 19+ */
-   color: red;  
-}
-
-input:-ms-input-placeholder {  
-   color: red;  
 }
