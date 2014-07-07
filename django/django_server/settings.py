@@ -18,6 +18,7 @@ TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
+    
 )
 
 # Sends email to the console for debugging purposes, comment out for production
@@ -56,7 +57,7 @@ NOSE_PLUGINS = [
 ]
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['dev.liveeverfit.com', 'liveeverfit.com', 'api.liveeverfit.com']
+ALLOWED_HOSTS = ['dev.liveeverfit.com', 'liveeverfit.com', 'api.liveeverfit.com', 'localhost']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -208,9 +209,7 @@ else:
 
 # In Debug mode, djangos browsable api will be activated (up for discussion)
 #  allowing developer to log in easily with email and password 
-auth_debug = ''
-if DEBUG:
-    auth_debug = 'user_auth.authentication.DebugAuthentication'    
+
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
@@ -227,7 +226,6 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.XMLParser',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        auth_debug,
         token_class,
     ),
     'DEFAULT_FILTER_BACKENDS': (
@@ -236,6 +234,8 @@ REST_FRAMEWORK = {
     ),
 }
 
+if DEBUG:
+    REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] += ('user_auth.authentication.DebugAuthentication',)
 
 # Registration App 
 ACCOUNT_ACTIVATION_DAYS = 7
