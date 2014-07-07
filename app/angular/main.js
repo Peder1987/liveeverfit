@@ -117,7 +117,7 @@ require.config({
         'mm.foundation' : ['angular']
     },
     // Version the app to avoid cache issues
-    urlArgs: "0.0.15",
+    urlArgs: "0.0.16",
     // Kick start application
     deps: ['app']
 });
