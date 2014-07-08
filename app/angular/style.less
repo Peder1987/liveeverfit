@@ -60,11 +60,20 @@
   visibility:hidden;
   opacity:0;
   transition: visibility 0s linear 500ms, opacity 300ms ease-out;
+  -webkit-transition: visibility 0s linear 500ms, opacity 300ms ease-out;
+  -moz-transition: visibility 0s linear 500ms, opacity 300ms ease-out;
+  -ms-transition: visibility 0s linear 500ms, opacity 300ms ease-out;
   &.show {
     visibility: visible;
     opacity: 1;
     transition-delay: 0s;
     transition-timing-function: ease-in;
+    -webkit-transition-delay: 0s;
+    -webkit-transition-timing-function: ease-in;
+    -moz-transition-delay: 0s;
+    -moz-transition-timing-function: ease-in;
+    -ms-transition-delay: 0s;
+    -ms-transition-timing-function: ease-in;
   }
   span {
     position: absolute;
