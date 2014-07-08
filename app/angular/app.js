@@ -432,12 +432,11 @@ define(['angularAMD',
             return function ($scope, element, attrs) {
                 // on first load, hides all spinners until
                 // the broadcast calls them
-                element.hide();
                 $scope.$on("loader_show", function () {
-                    return element.show();
+                    return element.addClass('show');
                 });
-                return $scope.$on("loader_hide", function () {
-                    return element.hide();
+                $scope.$on("loader_hide", function () {
+                    return element.removeClass('show');
                 });
             };
         });
