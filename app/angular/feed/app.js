@@ -466,6 +466,9 @@ define(['app', 'masonry'], function (app, Masonry) {
                                         }
                                     });
                                 }, $scope.checkTokenError);
+                                if(ngModel.$viewValue.entryTags){
+                                    $scope.entryTags = ngModel.$viewValue.entryTags
+                                }
                             }
                         }
                     )
