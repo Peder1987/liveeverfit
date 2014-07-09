@@ -112,6 +112,8 @@ define(['angularAMD',
                     .state('evergreen', route.resolve('/evergreen', 'evergreen'))
                     .state('change-password', route.resolve('/change-password', 'auth/change-password'))
                     .state('terms', route.resolve('/terms', 'terms'))
+                    .state('verbiage', route.resolve('/verbiage', 'verbiage'))
+                    .state('clients', route.resolve('/clients', 'clients'))
                     .state('faq', route.resolve('/faq', 'faq'))
                     .state('membership', route.resolve('/membership', 'membership'))
                     .state('calendar', route.resolve('/calendar', 'calendar'))
@@ -153,7 +155,6 @@ define(['angularAMD',
                 }
             }
         }]);
-
 
         app.controller('NavCtrl', ['$rootScope', 'localStorageService', '$resource', '$state', '$timeout', '$scope', 'toaster', 'rest', 'restricted',
             function ($rootScope, localStorageService, $resource, $state, $timeout, $scope, toaster) {
