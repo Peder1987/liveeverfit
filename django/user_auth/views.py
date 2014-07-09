@@ -181,6 +181,41 @@ def register_professional(request):
         subject = 'New Professional'
         message = 'New Professional in Live Ever Fit ' + pro.email + '\n' + 'phone: ' + pro.phone + '\n' + 'address: ' + pro.primary_address.street_line1 + ' ' + pro.primary_address.street_line2 + ' ' + pro.primary_address.city + ' ' + pro.primary_address.state + ' ' + pro.primary_address.zipcode   
         send_mail(subject, message, 'info@liveeverfit.com', [email])
+
+
+        if pro.profession == 'Nutritionist':
+            email = user.email
+            subject = 'Welcome to Live Ever Fit'
+            message = 'Thank you for registering to Live Ever Fit'
+            template = get_template('email/nutritionist.html')
+            context = Context({})
+            output = template.render(context)
+            msg = EmailMultiAlternatives(subject, message, 'info@liveeverfit.com', [email])
+            msg.attach_alternative(output, "text/html")
+            msg.send()
+        elif pro.profession == 'Trainer':
+            email = user.email
+            subject = 'Welcome to Live Ever Fit'
+            message = 'Thank you for registering to Live Ever Fit'
+            template = get_template('email/trainer.html')
+            context = Context({})
+            output = template.render(context)
+            msg = EmailMultiAlternatives(subject, message, 'info@liveeverfit.com', [email])
+            msg.attach_alternative(output, "text/html")
+            msg.send()
+        elif pro.profession == 'Promoter':
+            email = user.email
+            subject = 'Welcome to Live Ever Fit'
+            message = 'Thank you for registering to Live Ever Fit'
+            template = get_template('email/promoter.html')
+            context = Context({})
+            output = template.render(context)
+            msg = EmailMultiAlternatives(subject, message, 'info@liveeverfit.com', [email])
+            msg.attach_alternative(output, "text/html")
+            msg.send()
+        elif pro.profession == 'Instructor':
+            print 'No Email Template'
+
         
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
