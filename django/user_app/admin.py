@@ -13,6 +13,9 @@ from django.core.mail import send_mail, EmailMessage
 from user_app.models import CustomUser, Address, Professional, UniqueLocation, Certification, FeaturedProfessional, StaticTags
 from user_app.forms import CustomUserChangeForm, CustomUserCreationForm
 
+def upgrade_to_pro(modeladmin, request, queryset):
+    for obj in queryset:
+        pro = Professional.objects.create_prof(obj)
 
 
 class CustomUserAdmin(UserAdmin):
@@ -25,7 +28,7 @@ class CustomUserAdmin(UserAdmin):
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', 'tier', 'gender', 'primary_address',  
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'tier', 'gender', 'primary_address', 'phone',
                                              )}),
         (_('Professional Fields'), {'fields': ('referred_by', 'connection', 'connected_on',)}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
@@ -41,6 +44,7 @@ class CustomUserAdmin(UserAdmin):
     list_display = ('email', 'first_name', 'last_name', 'is_upgraded')
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
+    actions = [upgrade_to_pro]
 
 admin.site.register(CustomUser, CustomUserAdmin)
 
