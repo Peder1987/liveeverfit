@@ -47,7 +47,7 @@ class VideoEntry(Entry):
 
 class BlogEntry(Entry):
     type = 'blog'
-    body = models.TextField(_('Body'), max_length=500, default='')
+    body = models.TextField(_('Body'), max_length=1000000, default='')
 
 class SharedEntry(Entry):
     type = 'shared'
