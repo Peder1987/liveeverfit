@@ -209,13 +209,13 @@ define(['app'], function (app) {
                 });
             };
 
-            var tagsResource = $resource(":protocol://:url/tags/",{
+            var tagCollection = $resource(":protocol://:url/all-tags/",{
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
             },{update: { method: 'PUT' }});
 
 
-            $scope.tagsCall = tagsResource.get($scope.user, function(){
+            $scope.tagsCall = tagCollection.get($scope.user, function(){
                 $scope.temTags = $scope.tagsCall.results;
 
             },function(error) {
@@ -234,9 +234,12 @@ define(['app'], function (app) {
                     $scope.tags.splice(temp, 1);
                 }
             };
-            $scope.loadSpecialty = function () {
-                var deferred = $scope.q.defer();
-                deferred.resolve($scope.temTags);
+            $scope.loadSpecialty = function (query) {
+                var tagTemp, deferred;
+                deferred = $scope.q.defer();
+                tagTemp = tagCollection.get({search:query}, function(){
+                    deferred.resolve(tagTemp.results);
+                });  
                 return deferred.promise;
             };
 
