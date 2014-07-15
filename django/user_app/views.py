@@ -66,7 +66,7 @@ class ProfessionalListView(generics.ListAPIView):
     filter_backends = (GenderFilterBackend,ProfessionFilterBackend,LocationFilterBackend,AcceptingFilterBackend, TagFilterBackend, QueueFilterBackend)
 
     def get_queryset(self):
-        return Professional.objects.all()
+        return Professional.objects.filter(profession__in=['Nutritionist','Trainer','Instructor',])
 
 
 class ProfessionalObjView(generics.RetrieveUpdateDestroyAPIView):

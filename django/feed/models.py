@@ -47,7 +47,10 @@ class VideoEntry(Entry):
 
 class BlogEntry(Entry):
     type = 'blog'
-    body = models.TextField(_('Body'), max_length=500, default='')
+    # WARNING: When changing max_length refer to 
+    # http://stackoverflow.com/questions/2108824/mysql-incorrect-string-value-error-when-save-unicode-string-in-django
+    # This alters the text field in order to handle the correct format. Change the VARCHAR(255) to VARCHAR(max_length_value)
+    body = models.TextField(_('Body'), max_length=1000000, default='')
 
 class SharedEntry(Entry):
     type = 'shared'

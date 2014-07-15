@@ -31,3 +31,5 @@ class TagViewSet(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     model = Tag
     serializer = TagSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name', )

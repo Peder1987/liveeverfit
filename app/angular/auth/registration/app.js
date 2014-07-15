@@ -225,18 +225,19 @@ define(['app'], function(app) {
 					localStorageService.add('user_email', $scope.authToken.email);
                     localStorageService.add('user_img', $scope.authToken.img);
                     localStorageService.add('user_type', $scope.authToken.type);
-                    if($scope.user.tier == 1){
-						window.location = "/";
-					}
-					else{
-						$scope.profile_user = $scope.authToken.id;
-						$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
-						$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
-							window.location = "/";
-						});
-						delete $http.defaults.headers.common['Authorization'];
+                    window.location = "/";
+     //                if($scope.user.tier == 1){
+					// 	window.location = "/";
+					// }
+					// else{
+					// 	$scope.profile_user = $scope.authToken.id;
+					// 	$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
+					// 	$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
+					// 		window.location = "/";
+					// 	});
+					// 	delete $http.defaults.headers.common['Authorization'];
 
-					};
+					// };
 				},function(error) {
 					$scope.message = error.data;
 				});
@@ -256,12 +257,14 @@ define(['app'], function(app) {
 
                     $scope.proToken = ProAuthToken.save($scope.pro, function(){
 
-                    	$scope.profile_user = $scope.authToken.id;
-						$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
-						$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
-							window.location = "/";
-						});
-						delete $http.defaults.headers.common['Authorization'];
+                    	window.location = "/";
+
+      //               	$scope.profile_user = $scope.authToken.id;
+						// $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
+						// $scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
+						// 	window.location = "/";
+						// });
+						// delete $http.defaults.headers.common['Authorization'];
 
 					},function(error) {
 						$scope.message = error.data;

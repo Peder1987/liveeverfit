@@ -14,17 +14,10 @@ define(['app'], function (app) {
                 locationlCollection = $resource("http://:url/users/location", {
                     url: $scope.restURL
                 }),
-                tagCollection = $resource("http://:url/tags/", {
+                tagCollection = $resource("http://:url/all-tags", {
                     url: $scope.restURL
-                }),
-                tagResource = $resource("http://:url/tags/:id/", {
-                    url: $scope.restURL,
-                    id: '@id'
-                }, {
-                    update: {
-                        method: 'PUT'
-                    }
                 });
+                
             $scope.tagSelected = [];
             $scope.specialtySearch = "";
             $scope.profession = [];
@@ -100,10 +93,12 @@ define(['app'], function (app) {
                     $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
                 });
             };
-            $scope.loadSpecialty = function () {
-                //return $scope.load_specialty()
-                var deferred = $scope.q.defer();
-                deferred.resolve($scope.tags.results);
+            $scope.loadSpecialty = function (query) {
+                var tagTemp, deferred;
+                deferred = $scope.q.defer();
+                tagTemp = tagCollection.get({search:query}, function(){
+                    deferred.resolve(tagTemp.results);
+                });  
                 return deferred.promise;
             };
             $scope.tags = tagCollection.get($.noop(), $scope.checkTokenError);
