@@ -110,18 +110,20 @@ define(['app', 'videojs'], function (app) {
                             $scope.connectionResource.update({id:$scope.user_id, user_id:$stateParams.recipient || null},function(data){
                                 $scope.newMessage.type = data.user_type
                                 
-                                if($scope.user_type == 'user' && data.connection){
-                                    $scope.newMessage.recipient = data.connection
-                                }else if($scope.user_type == 'professional' && $stateParams.recipient){
+                                if($scope.user_type == 'professional' && $stateParams.recipient){
                                     $scope.selectedUser = $stateParams.recipient
                                     $scope.newMessage.recipient = data.connection
                                     $scope.pro_connection = true;
+                                }else if($scope.user_type == 'upgraded' && data.connection){
+                                    $scope.newMessage.recipient = data.connection
+                                    $scope.selectedUser = data.connection.id;
                                 }
                                 else{
                                     $scope.newMessage.recipient = null;
+                                    $scope.selectedUser = null;
                                     $scope.pro_connection = false;
                                 }
-                                //console.log(recipient);
+                                console.log($scope.newMessage.recipient);
                             });  
                         }
                     };
