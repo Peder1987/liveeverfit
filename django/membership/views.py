@@ -76,7 +76,7 @@ def user_tier(request):
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def upgrade_to_professional(request):
-    serialized = UserSerializer(data=request.DATA)
+    serialized = UserSerializer(data=request.DATA, partial=True)
     if serialized.is_valid():
         user_data = {field: data for (field, data) in request.DATA.items()}
         user_id = user_data.get('id')
