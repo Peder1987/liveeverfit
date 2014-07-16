@@ -254,6 +254,8 @@ define(['app'], function (app) {
                     //set lat and lng of the user for google map marker
                     $scope.profile_user.lat = $scope.address.lat
                     $scope.profile_user.lng = $scope.address.lng
+                    $scope.profile_user.location = $scope.address.city + ', ' + $scope.address.state
+
                 }
             };
 
@@ -427,7 +429,7 @@ define(['app'], function (app) {
         };
 
         $scope.cancel = function () {
-            console.log($scope.profile_user);
+            // console.log($scope.profile_user);
             $modalInstance.dismiss();
         };
 
@@ -521,7 +523,7 @@ define(['app'], function (app) {
                 url: $scope.restURL
             }, {update: { method: 'PATCH' }});
             membershipResource.get(function (data) {
-                console.log(data)
+                // console.log(data)
             })
             $modalInstance.close();
         }
