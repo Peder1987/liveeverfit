@@ -93,8 +93,12 @@ def upgrade_to_professional(request):
         if user.tier == 6 or user.tier == 7:
             return Response({'error': ['Already a profesional']}, status=status.HTTP_400_BAD_REQUEST)
 
-        pro = Professional.objects.create_prof(user)
+        # free for now
+        #There is a bug when you access the model, if you put this
+        #code at the bottom it breaks
+        user.stripe_cancel_subscription()
 
+        pro = Professional.objects.create_prof(user)
 
         pro.__dict__.update(**user_data)
         if certification_name1:
@@ -110,7 +114,6 @@ def upgrade_to_professional(request):
         message = 'New Professional in Live Ever Fit ' + pro.email + '\n' + 'phone: ' + pro.phone + '\n' + 'address: ' + pro.primary_address.street_line1 + ' ' + pro.primary_address.street_line2 + ' ' + pro.primary_address.city + ' ' + pro.primary_address.state + ' ' + pro.primary_address.zipcode   
         send_mail(subject, message, 'info@liveeverfit.com', [email])
         
-
         return Response({'details': 'professional'}, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
