@@ -66,7 +66,7 @@ define(['angularAMD',
                 $rootScope.fanaticsCollapsed = true;
                 $rootScope.dashCollapsed = false;
                 $tour.start();
-            }
+            };
             $tour.finished = function() {
                 $rootScope.fanaticsCollapsed = false;
                 $rootScope.dashCollapsed = true;
