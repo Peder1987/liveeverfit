@@ -5,11 +5,12 @@
     <div class="fanaticsList-content">
         <input placeholder="Search..."
                ng-model="searchText"
+               typeahead="obj.full_name for obj in fanaticTypeahead($viewValue)"
                typeahead-on-select="onSelect($item)"/>
 
         <div class="list-fan">
             <a ui-sref="profile.view({view: fanatic.id})"
-               ng-repeat="fanatic in fanaticList | filter:searchText">
+               ng-repeat="fanatic in fanaticList">
                 <img src="{{serverProtocal}}://{{serverURL}}//media/{{fanatic.img}}"/>
                 {{fanatic.full_name}}
             </a>
