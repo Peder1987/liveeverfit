@@ -109,7 +109,7 @@ class ProfileProfessionalSerializer(serializers.ModelSerializer):
     img = serializers.ImageField(allow_empty_file=True, required=False)
     certifications = CertificationSerializer(many=True, allow_add_remove=True)
     tags = serializers.Field(source='tags.all')
-    likes = serializers.Field(source="likes.count")
+    likes = serializers.Field(source="entries_liked.count")
     referrals = UserSerializer(source="user_reference.all")
     def to_native(self, value):
         obj = super(ProfileProfessionalSerializer, self).to_native(value)
@@ -129,7 +129,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     last_login_on = serializers.DateTimeField(source='last_login',read_only=True)
     joined_on = serializers.DateTimeField(source='date_joined', read_only=True)
     img = serializers.ImageField(allow_empty_file=True, required=False)
-    likes = serializers.Field(source="likes.count")
+    likes = serializers.Field(source="entries_liked.count")
     tags = TagListSerializer(required=False)
     
     class Meta:

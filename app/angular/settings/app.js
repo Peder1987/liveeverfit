@@ -33,17 +33,17 @@ define(['app'], function (app) {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
                 id: $scope.user_id
-            }, {update: { method: 'PUT' }});
+            }, {update: { method: 'PATCH' }});
             var professionalResource = $resource(":protocol://:url/users/professionals/:id/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
                 id: $scope.user_id
-            }, {update: { method: 'PUT' }});
+            }, {update: { method: 'PATCH' }});
             var creditcardResource = $resource(":protocol://:url/users/creditcards/:id/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
                 id: $scope.user_id
-            }, {update: { method: 'PUT' }});
+            }, {update: { method: 'PATCH' }});
 
             //init
             $scope.profile_user = userResource.get(function () {
@@ -212,7 +212,7 @@ define(['app'], function (app) {
             var tagCollection = $resource(":protocol://:url/all-tags/",{
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
-            },{update: { method: 'PUT' }});
+            },{update: { method: 'PATCH' }});
 
 
             $scope.tagsCall = tagCollection.get($scope.user, function(){
@@ -395,7 +395,7 @@ define(['app'], function (app) {
                 id: profile_user.id,
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
-            }, {update: { method: 'PUT' }});
+            }, {update: { method: 'PATCH' }});
             $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
             Stripe.createToken({
                 name: $scope.creditcard.name,
@@ -519,7 +519,7 @@ define(['app'], function (app) {
                 id: profile_user.id,
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
-            }, {update: { method: 'PUT' }});
+            }, {update: { method: 'PATCH' }});
             membershipResource.get(function (data) {
                 console.log(data)
             })
