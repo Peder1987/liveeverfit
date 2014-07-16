@@ -203,10 +203,11 @@ define(['app'], function(app) {
 				$scope.proUpdate = professionalResource.save($scope.pro, function() {
 					localStorageService.add('user_type', $scope.proUpdate.details);
 					$scope.profile_user = localStorageService.get('user_id');
-					$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
-						localStorageService.remove('profesional');
-						window.location = "/";
-					});
+					window.location = "/";
+					// $scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
+					// 	localStorageService.remove('profesional');
+					// 	window.location = "/";
+					// });
 				},function(error) {
 					$scope.message = error.data;
 				});

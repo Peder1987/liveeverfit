@@ -151,7 +151,7 @@ def cancel_subscription(self):
         subscription.plan = 'cancel-subscription'
         subscription.save()
         subscription.delete()
-    except stripe.error.InvalidRequestError:
+    except:
         pass
 
 
