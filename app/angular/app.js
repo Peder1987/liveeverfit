@@ -62,11 +62,14 @@ define(['angularAMD',
         ]);
 
         app.run(function ($rootScope, $http, $tour, localStorageService, editableOptions) {
+            $rootScope.toggleDashboard = function() {
+                $rootScope.dashCollapsed = !$rootScope.dashCollapsed;
+            };
             $rootScope.startTour = function() {
                 $rootScope.fanaticsCollapsed = true;
                 $rootScope.dashCollapsed = false;
                 $tour.start();
-            }
+            };
             $tour.finished = function() {
                 $rootScope.fanaticsCollapsed = false;
                 $rootScope.dashCollapsed = true;
