@@ -347,7 +347,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 fileReader.readAsDataUrl($scope.uploadImg, $scope).then(function (result) {
                                     $scope.entryImgSrc = result;
                                     $scope.percent = undefined;
-                                    $scope.refreshMasonry();
+                                    $scope.runMasonry();
                                 });
                             },
                             deleteEntry: function (index, entry) {
