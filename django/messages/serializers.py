@@ -22,7 +22,6 @@ class InboxSerializer(serializers.ModelSerializer):
 
     def to_native(self, value):
         obj = super(InboxSerializer, self).to_native(value)
-        #print obj
         return obj
 
 class SentSerializer(InboxSerializer):

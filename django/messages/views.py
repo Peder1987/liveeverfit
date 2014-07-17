@@ -259,3 +259,9 @@ class ConnectionView(generics.UpdateAPIView):
     permission_classes = (IsAdminOrSelf,)
     model = User
     serializer_class = ConnectionSerializer
+
+
+class MessageView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
+    model = Message
+    serializer_class = InboxSerializer

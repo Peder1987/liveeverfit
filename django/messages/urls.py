@@ -5,7 +5,7 @@ from rest_framework import routers
 
 from messages.views import InboxListView, SentListView, ComposeMessageObjView
 from messages.views import DeletedListView, DeleteMessageObjView, UnDeleteMessageObjView
-from messages.views import ReplyMessageObjView, ConnectionView
+from messages.views import ReplyMessageObjView, ConnectionView, MessageView
 
 
 # urlpatterns = patterns('',
@@ -37,5 +37,6 @@ urlpatterns = patterns('',
     url(r'^reply/(?P<message_id>[\d]+)$', ReplyMessageObjView.as_view()),
     url(r'^delete/(?P<pk>[0-9]+)$', DeleteMessageObjView.as_view()),
     url(r'^undelete/(?P<pk>[0-9]+)$', UnDeleteMessageObjView.as_view()),
+     url(r'^message/(?P<pk>[0-9]+)$', MessageView.as_view()),
     
 )
