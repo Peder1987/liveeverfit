@@ -109,7 +109,6 @@ class ProfileProfessionalSerializer(serializers.ModelSerializer):
     img = serializers.ImageField(allow_empty_file=True, required=False)
     certifications = CertificationSerializer(many=True, allow_add_remove=True)
     tags = serializers.Field(source='tags.all')
-    likes = serializers.Field(source="entries_liked.count")
     referrals = UserSerializer(source="user_reference.all")
     def to_native(self, value):
         obj = super(ProfileProfessionalSerializer, self).to_native(value)
@@ -129,7 +128,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     last_login_on = serializers.DateTimeField(source='last_login',read_only=True)
     joined_on = serializers.DateTimeField(source='date_joined', read_only=True)
     img = serializers.ImageField(allow_empty_file=True, required=False)
-    likes = serializers.Field(source="entries_liked.count")
     tags = TagListSerializer(required=False)
     
     class Meta:
@@ -154,7 +152,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         #data about user logged in accessing this profile   
         user = self.context['request'].user
 
-        
+        obj['likes'] = value.entries_liked.count() + value.video_like.count()
+        print obj['likes']
         obj['fanatics'] = value.relationships.followers().count()
         obj['inspiration'] = SharedEntry.objects.filter(entry__user=value).count() +  value.comments.count()
         # if the value of USER is the same as the logged in users
