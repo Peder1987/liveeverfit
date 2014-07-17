@@ -191,7 +191,11 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                     $scope.runMasonry();
                                                     delete $scope.uploadImg;
                                                     delete $scope.entryImgSrc;
-                                                    $scope.percent = scope.percent = false;
+                                                    setTimeout(function() {
+                                                        $scope.$apply(function() {
+                                                            $scope.percent = scope.percent = false;
+                                                        });
+                                                    });
                                                     $scope.entryTags = [];
                                                 }).error(function (data) {
                                                     $scope.percent = false;
@@ -343,7 +347,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 fileReader.readAsDataUrl($scope.uploadImg, $scope).then(function (result) {
                                     $scope.entryImgSrc = result;
                                     $scope.percent = undefined;
-                                    $scope.refreshMasonry();
+                                    $scope.runMasonry();
                                 });
                             },
                             deleteEntry: function (index, entry) {
