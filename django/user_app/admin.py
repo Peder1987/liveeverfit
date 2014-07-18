@@ -17,6 +17,9 @@ def upgrade_to_pro(modeladmin, request, queryset):
     for obj in queryset:
         pro = Professional.objects.create_prof(obj)
 
+class CertificationInline(admin.StackedInline):
+    model = Certification
+    extra = 0
 
 class CustomUserAdmin(UserAdmin):
     # The forms to add and change user instances
@@ -123,7 +126,7 @@ class ProfessionalAdmin(UserAdmin):
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
-        (_('Certifications'), {'fields': ("certification_name1", "certification_number1", "certification_name2", "certification_number2",)}),
+        #(_('Certifications'), {'fields': ("",)}),
         (_('Social Media'), {'fields': ("twitter", "facebook", "instagram", "youtube", "linkedin", "plus", )}),
         (_('Tags'), {'fields': ('tags', )}),
     )
@@ -137,6 +140,7 @@ class ProfessionalAdmin(UserAdmin):
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
     actions = [make_active, make_inactive, export_as_csv] 
+    inlines = [CertificationInline,]
 
 admin.site.register(Professional, ProfessionalAdmin)
 
