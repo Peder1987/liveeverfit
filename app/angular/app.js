@@ -62,21 +62,21 @@ define(['angularAMD',
         ]);
 
         app.run(function ($rootScope, $http, $tour, localStorageService, editableOptions) {
-            $rootScope.toggleDashboard = function() {
+            $rootScope.toggleDashboard = function () {
                 $rootScope.dashCollapsed = !$rootScope.dashCollapsed;
             };
-            $rootScope.startTour = function() {
+            $rootScope.startTour = function () {
                 $rootScope.fanaticsCollapsed = true;
                 $rootScope.dashCollapsed = false;
                 $tour.start();
             };
-            $tour.finished = function() {
+            $tour.finished = function () {
                 $rootScope.fanaticsCollapsed = false;
                 $rootScope.dashCollapsed = true;
             };
             $rootScope.dashCollapsed = true;
             $rootScope.serverProtocal = "http";
-            $rootScope.fanaticsCollapsed =  false;
+            $rootScope.fanaticsCollapsed = false;
             $rootScope.serverURL = "dev.liveeverfit.com";
             editableOptions.theme = 'bs3';
             $rootScope.token = localStorageService.get('Authorization');
@@ -184,7 +184,7 @@ define(['angularAMD',
                     $scope.message = error.data;
                 });
 
-                $scope.tick = function() {
+                $scope.tick = function () {
                     if ($rootScope.token !== null) {
                         $scope.notifications = notificationsResource.get(function () {
                             $scope.notificationsCount = $scope.notifications.count;
@@ -210,13 +210,13 @@ define(['angularAMD',
                     });
                     $scope.notificationsCount = 0;
                 };
-        }]);
+            }]);
 
 
         app.controller('PageCtrl', ['localStorageService', '$scope',
             function (localStorageService, $scope) {
                 $scope.token = localStorageService.get('Authorization');
-        }]);
+            }]);
         app.controller('footerCtrl', ['localStorageService', '$scope',
             function (localStorageService, $scope) {
                 $scope.isCollapsed = true;
@@ -224,21 +224,21 @@ define(['angularAMD',
                 $scope.templateNav = {
                     url: 'footer/index.html'
                 };
-        }]);
+            }]);
         app.controller('fanaticsCtrl', ['localStorageService', '$scope', '$resource', '$q', '$state',
             function (localStorageService, $scope, $resource, $q, $state) {
                 angular.extend($scope, {
-                    fanaticSearch : '',
+                    fanaticSearch: '',
                     fanaticList: [],
-                    fanaticCollection : $resource(":protocol://:url/users/fanatics", {
+                    fanaticCollection: $resource(":protocol://:url/users/fanatics", {
                         protocol: $scope.restProtocol,
                         url: $scope.restURL
                     }, {'query': {method: 'GET', isArray: false }}),
-                    fitFriendsCollection : $resource(":protocol://:url/users", {
+                    fitFriendsCollection: $resource(":protocol://:url/users", {
                         protocol: $scope.restProtocol,
                         url: $scope.restURL
                     }, {'query': {method: 'GET', isArray: false }}),
-                    fanaticTypeahead : function (query) {
+                    fanaticTypeahead: function (query) {
                         var deferred = $q.defer();
                         $scope.fitFriendsCollection.query({
                             search: query
@@ -247,14 +247,14 @@ define(['angularAMD',
                         });
                         return deferred.promise;
                     },
-                    onSelect : function($item) {
+                    onSelect: function ($item) {
                         $state.go('profile.view', {view: $item.id})
                     }
                 });
-                $scope.fanaticCollection.get({}, function(data){
+                $scope.fanaticCollection.get({}, function (data) {
                     $scope.fanaticList = data.results;
                 });
-        }]);
+            }]);
         app.directive('ng-blur', function () {
             return {
                 restrict: 'A',
@@ -402,10 +402,10 @@ define(['angularAMD',
 
         app.factory('httpInterceptor', function ($q, $rootScope, $log) {
             /* 
-            Http interceptor for when making an API request, allows 
-            easy integration with the "loader" directive to add the spinner
-            anywhere easily. 
-            */
+             Http interceptor for when making an API request, allows
+             easy integration with the "loader" directive to add the spinner
+             anywhere easily.
+             */
             var numLoadings = 0;
             return {
                 request: function (config) {
@@ -445,14 +445,14 @@ define(['angularAMD',
             };
         });
 
-        app.directive('clickOnce', function($timeout) {
+        app.directive('clickOnce', function ($timeout) {
             return {
                 restrict: 'A',
-                link: function(scope, element, attrs) {
+                link: function (scope, element, attrs) {
                     var replacementText = attrs.clickOnce;
 
-                    element.bind('click', function() {
-                        $timeout(function() {
+                    element.bind('click', function () {
+                        $timeout(function () {
                             if (replacementText) {
                                 element.html(replacementText);
                             }
