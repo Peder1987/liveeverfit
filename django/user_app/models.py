@@ -258,9 +258,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 @receiver(pre_delete, sender=CustomUser)
 def delete_customuser(sender, instance, **kwargs):
-    print sender
-    print instance
-    print kwargs
+    instance.shopify_delete()
     
 
 
