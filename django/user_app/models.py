@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.contrib.auth import models as auth_models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 from django.contrib.auth.models import BaseUserManager
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
 from taggit.models import Tag
@@ -256,6 +256,13 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         instance.primary_address = address
         instance.save()
 
+@receiver(pre_delete, sender=CustomUser)
+def delete_customuser(sender, instance, **kwargs):
+    print sender
+    print instance
+    print kwargs
+    
+
 
 
 class AddressManager(models.Manager):
@@ -382,10 +389,10 @@ class Professional(CustomUser):
     certified_nutritionist = models.BooleanField(_('certified nutritionist'), default=False)
     certified_group_fitness = models.BooleanField(_('certified group fitness'), default=False)
 
-    # certification_name1 = models.CharField(_('certification name 1'), max_length=100, blank=True)
-    # certification_number1 = models.CharField(_('cetification number 1'), max_length=100, blank=True)
-    # certification_name2 = models.CharField(_('certification name 2'), max_length=100, blank=True)
-    # certification_number2 = models.CharField(_('cetification number 2'), max_length=100, blank=True)
+    certification_name1 = models.CharField(_('certification name 1'), max_length=100, blank=True)
+    certification_number1 = models.CharField(_('cetification number 1'), max_length=100, blank=True)
+    certification_name2 = models.CharField(_('certification name 2'), max_length=100, blank=True)
+    certification_number2 = models.CharField(_('cetification number 2'), max_length=100, blank=True)
 
     shopify_sales = shopify_call.customer_sales_to_date
 
