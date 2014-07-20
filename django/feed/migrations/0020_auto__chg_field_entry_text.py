@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
 
         # Changing field 'Entry.text'
-        db.alter_column(u'feed_entry', 'text', self.gf('django.db.models.fields.CharField')(max_length=500000))
+        db.alter_column(u'feed_entry', 'text', self.gf('django.db.models.fields.TextField')(max_length=500000))
 
     def backwards(self, orm):
 
@@ -58,7 +58,7 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'likes': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'entries_liked'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['user_app.CustomUser']"}),
             'modified': ('model_utils.fields.AutoLastModifiedField', [], {'default': 'datetime.datetime.now'}),
-            'text': ('django.db.models.fields.CharField', [], {'max_length': '500000', 'blank': 'True'}),
+            'text': ('django.db.models.fields.TextField', [], {'max_length': '500000', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "u'feed_entry'", 'to': u"orm['user_app.CustomUser']"})
         },
         u'feed.flagged': {
