@@ -50,6 +50,46 @@
 @well-bg: rgba(145, 153, 162, 0.37);
 @nav-tabs-border-color: none;
 
+
+//Firefox Select Fix
+@-moz-document url-prefix() {
+  .select-moz {
+    position: relative;
+    border: 1px solid rgba(125, 135, 144, 0.1);
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #ffffff;
+    display: block;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 4px 0px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
+    &:after {
+      content: '';
+      position: absolute;
+      right: 8px;
+      top: 15px;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #fff;
+    }
+    option {
+      padding: 8px;
+    }
+  }
+  select {
+    -moz-appearance: window;
+    &:-moz-focusring {
+      color: transparent;
+      text-shadow: 0 0 0 #FFF;
+    }
+  }
+}
+
 // Loader
 #loader {
   position: absolute;
