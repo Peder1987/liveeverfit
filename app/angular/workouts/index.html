@@ -164,7 +164,6 @@
                         <div class="col-xs-12">
                             <div class="list-group">
                                 <div ng-hide="comments.length">No comments found</div>
-                                {{comments}}
                                 <div ng-repeat="comment in comments.slice().reverse()" class="list-group-item">
                                     <div class="media">
                                         <button class="close" ng-if="comment.user == user_id"
