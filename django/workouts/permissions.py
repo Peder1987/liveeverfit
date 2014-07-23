@@ -8,7 +8,7 @@ class IsAdminOrSelf(IsAuthenticated):
     def has_object_permission(self, request, view, obj):
         if request.user and request.user.is_staff:
             return True
-        elif (request.user and type(obj) == type(request.user) and
-              obj == request.user):
+        elif (request.user and type(obj.user) == type(request.user) and
+              obj.user == request.user):
             return True
         return False

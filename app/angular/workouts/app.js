@@ -9,6 +9,7 @@ define(['app', 'videojs'], function (app) {
     app.register.controller('workoutsController', ["$sce", "$stateParams", "$resource", "rest", "tokenError", "localStorageService", "$scope", "$anchorScroll", "promiseService",
         function ($sce, $stateParams, $resource, rest, tokenError, localStorageService, $scope) {
             $scope.usrImg = localStorageService.get('user_img');
+            $scope.user_id = localStorageService.get('user_id');
 
             $scope.page = 1;
             $scope.difficulty = [];
@@ -58,6 +59,13 @@ define(['app', 'videojs'], function (app) {
                     id: '@id'
                 }),
                 videoResource = $resource(":protocol://:url/workouts/video/:id/", {
+                    protocol: $scope.restProtocol,
+                    url: $scope.restURL,
+                    id: '@id'
+                }, {
+                    update: { method: 'PUT' }
+                }),
+                commentResource = $resource(":protocol://:url/workouts/comments/:id/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL,
                     id: '@id'
@@ -177,6 +185,16 @@ define(['app', 'videojs'], function (app) {
                 }, function (data) {
                     $scope.comments.unshift(data)
                     scope.commentText = "";
+                });
+            };
+            $scope.deleteComment = function (index, comment){
+                var commentObj = {
+                            id: comment.id
+                };
+                index = $scope.comments.indexOf(comment)
+                $scope.comments.splice(index, 1);
+                commentResource.delete(commentObj, function () {
+
                 });
             };
 
