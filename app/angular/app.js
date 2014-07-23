@@ -120,6 +120,8 @@ define(['angularAMD',
                     .state('clients', route.resolve('/clients', 'clients'))
                     .state('faq', route.resolve('/faq', 'faq'))
                     .state('membership', route.resolve('/membership', 'membership'))
+                    .state('membership.tier', route.resolve('/:tier', 'membership'))
+                    .state('membership.tier.profession', route.resolve('/:pro', 'membership'))
                     .state('calendar', route.resolve('/calendar', 'calendar'))
                     .state('profile', route.resolve('/profile', 'profile'))
                     .state('upgrade', route.resolve('/upgrade', 'upgrade'))
