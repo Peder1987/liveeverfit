@@ -179,7 +179,7 @@ def register_professional(request):
 
         email = 'payroll@liveeverfit.com'
         subject = 'New Professional'
-        message = 'New Professional in Live Ever Fit ' + pro.email + '\n' + 'phone: ' + pro.phone + '\n' + 'address: ' + pro.primary_address.street_line1 + ' ' + pro.primary_address.street_line2 + ' ' + pro.primary_address.city + ' ' + pro.primary_address.state + ' ' + pro.primary_address.zipcode   
+        message = 'New Professional in Live Ever Fit \n' + 'Name: ' + pro.first_name + ' ' + pro.last_name + '\n' + 'Email: ' + pro.email + '\n' + 'phone: ' + pro.phone + '\n' + 'address: ' + pro.primary_address.street_line1 + ' ' + pro.primary_address.street_line2 + ' ' + pro.primary_address.city + ' ' + pro.primary_address.state + ' ' + pro.primary_address.zipcode   
         send_mail(subject, message, 'info@liveeverfit.com', [email])
 
 

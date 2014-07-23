@@ -15,8 +15,8 @@ define(['app'], function(app) {
 
 			$scope.step = 'auth';
 			$scope.auth = {
-				email: '',
-				password: ''
+				email: 'migueldv90@yahoo.com',
+				password: '123456789'
 			};
 			$scope.user = {
 				id: localStorageService.get('user_id'),
