@@ -80,6 +80,7 @@ define(['angularAMD',
             $rootScope.serverURL = "dev.liveeverfit.com";
             editableOptions.theme = 'bs3';
             $rootScope.token = localStorageService.get('Authorization');
+            $rootScope.user_type = localStorageService.get('user_type');
             $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
         });
 
@@ -142,6 +143,7 @@ define(['angularAMD',
         app.service('restricted', ['$rootScope', 'localStorageService', '$http', function ($rootScope, localStorageService, $http) {
             $rootScope.restricted = function () {
                 $rootScope.token = localStorageService.get('Authorization');
+                $rootScope.user_type = localStorageService.get('user_type');
                 $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
                 setTimeout(function () {
                     if ($rootScope.token === null) {
@@ -162,7 +164,6 @@ define(['angularAMD',
         app.controller('NavCtrl', ['$rootScope', 'localStorageService', '$resource', '$state', '$timeout', '$scope', 'toaster', 'rest', 'restricted',
             function ($rootScope, localStorageService, $resource, $state, $timeout, $scope, toaster) {
                 $scope.isCollapsed = true;
-                $scope.user_type = localStorageService.get('user_type');
                 var notificationsResource = $resource(":protocol://:url/notifications/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
@@ -212,15 +213,9 @@ define(['angularAMD',
                 };
             }]);
 
-
-        app.controller('PageCtrl', ['localStorageService', '$scope',
-            function (localStorageService, $scope) {
-                $scope.token = localStorageService.get('Authorization');
-            }]);
         app.controller('footerCtrl', ['localStorageService', '$scope',
             function (localStorageService, $scope) {
                 $scope.isCollapsed = true;
-                $scope.token = localStorageService.get('Authorization');
                 $scope.templateNav = {
                     url: 'footer/index.html'
                 };
