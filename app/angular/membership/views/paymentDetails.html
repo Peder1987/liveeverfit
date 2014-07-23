@@ -14,12 +14,12 @@
                 <label for="numberName">
                     CARD NUMBER
                 </label>
-                <input type="text" class="form-control" name="number" id="number" placeholder="Valid Card Number" ng-model="creditcard.number" required>
+                <input autocomplete="off" type="text" class="form-control" name="number" id="number" placeholder="Valid Card Number" ng-model="creditcard.number" required>
                   <p></p>
                 <label for="cvcName">
                     CVV CODE
                 </label>
-                <input type="text" class="form-control" name="cvc" id="cvc" placeholder="cvc" ng-model="creditcard.cvc" required>
+                <input autocomplete="off" type="text" class="form-control" name="cvc" id="cvc" placeholder="cvc" ng-model="creditcard.cvc" required>
                   <p></p>
                 <label for="exp_monthName">
                     EXPIRY DATE
@@ -60,14 +60,14 @@
                 <label for="Address">
                     ADDRESS
                 </label>
-                <input id="address" type="text" ng-model="tempAddressPay.formatted_address"
+                <input autocomplete="off" id="address" type="text" ng-model="tempAddressPay.formatted_address"
                        placeholder="Primary Address"
                        typeahead="address for address in getLocation($viewValue)"
                        typeahead-loading="loadingLocations"
                        ng-change="setAddressPay()" typeahead-on-select="setAddressPay()" class="form-control"
                        required>
 
-                <input type="text" class="form-control" name="firstName" id="firstName"
+                <input autocomplete="off" type="text" class="form-control" name="firstName" id="firstName"
                        placeholder="P.O. Box, Apartment, Suite, Unit, Building, Floor, Etc."
                        ng-change="setAddressPay()"
                        ng-model="tempAddressPay.street_line2">
