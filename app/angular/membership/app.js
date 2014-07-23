@@ -16,13 +16,10 @@ define(['app'], function(app) {
 			$scope.urlTier = $stateParams.tier;
 			$scope.urlPro = $stateParams.pro;
 
-			console.log($scope.urlTier);
-			console.log($scope.urlPro);
-
 			$scope.step = 'auth';
 			$scope.auth = {
-				email: 'migueldv90@yahoo.com',
-				password: '123456789'
+				email: '',
+				password: ''
 			};
 			$scope.user = {
 				id: localStorageService.get('user_id'),
