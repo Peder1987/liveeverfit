@@ -6,6 +6,15 @@
   .pricely-pro {
     border-left: 2px solid #ddd;
   }
+  .pricely-button {
+    .btn {
+      color: #eee;
+      &:hover {
+        color: #fff;
+      }
+    }
+
+  }
 
   /*!
   * Pricely v1.0
@@ -19,7 +28,6 @@
     border-right: 1px solid #ddd;
     border-top: 1px solid #ddd;
     background-color: #1489ff;
-    border-color: #1489ff;
   }
   .panel-danger > .panel-heading {
     background-color: #90baaf;
@@ -40,10 +48,11 @@
   .pricely-pro .list-group {
     padding: 0px;
     margin-left: 0px;
+    margin-bottom: 0px;
   }
 
   .list-group-item {
-    line-height: 45px;
+    line-height: 20px;
   }
 
   .pricely-pro li, .row-fluid [class*="span"] {
@@ -102,6 +111,9 @@
     padding: 30px 20px;
     text-align: center;
   }
+  .pricely-first-heading .panel-heading {
+    background-color: #EEE;
+  }
   .pricely-chart-one h3 span {
     display: block;
     font-size: 13px;
@@ -114,10 +126,11 @@
   /* Headings Formatting */
   .pricely-label {
     display: block;
-    font-size: 13px;
+    font-size: 21px;
     letter-spacing: 1px;
-    margin: 0 auto 10px;
+    margin: 34px auto;
     text-transform: uppercase;
+    color: #555;
   }
   .pricely-first-heading .pricely-label {
     font-weight: 600;
@@ -135,9 +148,9 @@
   }
   .pricely-amount {
     display: inline-block;
-    font-size: 70px;
-    line-height: 70px;
-    padding: 0 0 0 0px;
+    font-size: 50px;
+    line-height: 60px;
+    padding: 0;
   }
   .pricely-foreword {
     display: block;
@@ -301,7 +314,7 @@
   /* Professional */
   .pricely-pro .panel-heading {
     border-radius: 0;
-    min-height: 280px;
+    min-height: 206px;
   }
   .pricely-pro li li.list-group-item {
     border-left-width: 1px;
@@ -433,12 +446,7 @@
       font-size: 20px;
       font-weight: 400;
       position: relative;
-      top: -30px;
-    }
-
-    .pricely-amount {
-      font-size: 65px;
-      line-height: 65px;
+      top: -21px;
     }
 
     .pricely-chart .panel-footer {
