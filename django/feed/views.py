@@ -230,18 +230,26 @@ class RelationshipTypeAheadView(generics.ListAPIView):
     model = User
     permission_classes = (IsAuthenticated,)
     search_fields = ('email', )
-
+    paginate_by = 500
     def get_queryset(self):
         user =  self.request.user
-        qs = user.relationships.followers()
-        qs2 = user.relationships.following()
+
+        qs = user.relationships.followers() | user.relationships.following()
+
         #add pro you are connected to
         try:
+        	# get the professional user is connected too
         	user_id = user.connection.id
-        	pro = User.objects.filter(id=user_id)
-        	qs = qs|pro
+        	qs = qs | User.objects.filter(id=user_id)
         except:
+        	# no connection has been made so do nothing
         	pass
 
-        qs3 = qs | qs2 
-        return qs3.distinct()
+        try: # if the user is a professional, grab all client data
+        	pro = Professional.objects.get(id=user.id)
+        	qs = qs|pro.user_connections.all()
+        except:
+        	#not a professional, do nothing
+        	pass
+
+        return qs.distinct()
