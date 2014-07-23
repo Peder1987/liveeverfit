@@ -939,25 +939,48 @@ p.empty {
 
 ::-webkit-input-placeholder {
   /* WebKit browsers */
-  color: #333 !important;
+  color: #999 !important;
 }
 
 :-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  color: #333 !important;
+  color: #999 !important;
   opacity: 1;
 }
 
 ::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  color: #333 !important;
+  color: #999 !important;
   opacity: 1;
 }
 
 :-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  color: #333 !important;
+  color: #999 !important;
 }
+
+.placeholder-light ::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #fff !important;
+}
+
+.placeholder-light :-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #fff !important;
+  opacity: 1;
+}
+
+.placeholder-light ::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #fff !important;
+  opacity: 1;
+}
+
+.placeholder-light :-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #fff !important;
+}
+
 
 tags-input *, *:before, *:after {
   -moz-box-sizing: border-box;

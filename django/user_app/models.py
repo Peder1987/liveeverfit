@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.contrib.auth import models as auth_models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 from django.contrib.auth.models import BaseUserManager
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
 from taggit.models import Tag
@@ -255,6 +255,11 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         address.save()
         instance.primary_address = address
         instance.save()
+
+@receiver(pre_delete, sender=CustomUser)
+def delete_customuser(sender, instance, **kwargs):
+    instance.shopify_delete()
+    
 
 
 

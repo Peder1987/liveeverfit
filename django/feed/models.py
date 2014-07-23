@@ -27,7 +27,7 @@ class Entry(TimeStampedModel):
 	"""
     type = "text"
     user = models.ForeignKey(User, related_name="%(app_label)s_%(class)s")
-    text = models.CharField(_('text'), max_length=300, blank=True)
+    text = models.TextField(_('text'), max_length=500000, blank=True)
     likes = models.ManyToManyField(User, related_name='entries_liked', blank=True,null=True)
     objects = InheritanceManager()
     tags = TaggableManager(through=TaggedEntry)
