@@ -166,6 +166,10 @@
                                 <div ng-hide="comments.length">No comments found</div>
                                 <div ng-repeat="comment in comments.slice().reverse()" class="list-group-item">
                                     <div class="media">
+                                        <button class="close" ng-if="comment.user == user_id"
+                                                ng-click="deleteComment($index, comment)">
+                                            <i class="fa fa-times"></i>&ZeroWidthSpace;
+                                        </button>
                                         <a ui-sref="profile.view({view: comment.user})">
                                             <img class="media-object pull-left"
                                                  ng-src="{{serverProtocal}}://{{serverURL}}/{{comment.img}}"
