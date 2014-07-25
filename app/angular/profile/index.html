@@ -51,9 +51,7 @@
 
                         <div class="specialties">
                             <h3 class="ef-header" style="margin: 8px 0;">specialties</h3>
-                            <div style="max-height: 100px; overflow-y: auto">
-                                <span class="tag tag-blue tag-click" ng-repeat="tag in profile_user.tags">{{tag}}</span>
-                            </div>
+                            <div tag-specialties class="tag-specialties" ng-model="profile_user.tags"></div>
                         </div>
                         <!-- /.specialties-->
                     </div>

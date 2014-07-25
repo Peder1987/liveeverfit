@@ -274,6 +274,42 @@ define(['angularAMD',
                 });
             };
         });
+        app.directive('tagSpecialties', function () {
+            return {
+                restrict: "A",
+                require: '?ngModel',
+                link: function (scope, element, attrs, ngModel) {
+                    if (!ngModel) return; // do nothing if no ng-model
+                    ngModel.$render = function () {
+                        var $dropdown = $('<div class="dropdown"></div>'),
+                            $toggle = $('<div class="tag tag-blue tag-click">more <i class="fa fa-chevron-right"></i></div>'),
+                            $element = $(element).empty().append($dropdown).append($toggle),
+                            width = $element.width(),
+                            tagsWidth = $toggle.width() + 12;
+                        $toggle.hide();
+                        $toggle.click(function() {
+                            $dropdown.toggle();
+                            if($dropdown.css('display') == 'none') $toggle.html('more <i class="fa fa-chevron-right"></i>');
+                            else $toggle.html('<i class="fa fa-chevron-left"></i> less');
+                        });
+                        angular.forEach(ngModel.$viewValue, function(value, index) {
+                            var $tag = $('<span class="tag tag-blue tag-click">' + value + '</span>'),
+                                tagWidth = 0;
+                            $tag.insertBefore($toggle);
+                            tagWidth = $tag.width() + 10;
+                            tagsWidth += tagWidth;
+                            if(tagsWidth > width) {
+                                $toggle.show();
+                                tagsWidth -= tagWidth;
+                                $tag.remove();
+                                $dropdown.append($tag);
+                            }
+                        });
+                    };
+                    $(window).resize(_.debounce(ngModel.$render, 350));
+                }
+            };
+        });
         app.directive('richTextEditor', function () {
             return {
                 restrict: "A",
@@ -387,7 +423,6 @@ define(['angularAMD',
             };
             return { readAsDataUrl: readAsDataURL };
         });
-
         app.directive('disableNgAnimate', ['$animate', function ($animate) {
             return {
                 restrict: 'A',
@@ -396,7 +431,6 @@ define(['angularAMD',
                 }
             };
         }]);
-
         app.factory('httpInterceptor', function ($q, $rootScope, $log) {
             /* 
              Http interceptor for when making an API request, allows
@@ -441,7 +475,6 @@ define(['angularAMD',
                 });
             };
         });
-
         app.directive('clickOnce', function ($timeout) {
             return {
                 restrict: 'A',
@@ -459,7 +492,6 @@ define(['angularAMD',
                 }
             };
         });
-
         //Bootstrap Angular
         angularAMD.bootstrap(app);
         return app;
