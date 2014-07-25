@@ -50,6 +50,24 @@
 @well-bg: rgba(145, 153, 162, 0.37);
 @nav-tabs-border-color: none;
 
+.navbar-default .navbar-brand {
+  &:hover, &.active {
+    background-color: #e2e2e2;
+    color: white;
+    .logo {
+      background: url('common/img/navbar/logo-white.png');
+    }
+    .dashboard-btn {
+      color: white;
+    }
+  }
+  .logo {
+    width: 30px;
+    height: 45px;
+    background: url('common/img/navbar/logo.png');
+  }
+}
+
 
 //Firefox Select Fix
 @-moz-document url-prefix() {
