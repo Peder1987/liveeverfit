@@ -1017,24 +1017,24 @@ p.empty {
   color: #999 !important;
 }
 
-.placeholder-light ::-webkit-input-placeholder {
+.placeholder-light::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #fff !important;
 }
 
-.placeholder-light :-moz-placeholder {
+.placeholder-light:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #fff !important;
   opacity: 1;
 }
 
-.placeholder-light ::-moz-placeholder {
+.placeholder-light::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #fff !important;
   opacity: 1;
 }
 
-.placeholder-light :-ms-input-placeholder {
+.placeholder-light:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #fff !important;
 }
@@ -1060,7 +1060,7 @@ tags-input .tags {
   overflow: hidden;
   word-wrap: break-word;
   cursor: text;
-  background-color: rgba(125, 135, 144, 0.38);
+  background-color: rgba(125, 135, 144, 0.1);
   border: 1px solid @input-border;
   .box-shadow(inset 0 1px 1px rgba(0, 0, 0, .075));
   .transition(~"border-color ease-in-out .15s, box-shadow ease-in-out .15s");
@@ -1123,6 +1123,30 @@ tags-input .tags .input {
   float: left;
   height: 26px;
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.placeholder-light .tags .input {
+  color: white!important;
+}
+.placeholder-light .tags .input::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #fff !important;
+}
+
+.placeholder-light .tags .input:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #fff !important;
+  opacity: 1;
+}
+
+.placeholder-light .tags .input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #fff !important;
+  opacity: 1;
+}
+
+.placeholder-light .tags .input:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #fff !important;
 }
 
 .tags-input .tags .input.invalid-tag {
