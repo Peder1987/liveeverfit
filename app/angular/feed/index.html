@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div class="blog" ng-if="entryInputType=='blog'" rich-text-editor
-                     ng-model="$parent.entryBlogBody"></div>
+                     ng-model="$parent.$parent.entryBlogBody"></div>
                 <div class="form-space">
                     <tags-input type="text" class="tags-input"
                                 placeholder="Tags: Crossfit, Nutrition, etc."
