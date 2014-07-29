@@ -8,22 +8,42 @@ define(['app'], function (app) {
             $scope.user_id = localStorageService.get('user_id');
             $scope.tags = [];
             $scope.webURL = window.location.host;
+            // holds the address to format it into 1 variable
+            //$scope.addressHolder = '';
+            $scope.tempAddressPay = {
+            formatted_address:'',
+            street_line2:'',
+            };
+            $scope.address = {
+                street_line1: '',
+                street_line2: '',
+                city: '',
+                state: '',
+                country: '',
+                zipcode: '',
+                lat: '',
+                lng: ''
+            };
+            $scope.tempAddress = {
+                formatted_address:'',
+                street_line2:'',
+            };
 
             var userResource = $resource(":protocol://:url/users/:id/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
                 id: $scope.user_id
-            }, {update: { method: 'PUT' }});
+            }, {update: { method: 'PATCH' }});
             var professionalResource = $resource(":protocol://:url/users/professionals/:id/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
                 id: $scope.user_id
-            }, {update: { method: 'PUT' }});
+            }, {update: { method: 'PATCH' }});
             var creditcardResource = $resource(":protocol://:url/users/creditcards/:id/", {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
                 id: $scope.user_id
-            }, {update: { method: 'PUT' }});
+            }, {update: { method: 'PATCH' }});
 
             //init
             $scope.profile_user = userResource.get(function () {
@@ -32,6 +52,12 @@ define(['app'], function (app) {
                 } else {
                     $scope.profileResource = userResource
                 }
+                //holds a formatted variable
+                $scope.tempAddress.formatted_address = $scope.profile_user.primary_address.street_line1 + $scope.profile_user.primary_address.street_line2 
+                                        + $scope.profile_user.primary_address.city + $scope.profile_user.primary_address.state;
+                
+
+
                 // Lazy load credit card information so delay is unnoticed to user
                 creditcardResource.get(function (data) {
                     $scope.profile_user.creditcard = data.creditcard;
@@ -155,6 +181,8 @@ define(['app'], function (app) {
                 });
                 // returning tags in list form
                 temp.tags = $scope.tags
+
+
                 
                 var obj = $scope.profileResource.update({id: $scope.profile_user.id}, temp,
                     function(){
@@ -181,13 +209,13 @@ define(['app'], function (app) {
                 });
             };
 
-            var tagsResource = $resource(":protocol://:url/tags/",{
+            var tagCollection = $resource(":protocol://:url/all-tags/",{
                 protocol: $scope.restProtocol,
                 url: $scope.restURL,
-            },{update: { method: 'PUT' }});
+            },{update: { method: 'PATCH' }});
 
 
-            $scope.tagsCall = tagsResource.get($scope.user, function(){
+            $scope.tagsCall = tagCollection.get($scope.user, function(){
                 $scope.temTags = $scope.tagsCall.results;
 
             },function(error) {
@@ -206,34 +234,28 @@ define(['app'], function (app) {
                     $scope.tags.splice(temp, 1);
                 }
             };
-            $scope.loadSpecialty = function () {
-                var deferred = $scope.q.defer();
-                deferred.resolve($scope.temTags);
+            $scope.loadSpecialty = function (query) {
+                var tagTemp, deferred;
+                deferred = $scope.q.defer();
+                tagTemp = tagCollection.get({search:query}, function(){
+                    deferred.resolve(tagTemp.results);
+                });  
                 return deferred.promise;
             };
 
-            $scope.address = {
-                street_line1: '',
-                street_line2: '',
-                city: '',
-                state: '',
-                country: '',
-                zipcode: '',
-                lat: '',
-                lng: ''
-            };
-            $scope.tempAddress = {
-                formatted_address:'',
-                street_line2:'',
-            };
-            $scope.setAddress = function() {
+            $scope.setAddress = function($data) {
                 if ($scope.tempAddress.formatted_address !== "undefined")
                 {
-                    $scope.address = $scope.addressesInputs[$scope.tempAddress.formatted_address];
+                    $scope.address = $scope.addressesInputs[$data];
                     if ($scope.address !== undefined){
                         $scope.address.street_line2 = (!($scope.tempAddress.street_line2 === undefined)?$scope.tempAddress.street_line2 + ' ':'');
                     }
                     $scope.profile_user.primary_address = $scope.address;
+                    //set lat and lng of the user for google map marker
+                    $scope.profile_user.lat = $scope.address.lat
+                    $scope.profile_user.lng = $scope.address.lng
+                    $scope.profile_user.location = $scope.address.city + ', ' + $scope.address.state
+
                 }
             };
 
@@ -375,7 +397,7 @@ define(['app'], function (app) {
                 id: profile_user.id,
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
-            }, {update: { method: 'PUT' }});
+            }, {update: { method: 'PATCH' }});
             $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
             Stripe.createToken({
                 name: $scope.creditcard.name,
@@ -407,7 +429,7 @@ define(['app'], function (app) {
         };
 
         $scope.cancel = function () {
-            console.log($scope.profile_user);
+            // console.log($scope.profile_user);
             $modalInstance.dismiss();
         };
 
@@ -448,10 +470,7 @@ define(['app'], function (app) {
             });
         };
 
-        $scope.tempAddressPay = {
-            formatted_address:'',
-            street_line2:'',
-        };
+
         $scope.setAddressPay = function() {
             if ($scope.tempAddressPay.formatted_address !== "undefined")
             {
@@ -502,9 +521,9 @@ define(['app'], function (app) {
                 id: profile_user.id,
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
-            }, {update: { method: 'PUT' }});
+            }, {update: { method: 'PATCH' }});
             membershipResource.get(function (data) {
-                console.log(data)
+                // console.log(data)
             })
             $modalInstance.close();
         }

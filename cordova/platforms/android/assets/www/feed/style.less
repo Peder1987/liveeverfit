@@ -3,6 +3,9 @@
   .item {
     margin-bottom: 21px;
   }
+  .grey-override {
+    color:#333;
+  }
   .mention-link {
     color:@ever-blue;
     font-weight:bold;
@@ -18,6 +21,7 @@
       position: relative;
       .media {
         margin-top: 0;
+        color:rgb(125, 136, 148);
         .timestamp {
           font-size: .7em;
         }
@@ -101,6 +105,15 @@
       margin-bottom: 15px;
     }
 
+    .blog {
+      height: 194px;
+      & > textarea {
+        // Font color for blog input!!!
+        color: #000;
+        visibility: hidden;
+      }
+    }
+
     .tags-input .tags {
       border-radius:0px;
       background-color:#edeef0;
@@ -117,6 +130,9 @@
     }
     .event, .typeahead {
       text-align: left;
+    }
+    .event .form-control {
+      color:#666;
     }
     img {
       max-width: 100%;
@@ -292,19 +308,4 @@
     }
   }
 
-}
-input::-webkit-input-placeholder {
-   color: red;
-}
-
-input:-moz-placeholder { /* Firefox 18- */
-   color: red;  
-}
-
-input::-moz-placeholder {  /* Firefox 19+ */
-   color: red;  
-}
-
-input:-ms-input-placeholder {  
-   color: red;  
 }

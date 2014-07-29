@@ -82,6 +82,11 @@ define(['angularAMD',
             $rootScope.token = localStorageService.get('Authorization');
             $rootScope.user_type = localStorageService.get('user_type');
             $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
+            if(navigator.splashscreen) {
+            	setTimeout(function() {
+            		navigator.splashscreen.hide();
+            	}, 1000);
+            }
         });
 
         app.config(['routeResolverProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider',

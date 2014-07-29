@@ -23,7 +23,8 @@ define(['app', 'feed'], function (app) {
                     $scope.filterType = type;
                     $scope.feed = {
                         filter: '/group/'+ $scope.group + ($scope.filterType?'/' + $scope.filterType:''),
-                        show: true
+                        show: true,
+                        entryTags : [$scope.group]
                     };
                 },
                 fanaticsResource: $resource(":protocol://:url/users/group/:group/", {
@@ -37,7 +38,8 @@ define(['app', 'feed'], function (app) {
                         $scope.feedActive = true;
                         $scope.feed = {
                             filter: '/group/'+ $scope.group + ($scope.filterType?'/' + $scope.filterType:''),
-                            show: $scope.feed.show
+                            show: $scope.feed.show,
+                            entryTags : [$scope.group]
                         };
                     }
                 },

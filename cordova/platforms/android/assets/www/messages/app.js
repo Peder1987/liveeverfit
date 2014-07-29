@@ -19,6 +19,15 @@ define(['app', 'videojs'], function (app) {
                 protocol: $scope.restProtocol,
                 url: $scope.restURL
             });
+            $scope.messageResource = $resource(":protocol://:url/messages/message/:id", {
+                protocol: $scope.restProtocol,
+                url: $scope.restURL,
+                id: '@id'
+            }, { 
+                update: {
+                    method: 'PUT'
+                }
+            });
             $scope.sentCollection = $resource(":protocol://:url/messages/sent?page=:page", {
                 page: $scope.currentPage,
                 protocol: $scope.restProtocol,
@@ -78,7 +87,22 @@ define(['app', 'videojs'], function (app) {
 
             };
             $scope.$on('$stateChangeSuccess', function () {
-                var success = function (data) {
+                var successInbox = function (data) {
+                        $scope.unread = 0;
+                        $scope.list = data.results;
+                        $scope.totalItems = data.count;
+                        angular.forEach(data.results, function(value, key){
+                            if(value.read_at == null){
+                                $scope.unread = $scope.unread + 1
+                            }
+                        });
+                        if ($stateParams.index) {
+                            $scope.index = $stateParams.index;
+                            $scope.detailIndex = $stateParams.index;
+                            $scope.detail = $scope.list[$stateParams.index];
+                        }
+                    },
+                    success = function (data) {
                         $scope.list = data.results;
                         $scope.totalItems = data.count;
                         if ($stateParams.index) {
@@ -89,7 +113,7 @@ define(['app', 'videojs'], function (app) {
                     },
                     views = {
                         inbox: function () {
-                            $scope.inboxCollection.get({page:$scope.currentPage}, success);
+                            $scope.inboxCollection.get({page:$scope.currentPage}, successInbox);
                         },
                         sent: function () {
                             $scope.sentCollection.get({page:$scope.currentPage}, success);
@@ -110,24 +134,39 @@ define(['app', 'videojs'], function (app) {
                             $scope.connectionResource.update({id:$scope.user_id, user_id:$stateParams.recipient || null},function(data){
                                 $scope.newMessage.type = data.user_type
                                 
-                                if($scope.user_type == 'user' && data.connection){
-                                    $scope.newMessage.recipient = data.connection
-                                }else if($scope.user_type == 'professional' && $stateParams.recipient){
+                                if($scope.user_type == 'professional' && $stateParams.recipient){
                                     $scope.selectedUser = $stateParams.recipient
                                     $scope.newMessage.recipient = data.connection
                                     $scope.pro_connection = true;
+                                }else if($scope.user_type == 'upgraded' && data.connection){
+                                    $scope.newMessage.recipient = data.connection
+                                    $scope.selectedUser = data.connection.id;
                                 }
                                 else{
                                     $scope.newMessage.recipient = null;
+                                    $scope.selectedUser = null;
                                     $scope.pro_connection = false;
                                 }
-                                //console.log(recipient);
                             });  
                         }
                     };
                 if($stateParams.view) {
                     $scope.view =  $stateParams.view;
                     if ($stateParams.index != undefined && $scope.list) {
+                        if($stateParams.view == 'inbox')
+                        {
+                            $scope.date = new Date();
+                            $scope.messageResource.update({id:$scope.list[$stateParams.index].id, read_at:$scope.date, body:$scope.list[$stateParams.index].body, subject:$scope.list[$stateParams.index].subject},function(data){
+                                $scope.inboxCollection.get({page:$scope.currentPage}, function(data){
+                                    $scope.unread = 0;
+                                    angular.forEach(data.results, function(value, key){
+                                        if(value.read_at == null){
+                                            $scope.unread = $scope.unread + 1
+                                        }
+                                    });
+                                });
+                            });
+                        } 
                         $scope.detailIndex = $stateParams.index;
                         $scope.detail = $scope.list[$stateParams.index];
                     }

@@ -13,6 +13,9 @@ define(['app'], function(app) {
 
 			Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
 
+			$scope.urlTier = $stateParams.tier;
+			$scope.urlPro = $stateParams.pro;
+
 			$scope.step = 'auth';
 			$scope.auth = {
 				email: '',
@@ -104,7 +107,28 @@ define(['app'], function(app) {
 		
 					$scope.authToken = AuthToken.save($scope.auth, function() {
 						if($scope.authToken.email == localStorageService.get('user_email')){
-							$scope.step = step;
+
+
+							if($scope.urlTier == 7 && $scope.urlPro !== undefined && $scope.urlPro != ''){
+								if($scope.urlPro == 'Trainer' || $scope.urlPro == 'Nutritionist' || $scope.urlPro == 'Promoter' || $scope.urlPro == 'Instructor' ){
+									$scope.user.tier = $scope.urlTier;
+									$scope.pro.profession = $scope.urlPro;
+									$scope.step = 'professionals';
+								};
+							}
+							else if($scope.urlTier >= 2 && $scope.urlTier <= 5){
+								$scope.user.tier = $scope.urlTier;
+								$scope.step = 'payment';
+							}
+							else if($scope.urlTier >= 'cancel'){
+								$scope.step = 'cancel';
+							}
+							else{
+								if(valid == true){
+									$scope.step = step;
+								};
+							};
+
 						};
 					},function(error) {
 						$scope.message = error.data;
@@ -203,10 +227,11 @@ define(['app'], function(app) {
 				$scope.proUpdate = professionalResource.save($scope.pro, function() {
 					localStorageService.add('user_type', $scope.proUpdate.details);
 					$scope.profile_user = localStorageService.get('user_id');
-					$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
-						localStorageService.remove('profesional');
-						window.location = "/";
-					});
+					window.location = "/";
+					// $scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
+					// 	localStorageService.remove('profesional');
+					// 	window.location = "/";
+					// });
 				},function(error) {
 					$scope.message = error.data;
 				});

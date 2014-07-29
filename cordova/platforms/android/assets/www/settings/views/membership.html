@@ -11,7 +11,7 @@
 
                         {{ profile_user.profession }}
                         <br>
-                        <a ui-sref="membership">
+                        <a ui-sref="membership.tier({tier: 'cancel'})">
                             Cancel membership
                         </a>
                     </div>
@@ -28,7 +28,7 @@
                                                 {{ profile_user.tier }}
                             </span>
                         <br>
-                        <a ui-sref="membership">
+                        <a ui-sref="membership.tier({tier: 'cancel'})">
                             Cancel membership
                         </a>
                     </div>

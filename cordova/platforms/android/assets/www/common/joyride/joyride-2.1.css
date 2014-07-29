@@ -1,8 +1,4 @@
 /* Artfully masterminded by ZURB */
-body {
-  position: relative;
-}
-
 #joyRideTipContent { display: none; }
 
 .joyRideTipContent { display: none; }

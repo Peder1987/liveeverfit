@@ -21,9 +21,12 @@ define(['app', 'masonry'], function (app, Masonry) {
                             entryInputType: "text",
                             fromDatePickerOpened: false,
                             untilDatePickerOpened: false,
-                            loadSpecialty: function () {
-                                var deferred = $scope.q.defer();
-                                deferred.resolve($scope.tags.results);
+                            loadSpecialty: function (query) {
+                                var tagTemp, deferred;
+                                deferred = $scope.q.defer();
+                                tagTemp = $scope.tagCollection.get({search:query}, function(){
+                                    deferred.resolve(tagTemp.results);
+                                });  
                                 return deferred.promise;
                             },
                             entryEvent: {
@@ -188,7 +191,11 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                     $scope.runMasonry();
                                                     delete $scope.uploadImg;
                                                     delete $scope.entryImgSrc;
-                                                    $scope.percent = scope.percent = false;
+                                                    setTimeout(function() {
+                                                        $scope.$apply(function() {
+                                                            $scope.percent = scope.percent = false;
+                                                        });
+                                                    });
                                                     $scope.entryTags = [];
                                                 }).error(function (data) {
                                                     $scope.percent = false;
@@ -340,7 +347,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 fileReader.readAsDataUrl($scope.uploadImg, $scope).then(function (result) {
                                     $scope.entryImgSrc = result;
                                     $scope.percent = undefined;
-                                    $scope.refreshMasonry();
+                                    $scope.runMasonry();
                                 });
                             },
                             deleteEntry: function (index, entry) {
@@ -429,10 +436,10 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 protocol: $scope.restProtocol,
                                 url: $scope.restURL
                             }),
-                            tagCollection: $resource(":protocol://:url/tags/", {
+                            tagCollection: $resource(":protocol://:url/all-tags/",{
                                 protocol: $scope.restProtocol,
-                                url: $scope.restURL
-                            }),
+                                url: $scope.restURL,
+                            },{update: { method: 'PATCH' }}),
                             feedPhotoList: [],
                             openLightbox: function(entry) {
                                 $modal.open({
@@ -466,11 +473,13 @@ define(['app', 'masonry'], function (app, Masonry) {
                                         }
                                     });
                                 }, $scope.checkTokenError);
+                                if(ngModel.$viewValue.entryTags){
+                                    $scope.entryTags = ngModel.$viewValue.entryTags
+                                }
                             }
                         }
                     )
                     ;
-                    $scope.tags = $scope.tagCollection.get($.noop(), $scope.checkTokenError);
                     // model -> view
                     if (ngModel) {
                         ngModel.$render = function () {

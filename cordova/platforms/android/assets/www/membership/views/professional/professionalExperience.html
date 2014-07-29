@@ -64,8 +64,12 @@
                 ng-click="setCurrentStep('professionals')">
             Back
         </button>
-        <button type="submit" class="btn btn-primary col-xs-offset-9"
+        <button ng-show="pro.profession == 'Nutritionist' || pro.profession == 'Trainer' || pro.profession == 'Instructor'" type="submit" class="btn btn-primary col-xs-offset-9"
                 ng-click="setCurrentStepForm('certifications', experienceForm.$valid)">
+            Next
+        </button>
+        <button ng-show="pro.profession == 'Promoter'" type="submit" class="btn btn-primary col-xs-offset-9"
+                ng-click="setCurrentStepForm('membershipSubmitPro', experienceForm.$valid)">
             Next
         </button>
     </div>

@@ -1,5 +1,4 @@
 'use strict';
-var nico = false;
 define(['app', 'feed', 'calendar'], function (app) {
     app.register.controller('profileCtrl', ['$scope', 'restricted',
         function ($scope) {

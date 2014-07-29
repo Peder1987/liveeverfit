@@ -31,29 +31,25 @@
                                 Date joined: {{ profile_user.date_joined | date:"MMM dd, yyyy" }}
                             </div>
 
-
-                            <div class="row" ng-hide="editable.$visible">
-                                <div class="col-xs-12">
-                                    <span class="bold">
-                                        Primary Address:
-                                    </span>
-                                    <br ng-show="editable.$visible">
-                                    <span id="bio" class="edit-text" data-title="address"
-                                          data-type="text" e-form="editable">
-                                        {{profile_user.primary_address.street_line1}} {{profile_user.primary_address.street_line2}} {{profile_user.primary_address.city}}, {{profile_user.primary_address.state}}
-                                    </span>
-                                </div>
-                            </div>
+                            <div ng-show="editable.$visible">Primary Address</div>
+                            <span editable-text="tempAddress.formatted_address"
+                                  e-form="editable" 
+                                  class="placeholder-light"
+                                  e-typeahead="address for address in getLocation($viewValue)"
+                                  e-typeahead-loading="loadingLocations"
+                                  e-typeahead-on-select="setAddress($data)" >
+                                {{ tempAddress.formatted_address }}&ZeroWidthSpace;
+                            </span>
+                            
                        
-                            <div ng-show="editable.$visible">
+                            <!-- <div ng-show="editable.$visible">
                                 <span class="bold">
                                     Primary Address
                                 </span>
                                 <input id="address" type="text" ng-model="tempAddress.formatted_address"
-                                       placeholder="{{profile_user.primary_address.street_line1}} {{profile_user.primary_address.city}}, {{profile_user.primary_address.state}}"
                                        typeahead="address for address in getLocation($viewValue)"
                                        typeahead-loading="loadingLocations"
-                                       ng-change="setAddress()" typeahead-on-select="setAddress()" class="form-control"
+                                       typeahead-on-select="setAddress()" class="form-control"
                                        required>
 
                                 <input ng-show="editable.$visible" type="text" class="form-control" name="firstName" id="firstName"
@@ -61,7 +57,7 @@
                                        ng-change="setAddress()"
                                        ng-model="tempAddress.street_line2">
                                  <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="row seperate-bottom">
@@ -73,7 +69,7 @@
                                         </span>
                                         <a id="email"
                                            ng-click='emailChange()'
-                                           class="edit-text"
+                                           class="edit-text placeholder-light"
                                            data-title="Email"
                                            data-type="email">{{ profile_user.email }}
                                         </a>
@@ -81,22 +77,32 @@
                                 </div>
                                 <div ng-hide="editable.$visible" class="row edit-password-info">
                                     <div class="col-xs-12">
-                                        <span class="bold">
+                                        <span class="bold placeholder-light">
                                             &NonBreakingSpace;<span class="fa fa-lock"></span> Password:
                                         </span>
-                                        <span class="edit-password" ng-click='passwordChange()'>Change</span>
+                                        <span class="edit-password placeholder-light" ng-click='passwordChange()'>Change</span>
                                     </div>
                                 </div>
                                  <div ng-if="profile_user.type == 'professional'" class="row" style="padding-top: 13px;">
                                     <div class="col-xs-12">
                                         <span class="bold">
-                                            <span editable-checkbox="profile_user.is_accepting" e-form="editable" e-title="Accept clients?">
+                                            <span editable-checkbox="profile_user.is_accepting" class="placeholder-light" e-form="editable" e-title="Accept clients?">
                                                 <span class="fa" ng-class="{'fa-check': profile_user.is_accepting, 'fa-times': !profile_user.is_accepting}"></span> {{ profile_user.is_accepting && "Accepting clients" || "Not accepting clients" }}
                                             </span>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-xs-12">
+                                        <span class="bold">
+                                            <span class="fa fa-empire"></span> Bio:
+                                        </span>
+                                        <br ng-show="editable.$visible">
+                                        <span id="bio" class="edit-text placeholder-light" data-title="Biography"
+                                              data-type="text" editable-textarea="profile_user.bio" e-form="editable">
+                                            {{ profile_user.bio | limitTo: 20 }}
+                                        </span>
+                                    </div>
                                     <div class="col-xs-12">
                                         <span ng-show="profile_user.type == 'professional'" class="bold">
                                             <span class="fa fa-tags"></span> Specialties:
@@ -106,7 +112,7 @@
                                         </span>
                                         <br >
                                         <div ng-show="editable.$visible">
-                                            <tags-input class="tags-input" add-from-autocomplete-only="true" ng-model="profile_user.tags" on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)" display-property="name">
+                                            <tags-input class="tags-input placeholder-light" add-from-autocomplete-only="true" ng-model="profile_user.tags" on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)" display-property="name">
                                             <auto-complete source="loadSpecialty($query)" min-length="1"></auto-complete>
                                             </tags-input>
                                         </div>
@@ -120,7 +126,7 @@
                                     <div class="col-xs-12">
                                         <span class="bold">
                                             <span class="fa fa-share-square"></span> Share Profile:
-                                            <input type="text" class="editable-input form-control ng-pristine" value="{{restProtocol}}://{{webURL}}/#/?referral={{profile_user.email}}" />
+                                            <input type="text" class="editable-input placeholder-light form-control ng-pristine" value="{{restProtocol}}://{{webURL}}/#/?referral={{profile_user.email}}" />
                                             </span>
                                         </span>
                                     </div>

@@ -129,7 +129,7 @@ define(['app'], function(app) {
 			};
 			$scope.setCurrentStepFormPar = function(step, valid){
 				if($scope.urlTier == 7 && $scope.urlPro !== undefined && $scope.urlPro != ''){
-					if($scope.urlPro == 'Trainer' || $scope.urlPro == 'Nutritionist' || $scope.urlPro == 'Promoter' ){
+					if($scope.urlPro == 'Trainer' || $scope.urlPro == 'Nutritionist' || $scope.urlPro == 'Promoter' || $scope.urlPro == 'Instructor' ){
 						$scope.user.tier = $scope.urlTier;
 						$scope.pro.profession = $scope.urlPro;
 						if(valid == true){
@@ -256,12 +256,14 @@ define(['app'], function(app) {
 
                     $scope.proToken = ProAuthToken.save($scope.pro, function(){
 
-                    	$scope.profile_user = $scope.authToken.id;
-						$http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
-						$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
-							window.location = "/";
-						});
-						delete $http.defaults.headers.common['Authorization'];
+                    	window.location = "/";
+
+                    	// $scope.profile_user = $scope.authToken.id;
+						// $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
+						// $scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
+						// 	window.location = "/";
+						// });
+						// delete $http.defaults.headers.common['Authorization'];
 
 					},function(error) {
 						$scope.message = error.data;
@@ -346,6 +348,7 @@ define(['app'], function(app) {
 	
 
 	}]);
+    
 
 
 });

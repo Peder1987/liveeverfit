@@ -50,19 +50,25 @@ define(['app', 'feed'], function (app) {
         function ($scope) {
             var slides = $scope.slides = [
                 {
-                    image: 'home/img/slider/1.jpg'
+                    image: 'home/img/slider/1.png'
                 },
                 {
-                    image: 'home/img/slider/2.jpg'
+                    image: 'home/img/slider/2.png'
                 },
                 {
-                    image: 'home/img/slider/3.jpg'
+                    image: 'home/img/slider/3.png'
                 },
                 {
-                    image: 'home/img/slider/4.jpg'
+                    image: 'home/img/slider/4.png'
                 },
                 {
-                    image: 'home/img/slider/5.jpg'
+                    image: 'home/img/slider/5.png'
+                },
+                {
+                    image: 'home/img/slider/6.png'
+                },
+                {
+                    image: 'home/img/slider/7.png'
                 }
             ];
         }]);

@@ -69,12 +69,12 @@ border-left: solid 1px #c3c3c3;
   background: linear-gradient(to bottom, #eeeded 0%,#cdcdcd 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeded', endColorstr='#cdcdcd',GradientType=0 );
   border-bottom: solid 3px #1a8cff;
-  z-index: 3;
   -webkit-box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
   box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
   margin-bottom: 0px;
   font-size: 10px;
   font-family: 'Open Sans', sans-serif;
+  z-index: 8;
   &:after {
     bottom: -3px;
     content: '';
@@ -105,6 +105,13 @@ border-left: solid 1px #c3c3c3;
     border: none;
     > li > a > i {
       margin-right: 5px;
+    }
+    &.bi-column {
+      min-width: 250px;
+      > li {
+        width: 50%;
+        float: left;
+      }
     }
 }
 .navbar-brand {
@@ -273,10 +280,15 @@ i {
     background-color: rgba(0,0,0,0.8);
     box-shadow: 0px 2px 5px rgba(0,0,0,0.8);
     -webkit-transform: translate3d(-100%, 0, 0);
+    -moz-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
     -webkit-transition:-webkit-transform 300ms;
+    -moz-transition:-moz-transform 300ms;
+    transition: transform 300ms;
     &.open {
       -webkit-transform: translate3d(0, 0, 0);
-
+      -moz-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
     }
   }
 

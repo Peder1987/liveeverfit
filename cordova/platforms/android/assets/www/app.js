@@ -62,22 +62,31 @@ define(['angularAMD',
         ]);
 
         app.run(function ($rootScope, $http, $tour, localStorageService, editableOptions) {
-            $rootScope.startTour = function() {
+            $rootScope.toggleDashboard = function () {
+                $rootScope.dashCollapsed = !$rootScope.dashCollapsed;
+            };
+            $rootScope.startTour = function () {
                 $rootScope.fanaticsCollapsed = true;
                 $rootScope.dashCollapsed = false;
                 $tour.start();
-            }
-            $tour.finished = function() {
+            };
+            $tour.finished = function () {
                 $rootScope.fanaticsCollapsed = false;
                 $rootScope.dashCollapsed = true;
             };
             $rootScope.dashCollapsed = true;
             $rootScope.serverProtocal = "http";
-            $rootScope.fanaticsCollapsed =  false;
+            $rootScope.fanaticsCollapsed = false;
             $rootScope.serverURL = "dev.liveeverfit.com";
             editableOptions.theme = 'bs3';
             $rootScope.token = localStorageService.get('Authorization');
+            $rootScope.user_type = localStorageService.get('user_type');
             $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
+            if(navigator.splashscreen) {
+            	setTimeout(function() {
+            		navigator.splashscreen.hide();
+            	}, 1000);
+            }
         });
 
         app.config(['routeResolverProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider',
@@ -112,20 +121,24 @@ define(['angularAMD',
                     .state('evergreen', route.resolve('/evergreen', 'evergreen'))
                     .state('change-password', route.resolve('/change-password', 'auth/change-password'))
                     .state('terms', route.resolve('/terms', 'terms'))
+                    .state('verbiage', route.resolve('/verbiage', 'verbiage'))
+                    .state('clients', route.resolve('/clients', 'clients'))
                     .state('faq', route.resolve('/faq', 'faq'))
                     .state('membership', route.resolve('/membership', 'membership'))
+                    .state('membership.tier', route.resolve('/:tier', 'membership'))
+                    .state('membership.tier.profession', route.resolve('/:pro', 'membership'))
                     .state('calendar', route.resolve('/calendar', 'calendar'))
                     .state('profile', route.resolve('/profile', 'profile'))
                     .state('upgrade', route.resolve('/upgrade', 'upgrade'))
+                    .state('shop', route.resolve('/shop', 'shop'))
+                    .state('shop.cart', route.resolve('/cart', 'shop'))
+                    .state('shop.collection', route.resolve('/:collection', 'shop'))
+                    .state('shop.collection.type', route.resolve('/:type', 'shop'))
                     .state('profile.view', route.resolve('/:view', 'profile'));
 
                 $urlRouterProvider.otherwise("/");
 
-                /*//Reset headers to avoid OPTIONS request (aka preflight)
-                 $httpProvider.defaults.headers.common = {};
-                 $httpProvider.defaults.headers.post = {};
-                 $httpProvider.defaults.headers.put = {};
-                 $httpProvider.defaults.headers.patch = {};*/
+                $httpProvider.interceptors.push('httpInterceptor');
             }
         ]);
 
@@ -137,6 +150,7 @@ define(['angularAMD',
         app.service('restricted', ['$rootScope', 'localStorageService', '$http', function ($rootScope, localStorageService, $http) {
             $rootScope.restricted = function () {
                 $rootScope.token = localStorageService.get('Authorization');
+                $rootScope.user_type = localStorageService.get('user_type');
                 $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
                 setTimeout(function () {
                     if ($rootScope.token === null) {
@@ -154,12 +168,9 @@ define(['angularAMD',
             }
         }]);
 
-
         app.controller('NavCtrl', ['$rootScope', 'localStorageService', '$resource', '$state', '$timeout', '$scope', 'toaster', 'rest', 'restricted',
             function ($rootScope, localStorageService, $resource, $state, $timeout, $scope, toaster) {
                 $scope.isCollapsed = true;
-                $scope.user_type = localStorageService.get('user_type');
-                $rootScope.restricted();
                 var notificationsResource = $resource(":protocol://:url/notifications/", {
                     protocol: $scope.restProtocol,
                     url: $scope.restURL
@@ -181,19 +192,23 @@ define(['angularAMD',
                     $scope.message = error.data;
                 });
 
-                if ($rootScope.token !== null) {
-                    (function tick() {
+                $scope.tick = function () {
+                    if ($rootScope.token !== null) {
                         $scope.notifications = notificationsResource.get(function () {
                             $scope.notificationsCount = $scope.notifications.count;
-                            $timeout(tick, 30000);
+                            $timeout($scope.tick, 30000);
                         });
-                    })();
-                }
+                    }
+                    else {
+                        $timeout($scope.tick, 30000);
+                    }
+                };
+                $scope.tick();
 
                 $scope.signOut = function () {
                     localStorageService.clearAll();
                     $scope.restricted();
-                }
+                };
 
                 $scope.pop = function () {
                     angular.forEach($scope.notifications.results, function (value, key) {
@@ -203,35 +218,29 @@ define(['angularAMD',
                     });
                     $scope.notificationsCount = 0;
                 };
-        }]);
+            }]);
 
-
-        app.controller('PageCtrl', ['localStorageService', '$scope',
-            function (localStorageService, $scope) {
-                $scope.token = localStorageService.get('Authorization');
-        }]);
         app.controller('footerCtrl', ['localStorageService', '$scope',
             function (localStorageService, $scope) {
                 $scope.isCollapsed = true;
-                $scope.token = localStorageService.get('Authorization');
                 $scope.templateNav = {
                     url: 'footer/index.html'
                 };
-        }]);
+            }]);
         app.controller('fanaticsCtrl', ['localStorageService', '$scope', '$resource', '$q', '$state',
             function (localStorageService, $scope, $resource, $q, $state) {
                 angular.extend($scope, {
-                    fanaticSearch : '',
+                    fanaticSearch: '',
                     fanaticList: [],
-                    fanaticCollection : $resource(":protocol://:url/users/fanatics", {
+                    fanaticCollection: $resource(":protocol://:url/users/fanatics", {
                         protocol: $scope.restProtocol,
                         url: $scope.restURL
                     }, {'query': {method: 'GET', isArray: false }}),
-                    fitFriendsCollection : $resource(":protocol://:url/users", {
+                    fitFriendsCollection: $resource(":protocol://:url/users", {
                         protocol: $scope.restProtocol,
                         url: $scope.restURL
                     }, {'query': {method: 'GET', isArray: false }}),
-                    fanaticTypeahead : function (query) {
+                    fanaticTypeahead: function (query) {
                         var deferred = $q.defer();
                         $scope.fitFriendsCollection.query({
                             search: query
@@ -240,14 +249,14 @@ define(['angularAMD',
                         });
                         return deferred.promise;
                     },
-                    onSelect : function($item) {
+                    onSelect: function ($item) {
                         $state.go('profile.view', {view: $item.id})
                     }
                 });
-                $scope.fanaticCollection.get({}, function(data){
+                $scope.fanaticCollection.get({}, function (data) {
                     $scope.fanaticList = data.results;
                 });
-        }]);
+            }]);
         app.directive('ng-blur', function () {
             return {
                 restrict: 'A',
@@ -268,6 +277,42 @@ define(['angularAMD',
                         event.preventDefault();
                     }
                 });
+            };
+        });
+        app.directive('tagSpecialties', function () {
+            return {
+                restrict: "A",
+                require: '?ngModel',
+                link: function (scope, element, attrs, ngModel) {
+                    if (!ngModel) return; // do nothing if no ng-model
+                    ngModel.$render = function () {
+                        var $dropdown = $('<div class="dropdown"></div>'),
+                            $toggle = $('<div class="tag tag-blue tag-click">more <i class="fa fa-chevron-right"></i></div>'),
+                            $element = $(element).empty().append($dropdown).append($toggle),
+                            width = $element.width(),
+                            tagsWidth = $toggle.width() + 12;
+                        $toggle.hide();
+                        $toggle.click(function() {
+                            $dropdown.toggle();
+                            if($dropdown.css('display') == 'none') $toggle.html('more <i class="fa fa-chevron-right"></i>');
+                            else $toggle.html('<i class="fa fa-chevron-left"></i> less');
+                        });
+                        angular.forEach(ngModel.$viewValue, function(value, index) {
+                            var $tag = $('<span class="tag tag-blue tag-click">' + value + '</span>'),
+                                tagWidth = 0;
+                            $tag.insertBefore($toggle);
+                            tagWidth = $tag.width() + 10;
+                            tagsWidth += tagWidth;
+                            if(tagsWidth > width) {
+                                $toggle.show();
+                                tagsWidth -= tagWidth;
+                                $tag.remove();
+                                $dropdown.append($tag);
+                            }
+                        });
+                    };
+                    $(window).resize(_.debounce(ngModel.$render, 350));
+                }
             };
         });
         app.directive('richTextEditor', function () {
@@ -383,7 +428,6 @@ define(['angularAMD',
             };
             return { readAsDataUrl: readAsDataURL };
         });
-
         app.directive('disableNgAnimate', ['$animate', function ($animate) {
             return {
                 restrict: 'A',
@@ -392,7 +436,67 @@ define(['angularAMD',
                 }
             };
         }]);
+        app.factory('httpInterceptor', function ($q, $rootScope, $log) {
+            /* 
+             Http interceptor for when making an API request, allows
+             easy integration with the "loader" directive to add the spinner
+             anywhere easily.
+             */
+            var numLoadings = 0;
+            return {
+                request: function (config) {
+                    numLoadings++;
+                    // Show loader
+                    $rootScope.$broadcast("loader_show");
+                    return config || $q.when(config)
 
+                },
+                response: function (response) {
+                    if ((--numLoadings) === 0) {
+                        // Hide loader
+                        $rootScope.$broadcast("loader_hide");
+                    }
+                    return response || $q.when(response);
+
+                },
+                responseError: function (response) {
+                    if (!(--numLoadings)) {
+                        // Hide loader
+                        $rootScope.$broadcast("loader_hide");
+                    }
+                    return $q.reject(response);
+                }
+            };
+        });
+        app.directive("loader", function ($rootScope) {
+            return function ($scope, element, attrs) {
+                // on first load, hides all spinners until
+                // the broadcast calls them
+                $scope.$on("loader_show", function () {
+                    return element.addClass('show');
+                });
+                $scope.$on("loader_hide", function () {
+                    return element.removeClass('show');
+                });
+            };
+        });
+        app.directive('clickOnce', function ($timeout) {
+            return {
+                restrict: 'A',
+                link: function (scope, element, attrs) {
+                    var replacementText = attrs.clickOnce;
+
+                    element.bind('click', function () {
+                        $timeout(function () {
+                            if (replacementText) {
+                                element.html(replacementText);
+                            }
+                            element.attr('disabled', true);
+                        }, 0);
+                    });
+                }
+            };
+        });
         //Bootstrap Angular
         angularAMD.bootstrap(app);
         return app;
