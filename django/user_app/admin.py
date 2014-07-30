@@ -32,6 +32,7 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', 'tier', 'gender', 'primary_address', 'phone',
+                                            "shopify_id",
                                              )}),
         (_('Professional Fields'), {'fields': ('referred_by', 'connection', 'connected_on',)}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
@@ -122,7 +123,8 @@ class ProfessionalAdmin(UserAdmin):
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', 'gender' , 'profession', 'location', 'lat', 'lng', "phone", 'is_accepting', 'tier')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'gender' , 'profession', 'location', 'lat', 'lng', "phone", 'is_accepting', 'tier',
+                                            "shopify_id",)}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
