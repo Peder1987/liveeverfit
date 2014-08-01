@@ -134,6 +134,7 @@ define(['angularAMD',
                     .state('shop.cart', route.resolve('/cart', 'shop'))
                     .state('shop.collection', route.resolve('/:collection', 'shop'))
                     .state('shop.collection.type', route.resolve('/:type', 'shop'))
+                    .state('shop.returns', route.resolve('/pages/returns', 'shop'))
                     .state('profile.view', route.resolve('/:view', 'profile'));
 
                 $urlRouterProvider.otherwise("/");
