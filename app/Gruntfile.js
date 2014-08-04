@@ -103,7 +103,7 @@ module.exports = function (grunt) {
             },
             production: {
                 options: {
-                    cleancss: true,
+                    cleancss: true
                 },
                 files: {
                     "angular/style.css": "angular/style.less"
