@@ -206,7 +206,7 @@
     <div class="media">
         <a ui-sref="profile.view({view: entry.user})">
             <img class="media-object pull-left"
-                 ng-src="{{serverProtocal}}://{{serverURL}}/{{entry.profile_img}}"
+                 ng-src="{{serverProtocal}}://{{serverURL}}{{entry.profile_img}}"
                  style="width: 32px; height: 32px;">
         </a>
 
@@ -267,7 +267,7 @@
         <div class="media">
             <a ui-sref="profile.view({view: entry.shared_entry.user})">
                 <img class="media-object pull-left"
-                     ng-src="{{serverProtocal}}://{{serverURL}}/{{entry.shared_entry.profile_img}}"
+                     ng-src="{{serverProtocal}}://{{serverURL}}{{entry.shared_entry.profile_img}}"
                      style="width: 32px; height: 32px;">
             </a>
 
@@ -396,7 +396,7 @@
                     </button>
                     <a ui-sref="profile.view({view: comment.user})">
                         <img class="media-object pull-left"
-                             ng-src="{{serverProtocal}}://{{serverURL}}/{{comment.img}}"
+                             ng-src="{{serverProtocal}}://{{serverURL}}{{comment.img}}"
                              style="width: 36px; height: 36px;" ui-sref="profile.view({view: comment.user})">
                     </a>
 
@@ -417,7 +417,7 @@
             <div class="list-group-item">
                 <div class="media">
                     <img class="media-object pull-left"
-                         ng-src="{{serverProtocal}}://{{serverURL}}/{{usrImg}}"
+                         ng-src="{{serverProtocal}}://{{serverURL}}{{usrImg}}"
                          style="width: 36px; height: 36px;">
 
                     <div class="media-body">

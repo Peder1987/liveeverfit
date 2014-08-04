@@ -11,7 +11,7 @@
         <div class="list-fan">
             <a ui-sref="profile.view({view: fanatic.id})"
                ng-repeat="fanatic in fanaticList">
-                <img src="{{serverProtocal}}://{{serverURL}}//media/{{fanatic.img}}"/>
+                <img ng-src="{{serverProtocal}}://{{serverURL}}/media/{{fanatic.img}}"/>
                 {{fanatic.full_name}}
             </a>
         </div>
