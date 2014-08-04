@@ -132,9 +132,14 @@ define(['angularAMD',
                     .state('upgrade', route.resolve('/upgrade', 'upgrade'))
                     .state('shop', route.resolve('/shop', 'shop'))
                     .state('shop.cart', route.resolve('/cart', 'shop'))
+                    .state('shop.returns', route.resolve('/returns', 'shop'))
                     .state('shop.collection', route.resolve('/:collection', 'shop'))
                     .state('shop.collection.type', route.resolve('/:type', 'shop'))
-                    .state('profile.view', route.resolve('/:view', 'profile'));
+
+                    .state('profile.view', route.resolve('/:view', 'profile'))
+
+                    .state('test', route.resolve('/test', 'test'))
+                    .state('test.redirect', route.resolve('/:redirect', 'test'));
 
                 $urlRouterProvider.otherwise("/");
 

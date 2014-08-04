@@ -1,6 +1,9 @@
 @import "common/angular-xeditable/dist/css/xeditable.css";
-@import "common/jcrop/css/jquery.Jcrop.css";
+@import "common/jcrop/css/jquery.Jcrop.min.css";
 @import "common/fullcalendar/fullcalendar.css";
+@import "common/joyride/joyride-2.1.css";
+@import "common/videojs/dist/video-js/video-js.min.css";
+@import "common/angularjs-toaster/toaster.css";
 /*!
  *  Font Awesome 4.1.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
