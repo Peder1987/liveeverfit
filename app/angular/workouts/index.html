@@ -14,7 +14,7 @@
                 <tags-input ng-model="videoSearch" class="bootstrap placeholder-light"
                             placeholder="Example: Title, tags, etc..."
                             name="pattern" value="" display-property="name"
-                            on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)">
+                            on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)" replace-spaces-with-dashes="false">
                     <auto-complete source="loadVideoTitles($query)" min-length="1"></auto-complete>
                 </tags-input>
             </div>
