@@ -129,6 +129,7 @@ define(['angularAMD',
                     .state('membership.tier.profession', route.resolve('/:pro', 'membership'))
                     .state('calendar', route.resolve('/calendar', 'calendar'))
                     .state('profile', route.resolve('/profile', 'profile'))
+                    .state('greentree', route.resolve('/greentree', 'greentree'))
                     .state('upgrade', route.resolve('/upgrade', 'upgrade'))
                     .state('shop', route.resolve('/shop', 'shop'))
                     .state('shop.cart', route.resolve('/cart', 'shop'))
