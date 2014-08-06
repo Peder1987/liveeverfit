@@ -70,6 +70,14 @@
   }
 }
 
+//Bootstrap Progress Bar Fix
+.progress-bar {
+  -webkit-transition: width 30.0s ease !important;
+  -moz-transition: width 30.0s ease !important;
+  -o-transition: width 30.0s ease !important;
+  transition: width 30.0s ease !important;
+}
+
 
 //Firefox Select Fix
 @-moz-document url-prefix() {
@@ -153,7 +161,7 @@
     margin-top: -75px;
     margin-left: -35px;
     path {
-      fill: white;
+      fill: rgba(255, 255, 255, 0.5);
     }
     div {
       position: absolute;
@@ -416,7 +424,7 @@
     font-size: 36px;
     color: @ever-gray;
     h2 {
-      color: @ever-gray !important;
+      color: #efefef !important;
     }
   }
 
@@ -999,24 +1007,32 @@ p.empty {
 
 ::-webkit-input-placeholder {
   /* WebKit browsers */
-  color: #999 !important;
+  color: #818C96 !important;
+  font-size: 14px;
+  font-weight: 300;
 }
 
 :-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #999 !important;
   opacity: 1;
+  font-size: 14px;
+  font-weight: 300;
 }
 
 ::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #999 !important;
   opacity: 1;
+  font-size: 14px;
+  font-weight: 300;
 }
 
 :-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #999 !important;
+  font-size: 14px;
+  font-weight: 300;
 }
 
 .placeholder-light::-webkit-input-placeholder {

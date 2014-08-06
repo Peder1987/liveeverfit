@@ -149,7 +149,9 @@
     <div class="content" ng-class="{'open': !$parent.$parent.dashCollapsed}">
         <ul class="nav nav-pills nav-stacked">
             <li class="dash-title"><i class="fa fa-dashboard fa-4x"></i> DashBoard</li>
-            <li><a ui-sref="profile"><i class="fa fa-user"></i> profile</a></li>
+            <li>
+                <a ui-sref="profile"><i class="fa fa-user"></i>profile</a>
+            </li>
             <li><a ui-sref="messages"><i class="fa fa-envelope"></i> messages</a></li>
             <li ng-if="user_type != 'professional'"><a ui-sref="verbiage"><i class="fa fa-gift"></i> stack and rack rewards program</a></li>
             <li ng-if="user_type == 'professional'"><a ui-sref="verbiage"><i class="fa fa-money"></i> how do i make money</a></li>
