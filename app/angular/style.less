@@ -1166,6 +1166,31 @@ tags-input .tags .input {
   height: 26px;
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+tags-input .tags .input::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #818C96 !important;
+  font-weight: 300;
+}
+
+tags-input .tags .input:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #818C96 !important;
+  font-weight: 300;
+  opacity: 1;
+}
+
+tags-input .tags .input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #818C96 !important;
+  font-weight: 300;
+  opacity: 1;
+}
+
+tags-input .tags .input:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #818C96 !important;
+  font-weight: 300;
+}
 .placeholder-light .tags .input {
   color: white!important;
 }
@@ -2601,7 +2626,7 @@ body.vjs-full-window {
   background: rgb(0,0,0);
   background: transparent;
   background: rgba(0,0,0, 0.5);
-  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
   filter: alpha(opacity=50);
   opacity: 0.5;
   z-index: 100;
