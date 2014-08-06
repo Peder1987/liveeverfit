@@ -30,7 +30,7 @@ class Entry(TimeStampedModel):
     text = models.TextField(_('text'), max_length=500000, blank=True)
     likes = models.ManyToManyField(User, related_name='entries_liked', blank=True,null=True)
     objects = InheritanceManager()
-    tags = TaggableManager(through=TaggedEntry)
+    tags = TaggableManager(through=TaggedEntry, blank=True)
     def __unicode__(self):
         return str(self.id)
 
