@@ -213,11 +213,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         # this function is called to delete a professional
         # who was not accepted
         # so it returns them back to the tier they were at    
-        if self.tier == 6:
+        if self.tier == 6 or self.tier == 7:
             self.tier = 1
-            self.is_upgraded = False
-
-        self.is_professional = False
+            
         self.save()
     
     def add_to_locations(self):
