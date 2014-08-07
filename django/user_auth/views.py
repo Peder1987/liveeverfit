@@ -79,14 +79,14 @@ def register(request):
             user.referred_by = pro_ref
             user.referred_by.save()
             user.relationships.add(pro_ref)
-            notify.send(user, recipient=pro_ref, verb=u'is following you')
-            notify.send(pro_ref, recipient=user, verb=u'following')
+            notify.send(user, recipient=pro_ref, verb=u'is following you', target=user)
+            notify.send(pro_ref, recipient=user, verb=u'following', target=user)
         
         for pro in FeaturedProfessional.objects.all():
             pro_ref = pro.professional
             user.relationships.add(pro_ref)
-            notify.send(user, recipient=pro_ref, verb=u'is following you')
-            notify.send(pro_ref, recipient=user, verb=u'is following you')
+            notify.send(user, recipient=pro_ref, verb=u'is following you', target=user)
+            notify.send(pro_ref, recipient=user, verb=u'is following you', target=user)
         try:
             city = temp_address['city']
             city = str(city)
@@ -177,44 +177,6 @@ def register_professional(request):
             certification2.save()
         pro.save()
 
-        email = 'payroll@liveeverfit.com'
-        subject = 'New Professional'
-        message = 'New Professional in Live Ever Fit \n' + 'Name: ' + pro.first_name + ' ' + pro.last_name + '\n' + 'Email: ' + pro.email + '\n' + 'phone: ' + pro.phone + '\n' + 'address: ' + pro.primary_address.street_line1 + ' ' + pro.primary_address.street_line2 + ' ' + pro.primary_address.city + ' ' + pro.primary_address.state + ' ' + pro.primary_address.zipcode   
-        send_mail(subject, message, 'info@liveeverfit.com', [email])
-
-
-        if pro.profession == 'Nutritionist':
-            email = user.email
-            subject = 'Welcome to Live Ever Fit'
-            message = 'Thank you for registering to Live Ever Fit'
-            template = get_template('email/nutritionist.html')
-            context = Context({})
-            output = template.render(context)
-            msg = EmailMultiAlternatives(subject, message, 'info@liveeverfit.com', [email])
-            msg.attach_alternative(output, "text/html")
-            msg.send()
-        elif pro.profession == 'Trainer':
-            email = user.email
-            subject = 'Welcome to Live Ever Fit'
-            message = 'Thank you for registering to Live Ever Fit'
-            template = get_template('email/trainer.html')
-            context = Context({})
-            output = template.render(context)
-            msg = EmailMultiAlternatives(subject, message, 'info@liveeverfit.com', [email])
-            msg.attach_alternative(output, "text/html")
-            msg.send()
-        elif pro.profession == 'Promoter':
-            email = user.email
-            subject = 'Welcome to Live Ever Fit'
-            message = 'Thank you for registering to Live Ever Fit'
-            template = get_template('email/promoter.html')
-            context = Context({})
-            output = template.render(context)
-            msg = EmailMultiAlternatives(subject, message, 'info@liveeverfit.com', [email])
-            msg.attach_alternative(output, "text/html")
-            msg.send()
-        elif pro.profession == 'Instructor':
-            print 'No Email Template'
 
         
         response = ReturnUserSerializer(instance=user).data

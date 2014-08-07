@@ -228,26 +228,30 @@ define(['angularAMD',
 
                 $scope.pop = function () {
                     angular.forEach($scope.notifications.results, function (value, key) {
-                        toaster.pop(value.level, value.level, value.message, value.target_object_id);
+                        toaster.pop(value.level, value.level, value.message, value.target_content_type, value.target_object_id);
                     });
                 };
 
                 $scope.clickToasterContainer = function (toaster) {
-                    console.log(toaster);
                     angular.forEach($scope.notifications.results, function (value, key) {
-                        if (value.target_object_id == null){
+                        if (toaster.notificationId == value.target_object_id){
+
+                            if(toaster.notificationType == 'entry'){
+                                $state.go('entry', {entry: value.target_object_id}, { reload: true});
+                            }
+                            else if(toaster.notificationType == 'Message'){
+                                $state.go('messages', {}, { reload: true});
+                            }
+                            else if(toaster.notificationType == 'user'){
+                                $state.go('profile', {}, { reload: true});
+                            }
                             var notificationsCallback = notificationsIdResource.update({id: value.id}, function () {
                                 $rootScope.$$childHead.tick(); 
                             });
                         }
-                        else if(value.target_object_id == toaster.entry){
-                            $state.go('entry', {entry: value.target_object_id});
-                            var notificationsCallback = notificationsIdResource.update({id: value.id}, function () {
-                                $rootScope.$$childHead.tick();
-                            });
-                        }
                     });
                 };
+
 
             }]);
 
