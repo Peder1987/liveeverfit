@@ -2,8 +2,7 @@ import django_filters
 from django.utils.timezone import utc, now
 from rest_framework import filters
 from rest_framework import generics
-from schedule.models import Calendar, Event
-from schedule.serializers import CalendarSerializer
+from schedule.models import Event
 
 
 class EventFilter(django_filters.FilterSet):
@@ -13,18 +12,6 @@ class EventFilter(django_filters.FilterSet):
     class Meta:
         model = Event
         fields = ['start', ]
-
-
-class IsCalendarOwnerFilterBackend(filters.BaseFilterBackend):
-    """
-    Filter that only allows users to see their own objects.
-    """
-
-    def filter_queryset(self, request, queryset, view):
-        return queryset.filter(calendar__user=request.user)
-
-    class Meta:
-        model = Event
 
 
 class DatetimeFilterBackend(filters.BaseFilterBackend):
