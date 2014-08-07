@@ -101,6 +101,7 @@ def upgrade_to_professional(request):
         pro = Professional.objects.create_prof(user)
 
         pro.__dict__.update(**user_data)
+        pro.queue = True
         if certification_name1:
             certification1 = Certification(user = pro, certification_name = certification_name1, certification_number = certification_number1)
             certification1.save()
