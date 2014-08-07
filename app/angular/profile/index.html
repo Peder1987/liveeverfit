@@ -203,6 +203,24 @@
                     </div>
                 </div>
             </tab>
+            <tab heading="fanatics" select="hideFeed()">
+                <div class="list-group">
+                    <a ng-repeat="follower in profile_user.fanatics_list"
+                       ui-sref-active="active"
+                       ui-sref="profile.view({view: follower.id})"
+                       class="list-group-item">
+                        <div class="media">
+                            <img class="media-object pull-left"
+                                 ng-src="{{serverProtocal}}://{{serverURL}}/media/{{follower.img}}" style="width: 18px; height: 18px;">
+                            <div class="media-body">
+                                <div class="col-xs-12 col-sm-9">
+                                    <b style="color:#1a8cff;">{{follower.first_name}} {{follower.last_name}}</b>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </tab>
         </tabset>
         <!-- /.filters -->
         <div ng-if="feed.show" entry-feed ng-model="$parent.$parent.feed"></div>

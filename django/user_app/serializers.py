@@ -35,7 +35,7 @@ class AddressSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'lat', 'lng', 'gender',)
+        fields = ('id', 'first_name', 'last_name', 'lat', 'lng', 'gender', 'img')
 
 
 class TagListSerializer(serializers.WritableField):
@@ -155,6 +155,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         obj['likes'] = value.entries_liked.count() + value.video_like.count()
         print obj['likes']
         obj['fanatics'] = value.relationships.followers().count()
+        obj['fanatics_list'] = UserSerializer(value.relationships.followers()).data
         obj['inspiration'] = SharedEntry.objects.filter(entry__user=value).count() +  value.comments.count()
         # if the value of USER is the same as the logged in users
         # connection then they are connected
