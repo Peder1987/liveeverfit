@@ -142,7 +142,7 @@ class FanaticsListView(generics.ListAPIView):
 
 
 class GroupTagView(generics.ListAPIView):
-    paginate_by = 50
+    paginate_by = 500
     model = User
     permission_classes = (IsAdminOrSelf,)
     # has exact output as client, need to restructure
