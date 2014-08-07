@@ -166,6 +166,8 @@ define(['app', 'videojs'], function (app) {
                                     });
                                 });
                             });
+                            $scope.list[$stateParams.index].read_at = $scope.date;
+
                         } 
                         $scope.detailIndex = $stateParams.index;
                         $scope.detail = $scope.list[$stateParams.index];
