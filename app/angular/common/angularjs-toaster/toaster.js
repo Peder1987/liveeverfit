@@ -15,7 +15,7 @@
 
 angular.module('toaster', ['ngAnimate'])
 .service('toaster', ['$rootScope', function ($rootScope) {
-    this.pop = function (type, title, body, entry, timeout, bodyOutputType, clickHandler) {
+    this.pop = function (type, title, body, notificationType, notificationId, timeout, bodyOutputType, clickHandler) {
         this.toast = {
             type: type,
             title: title,
@@ -24,7 +24,8 @@ angular.module('toaster', ['ngAnimate'])
             bodyOutputType: bodyOutputType,
             clickHandler: clickHandler,
             //custom LQ code
-            entry: entry
+            notificationType: notificationType,
+            notificationId: notificationId
         };
         $rootScope.$broadcast('toaster-newToast');
     };

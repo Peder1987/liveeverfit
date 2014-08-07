@@ -225,7 +225,7 @@ class FollowUserSerializer(serializers.ModelSerializer):
         else:
             obj['user_follows'] = True
             value.relationships.add(user)
-            notify.send(value, recipient=user, verb=u'is following you')
+            notify.send(value, recipient=user, verb=u'is following you', target=value)
         return obj
 
 class BlockUserSerializer(serializers.ModelSerializer):
@@ -261,8 +261,8 @@ class ConnectUserSerializer(serializers.ModelSerializer):
         value.connected_on = now()
         obj['user_connected'] = True
         value.save()
-        notify.send(value, recipient=value.connection, verb=u'has connected to you!')
-        notify.send(value.connection, recipient=value, verb=u'connected!')
+        notify.send(value, recipient=value.connection, verb=u'has connected to you!', target=value)
+        notify.send(value.connection, recipient=value, verb=u'connected!', target=value.connection)
 
         email = EmailMessage()
         email.subject = "Connected To New Trainer"
