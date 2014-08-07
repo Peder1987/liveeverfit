@@ -224,7 +224,7 @@ class FollowUserSerializer(serializers.ModelSerializer):
         else:
             obj['user_follows'] = True
             value.relationships.add(user)
-
+            notify.send(value, recipient=user, verb=u'is following you')
         return obj
 
 class BlockUserSerializer(serializers.ModelSerializer):
