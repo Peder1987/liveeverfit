@@ -65,8 +65,9 @@ class ProfessionalListView(generics.ListAPIView):
     serializer_class = ProfessionalListSerializer
     filter_backends = (GenderFilterBackend,ProfessionFilterBackend,LocationFilterBackend,AcceptingFilterBackend, TagFilterBackend, QueueFilterBackend)
 
+
     def get_queryset(self):
-        return Professional.objects.filter(profession__in=['Nutritionist','Trainer','Instructor',])
+        return Professional.objects.filter(profession__in=['Nutritionist','Trainer','Instructor',]).order_by('?')
 
 
 class ProfessionalObjView(generics.RetrieveUpdateDestroyAPIView):
@@ -151,7 +152,7 @@ class GroupTagView(generics.ListAPIView):
     def get_queryset(self):
         type = self.kwargs.get('type', None)
         if type:
-            return User.objects.filter(tags__name=type)
+            return User.objects.filter(tags__name=type).order_by('?')
         else:
             return []
 class StaticTagViewSet(generics.ListAPIView):
