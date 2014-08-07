@@ -99,6 +99,7 @@ define(['app'], function (app, calendar) {
                 },
                 controller: function ($scope) {
                     $scope.eventSources = [];
+                    $scope.events =[];
                     var eventResource = $resource("http://:url/feed/event/:id/", {
                         url: $scope.restURL,
                         id: '@id'

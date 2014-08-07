@@ -24,6 +24,7 @@
 @import "auth/reset-password/style.less";
 @import "upgrade/style.less";
 @import "greentree/style.less";
+@import "streaming-classes/style.less";
 
 @import (inline) "common/angular-xeditable/dist/css/xeditable.css";
 @import (inline) "common/jcrop/css/jquery.Jcrop.css";
@@ -1508,12 +1509,13 @@ button.toast-close-button {
   position: fixed;
   z-index: 999999;
   /*overrides*/
-
+  cursor: pointer;
 }
 #toast-container * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  font-size: 14px;
 }
 #toast-container > div {
   margin: 0 0 6px;

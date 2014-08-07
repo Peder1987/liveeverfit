@@ -106,7 +106,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 	serializer_class = CommentSerializer
 	
 	def post_save(self, obj, created=False):
-		notify.send(self.request.user, recipient=obj.entry.user, verb=u'left you a comment!')
+		notify.send(self.request.user, recipient=obj.entry.user, verb=u'left you a comment!', target=obj.entry)
 
 
 class FlaggedCreateView(generics.CreateAPIView):
@@ -127,7 +127,7 @@ class EntryLikeView(generics.UpdateAPIView, generics.DestroyAPIView):
         	entry.likes.remove(user)
         	return Response({'user_likes':'false'}, status=status.HTTP_200_OK)
         else:
-        	notify.send(self.request.user, recipient=entry.user, verb=u'liked your status')
+        	notify.send(self.request.user, recipient=entry.user, verb=u'liked your status', target=entry)
         	entry.likes.add(user)
         	return Response({'user_likes':'true'}, status=status.HTTP_200_OK)
 

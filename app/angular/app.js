@@ -129,7 +129,10 @@ define(['angularAMD',
                     .state('membership.tier.profession', route.resolve('/:pro', 'membership'))
                     .state('calendar', route.resolve('/calendar', 'calendar'))
                     .state('profile', route.resolve('/profile', 'profile'))
+                    .state('profile.view', route.resolve('/:view', 'profile'))
+                    .state('entry', route.resolve('/entry/:entry', 'profile'))
                     .state('greentree', route.resolve('/greentree', 'greentree'))
+                    .state('streaming-classes', route.resolve('/streaming-classes', 'streaming-classes'))
                     .state('upgrade', route.resolve('/upgrade', 'upgrade'))
                     .state('shop', route.resolve('/shop', 'shop'))
                     .state('shop.cart', route.resolve('/cart', 'shop'))
@@ -137,7 +140,6 @@ define(['angularAMD',
                     .state('shop.collection', route.resolve('/:collection', 'shop'))
                     .state('shop.collection.type', route.resolve('/:type', 'shop'))
 
-                    .state('profile.view', route.resolve('/:view', 'profile'))
 
                     .state('test', route.resolve('/test', 'test'))
                     .state('test.redirect', route.resolve('/:redirect', 'test'));
@@ -165,6 +167,7 @@ define(['angularAMD',
                 });
             };
         }]);
+
         app.service('tokenError', ['localStorageService', '$rootScope', function (localStorageService, $rootScope) {
             $rootScope.checkTokenError = function (error) {
                 if (error.data && error.data['detail'] == 'Invalid token') {
@@ -218,12 +221,21 @@ define(['angularAMD',
 
                 $scope.pop = function () {
                     angular.forEach($scope.notifications.results, function (value, key) {
-                        toaster.pop(value.level, value.level, value.message);
-                        $scope.notifications$4Callback = notificationsIdResource.update({id: value.id}, function () {
-                        });
+                        toaster.pop(value.level, value.level, value.message, value.target_object_id);
                     });
-                    $scope.notificationsCount = 0;
                 };
+
+                $scope.clickToasterContainer = function (toaster) {
+                    angular.forEach($rootScope.$$childHead.notifications.results, function (value, key) {
+                        if(value.target_object_id == toaster.entry){
+                            $state.go('entry', {entry: value.target_object_id}, { reload: true});
+                            var notificationsCallback = notificationsIdResource.update({id: value.id}, function () {
+                                $rootScope.$$childHead.tick(); 
+                            });
+                        }
+                    });
+                };
+
             }]);
 
         app.controller('footerCtrl', ['localStorageService', '$scope',
