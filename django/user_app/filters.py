@@ -74,9 +74,9 @@ class AcceptingFilterBackend(filters.BaseFilterBackend):
 	def filter_queryset(self, request, queryset, view):
 		if 'accepting' in request.QUERY_PARAMS:
 			accepting = request.GET.get('accepting','')
-			if (accepting == 'True'):
+			if (accepting == 'true'):
 				accepting = [True]
-			elif (accepting == 'False'):
+			elif (accepting == 'false'):
 				accepting = [False]
 			else:
 				accepting = [True, False]

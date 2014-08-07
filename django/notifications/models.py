@@ -135,18 +135,18 @@ class Notification(models.Model):
 
     def message(self):
         ctx = {
-            'actor': self.actor,
+            'actor': self.actor.first_name + ' ' + self.actor.last_name,
             'verb': self.verb,
-            'action_object': self.action_object,
-            'target': self.target,
+            # 'action_object': self.action_object,
+            # 'target': self.target,
             'timesince': self.timesince()
         }
-        if self.target:
-            if self.action_object:
-                return u'%(actor)s %(verb)s %(action_object)s on %(target)s %(timesince)s ago' % ctx
-            return u'%(actor)s %(verb)s %(target)s %(timesince)s ago' % ctx
-        if self.action_object:
-            return u'%(actor)s %(verb)s %(action_object)s %(timesince)s ago' % ctx
+        # if self.target:
+        #     if self.action_object:
+        #         return u'%(actor)s %(verb)s %(action_object)s on %(target)s %(timesince)s ago' % ctx
+        #     return u'%(actor)s %(verb)s %(target)s %(timesince)s ago' % ctx
+        # if self.action_object:
+        #     return u'%(actor)s %(verb)s %(action_object)s %(timesince)s ago' % ctx
         return u'%(actor)s %(verb)s %(timesince)s ago' % ctx
 
     def timesince(self, now=None):

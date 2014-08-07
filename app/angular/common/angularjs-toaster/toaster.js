@@ -15,14 +15,16 @@
 
 angular.module('toaster', ['ngAnimate'])
 .service('toaster', ['$rootScope', function ($rootScope) {
-    this.pop = function (type, title, body, timeout, bodyOutputType, clickHandler) {
+    this.pop = function (type, title, body, entry, timeout, bodyOutputType, clickHandler) {
         this.toast = {
             type: type,
             title: title,
             body: body,
             timeout: timeout,
             bodyOutputType: bodyOutputType,
-            clickHandler: clickHandler
+            clickHandler: clickHandler,
+            //custom LQ code
+            entry: entry
         };
         $rootScope.$broadcast('toaster-newToast');
     };
@@ -167,6 +169,8 @@ function ($compile, $timeout, $sce, toasterConfig, toaster) {
                         $scope.removeToast(toaster.id);
                     }
                 }
+                // This is LQ custom code
+                $scope.$parent.clickToasterContainer(toaster);
             };
         }],
         template:

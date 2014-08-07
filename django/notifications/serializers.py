@@ -11,6 +11,6 @@ class AllNotificationSerializer(serializers.ModelSerializer):
 	message = serializers.Field(source="message")
 	class Meta:
 		model = Notification
-		fields = (	"id", "level", "unread", "timestamp", "public", "message",)
+		fields = (	"id", "level", "unread", "timestamp", "public", "message", "target_object_id")
 
 	

@@ -18,8 +18,9 @@ from schedule.filters import DatetimeFilterBackend, NowFilterBackend
 
 class EventViewSet(generics.ListCreateAPIView):
     model = Event
-    filter_backends = (DatetimeFilterBackend, NowFilterBackend, filters.OrderingFilter)
+    filter_backends = (DatetimeFilterBackend, filters.OrderingFilter)
     filter_class = EventFilter
+    paginate_by = 500
     ordering = ('start',)
     serializer_class = EventSerializer
     permission_classes = (IsAdminOrSelf,)
