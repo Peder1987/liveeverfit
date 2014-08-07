@@ -179,6 +179,7 @@ define(['angularAMD',
 
         app.controller('NavCtrl', ['$rootScope', 'localStorageService', '$resource', '$state', '$timeout', '$scope', 'toaster', 'rest', 'restricted',
             function ($rootScope, localStorageService, $resource, $state, $timeout, $scope, toaster) {
+                
                 $scope.isCollapsed = true;
                 var notificationsResource = $resource(":protocol://:url/notifications/", {
                     protocol: $scope.restProtocol,
@@ -226,14 +227,15 @@ define(['angularAMD',
                 };
 
                 $scope.clickToasterContainer = function (toaster) {
-                    angular.forEach($rootScope.$$childHead.notifications.results, function (value, key) {
+                    console.log(toaster);
+                    angular.forEach($scope.notifications.results, function (value, key) {
                         if (value.target_object_id == null){
                             var notificationsCallback = notificationsIdResource.update({id: value.id}, function () {
                                 $rootScope.$$childHead.tick(); 
                             });
                         }
                         else if(value.target_object_id == toaster.entry){
-                            $state.go('entry', {entry: value.target_object_id}, { reload: true});
+                            $state.go('entry', {entry: value.target_object_id});
                             var notificationsCallback = notificationsIdResource.update({id: value.id}, function () {
                                 $rootScope.$$childHead.tick(); 
                             });
