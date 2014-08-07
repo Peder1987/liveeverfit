@@ -151,7 +151,7 @@
   }
 }
 
-.sidebar .thumbnail {
+.thumbnail {
   background: transparent;
 }
 
@@ -164,7 +164,11 @@
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
 }
 
-#trainer-results {
+.fanatics {
+  padding-top: 21px;
+}
+
+#trainer-results, .fanatics {
   .pro-overlay {
     width: 100%;
     background: -moz-linear-gradient(top,  rgba(0,0,0,0) 30%, rgba(250, 250, 250, .9) 100%);
@@ -187,10 +191,11 @@
 
     .pro-overlay-text {
       position: absolute;
-      bottom: 27px;
-      left: 25px;
-      right: 0;
-      padding: 0px;
+      background-color: rgba(0, 0, 0, 0.6);
+      bottom: 24px;
+      right: 19;
+      padding-left: 10px;
+      left: 19px;
       .name {
         color: @ever-blue;
         font-size: 14px;
