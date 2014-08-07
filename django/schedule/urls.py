@@ -1,7 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from rest_framework import routers
-from schedule.models import Calendar
 from schedule.views import EventViewSet
 
 

@@ -1,7 +1,7 @@
 import ast, json
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
-from schedule.models import Calendar, Event
+from schedule.models import Event
 
 
 
@@ -21,20 +21,7 @@ class EventSerializer(serializers.ModelSerializer):
 		else:
 			return attrs
 
-	def validate_calendar(self, attrs, source):
-		creator = attrs.get('creator')
-		attrs['calendar'] = Calendar.objects.get(user = creator)
-		return attrs
-
 	def validate_title(self, attrs, source):
 		title = attrs.get('title')
 		attrs['text'] = title
 		return attrs
-
-
-class CalendarSerializer(serializers.ModelSerializer):
-	events = EventSerializer(many=True, required=False)
-
-	class Meta:
-		model = Calendar
-		fields = ('events',)

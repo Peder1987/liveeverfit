@@ -9,10 +9,10 @@ from rest_framework import generics
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
-from schedule.models import Calendar, Event
+from schedule.models import Event
 from schedule.permissions import IsAdminOrSelf
-from schedule.serializers import CalendarSerializer, EventSerializer
-from schedule.filters import EventFilter, IsCalendarOwnerFilterBackend
+from schedule.serializers import EventSerializer
+from schedule.filters import EventFilter
 from schedule.filters import DatetimeFilterBackend, NowFilterBackend
 
 
