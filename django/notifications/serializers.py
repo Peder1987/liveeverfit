@@ -9,8 +9,10 @@ from .models import Notification
 
 class AllNotificationSerializer(serializers.ModelSerializer):
 	message = serializers.Field(source="message")
+	target_object_id = serializers.Field(source="target_object_id")
+	target_content_type = serializers.RelatedField(many=False)
 	class Meta:
 		model = Notification
-		fields = (	"id", "level", "unread", "timestamp", "public", "message", "target_object_id")
+		fields = (	"id", "level", "unread", "timestamp", "public", "message", "target_object_id", 'target_content_type')
 
 	

@@ -246,7 +246,7 @@ class ComposeMessageObjView(generics.CreateAPIView):
     serializer_class= ComposeSerializer
 
     def post_save(self, obj, created=False):
-        notify.send(self.request.user, recipient=obj.recipient, verb=u'messaged you!')
+        notify.send(self.request.user, recipient=obj.recipient, verb=u'messaged you!', target=obj)
 
 
 class ReplyMessageObjView(generics.CreateAPIView):
