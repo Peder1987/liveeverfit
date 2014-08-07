@@ -7,7 +7,8 @@
         <div class="entry-input">
             <form class="input-box {{entryInputType}}">
                 <div ng-show="!entryInputText" class="place-holder" ng-bind-html="entryInputPlaceHolder"></div>
-                <div ng-input
+                <div id="entryInput"
+                     ng-input
                      class="input"
                      role="textbox"
                      contenteditable="true"
@@ -186,6 +187,30 @@
      ng-repeat="entry in feedList">
 <div class="post-outer">
 <div class="post-inner">
+<div class="share-entry-input entry-input">
+<form ng-if="entry.showShareEntryInput" class="input-box">
+    <div ng-show="!shareEntryInputText" class="place-holder" ng-bind-html="shareEntryInputPlaceHolder"></div>
+    <div id="entryShareInput{{$index}}"
+         ng-input
+         class="input"
+         role="textbox"
+         contenteditable="true"
+         ng-model="$parent.$parent.shareEntryInputText"></div>
+    <div class="form-space">
+        <tags-input type="text" class="tags-input"
+                    placeholder="Tags: Crossfit, Nutrition, etc."
+                    ng-model="$parent.shareEntryTags" display-property="name">
+            <auto-complete source="loadSpecialty($query)"
+                           min-length="1"></auto-complete>
+        </tags-input>
+    </div>
+    <div class="clearfix entry-meta">
+        <button ng-click="shareEntryMention($index)" type="button" class="btn btn-primary btn-sm pull-left">mention</button>
+        <button ng-show="false">fix</button>
+        <button ng-click="shareEntrySubmit(entry)" class="btn btn-primary btn-sm pull-right">share</button>
+    </div>
+</form>
+</div>
 <div class="post-header">
     <div class="dropdown post-settings">
         <a class="dropdown-toggle" href>
@@ -263,7 +288,6 @@
     <div class="shared" ng-switch-when="shared">
         <b>Shared</b>
         <br><br>
-
         <div class="media">
             <a ui-sref="profile.view({view: entry.shared_entry.user})">
                 <img class="media-object pull-left"
@@ -331,6 +355,9 @@
                   class="tag tag-blue tag-click" title="{{tag}}">
                 {{tag}}
             </span>
+        </div>
+        <div ng-if="entry.text" class="shared-text">
+            <span  ng-bind-html="getTrustedHtml(entry.text, false)"></span>
         </div>
     </div>
     <span ng-repeat="tag in entry.tags"

@@ -61,7 +61,7 @@ define(['angularAMD',
             'mm.foundation'
         ]);
 
-        app.run(function ($rootScope, $http, $tour, localStorageService, editableOptions) {
+        app.run(function ($rootScope, $http, $tour, localStorageService, editableOptions, $resource) {
             $rootScope.toggleDashboard = function () {
                 $rootScope.dashCollapsed = !$rootScope.dashCollapsed;
             };
@@ -82,6 +82,12 @@ define(['angularAMD',
             $rootScope.token = localStorageService.get('Authorization');
             $rootScope.user_type = localStorageService.get('user_type');
             $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
+            var mentionCollection = $resource("http://:url/feed/typeahead", {
+                url: 'api.liveeverfit.com'
+            });
+            mentionCollection.get(function (mentions) {
+                $rootScope.mentions = mentions.results;
+            });
             if(navigator.splashscreen) {
             	setTimeout(function() {
             		navigator.splashscreen.hide();
@@ -237,7 +243,7 @@ define(['angularAMD',
                         else if(value.target_object_id == toaster.entry){
                             $state.go('entry', {entry: value.target_object_id});
                             var notificationsCallback = notificationsIdResource.update({id: value.id}, function () {
-                                $rootScope.$$childHead.tick(); 
+                                $rootScope.$$childHead.tick();
                             });
                         }
                     });
@@ -367,29 +373,31 @@ define(['angularAMD',
                 }
             };
         });
-        app.directive('ngInput', ['$resource', 'rest', function ($resource) {
+        app.directive('ngInput', [function () {
             return {
                 restrict: 'A', // only activate on element attribute
                 require: '?ngModel', // get a hold of NgModelController
                 link: function (scope, element, attrs, ngModel) {
                     if (!ngModel) return; // do nothing if no ng-model
+                    var initMentions = function() {
+                        if (scope.mentions) {
+                        // Feed Typeahead
+                            element.mention({
+                                delimiter: '@',
+                                queryBy: ['name'],
+                                emptyQuery: true,
+                                users: scope.mentions,
+                                typeaheadOpts: {
+                                    items: 8 // Max number of items you want to show
+                                }
+                            });
+                        }
+                        else {
+                            setTimeout(initMentions, 400);
+                        }
+                    };
+                    initMentions();
 
-                    // Feed Typeahead
-                    var mentionCollection = $resource("http://:url/feed/typeahead", {
-                        url: scope.restURL
-                    });
-                    mentionCollection.get(function (mentions) {
-                        scope.mentions = mentions.results;
-                        element.mention({
-                            delimiter: '@',
-                            queryBy: ['name'],
-                            emptyQuery: true,
-                            users: scope.mentions,
-                            typeaheadOpts: {
-                                items: 8 // Max number of items you want to show
-                            }
-                        });
-                    });
 
                     // Specify how UI should be updated
                     ngModel.$render = function () {
@@ -462,7 +470,7 @@ define(['angularAMD',
             };
         }]);
         app.factory('httpInterceptor', function ($q, $rootScope, $log) {
-            /* 
+            /*
              Http interceptor for when making an API request, allows
              easy integration with the "loader" directive to add the spinner
              anywhere easily.
