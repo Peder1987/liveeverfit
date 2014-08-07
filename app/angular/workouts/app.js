@@ -107,6 +107,16 @@ define(['app', 'videojs'], function (app) {
                     }
                     else {
                         $scope.videoStatus = false;
+                        setTimeout(function () {
+                            $scope.videojs = videojs('promoVideo', {
+                                techOrder: [ "flash", "html5"],
+                                poster: 'http://beta.liveeverfit.com/media/promo-video.png'
+                            });
+                            $scope.videojs.height($scope.videojs.el().offsetWidth * 0.75);
+                            $(window).resize(function () {
+                                $scope.videojs.height($scope.videojs.el().offsetWidth * 0.75);
+                            });
+                        }, 10);
                     }
                 },
                 filterVideoCollection = $resource(":protocol://:url/workouts/video?:filter", {
