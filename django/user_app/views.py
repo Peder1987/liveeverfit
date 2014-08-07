@@ -152,7 +152,7 @@ class GroupTagView(generics.ListAPIView):
     def get_queryset(self):
         type = self.kwargs.get('type', None)
         if type:
-            return User.objects.filter(tags__name=type)
+            return User.objects.filter(tags__name=type).order_by('?')
         else:
             return []
 class StaticTagViewSet(generics.ListAPIView):
