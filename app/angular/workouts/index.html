@@ -97,10 +97,22 @@
             <div class="row">
                 <div ng-switch-default class="col-xs-12">
                     <div class="workout-video-shadow">
-                        <iframe width="100%" onload="handleIframe(this)"
-                                src="//www.youtube.com/embed/seat1hVbhdE?modestbranding=1&amp;showinfo=0"
-                                frameborder="0" allowfullscreen="" class="ef-video class"></iframe>
+                        <video id="promoVideo"
+                                width="640" height="480"
+                               class="video-js vjs-default-skin vjs-big-play-centered vjs-lef" controls
+                               preload="auto"
+                               poster="http://beta.liveeverfit.com/media/promo-video.png"
+                               data-setup='{"techOrder": ["flash", "html5"]}'>
+                            <source ng-src='rtmp://54.236.203.1:1935/vod/_definst_/mp4:EVERFIT PROMO VIDEO 1.mp4'
+                                    type='rtmp/mp4'/>
+                            <source ng-src='http://54.236.203.1:1935/vod/content/EVERFIT PROMO VIDEO 1.mp4/playlist.m3u8'
+                                    type='video/mp4'/>
+                        </video>
                     </div>
+                    <header class="page-header">
+                        <span class="blue">EverFit Promo Video</span>
+                        <br>
+                    </header>
                 </div>
                 <div ng-switch-when="loading" class="col-xs-12">
                     Loading
@@ -216,4 +228,5 @@
 </div>
 </div>
 <div ng-include="'/fanatics/index.html'"> </div>
+</div>
 </div>

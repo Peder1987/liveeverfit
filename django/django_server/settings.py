@@ -285,8 +285,9 @@ WEBSOCKET_URL = '/ws/'
 WS4REDIS_EXPIRE = 3600
 
 import stripe
-
-#stripe.api_key = 'sk_test_NRP2Hc10fIXIHA5gL0RYaEc5'
+#test
+# stripe.api_key = 'sk_test_NRP2Hc10fIXIHA5gL0RYaEc5'
+#live
 stripe.api_key = 'sk_live_IYJVN5y5O9ABOgUVwAbhxt3C'
 
 SHOPIFY_API_KEY = '9832a7588f0038c5adedc3cf78a63d6d'
