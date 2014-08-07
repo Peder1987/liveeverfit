@@ -227,7 +227,12 @@ define(['angularAMD',
 
                 $scope.clickToasterContainer = function (toaster) {
                     angular.forEach($rootScope.$$childHead.notifications.results, function (value, key) {
-                        if(value.target_object_id == toaster.entry){
+                        if (value.target_object_id == null){
+                            var notificationsCallback = notificationsIdResource.update({id: value.id}, function () {
+                                $rootScope.$$childHead.tick(); 
+                            });
+                        }
+                        else if(value.target_object_id == toaster.entry){
                             $state.go('entry', {entry: value.target_object_id}, { reload: true});
                             var notificationsCallback = notificationsIdResource.update({id: value.id}, function () {
                                 $rootScope.$$childHead.tick(); 
