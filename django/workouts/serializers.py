@@ -49,8 +49,8 @@ class VideoLikeSerializer(serializers.ModelSerializer):
         else:
             obj['user_likes'] = True
             value.likes_user.add(user)
-            if User.objects.filter(id = value.user_id).exists():
-                notify.send(user, recipient=value.user, verb=u'liked your video!')
+            # if User.objects.filter(id = value.user_id).exists():
+            #     notify.send(user, recipient=value.user, verb=u'liked your video!')
         return obj
 
     def validate_user_email(self, attrs, source):

@@ -45,9 +45,9 @@ class CommentListView(generics.ListCreateAPIView):
         video_id = self.kwargs['pk']        
         return VideoComment.objects.filter(video=video_id)
 
-    def post_save(self, obj, created=False):
-        if User.objects.filter(id = obj.video.user_id).exists():
-            notify.send(obj.user, recipient=obj.video.user, verb=u'commented on your video!')
+    # def post_save(self, obj, created=False):
+    #     if User.objects.filter(id = obj.video.user_id).exists():
+    #         notify.send(obj.user, recipient=obj.video.user, verb=u'commented on your video!')
 
 class CommentObjView(generics.RetrieveUpdateDestroyAPIView):
     model = VideoComment
