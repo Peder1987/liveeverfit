@@ -18,6 +18,7 @@
                     <div class="media-body">
                         <div class="col-xs-12 col-sm-9">
                             <div ng-if="view == 'sent'"><b>{{msg.recipient.first_name}} {{msg.recipient.last_name}}</b></div>
+                            <span class="badge" ng-if="view == 'inbox' && !msg.read_at">New</span>
                             <div ng-if="view == 'inbox'"><b>{{msg.sender.first_name}} {{msg.sender.last_name}}</b></div>
                             <div ng-if="view == 'deleted'"><b>Sender: {{msg.sender.first_name}} {{msg.sender.last_name}}</b></div>
                             <div ng-if="view == 'deleted'"><b>Recipient: {{msg.recipient.first_name}} {{msg.recipient.last_name}}</b></div>
