@@ -24,9 +24,11 @@ define(['app', 'masonry'], function (app, Masonry) {
                             loadSpecialty: function (query) {
                                 var tagTemp, deferred;
                                 deferred = $scope.q.defer();
-                                tagTemp = $scope.tagCollection.get({search:query}, function(){
-                                    deferred.resolve(tagTemp.results);
-                                });  
+                                if(query) {
+                                    tagTemp = $scope.tagCollection.get({search:query}, function(){
+                                        deferred.resolve(tagTemp.results);
+                                    });
+                                }
                                 return deferred.promise;
                             },
                             entryEvent: {
@@ -134,10 +136,24 @@ define(['app', 'masonry'], function (app, Masonry) {
                             entryTransformation: function() {
                                 $scope.entryTags.push({name: 'transformation'});
                             },
-                            entryMention: function ($event) {
+                            shareEntryMention: function (index) {
+                                $scope.shareEntryInputText = $scope.shareEntryInputText.concat('@');
+                                setTimeout(function () {
+                                    var input = $('#entryShareInput'+index),
+                                        range = document.createRange(),
+                                        sel = window.getSelection();
+
+                                    range.selectNodeContents(input[0]);
+                                    range.collapse(false);
+                                    sel.removeAllRanges();
+                                    sel.addRange(range);
+                                    input.focus().keyup();
+                                });
+                            },
+                            entryMention: function () {
                                 $scope.entryInputText = $scope.entryInputText.concat('@');
                                 setTimeout(function () {
-                                    var input = $('div.input'),
+                                    var input = $('#entryInput'),
                                         range = document.createRange(),
                                         sel = window.getSelection();
 
@@ -303,7 +319,14 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 $window.open(theLink);
 
                             },
-                            entryShare: function (entry) {
+                            previousShareEntry: null,
+                            entryShare: function(entry) {
+                                if($scope.previousShareEntry) $scope.previousShareEntry.showShareEntryInput = false;
+                                $scope.previousShareEntry = entry;
+                                entry.showShareEntryInput = true;
+                                $scope.refreshMasonry();
+                            },
+                            shareEntrySubmit: function (entry) {
                                 var id,
                                     entryCollection = $resource(":protocol://:url/feed/shared", {
                                         protocol: $scope.restProtocol,
@@ -322,9 +345,14 @@ define(['app', 'masonry'], function (app, Masonry) {
 
                                 entryCollection.save({
                                         user: $scope.user_id,
-                                        entry: id
+                                        entry: id,
+                                        text: $scope.shareEntryInputText,
+                                        tags: $scope.shareEntryTags
                                     },
                                     function (data) {
+                                        if($scope.previousShareEntry) $scope.previousShareEntry.showShareEntryInput = false;
+                                        $scope.shareEntryInputText = "";
+                                        $scope.shareEntryTags = [];
                                         $scope.feedList.unshift(data);
                                         $scope.runMasonry();
                                     });
@@ -459,6 +487,9 @@ define(['app', 'masonry'], function (app, Masonry) {
                                     }
                                 });
                             },
+                            shareEntryInputText: "",
+                            shareEntryInputPlaceHolder: $sce.trustAsHtml("Encourage, motivate, persevere, succeed..."),
+                            shareEntryTags: [],
                             init: function () {
                                 $scope.feed_id = ngModel.$viewValue.id;
                                 $scope.feedCollection.get({id: $scope.feed_id, filter: ngModel.$viewValue.filter}, function (data) {
