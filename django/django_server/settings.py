@@ -286,8 +286,8 @@ WS4REDIS_EXPIRE = 3600
 
 import stripe
 
-stripe.api_key = 'sk_test_NRP2Hc10fIXIHA5gL0RYaEc5'
-#stripe.api_key = sk_live_IYJVN5y5O9ABOgUVwAbhxt3C
+#stripe.api_key = 'sk_test_NRP2Hc10fIXIHA5gL0RYaEc5'
+stripe.api_key = 'sk_live_IYJVN5y5O9ABOgUVwAbhxt3C'
 
 SHOPIFY_API_KEY = '9832a7588f0038c5adedc3cf78a63d6d'
 SHOPIFY_API_PASSWORD = 'dcf4f581af6fbebc44fba62bce63abc3'

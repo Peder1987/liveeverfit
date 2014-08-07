@@ -4,7 +4,6 @@ from rest_framework.renderers import JSONRenderer
 from feed.models import Entry, TextEntry, PhotoEntry, VideoEntry, BlogEntry, Comment, Flagged, SharedEntry
 from django.contrib.auth import get_user_model
 
-from notifications import notify
 User = get_user_model()
 from schedule.models.events import Event
 from schedule.models.calendars import Calendar
