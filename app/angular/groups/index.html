@@ -14,21 +14,26 @@
     <tabset justified="true" type="pills">
         <tab heading="feed" select="filter('')" active="$parent.$parent.feedActive"></tab>
         <tab heading="fanatics" select="getFanatics()">
-            <div class="list-group">
-                <a ng-repeat="fan in fanatics"
-                   ui-sref-active="active"
-                   ui-sref="profile.view({view: fan.id})"
-                   class="list-group-item">
-                    <div class="media">
-                        <img class="media-object pull-left"
-                             ng-src="{{serverProtocal}}://{{serverURL}}/media/{{fan.img}}" style="width: 18px; height: 18px;">
-                        <div class="media-body">
-                            <div class="col-xs-12 col-sm-9">
-                                <b style="color:#fff;">{{fan.first_name}} {{fan.last_name}}</b>
-                            </div>
+            <div class="fanatics row">
+                <div class="col-xs-12 col-sm-6 col-md-2"
+                     ng-repeat="fan in fanatics" ui-sref="profile.view({view: fan.id})">
+                    <div class="thumbnail">
+                        <div class="pro-overlay">
+                            <img class="img"
+                                 ng-src="{{serverProtocal}}://{{serverURL}}/media/{{fan.img}}"/>
                         </div>
+                        <a href class="pro-overlay" ui-sref="profile.view({view: $parent.fan.id})">
+                            <div class="pro-overlay-text">
+                                <div class="name">
+                                    {{fan.first_name}} {{fan.last_name}}
+                                </div>
+                                <div class="location">
+                                    {{professional.location}}
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </a>
+                </div>
             </div>
         </tab>
         <tab heading="texts" select="filter('text')"></tab>
