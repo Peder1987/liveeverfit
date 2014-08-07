@@ -11,7 +11,10 @@ define(['app'], function(app) {
 	app.register.controller('membershipController', ["localStorageService",'$stateParams',"$resource","$http","$scope","rest",
 		function(localStorageService,$stateParams,$resource,$http,$scope) {
 
-			Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
+			//test
+			// Stripe.setPublishableKey("pk_test_xO4m1cYHr0GCBYbSH2GxdXp8");
+			//live
+			Stripe.setPublishableKey("pk_live_oO497oIjwqYyvE443zBQYrmw");
 
 			$scope.urlTier = $stateParams.tier;
 			$scope.urlPro = $stateParams.pro;
