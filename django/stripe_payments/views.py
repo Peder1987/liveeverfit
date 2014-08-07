@@ -66,7 +66,12 @@ def get_or_create_customer(self):
                   email=self.email,
                 )
             self.stripe_id = response.get('id')
-
+        try:
+            response.metadata['training-with'] = self.referred_by.email
+        except:
+            #referred by rory
+            response.metadata['training-with'] = 'rory@heavenly-homes.com'
+        response.save()
         self.save()
         return response
 
