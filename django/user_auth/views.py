@@ -80,13 +80,12 @@ def register(request):
             user.referred_by.save()
             user.relationships.add(pro_ref)
             notify.send(user, recipient=pro_ref, verb=u'is following you', target=user)
-            notify.send(pro_ref, recipient=user, verb=u'following', target=user)
         
         for pro in FeaturedProfessional.objects.all():
             pro_ref = pro.professional
             user.relationships.add(pro_ref)
             notify.send(user, recipient=pro_ref, verb=u'is following you', target=user)
-            notify.send(pro_ref, recipient=user, verb=u'is following you', target=user)
+            
         try:
             city = temp_address['city']
             city = str(city)
