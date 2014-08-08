@@ -4,6 +4,11 @@
             <div class="page-header">
                 <h2 class="entry-title">checking for errors</h2>
             </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                100%
+              </div>
+            </div>
             <div class="alert alert-danger" ng-repeat="(error, msg) in message">
                 {{msg[0]}}
             </div>

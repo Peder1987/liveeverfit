@@ -4,15 +4,21 @@
             <div class="page-header">
                 <h2 class="entry-title">checking for errors</h2>
             </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                100%
+              </div>
+            </div>
             <div class="alert alert-danger" ng-repeat="(error, msg) in message">
                 {{msg[0]}}
             </div>
             <div ng-if="pro.profession == 'Nutritionist' || pro.profession == 'Trainer' || pro.profession == 'Instructor'">
-                <h5>Thank you for joining Team EverFit. You can now add content and photos to your profile! Your account will become searchable when activated by the EverFit Admin Team with in 24hrs. 
-*In order to assure our clients that our professionals are certified, we do double check that your certifications are current. Thank you for your compliance. Go TeamMembership Upgrade is open to anyone to upgrade without approval, needs to go through an approval process.</h5>
+                <p>Thank you for joining Team EverFit. You can now add content and photos to your profile! Your account will become searchable when activated by the EverFit Admin Team with in 24hrs. </p>
+                
+                <p><em>*In order to assure our clients that our professionals are certified, we do double check that your certifications are current. Thank you for your compliance. Go TeamMembership Upgrade is open to anyone to upgrade without approval, needs to go through an approval process.</em></p>
             </div>
             <div ng-if="pro.profession == 'Promoter'">
-                <h5>Thank you for you interest in become an EverFit Promoter! To ensure you make the most out of your Free membership we just want to make sure your a perfect fit! As a promoter, you are part of the face of EverFit, and because of that we require you to have a combined social media following of at least 1000 followers. If that is not the case but you know you could be a valuable asset to team EverFit, please give us a brief description of yourself and why you will make a great team member!! </h5>
+                <p>Thank you for you interest in become an EverFit Promoter! To ensure you make the most out of your Free membership we just want to make sure your a perfect fit! As a promoter, you are part of the face of EverFit, and because of that we require you to have a combined social media following of at least 1000 followers. If that is not the case but you know you could be a valuable asset to team EverFit, please give us a brief description of yourself and why you will make a great team member!! </p>
             </div>
         </div>
     </div>
