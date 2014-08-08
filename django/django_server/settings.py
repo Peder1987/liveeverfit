@@ -22,7 +22,8 @@ ADMINS = (
 )
 
 # Sends email to the console for debugging purposes, comment out for production
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 # EMAIL_FILE_PATH = os.path.join(PROJECT_PATH, 'email')
 
@@ -235,7 +236,8 @@ REST_FRAMEWORK = {
 }
 
 if DEBUG:
-    REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] += ('user_auth.authentication.DebugAuthentication',)
+    REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] = ('user_auth.authentication.DebugAuthentication',
+                                                            token_class,)
 
 # Registration App 
 ACCOUNT_ACTIVATION_DAYS = 7
