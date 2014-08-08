@@ -67,7 +67,7 @@ class ProfessionalListView(generics.ListAPIView):
 
 
     def get_queryset(self):
-        return Professional.objects.filter(profession__in=['Nutritionist','Trainer','Instructor',]).order_by('?')
+        return Professional.objects.filter(profession__in=['Nutritionist','Trainer','Instructor',]).order_by('-recently_viewed')
 
 
 class ProfessionalObjView(generics.RetrieveUpdateDestroyAPIView):
