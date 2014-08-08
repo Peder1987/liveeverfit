@@ -23,11 +23,12 @@ ADMINS = (
 
 # Sends email to the console for debugging purposes, comment out for production
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 # EMAIL_FILE_PATH = os.path.join(PROJECT_PATH, 'email')
 
 MANAGERS = ADMINS
-if not DEBUG:
+if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -235,8 +236,7 @@ REST_FRAMEWORK = {
 }
 
 if DEBUG:
-    REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] = ('user_auth.authentication.DebugAuthentication',
-                                                            token_class,)
+    REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] += ('user_auth.authentication.DebugAuthentication',)
 
 # Registration App 
 ACCOUNT_ACTIVATION_DAYS = 7
