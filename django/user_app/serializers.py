@@ -113,6 +113,7 @@ class ProfileProfessionalSerializer(serializers.ModelSerializer):
     def to_native(self, value):
         obj = super(ProfileProfessionalSerializer, self).to_native(value)
         obj['clients'] = value.user_connections.count()
+        value.save()
         return obj
     class Meta:
         model = Professional

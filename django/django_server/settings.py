@@ -22,6 +22,7 @@ ADMINS = (
 )
 
 # Sends email to the console for debugging purposes, comment out for production
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 # EMAIL_FILE_PATH = os.path.join(PROJECT_PATH, 'email')
