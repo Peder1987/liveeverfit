@@ -75,12 +75,19 @@
                                     <i class="fa fa-envelope"></i>
                                     message
                                 </a>
-                                <a href
-                                   ng-if="user_id != profile_user.id && !profile_user.user_connected && profile_user.user_can_connect && profile_user.is_accepting && profile_user.type == 'professional' && user_type != 'professional'"
-                                   ng-click="connect()" class="connect">
-                                    <i class="fa fa-envelope"></i>
-                                    Train with me
-                                </a>
+                                <div class="dropdown">
+                                    <a href
+                                       ng-if="user_id != profile_user.id && !profile_user.user_connected && profile_user.user_can_connect && profile_user.is_accepting && profile_user.type == 'professional' && user_type != 'professional'"
+                                        class="connect dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-envelope"></i>Train with me
+                                    </a>
+                                      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                        <li role="presentation">
+                                            <p>Thank you for your interest! Please email me when you would like to get started along with more information about your goals. I will respond within 48 hours. Talk to you soon!</p>
+                                            <p><a href="mailto:{{ profile_user.email }}">{{profile_user.email}}</a></p>
+                                        </li>
+                                    </ul>  
+                                </div>
                                 <a href ng-if="profile_user.invite" class="invite">
                                     <i class="fa fa-exchange"></i>
                                     Invite
