@@ -74,7 +74,8 @@ require.config({
         'caret': 'feed/jquery.caret.min',
         'calendar': 'calendar/app',
         'socialShare' : 'common/angular-easy-social-share/easy-social-share',
-        'mm.foundation' : 'common/mm-foundation/mm-foundation-0.2.2'
+        'mm.foundation' : 'common/mm-foundation/mm-foundation-0.2.2'/*,
+        'linkify' : 'common/linkify/dist/jquery.linkify.min'*/
     },
 
     //Angular does not support AMD out of the box, put it in a shim
@@ -114,7 +115,8 @@ require.config({
         'feed': ['app'],
         'calendar': ['app'],
         'socialShare': ['angular'],
-        'mm.foundation' : ['angular']
+        'mm.foundation' : ['angular']/*,
+        'linkify' : ['jquery']*/
     },
     // Version the app to avoid cache issues
     urlArgs: "0.0.34",
