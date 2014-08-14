@@ -172,6 +172,7 @@ function ($compile, $timeout, $sce, toasterConfig, toaster) {
                 }
                 // This is LQ custom code
                 $scope.$parent.clickToasterContainer(toaster);
+                console.log(toaster);
             };
         }],
         template:
