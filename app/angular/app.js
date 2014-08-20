@@ -33,8 +33,8 @@ define(['angularAMD',
         'angular-animate',
         'toasterjs',
         'bootstrap-typeahead',
-        'mm.foundation'/*,
-        'linkify'*/
+        'mm.foundation',
+        'angular-sanitize'
     ],
     function (angularAMD) {
         'use strict';
@@ -59,8 +59,8 @@ define(['angularAMD',
             'geolocation',
             'angularFileUpload',
             'td.easySocialShare',
-            'mm.foundation'/*,
-            'linkify'*/
+            'mm.foundation',
+            'ngSanitize'
         ]);
 
         app.run(function ($rootScope, $http, $tour, localStorageService, editableOptions, $resource) {

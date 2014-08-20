@@ -1,8 +1,8 @@
 'use strict';
 
 define(['app', 'masonry'], function (app, Masonry) {
-    app.register.directive('entryFeed', ['$modal', '$resource', '$upload', '$sce', '$location', '$window',  'rest', 'localStorageService', 'fileReader', 'tokenError',
-        function ($modal, $resource, $upload, $sce, $location,  $window, rest, localStorageService, fileReader, tokenError) {
+    app.register.directive('entryFeed', ['$modal', '$resource', '$upload', '$sce', '$sanitize', '$location', '$window',  'rest', 'localStorageService', 'fileReader', 'tokenError',
+        function ($modal, $resource, $upload, $sce, $sanitize, $location,  $window, rest, localStorageService, fileReader, tokenError) {
             return {
                 templateUrl: 'feed/index.html',
                 require: '?ngModel',
@@ -177,6 +177,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                             }
                                         }),
                                         text: function () {
+                                             console.log($scope.sanitize); //testy test
                                             this.entryCollection.save({
                                                 text: $scope.entryInputText,
                                                 user: $scope.user_id,

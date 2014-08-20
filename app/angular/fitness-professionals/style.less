@@ -156,7 +156,7 @@
 }
 
 .thumbnail {
-  border-color: #eaeaea;
+  border-radius:5px;
 }
 
 .thumbnail:hover {
@@ -178,6 +178,7 @@
     background: linear-gradient(to bottom,  rgba(0,0,0,0) 30%, rgba(250, 250, 250, .9) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#FF7d8790',GradientType=0 );
     cursor:pointer;
+    border-radius:5px;
 
     .clients {
       position: absolute;
@@ -187,6 +188,7 @@
 
     img {
       width:100%;
+      border-radius: 5px;
     }
 
     .pro-overlay-text {
@@ -196,9 +198,11 @@
       right: 19;
       padding-left: 10px;
       left: 19px;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
       .name {
-        color: @ever-blue;
-        font-size: 14px;
+        color: #e3e5e6;
+        font-size: 13px;
       }
       .location {
         color: @brand-primary;
