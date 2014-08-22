@@ -172,7 +172,8 @@
                 justified="true" type="pills">
             <tab heading="feed" select="filter('')" active="$parent.$parent.feedActive"></tab>
             <tab heading="bio" select="filter('exempt')">
-                <div class="google-map-outer">
+                <div class="google-map-outer"
+                popover-trigger="mouseenter" popover-placement="top" popover="Regardless of whether you’re weird, normal or both (depending on the day of the week) we want to know all about you! Where are you from? Why did you get into fitness? How long have you been inspiring? What’s your pet’s name? Whatever you want to tell us and all of your fellow Fit Fanatics, we want to know!">
                     <div class="bio">
                         <h2 class="ef-header">bio</h2>
 
@@ -190,12 +191,16 @@
             <!--<tab heading="clients" select="clientFilter()"
                  ng-if="user_id == profile_user.id && profile_user.type == 'professional'"></tab>-->
             <tab heading="calendar" select="initCalendar()">
-                <div ng-if="profile_user.id && showCalendar" class="google-map-outer">
+                <div ng-if="profile_user.id && showCalendar" class="google-map-outer"
+                popover-trigger="mouseenter" popover-placement="top" popover="Hey there. Fanatic! We want to give you the tools to stay on track. What better way than a calendar. Schedule your weekly workouts, log your appointments, or showcase the awesome 5k you’re going to dominate this weekend! Team EverFit! 
+                
+                This calendar is public and visible to other users. ">
                     <div profile-calendar ng-model="profile_user.id"></div>
                 </div>
             </tab>
             <tab heading="reach" select="initReach()">
-                <div class="google-map-outer">
+                <div class="google-map-outer"
+                popover-trigger="mouseenter" popover-placement="top" popover="Think one person can’t make a difference? Check out your reach of Fanatics that have signed up from your affiliate link!">
                     <div class="google-map" center="map.center" zoom="map.zoom" draggable='true' control="map.control"
                          options="map.options">
                         <marker ng-repeat="referral in profile_user.referrals"
@@ -216,7 +221,8 @@
                 </div>
             </tab>
             <tab heading="fanatics" select="hideFeed()">
-                <div class="fanatics row">
+                <div class="fanatics row"
+                popover-trigger="mouseenter" popover-placement="top" popover="This is a feed of all the people that are following YOU! Check out other Fanatics profiles, and give them a follow back! ">
                     <div class="col-xs-12 col-sm-6 col-md-2"
                          ng-repeat="fan in profile_user.fanatics_list" ui-sref="profile.view({view: fan.id})">
                         <div class="thumbnail">

@@ -9,7 +9,9 @@
             </div>
         </div>-->
         <div class="meta-banner">
-            <img src="groups/img/{{group}}.png" onerror='this.style.display = "none"'/>
+            <img src="groups/img/{{group}}.png" 
+            popover-trigger="mouseenter" popover-placement="bottom" popover="We rounded up other Fanatics with your same interests! Manage your groups, share your motivation, and even make new friends!"
+            onerror='this.style.display = "none"'/>
         </div>
     <tabset justified="true" type="pills">
         <tab heading="feed" select="filter('')" active="$parent.$parent.feedActive"></tab>

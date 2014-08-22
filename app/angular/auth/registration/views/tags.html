@@ -15,7 +15,8 @@
                     Interests:
                 </label>
 
-                 <div class="col-sm-10 form-space">
+                 <div class="col-sm-10 form-space"
+                 popover-placement="left" popover="Are you interested in other types of fitness not listed below?  Please let us know and we will work toward expanding our categories." popover-trigger="mouseenter">
                     <tags-input ng-model="tags" class="tags-input" add-from-autocomplete-only="true" on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)" display-property="name">
                     <auto-complete source="loadSpecialty($query)" min-length="1"></auto-complete>
                     </tags-input>

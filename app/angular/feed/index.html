@@ -145,7 +145,9 @@
                             </li>
                         </ul>
                     </span>
-                    <button ng-show="entryInputType=='photo'" type="button" ng-click="entryTransformation()" class="btn btn-primary btn-sm pull-left">transformation</button>
+                    <button ng-show="entryInputType=='photo'" 
+                    popover-trigger="mouseenter" popover-placement="right" popover="Market yourself, inspire, and encourage. Post transformation pictures here!"
+                    type="button" ng-click="entryTransformation()" class="btn btn-primary btn-sm pull-left">transformation</button>
                     <button ng-show="false">fix</button>
                     <button step-text="Share a cool post on EverFit, as well as other social media platforms! Start inspiring the world!"
                             step-index="8"
@@ -171,12 +173,12 @@
                 </div>
                 <div class="col-xs-2">
                     <a href ng-click="selectEntryInputType('blog')">
-                        <i class="fa fa-edit fa-2x"></i><br>Blog
+                        <i class="fa fa-edit fa-2x" popover-trigger="mouseenter" popover-placement="right" popover="We know you have a ton of knowledge about something, spaceships to basket weaving, let’s hear it!"></i><br>Blog
                     </a>
                 </div>
                 <div class="col-xs-2">
                     <a href ng-click="selectEntryInputType('event')">
-                        <i class="fa fa-calendar fa-2x"></i><br>Event
+                        <i class="fa fa-calendar fa-2x" popover-trigger="mouseenter" popover-placement="right" popover="Got something cool coming up? Post it here to show your fellow Fanatics. Who knows? Maybe some will join you! "></i><br>Event
                     </a>
                 </div>
             </div>

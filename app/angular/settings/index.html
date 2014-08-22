@@ -84,7 +84,8 @@
                                     </div>
                                 </div>
                                  <div ng-if="profile_user.type == 'professional'" class="row" style="padding-top: 13px;">
-                                    <div class="col-xs-12">
+                                    <div class="col-xs-12"
+                                    popover-trigger="mouseenter" popover-placement="bottom" popover="Check this box to illuminate the green light on your proflile page meaning you are accepting clients.">
                                         <span class="bold">
                                             <span editable-checkbox="profile_user.is_accepting" class="placeholder-light" e-form="editable" e-title="Accept clients?">
                                                 <span class="fa" ng-class="{'fa-check': profile_user.is_accepting, 'fa-times': !profile_user.is_accepting}"></span> {{ profile_user.is_accepting && "Accepting clients" || "Not accepting clients" }}
@@ -93,7 +94,9 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-12">
+                                    <div class="col-xs-12"
+                                    popover-trigger="mouseenter" popover-placement="bottom" popover="Regardless of whether you’re weird, normal or both (depending on the day of the week) we want to know all about you! Where are you from? Why did you get into fitness? How long have you been inspiring? What’s your pet’s name? Whatever you want to tell us and all of your fellow Fit Fanatics, we want to know!"
+                                    >
                                         <span class="bold">
                                             <span class="fa fa-empire"></span> Bio:
                                         </span>
@@ -123,7 +126,9 @@
                                     </div>
                                 </div>
                                 <div ng-hide="editable.$visible" class="row" style="padding-top: 13px;">
-                                    <div class="col-xs-12">
+                                    <div class="col-xs-12"
+                                    popover-trigger="mouseenter" popover-placement="bottom" popover="Copy and paste this link along with the EverFit Marketing Materials into an email to share your affiliate link.  
+                                    (EverFit Marketing Materials located in the upper right have SETTINGS dropdown)">
                                         <span class="bold">
                                             <span class="fa fa-share-square"></span> Affiliate Link:
                                             <input type="text" class="editable-input placeholder-light form-control ng-pristine" value="{{restProtocol}}://{{webURL}}/#/?referral={{profile_user.email}}" />
