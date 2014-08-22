@@ -140,6 +140,7 @@ define(['angularAMD',
                     .state('profile.view', route.resolve('/:view', 'profile'))
                     .state('entry', route.resolve('/entry/:entry', 'profile'))
                     .state('greentree', route.resolve('/greentree', 'greentree'))
+                    .state('marketing-materials', route.resolve('/marketing-materials', 'marketing-materials'))
                     .state('streaming-classes', route.resolve('/streaming-classes', 'streaming-classes'))
                     .state('upgrade', route.resolve('/upgrade', 'upgrade'))
                     .state('shop', route.resolve('/shop', 'shop'))
