@@ -1,4 +1,4 @@
-<div class="modal-body">
+<div class="modal-body clearfix">
     <div class="img-container">
         <span class="fa fa-chevron-left fa-3x" data-ng-show="hasPrev()" data-ng-click="prev()"></span>
         <span class="helper"></span>
@@ -124,8 +124,8 @@
 </div>
 <div class="lightbox-tiles">
     <span data-ng-repeat="i in images" data-ng-click="displayImage(i)">
-    <span class="thumb-scroll">
-    <img data-ng-src="{{serverProtocal}}://{{serverURL}}/{{source(i)}}">
-    </span>
+        <span class="thumb-scroll">
+            <img data-ng-src="{{serverProtocal}}://{{serverURL}}/{{source(i)}}">
+        </span>
     </span>
 </div>
