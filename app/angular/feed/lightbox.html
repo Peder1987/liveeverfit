@@ -6,7 +6,7 @@
         <span class="fa fa-chevron-right fa-3x" data-ng-show="hasNext()" data-ng-click="next()"></span>
     </div>
     <!--Disabling The Side Bar for now SUPER BUGGY LOL-->
-    <div ng-if='false' class="side-bar">
+    <div class="side-bar">
         <div class="media">
             <a ui-sref="profile.view({view: entry.shared_entry.user})">
                 <img class="media-object pull-left"
@@ -30,7 +30,7 @@
             class="tag tag-blue tag-click">
             {{tag.name}}
         </div>
-        <div class="post-social pull-right">
+        <div class="post-social pull-right" ng-if="false">
             <span class="dropdown push" title="Social Sharing">
             <a class="dropdown-toggle" href>
                 <i class="fa fa-share-alt fa-lg"></i>
@@ -102,7 +102,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="list-group-item">
+                    <div class="list-group-item" ng-if="false">
                         <div class="media">
                             <img class="media-object pull-left"
                             ng-src="{{serverProtocal}}://{{serverURL}}/{{usrImg}}"
@@ -124,6 +124,8 @@
 </div>
 <div class="lightbox-tiles">
     <span data-ng-repeat="i in images" data-ng-click="displayImage(i)">
+    <span class="thumb-scroll">
     <img data-ng-src="{{serverProtocal}}://{{serverURL}}/{{source(i)}}">
+    </span>
     </span>
 </div>
