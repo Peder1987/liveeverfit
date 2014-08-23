@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12"
-                                    popover-trigger="mouseenter" popover-placement="bottom" popover="Regardless of whether you’re weird, normal or both (depending on the day of the week) we want to know all about you! Where are you from? Why did you get into fitness? How long have you been inspiring? What’s your pet’s name? Whatever you want to tell us and all of your fellow Fit Fanatics, we want to know!"
+                                    popover-trigger="mouseenter" popover-placement="bottom" popover="We love diversity within the EverFit Community! Tell us what makes you, you!  Where are you from? Why did you get into fitness? How long have you been inspiring?  What's you pets name?  Your fellow Fanatics what to know! Don't be shy!"
                                     >
                                         <span class="bold">
                                             <span class="fa fa-empire"></span> Bio:
@@ -127,10 +127,11 @@
                                 </div>
                                 <div ng-hide="editable.$visible" class="row" style="padding-top: 13px;">
                                     <div class="col-xs-12"
-                                    popover-trigger="mouseenter" popover-placement="bottom" popover="Copy and paste this link along with the EverFit Marketing Materials into an email to share your affiliate link.  
-                                    (EverFit Marketing Materials located in the upper right have SETTINGS dropdown)">
+                                    popover-trigger="mouseenter" popover-placement="bottom" popover="This link is unique to you and can be used to earn yourself rewards simply by sharing with others via email, social media, or however you best see fit! Once someone clicks your link and creates an account, they're then connected to you indefinitely!">
                                         <span class="bold">
-                                            <span class="fa fa-share-square"></span> Affiliate Link:
+                                            <span class="fa fa-share-square"></span>
+                                            <span ng-show="profile_user.type == 'user'"> Referral Link:</span>
+                                            <span ng-show="profile_user.type == 'professional'" class="bold">Affiliate Link:</span>
                                             <input type="text" class="editable-input placeholder-light form-control ng-pristine" value="{{restProtocol}}://{{webURL}}/#/?referral={{profile_user.email}}" />
                                             </span>
                                         </span>

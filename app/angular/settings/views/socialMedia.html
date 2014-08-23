@@ -86,7 +86,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12"
-            popover-trigger="mouseenter" popover-placement="bottom" popover="This shows the full dollar amount of purchases from Fanatics that shopped under your affiliate link.">
+            popover-trigger="mouseenter" popover-placement="bottom" popover="This reflects the total dollar amount of purchases from Fanatics that shopped under your affiliate link.">
                 <span class="bold">
                     <span class="fa fa-money"></span> Shopify Sales:
                 </span>
@@ -100,15 +100,15 @@
         </div>
         <div class="row">
             <div class="col-xs-12"
-            popover-trigger="mouseenter" popover-placement="bottom" popover="Total customers is the total number of people that have signed up using your affiliate link. The higher the number the better the REWARDS!">
+            popover-trigger="mouseenter" popover-placement="bottom" popover="This number reflects the total number of folks who have signed up via your Affiliate/Referral link.">
                 <span class="bold">
-                    <span class="fa fa-empire"></span> Total Customers:
+                    <span class="fa fa-empire"></span> Total Referrals:
                 </span>
                 
                 <span id="bio" class="edit-text" data-title="total"
                       data-type="text">
                     {{ profile_user.shopify_sales.total_customers }}
-                    <div ng-if="!profile_user.shopify_sales.total_customers || profile_user.shopify_sales.total_customers != 0 ">Contact Administrator</div>
+                    <div ng-if="!profile_user.shopify_sales.total_customers || profile_user.shopify_sales.total_customers != 0 "><a href="info@liveeverfit.com">Contact Administrator</a></div>
                 </span>
             </div>
         </div>
