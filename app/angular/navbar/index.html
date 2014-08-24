@@ -158,7 +158,7 @@
             <li ng-if="user_type != 'professional'"><a ui-sref="clients"><i class="fa fa-star"></i> coaching</a></li>
             <li ng-if="user_type == 'professional'"><a ui-sref="clients"><i class="fa fa-star"></i> what do i owe my clients</a></li>
             <li><a ui-sref="faq"><i class="fa fa-question"></i> faq</a></li>
-            <li><a ui-sref="terms"><i class="fa fa-legal"></i> terms</a></li>
+            <li ng-if="false"><a ui-sref="terms"><i class="fa fa-legal"></i> terms</a></li>
             <li><a ui-sref="settings"><i class="fa fa-cogs"></i> settings</a></li>
             <li><a ui-sref="marketing-materials"><i class="fa fa-file-archive-o"></i> marketing materials</a></li>
             <li><a ng-click="$parent.signOut();"><i class="fa fa-sign-out"></i> sign out</a></li>
@@ -206,7 +206,7 @@
                     <i class="fa fa-question-circle"></i> faq
                 </a>
             </li>
-            <li>
+            <li ng-if="false">
                 <a ui-sref="terms">
                     <i class="fa fa-book"></i>  terms
                 </a>
