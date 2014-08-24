@@ -27,7 +27,7 @@
         </div>
         <div ng-bind-html="getTrustedHtml(selectedImg.text, false)"></div>
         <div ng-repeat="tag in selectedImg.tags"
-            class="tag tag-blue tag-click">
+            class="tag tag-blue tag-click" ng-if="false">
             {{tag.name}}
         </div>
         <div class="post-social pull-right" ng-if="false">
