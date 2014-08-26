@@ -69,6 +69,9 @@ define(['app', 'feed'], function (app) {
                 },
                 {
                     image: 'home/img/slider/7.png'
+                },
+                {
+                    image: 'home/img/slider/8.png'
                 }
             ];
         }]);
