@@ -129,6 +129,7 @@ class ConnectUserView(generics.UpdateAPIView):
     serializer_class = ConnectUserSerializer
 
 class FanaticsListView(generics.ListAPIView):
+    paginate_by = 500
     model = User
     permission_classes = (IsAdminOrSelf,)
     # has exact output as client, need to restructure

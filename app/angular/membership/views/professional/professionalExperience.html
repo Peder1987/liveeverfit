@@ -36,7 +36,7 @@
                         Certified Professional
                     </label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-10" ng-if="pro.profession == 'Nutritionist' || pro.profession == 'Trainer' || pro.profession == 'Instructor'">
                         <input id="certified" type="checkbox" ng-model="tempCheck2" required> I am certified as a
                         {{pro.profession}}<br>
                     </div>
