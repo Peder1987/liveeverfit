@@ -874,9 +874,6 @@ ul.navbar-nav {
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(26,140,255,0.5);
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(26,140,255,0.5);
 }
-.search-filters {
-    padding:20px 0;
-}
 
 .search-filters .form {
     border-bottom: 1px solid #eaeaea;

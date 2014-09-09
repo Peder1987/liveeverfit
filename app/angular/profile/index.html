@@ -15,7 +15,7 @@
                             <span class="profile-circle red"></span>
                         </div>
                     </div>
-                    <div ng-if="profile_user.type == 'professional'" class="col-sm-2 col-xs-6 col-md-3">
+                    <div ng-if="profile_user.type == 'professional' && profile_user.profession != 'promoter'" class="col-sm-2 col-xs-6 col-md-3">
                         <div class="status-profile" style="text-align: center">
                             accepting clients
                             <span class="profile-circle"
@@ -50,7 +50,7 @@
                         <!-- /.row -->
 
                         <div class="specialties">
-                            <h3 class="ef-header" style="margin: 8px 0;">specialties</h3>
+                            <h3 class="ef-header">specialties</h3>
                             <div tag-specialties class="tag-specialties" ng-model="profile_user.tags"></div>
                         </div>
                         <!-- /.specialties-->
