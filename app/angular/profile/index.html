@@ -9,13 +9,13 @@
                             <small> / {{profile_user.location}}</small>
                         </h2>
                     </div>
-                    <div ng-if="profile_user.type == 'professional'" class="col-sm-offset-2 col-md-offset-0 col-sm-2 col-xs-6 col-md-3">
+                    <div ng-if="profile_user.type == 'professional' && profile_user.profession !='Promoter'" class="col-sm-offset-2 col-md-offset-0 col-sm-2 col-xs-6 col-md-3 pull-right">
                         <div class="status-profile" style="text-align: center">
                             live training in session
                             <span class="profile-circle red"></span>
                         </div>
                     </div>
-                    <div ng-if="profile_user.type == 'professional' && profile_user.profession != 'promoter'" class="col-sm-2 col-xs-6 col-md-3">
+                    <div ng-if="profile_user.type == 'professional' && profile_user.profession != 'promoter'" class="col-sm-2 col-xs-6 col-md-3 pull-right">
                         <div class="status-profile" style="text-align: center">
                             accepting clients
                             <span class="profile-circle"
@@ -70,7 +70,7 @@
                                     <i class="fa fa-cog"></i>
                                     settings
                                 </a>
-                                <a href ng-if="user_id != profile_user.id && profile_user.user_connected"
+                                <a href
                                    class="message" ui-sref="messages.view({view:'new'})">
                                     <i class="fa fa-envelope"></i>
                                     message
@@ -200,7 +200,7 @@
             </tab>
             <tab heading="reach" select="initReach()">
                 <div class="google-map-outer"
-                popover-trigger="mouseenter" popover-placement="top" popover="Think one person can’t make a difference? Check out your reach of Fanatics that have signed up from your affiliate link!">
+                popover-trigger="mouseenter" popover-placement="top" popover="Here you have your very own personal map of all your awesome Fanatics you Invited to EverFit via your 'Share Link'.  You can send your link to your folks however you fancy... email, social media, or pretty much any way you can send info. digitally! When someone clicks your link and creates an account... they magically appear here on your map! Pretty jazzy! The Reach Map is simply a fun way to visualize all your Invited Fanatics!">
                     <div class="google-map" center="map.center" zoom="map.zoom" draggable='true' control="map.control"
                          options="map.options">
                         <marker ng-repeat="referral in profile_user.referrals"
