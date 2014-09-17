@@ -364,7 +364,9 @@
     </div>
     <span ng-repeat="tag in entry.tags"
           class="tag tag-blue tag-click" title="{{tag}}">
-        {{tag}}
+          <a href="http://app.liveeverfit.com/#/groups/{{tag}}">
+            {{tag}}
+            </a>
     </span>
 </div>
 <div class="post-social pull-right">
