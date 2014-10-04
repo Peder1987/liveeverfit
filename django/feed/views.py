@@ -21,7 +21,7 @@ from user_app.models import Professional
 
 
 class EntryListView(generics.ListAPIView):
-	paginate_by = 21
+	paginate_by = 100
 	serializer_class = EntrySerializer	
 	permission_classes = (IsOwnerOrReadOnly,)
 	filter_backends = (filters.OrderingFilter,)
