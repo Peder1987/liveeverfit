@@ -34,7 +34,8 @@ define(['angularAMD',
         'toasterjs',
         'bootstrap-typeahead',
         'mm.foundation',
-        'angular-sanitize'
+        'angular-sanitize',
+        'angular-social'
     ],
     function (angularAMD) {
         'use strict';
@@ -60,7 +61,8 @@ define(['angularAMD',
             'angularFileUpload',
             'td.easySocialShare',
             'mm.foundation',
-            'ngSanitize'
+            'ngSanitize',
+            'ngSocial'
         ]);
 
         app.run(function ($rootScope, $http, $tour, localStorageService, editableOptions, $resource) {

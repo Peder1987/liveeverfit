@@ -374,6 +374,22 @@
         <a class="dropdown-toggle" href>
             <i class="fa fa-share-alt fa-lg"></i>
         </a>
+        <!-- New Social Share -->
+        <ul class="dropdown-menu" 
+        ng-social-buttons
+             data-url="'http://news.mistinfo.com/'"
+             data-title="'test'"
+             data-description="'test2'"
+             data-image="'http://dev.liveeverfit.com//media/users/238/photo/10_02_2014_23_21_26_487464_Exercise-005.jpg'">
+            <li class="ng-social-facebook">Facebook</li>
+            <li class="ng-social-google-plus">Google+</li>
+            <li class="ng-social-twitter">Twitter</li>
+            <li class="ng-social-pinterest">Pinterest</li>
+        </ul>
+        {{entry.id}}
+        <!-- /End Social Share -->
+
+        <!-- Old Social Share
         <ul class="dropdown-menu">
             <li>
                 <a href ng-click="socialShareEntry(entry, 'facebook')">
@@ -388,6 +404,7 @@
             </li>
 
         </ul>
+        -->
     </span>
     <span ng-click="likeEntry(entry)" title="Number of likes" class="push">
         <a href ng-if="!entry.user_likes" title="Like">
