@@ -146,10 +146,13 @@ define(['angularAMD',
                     .state('streaming-classes', route.resolve('/streaming-classes', 'streaming-classes'))
                     .state('upgrade', route.resolve('/upgrade', 'upgrade'))
                     .state('shop', route.resolve('/shop', 'shop'))
+                    .state('shop.greentree', route.resolve('/greentree', 'shop'))
                     .state('shop.cart', route.resolve('/cart', 'shop'))
                     .state('shop.returns', route.resolve('/returns', 'shop'))
+                    .state('shop.streaming-classes', route.resolve('/pages/streaming-classes', 'shop'))
                     .state('shop.collection', route.resolve('/:collection', 'shop'))
                     .state('shop.collection.type', route.resolve('/:type', 'shop'))
+
 
 
                     .state('test', route.resolve('/test', 'test'))

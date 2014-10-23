@@ -1,3 +1,6 @@
+<meta property="og:title"
+content="Workday Sets Price Range for I.P.O." />
+
 <div class="newsFeed">
 <div class="row">
 <div ng-if="( !feed_id || feed_id == user_id) && filter != '/client' && (!filter || filter.indexOf('/entry') == -1)"
@@ -185,6 +188,7 @@
         </div>
     </div>
 </div>
+
 <div class="item col-xs-12" ng-class="{'col-md-12 col-lg-12': entry.expand, 'col-md-6 col-lg-4': !entry.expand}"
      ng-repeat="entry in feedList">
 <div class="post-outer">
@@ -377,16 +381,15 @@
         <!-- New Social Share -->
         <ul class="dropdown-menu" 
         ng-social-buttons
-             data-url="'http://news.mistinfo.com/'"
-             data-title="'test'"
-             data-description="'test2'"
-             data-image="'http://dev.liveeverfit.com//media/users/238/photo/10_02_2014_23_21_26_487464_Exercise-005.jpg'">
+             data-url="'http://liveeverfit.com'"
+             data-title="''"
+             data-description="''"
+             data-image="'{{serverProtocal}}://{{serverURL}}/media/{{entry.img}}'">
             <li class="ng-social-facebook">Facebook</li>
             <li class="ng-social-google-plus">Google+</li>
             <li class="ng-social-twitter">Twitter</li>
             <li class="ng-social-pinterest">Pinterest</li>
         </ul>
-        {{entry.id}}
         <!-- /End Social Share -->
 
         <!-- Old Social Share

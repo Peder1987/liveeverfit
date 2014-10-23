@@ -1,9 +1,113 @@
 'use strict';
 define(['app', 'feed', 'calendar'], function (app) {
-    app.register.controller('profileCtrl', ['$scope', 'restricted',
+    app.register.controller('profileCtrl', ['$scope', '$modal', 'rest', 'restricted',
         function ($scope) {
             $scope.restricted();
         }]);
+    app.register.controller('photoChangeCtrl', ['$scope', '$resource', '$modalInstance', '$upload', 'localStorageService', 'fileReader',
+        function ($scope, $resource, $modalInstance, $upload, localStorageService, fileReader) {
+            $scope.user_id = localStorageService.get('user_id');
+            $scope.message = {};
+            $scope.closeAlert = function (error) {
+                delete $scope.message[error];
+            };
+            $scope.onFileSelect = function ($files) {
+                $scope.uploadImg = $files[0];
+                $scope.upload = $upload.upload({
+                    url: $scope.restProtocol + '://' + $scope.restURL + '/upload-image/upload-profile-picture',
+                    file: $scope.uploadImg
+                }).progress(function (evt) {
+                    $scope.percent = parseInt(100.0 * evt.loaded / evt.total);
+                }).success(function (data) {
+                    fileReader.readAsDataUrl($scope.uploadImg, $scope).then(function (result) {
+                        $scope.imgSrc = result;
+                        $scope.percent = undefined;
+                    });
+                    delete $scope.uploadImg;
+                    $scope.returnData = data;
+                }).error(function (data) {
+                    $scope.percent = false;
+                    angular.extend($scope.message, data);
+                });
+            };
+            $scope.ok = function () {
+                if($scope.cords) {
+                    var cords = $scope.cords,
+                        widthHeight = $scope.widthHeight;
+                    $scope.upload = $upload.upload({
+                        url: $scope.restProtocol + '://' + $scope.restURL + '/upload-image/crop-profile-picture',
+                        data: {
+                            id: $scope.returnData.id,
+                            cropping: cords.x + ',' + cords.y + ',' + cords.x2 + ',' + cords.y2,
+                            WidthHeight: widthHeight.w + ',' + widthHeight.h,
+                            user_id: $scope.user_id
+                        }
+                    }).progress(function (evt) {
+                        $scope.percent = parseInt(100.0 * evt.loaded / evt.total);
+                    }).success(function (data) {
+                        $modalInstance.close(data);
+                    }).error(function (data) {
+                        $scope.percent = undefined;
+                        angular.extend($scope.message, data);
+                    });
+                }
+                else {
+                    angular.extend($scope.message, {
+                        "image": ["Image not cropped."]
+                    });
+                }
+            };
+            $scope.cancel = function () {
+                $modalInstance.dismiss();
+            };
+        }]);
+app.register.directive('cropImg', ['$window',
+        function ($window, shareImg) {
+            return {
+                restrict: 'E',
+                replace: true,
+                scope: {
+                    src: '='
+                },
+                link: function (scope, element) {
+                    var clear = function () {
+                        if (element.myImg) {
+                            element.myImg.remove();
+                            delete element.myImg;
+                        }
+                    };
+                    scope.$on('$destroy', clear);
+                    scope.$watch('src', function (src) {
+                        clear();
+                        if (!src) return;
+                        element.after('<img style="display: none;"/>');
+                        element.myImg = element.next();
+                        element.myImg.attr('src', src);
+                        element.myImg.on('load', function () {
+                            var width = this.width,
+                                height = this.height;
+                            element.myImg.addClass('crop-img').show()
+                            .Jcrop({
+                                minSize: [500, 500],
+                                trueSize: [width, height],
+                                onSelect: function (cords) {
+                                    scope.$parent.$parent.$apply(function () {
+                                        scope.$parent.$parent.cords = cords;
+                                        scope.$parent.$parent.widthHeight = {
+                                            w: width,
+                                            h: height
+                                        };
+                                    });
+                                },
+                                setSelect: [0,0,500,500],
+                                aspectRatio: 1
+                            });
+                        })
+                    });
+                }
+            };
+        }]);
+
     app.register.controller('profileController', ['$scope', "$state", "$stateParams", '$resource', '$modal', '$http', 'localStorageService', 'rest', 'tokenError',
         function ($scope, $state, $stateParams, $resource, $modal, $http, localStorageService, tokenError) {
             angular.extend($scope, {
@@ -146,7 +250,18 @@ define(['app', 'feed', 'calendar'], function (app) {
                     angular.extend($scope.feed, {
                         show: false
                     });
-                }
+                },
+                photoChange: function () {
+                var modalInstance = $modal.open({
+                    templateUrl: '../settings/modals/photoChange.html',
+                    controller: 'photoChangeCtrl'
+                });
+                modalInstance.result.then(function (data) {
+                    data.path = data.path.substring(6);
+                    $scope.profile_user.img = data.path;
+                    localStorageService.add('user_img',"/media" + $scope.profile_user.img);
+                }, $.noop());
+            }
             });
             //init view
             $scope.$on('$stateChangeSuccess', $scope.getProfile);
