@@ -78,6 +78,7 @@ define(['angularAMD',
                 $rootScope.fanaticsCollapsed = false;
                 $rootScope.dashCollapsed = true;
             };
+            $rootScope.startTour();
             $rootScope.dashCollapsed = true;
             $rootScope.serverProtocal = "http";
             $rootScope.fanaticsCollapsed = false;
@@ -149,7 +150,7 @@ define(['angularAMD',
                     .state('shop.greentree', route.resolve('/greentree', 'shop'))
                     .state('shop.cart', route.resolve('/cart', 'shop'))
                     .state('shop.returns', route.resolve('/returns', 'shop'))
-                    .state('shop.streaming-classes', route.resolve('/pages/streaming-classes', 'shop'))
+                    .state('shop.streaming-classes', route.resolve('/streaming-classes', 'shop'))
                     .state('shop.collection', route.resolve('/:collection', 'shop'))
                     .state('shop.collection.type', route.resolve('/:type', 'shop'))
 

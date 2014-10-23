@@ -4,12 +4,6 @@ define(['app', 'feed'], function (app) {
         function ($scope) {
             $scope.restricted();
         }]);
-    /*app.register.controller('TourDemoCtrl', ['$scope', 'restricted',
-        function ($scope, $tour) {
-            console.log($tour);
-            console.log($scope);
-            $scope.startTour = $tour.start;
-        }]);*/
     app.register.controller('homeController', ['localStorageService', '$scope', '$resource', '$state', '$stateParams', 'promiseService', 'restricted',
         function (localStorageService, $scope, $resource, $state, $stateParams) {
             angular.extend($scope, {
