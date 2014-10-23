@@ -108,8 +108,8 @@ app.register.directive('cropImg', ['$window',
             };
         }]);
 
-    app.register.controller('profileController', ['$scope', "$state", "$stateParams", '$resource', '$modal', '$http', 'localStorageService', 'rest', 'tokenError',
-        function ($scope, $state, $stateParams, $resource, $modal, $http, localStorageService, tokenError) {
+    app.register.controller('profileController', ['$scope', "$state", "$stateParams", '$resource', '$modal', '$http', '$location', '$window', 'localStorageService', 'rest', 'tokenError',
+        function ($scope, $state, $stateParams, $resource, $modal, $http, $location, $window, localStorageService, tokenError) {
             angular.extend($scope, {
                 calendarShow: false,
                 user_id: localStorageService.get('user_id'),
@@ -252,16 +252,37 @@ app.register.directive('cropImg', ['$window',
                     });
                 },
                 photoChange: function () {
-                var modalInstance = $modal.open({
-                    templateUrl: '../settings/modals/photoChange.html',
-                    controller: 'photoChangeCtrl'
-                });
-                modalInstance.result.then(function (data) {
-                    data.path = data.path.substring(6);
-                    $scope.profile_user.img = data.path;
-                    localStorageService.add('user_img',"/media" + $scope.profile_user.img);
-                }, $.noop());
-            }
+                    var modalInstance = $modal.open({
+                        templateUrl: '../settings/modals/photoChange.html',
+                        controller: 'photoChangeCtrl'
+                    });
+                    modalInstance.result.then(function (data) {
+                        data.path = data.path.substring(6);
+                        $scope.profile_user.img = data.path;
+                        localStorageService.add('user_img',"/media" + $scope.profile_user.img);
+                    }, $.noop());
+                },
+                entryAffiliate: function (where) {
+                                var i,
+                                theLink,
+                                pageLink = encodeURIComponent($location.absUrl()+ "profile/" + $scope.user_id + '?referral=' + $scope.user_email),
+                                pageTitleUri = encodeURIComponent('Check my page out on Liveeverfit! '),
+                                shareLinks = [];
+                                switch (where) {
+                                    case 'twitter':
+                                      theLink = 'http://twitter.com/intent/tweet?text=' + pageTitleUri + '%20' + pageLink;
+                                      break;
+                                    case 'facebook':
+                                      theLink = 'http://facebook.com/sharer.php?u=' + pageLink;
+                                      break;
+                                    case 'linkedin':
+                                      theLink = 'http://www.linkedin.com/shareArticle?mini=true&url=' + pageLink + '&title=' + pageTitleUri;
+                                      break;
+                                }
+                                $window.open(theLink);
+
+                            },
+
             });
             //init view
             $scope.$on('$stateChangeSuccess', $scope.getProfile);

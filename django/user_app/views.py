@@ -18,7 +18,7 @@ from .models import Professional, UniqueLocation, StaticTags
 
 #
 class UserListView(generics.ListAPIView):
-    paginate_by = 12
+    paginate_by = 50
     model = User
     permission_classes = (IsAuthenticated,)
     serializer_class = UserListSerializer
@@ -59,7 +59,7 @@ class LocationViewSet(viewsets.ModelViewSet):
 
 
 class ProfessionalListView(generics.ListAPIView):
-    paginate_by = 12
+    paginate_by = 50
     model = Professional
     permission_classes = (IsAuthenticated,)
     serializer_class = ProfessionalListSerializer
@@ -89,7 +89,7 @@ class CreditcardView(generics.RetrieveAPIView):
     #filter_backends =
 
 class ClientListView(generics.ListAPIView):
-    paginate_by = None
+    paginate_by = 50
     model = User
     permission_classes = (IsAuthenticated,)
     serializer_class = ClientListSerializer

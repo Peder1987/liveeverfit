@@ -76,6 +76,22 @@
                                     <i class="fa fa-envelope"></i>
                                     message
                                 </a>
+                                <span  class="dropdown">
+                        <a href="" class="dropdown-toggle"><i class="fa fa-share-alt"></i> share</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href ng-click="entryAffiliate('facebook')">
+                                    <i class="fa fa-facebook"></i> facebook
+                                </a>
+                                <a href ng-click="entryAffiliate('linkedin')">
+                                    <i class="fa fa-linkedin"></i> linkedin
+                                </a>
+                                <a href ng-click="entryAffiliate('twitter')">
+                                    <i class="fa fa-twitter"></i> twitter
+                                </a>
+                            </li>
+                        </ul>
+                    </span>
                                 <div class="dropdown">
                                     <a href
                                        ng-if="user_id != profile_user.id && !profile_user.user_connected && profile_user.user_can_connect && profile_user.is_accepting && profile_user.type == 'professional' && user_type != 'professional'"

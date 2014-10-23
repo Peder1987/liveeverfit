@@ -188,7 +188,7 @@ class ListSubEntryView(generics.ListAPIView):
 			return []
 
 class ClientListView(generics.ListAPIView):
-	paginate_by = 21
+	paginate_by = 100
 	serializer_class = EntrySerializer	
 	permission_classes = (ProfessionalOnly,)
 	filter_backends = (filters.OrderingFilter,)
