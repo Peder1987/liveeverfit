@@ -345,7 +345,7 @@ define(['angularAMD',
                             var $tag = $('<span class="tag tag-blue tag-click">' + value + '</span>'),
                                 tagWidth = 0;
                             $tag.insertBefore($toggle);
-                            tagWidth = $tag.width() + 10;
+                            tagWidth = $tag.width() + 20;
                             tagsWidth += tagWidth;
                             if(tagsWidth > width) {
                                 $toggle.show();

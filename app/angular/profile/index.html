@@ -35,7 +35,7 @@
                             <div class="col-sm-8">
                                 <div class="profile-picture">
                                     <img ng-src="{{serverProtocal}}://{{serverURL}}/media/{{profile_user.img}}" class=""/>
-                                    <a ng-click="photoChange()" class="upload"><i class="fa fa-lg fa-camera"></i></a>
+                                    <a ng-if="user_id == profile_user.id" ng-click="photoChange()" class="upload"><i class="fa fa-lg fa-camera"></i></a>
                                 </div>
                                 <!-- /.profile-picture -->
                             </div>
