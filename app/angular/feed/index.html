@@ -249,7 +249,7 @@
 </div>
 <div class="post-body" ng-switch="entry.type">
     <div class="text" ng-switch-when="text">
-        <span ng-bind-html="getTrustedHtml(entry.text, false)"></span>
+        <span ng-bind-html="entry.text | linky"></span>
     </div>
     <div class="photo" ng-switch-when="photo">
         <span ng-bind-html="getTrustedHtml(entry.text, false)"></span>
