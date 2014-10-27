@@ -211,6 +211,7 @@ define(['app'], function (app) {
             //Pagination
             $scope.getPros = function () {
                 $scope.page = $scope.page + 1;
+                console.log($scope.page);
                 var newPros = filterProfessionalCollection.get({
                     profession: $scope.profession,
                     gender: $scope.gender,

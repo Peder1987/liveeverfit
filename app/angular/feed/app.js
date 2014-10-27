@@ -495,6 +495,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 $scope.feed_id = ngModel.$viewValue.id;
                                 $scope.feedCollection.get({id: $scope.feed_id, filter: ngModel.$viewValue.filter}, function (data) {
                                     $scope.feedList = data.results;
+                                    console.log(data.results);
                                     $scope.runMasonry();
                                     angular.forEach(data.results, function (value, key) {
                                         if (value.type == 'photo') {
