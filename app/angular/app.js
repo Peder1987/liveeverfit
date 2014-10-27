@@ -80,9 +80,9 @@ define(['angularAMD',
             };
             $rootScope.startTour();
             $rootScope.dashCollapsed = true;
-            $rootScope.serverProtocal = "http";
+            $rootScope.serverProtocal = "https";
             $rootScope.fanaticsCollapsed = false;
-            $rootScope.serverURL = "dev.liveeverfit.com";
+            $rootScope.serverURL = "app.liveeverfit.com";
             editableOptions.theme = 'bs3';
             $rootScope.token = localStorageService.get('Authorization');
             $rootScope.user_type = localStorageService.get('user_type');
