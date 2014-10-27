@@ -3,7 +3,7 @@
 define(['app'], function(app) {
     app.register.controller('loginCtrl', ['$state',"localStorageService","$resource","$scope", "rest", 'restricted',
     	function($state, localStorageService, $resource, $scope) {
-    		var AuthToken =  $resource("http://:url/accounts/login", {
+    		var AuthToken =  $resource("https://:url/accounts/login", {
                 url: $scope.restURL
             });
     		$scope.user = {
