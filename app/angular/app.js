@@ -87,7 +87,7 @@ define(['angularAMD',
             $rootScope.token = localStorageService.get('Authorization');
             $rootScope.user_type = localStorageService.get('user_type');
             $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
-            var mentionCollection = $resource("http://:url/feed/typeahead", {
+            var mentionCollection = $resource("https://:url/feed/typeahead", {
                 url: 'api.liveeverfit.com'
             });
             mentionCollection.get(function (mentions) {
@@ -167,7 +167,7 @@ define(['angularAMD',
 
 
         app.service('rest', ['$rootScope', function ($rootScope) {
-            $rootScope.restProtocol = "http";
+            $rootScope.restProtocol = "https";
             $rootScope.restURL = "api.liveeverfit.com";
         }]);
         app.service('restricted', ['$rootScope', 'localStorageService', '$http', function ($rootScope, localStorageService, $http) {
