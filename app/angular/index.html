@@ -5,7 +5,7 @@
         var hash = location.hash +'';
         hash = hash.slice(hash.indexOf("?referral=") + 10);
         localStorage['ls.referral'] = hash;
-        window.location = 'https://liveeverfit.com/';
+        window.location = 'http://liveeverfit.com/';
         }
         if (window.location.href == "https://app.liveeverfit.com/" && !localStorage['ls.Authorization']) window.location = 'http://liveeverfit.com/';
         if (window.location.hash == "#/login" && localStorage['ls.Authorization']) window.location = 'https://app.liveeverfit.com/';

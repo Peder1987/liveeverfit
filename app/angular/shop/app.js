@@ -9,7 +9,7 @@ define(['app'], function (app) {
             angular.extend($scope, {
                 //url: $sce.trustAsResourceUrl('http://store.liveeverfit.com/' + ($stateParams.collection?'collections/'+$stateParams.collection:'') + ($stateParams.type?'/'+$stateParams.type:'')),
                 stateChange: function() {
-                    $scope.url = $sce.trustAsResourceUrl('http://store.liveeverfit.com/'  + ($state.current.name=='shop.returns'?'pages/returns':'') + ($state.current.name=='shop.cart'?'cart':'') + ($stateParams.collection?'collections/'+$stateParams.collection:'') + ($stateParams.type?'/'+$stateParams.type:''));
+                    $scope.url = $sce.trustAsResourceUrl('https://store.liveeverfit.com/'  + ($state.current.name=='shop.returns'?'pages/returns':'') + ($state.current.name=='shop.streaming-classes'?'pages/streaming-classes':'') + ($state.current.name=='shop.greentree'?'pages/greentree-foods':'') + ($state.current.name=='shop.cart'?'cart':'') + ($stateParams.collection?'collections/'+$stateParams.collection:'') + ($stateParams.type?'/'+$stateParams.type:''));
                 }
             });
             //init view
