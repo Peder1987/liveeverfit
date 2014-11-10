@@ -263,7 +263,7 @@ define(['app'], function (app) {
             $scope.addressesInputs = {};
             $scope.getLocation = function(val) {
                 delete $http.defaults.headers.common['Authorization']
-                return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+                return $http.get('https://maps.googleapis.com/maps/api/geocode/json', {
                     params: {
                     address: val,
                     sensor: false,
@@ -437,7 +437,7 @@ define(['app'], function (app) {
         $scope.addressesInputs = {};
         $scope.getLocation = function(val) {
             delete $http.defaults.headers.common['Authorization']
-            return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+            return $http.get('https://maps.googleapis.com/maps/api/geocode/json', {
                 params: {
                 address: val,
                 sensor: false,

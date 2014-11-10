@@ -121,13 +121,13 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 shareLinks = [];
                                 switch (where) {
                                     case 'twitter':
-                                      theLink = 'http://twitter.com/intent/tweet?text=' + pageTitleUri + '%20' + pageLink;
+                                      theLink = 'http://twitter.com/intent/tweet?text=' + pageTitleUri + '%20http://liveeverfit.com';
                                       break;
                                     case 'facebook':
-                                      theLink = 'http://facebook.com/sharer.php?u=' + pageLink;
+                                      theLink = 'http://facebook.com/sharer.php?u=http://liveeverfit.com';
                                       break;
                                     case 'linkedin':
-                                      theLink = 'http://www.linkedin.com/shareArticle?mini=true&url=' + pageLink + '&title=' + pageTitleUri;
+                                      theLink = 'http://www.linkedin.com/shareArticle?mini=true&url=http://liveeverfit.com' + '&title=' + pageTitleUri;
                                       break;
                                 }
                                 $window.open(theLink);
@@ -177,7 +177,6 @@ define(['app', 'masonry'], function (app, Masonry) {
                                             }
                                         }),
                                         text: function () {
-                                             console.log($scope.sanitize); //testy test
                                             this.entryCollection.save({
                                                 text: $scope.entryInputText,
                                                 user: $scope.user_id,
@@ -495,7 +494,6 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 $scope.feed_id = ngModel.$viewValue.id;
                                 $scope.feedCollection.get({id: $scope.feed_id, filter: ngModel.$viewValue.filter}, function (data) {
                                     $scope.feedList = data.results;
-                                    console.log(data.results);
                                     $scope.runMasonry();
                                     angular.forEach(data.results, function (value, key) {
                                         if (value.type == 'photo') {

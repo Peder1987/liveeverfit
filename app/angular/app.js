@@ -299,7 +299,6 @@ define(['angularAMD',
                 });
                 $scope.fanaticCollection.get({}, function (data) {
                     $scope.fanaticList = data.results;
-                    console.log(data.results);
                 });
             }]);
         app.directive('ng-blur', function () {
