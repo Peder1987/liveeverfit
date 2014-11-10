@@ -121,13 +121,13 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 shareLinks = [];
                                 switch (where) {
                                     case 'twitter':
-                                      theLink = 'http://twitter.com/intent/tweet?text=' + pageTitleUri + '%20http://liveeverfit.com';
+                                      theLink = 'http://twitter.com/intent/tweet?text=' + pageTitleUri + '%20' + pageLink;
                                       break;
                                     case 'facebook':
-                                      theLink = 'http://facebook.com/sharer.php?u=http://liveeverfit.com';
+                                      theLink = 'http://facebook.com/sharer.php?u=' + pageLink;
                                       break;
                                     case 'linkedin':
-                                      theLink = 'http://www.linkedin.com/shareArticle?mini=true&url=http://liveeverfit.com' + '&title=' + pageTitleUri;
+                                      theLink = 'http://www.linkedin.com/shareArticle?mini=true&url=' + pageLink + '&title=' + pageTitleUri;
                                       break;
                                 }
                                 $window.open(theLink);
