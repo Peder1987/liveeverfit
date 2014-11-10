@@ -119,6 +119,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 pageLink = encodeURIComponent($location.absUrl()+ "profile/" + $scope.user_id + '?referral=' + $scope.user_email),
                                 pageTitleUri = encodeURIComponent('Check my page out on Liveeverfit! '),
                                 shareLinks = [];
+                                console.log(pageLink);
                                 switch (where) {
                                     case 'twitter':
                                       theLink = 'http://twitter.com/intent/tweet?text=' + pageTitleUri + '%20' + pageLink;
