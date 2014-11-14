@@ -61,7 +61,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                         html = inputWords.slice(0, 21).join(' ') + '...<br>';
                                     }
                                 }
-                                return $sce.trustAsHtml(html);
+                                return $sce.trustAsHtml(html.replace(/(http[^\s]+)/, '<a href="$1">$1</a>'));
                             },
                             readMore: function (entry) {
                                 entry.expand = true;
