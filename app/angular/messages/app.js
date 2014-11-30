@@ -138,14 +138,21 @@ define(['app', 'videojs'], function (app) {
                                     $scope.selectedUser = $stateParams.recipient
                                     $scope.newMessage.recipient = data.connection
                                     $scope.pro_connection = true;
+                                    console.log('professional');
                                 }else if($scope.user_type == 'upgraded' && data.connection){
                                     $scope.newMessage.recipient = data.connection
                                     $scope.selectedUser = data.connection.id;
+                                    console.log('upgraded');
                                 }
                                 else{
+                                    /*
                                     $scope.newMessage.recipient = null;
                                     $scope.selectedUser = null;
                                     $scope.pro_connection = false;
+                                    */
+                                    $scope.selectedUser = $stateParams.recipient
+                                    $scope.newMessage.recipient = data.connection
+                                    $scope.pro_connection = true;
                                 }
                             });  
                         }
@@ -192,13 +199,15 @@ define(['app', 'videojs'], function (app) {
 
             $scope.getClientTypeAhead = function (query) {
                 var deferred = $scope.q.defer();
-                $scope.clientListCollection.query({
+                $scope.clientListCollection.get({
                     search: query
                 }, function (data) {
-                    deferred.resolve(data);
+                    deferred.resolve(data.results);
+                    console.log(data);
                 });
                 return deferred.promise;
             };
+            console.log($scope.getClientTypeAhead('k'));
             $scope.onSelect = function ($item, $model, $label) {
                 $scope.selectedUser = $item.id;
             };
