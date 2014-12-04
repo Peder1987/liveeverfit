@@ -59,7 +59,7 @@
         </p>
         <button ng-if="view == 'inbox'"
                 class="btn btn-sm btn-primary pull-right"
-                ui-sref="messages.view.reply({view: 'new', recipient: detail.sender.id})">
+                ui-sref="messages.view.reply({view: 'new', subject: 'detail.subject', recipient: detail.sender.id})">
             reply
         </button>
     </div>

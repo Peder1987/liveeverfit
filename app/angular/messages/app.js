@@ -71,7 +71,7 @@ define(['app', 'videojs'], function (app) {
                 }
             });
             $scope.submitMessage = function () {
-                $scope.newMessage.recipient = $scope.selectedUser
+                $scope.newMessage.recipient = $scope.selectedUser;
                 $scope.newMessageResource.save($scope.newMessage, function () {
                     $state.go('messages.view', {view: 'inbox'});
                 });
@@ -126,23 +126,22 @@ define(['app', 'videojs'], function (app) {
 
                             $scope.newMessage = {
                                 body: '',
-                                recipient: '',
                                 subject: '',
+                                recipient: '',
                                 input: ''
                                 
                             };
-                            $scope.connectionResource.update({id:$scope.user_id, user_id:$stateParams.recipient || null},function(data){
+                            $scope.connectionResource.update({id:$scope.user_id, user_id:$stateParams.recipient, subject:$stateParams.subject || null},function(data){
                                 $scope.newMessage.type = data.user_type
+                                console.log($scope.newMessage);
                                 
                                 if($scope.user_type == 'professional' && $stateParams.recipient){
                                     $scope.selectedUser = $stateParams.recipient
                                     $scope.newMessage.recipient = data.connection
                                     $scope.pro_connection = true;
-                                    console.log('professional');
                                 }else if($scope.user_type == 'upgraded' && data.connection){
                                     $scope.newMessage.recipient = data.connection
                                     $scope.selectedUser = data.connection.id;
-                                    console.log('upgraded');
                                 }
                                 else{
                                     /*
@@ -163,7 +162,16 @@ define(['app', 'videojs'], function (app) {
                         if($stateParams.view == 'inbox')
                         {
                             $scope.date = new Date();
-                            $scope.messageResource.update({id:$scope.list[$stateParams.index].id, read_at:$scope.date, body:$scope.list[$stateParams.index].body, subject:$scope.list[$stateParams.index].subject},function(data){
+                            $scope.messageResource.update({
+
+                                id:$scope.list[$stateParams.index].id,
+                                subject:$scope.list[$stateParams.index].subject,
+                                read_at:$scope.date, 
+                                body:$scope.list[$stateParams.index].body
+                            },
+                                
+                                function(data){
+                                
                                 $scope.inboxCollection.get({page:$scope.currentPage}, function(data){
                                     $scope.unread = 0;
                                     angular.forEach(data.results, function(value, key){
@@ -185,6 +193,7 @@ define(['app', 'videojs'], function (app) {
                         //Run View Function
                         $scope.currentPage = 1;
                         views[$scope.view]();
+
                     }
                 }
                 else {
@@ -203,11 +212,9 @@ define(['app', 'videojs'], function (app) {
                     search: query
                 }, function (data) {
                     deferred.resolve(data.results);
-                    console.log(data);
                 });
                 return deferred.promise;
             };
-            console.log($scope.getClientTypeAhead('k'));
             $scope.onSelect = function ($item, $model, $label) {
                 $scope.selectedUser = $item.id;
             };
