@@ -51,6 +51,20 @@ define(['app', 'masonry'], function (app, Masonry) {
                                     ;
                                 });
                             },
+                            getPros : function () {
+                                $scope.page = $scope.page + 1;
+                                $scope.filtering = {
+                                    difficulty: $scope.difficulty,
+                                    tags: $scope.tagSelected,
+                                    search: $scope.videoSelected,
+                                    page: $scope.page
+                                };
+                                var newVideos = filterVideoCollection.get($scope.filtering, function () {
+                                    $scope.videos = $scope.videos.concat(newVideos.results);
+                                    $scope.next = newVideos.next;
+                                });
+                                //$scope.videos = ;
+                            },
                             getTrustedURL: function (url) {
                                 return $sce.trustAsResourceUrl(url);
                             },
