@@ -101,7 +101,115 @@ define(['app'], function (app) {
                 });  
                 return deferred.promise;
             };
-            $scope.tags = tagCollection.get($.noop(), $scope.checkTokenError);
+            //$scope.tags = tagCollection.get($.noop(), $scope.checkTokenError);
+            console.log($scope.tags);
+            $scope.tags = [
+            {
+                name: 'crossfit'
+            },
+            {
+                name: 'upper-body'
+            },
+            {
+                name: 'lower-body'
+            },
+            {
+                name: 'yoga'
+            },
+            {
+                name: 'abs'
+            },
+            {
+                name: 'weight-training'
+            },
+            {
+                name: 'beginner'
+            },
+            {
+                name: 'circuits'
+            },
+            {
+                name: 'intermediate'
+            },
+            {
+                name: 'plyometrics'
+            },
+            {
+                name: 'advanced'
+            },
+            {
+                name: 'hiit'
+            },
+            {
+                name: 'golf'
+            },
+            {
+                name: 'all-about-fitness'
+            },
+            {
+                name: 'motocross'
+            },
+            {
+                name: 'running'
+            },
+            {
+                name: 'trx'
+            },
+            {
+                name: 'biking'
+            },
+            {
+                name: 'kettlebell'
+            },
+            {
+                name: 'wakeboarding'
+            },
+            {
+                name: 'surfing'
+            },
+            {
+                name: 'basketball'
+            },
+            {
+                name: 'football'
+            },
+            {
+                name: 'mma'
+            },
+            {
+                name: 'baseball'
+            },
+            {
+                name: 'kid-fit'
+            },
+            {
+                name: 'soccer'
+            },
+            {
+                name: 'senior-fit'
+            },
+            {
+                name: 'kickboxing'
+            },
+            {
+                name: 'nutrition'
+            },
+            {
+                name: 'calisthenics'
+            },
+            {
+                name: 'whole-body'
+            },
+            {
+                name: 'competition'
+            },
+            {
+                name: 'stretching'
+            },
+            {
+                name: 'weight-loss'
+            }
+            ];
             $scope.addTag = function (tag) {
                 // Ensures that no two tags are replicated
                 if ($scope.specialtySearch.indexOf(tag) == -1) {
