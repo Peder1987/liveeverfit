@@ -22,6 +22,7 @@ from user_app.models import Professional
 
 class EntryListView(generics.ListAPIView):
 	paginate_by = 10
+	asdfawefawefawef
 	serializer_class = EntrySerializer	
 	permission_classes = (IsOwnerOrReadOnly,)
 	filter_backends = (filters.OrderingFilter,)
