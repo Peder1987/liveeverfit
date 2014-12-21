@@ -185,7 +185,7 @@
         </div>
     </div>
 </div>
-
+<div infinite-scroll="getPros()" infinite-scroll-distance="3">
 <div class="item col-xs-12" ng-class="{'col-md-12 col-lg-12': entry.expand, 'col-md-6 col-lg-4': !entry.expand}"
      ng-repeat="entry in feedList">
 <div class="post-outer">
@@ -490,6 +490,7 @@
 </div>
 <div class="grid-sizer col-xs-12 col-md-6 col-lg-4"></div>
 </div>
-<button id="showMore" type="button" class="btn btn-primary btn-lg btn-block" ng-click="getPros()" style="display:block;width:1000px;background:#000;">Show More
-        </button>
+</div>
+<!--<button id="showMore" type="button" class="btn btn-primary btn-lg btn-block" ng-click="getPros()" style="display:block;width:1000px;background:#000;">Show More
+        </button>-->
 </div>

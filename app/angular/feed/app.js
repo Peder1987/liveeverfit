@@ -509,8 +509,6 @@ define(['app', 'masonry'], function (app, Masonry) {
                                         transitionDuration: '0.2s'
                                     });
                                 }, 1000);
-                                $('html,body').animate({ scrollTop: element.offset().top }, 'slow');
-
                                 //$scope.videos = ;
                             },
                             shareEntryInputText: "",

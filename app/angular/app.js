@@ -36,7 +36,8 @@ define(['angularAMD',
         'mm.foundation',
         'angular-sanitize',
         'angular-social',
-        'wu.masonry'
+        'wu.masonry',
+        'infinite-scroll'
     ],
     function (angularAMD) {
         'use strict';
@@ -63,7 +64,8 @@ define(['angularAMD',
             'td.easySocialShare',
             'mm.foundation',
             'ngSanitize',
-            'ngSocial'
+            'ngSocial',
+            'infinite-scroll'
         ]);
 
         app.run(function ($rootScope, $http, $tour, localStorageService, editableOptions, $resource) {
