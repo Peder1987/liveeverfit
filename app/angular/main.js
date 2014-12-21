@@ -76,7 +76,8 @@ require.config({
         'socialShare' : 'common/angular-easy-social-share/easy-social-share',
         'mm.foundation' : 'common/mm-foundation/mm-foundation-0.2.2',
         'angular-sanitize' : 'common/angular-sanitize/angular-sanitize',
-        'angular-social' : 'common/angular-social/angular-social'
+        'angular-social' : 'common/angular-social/angular-social',
+        'wu.masonry' : 'common/angular-masonry/angular-masonry'
     },
 
     //Angular does not support AMD out of the box, put it in a shim
@@ -118,7 +119,8 @@ require.config({
         'socialShare': ['angular'],
         'mm.foundation' : ['angular'],
         'angular-sanitize' : ['angular'],
-        'angular-social' : ['angular']
+        'angular-social' : ['angular'],
+        'wu.masonry' : ['angular']
     },
     // Version the app to avoid cache issues
     urlArgs: "0.0.34",

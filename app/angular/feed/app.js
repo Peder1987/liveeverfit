@@ -21,6 +21,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                             entryInputType: "text",
                             fromDatePickerOpened: false,
                             untilDatePickerOpened: false,
+                            page : 1,
                             loadSpecialty: function (query) {
                                 var tagTemp, deferred;
                                 deferred = $scope.q.defer();
@@ -51,20 +52,6 @@ define(['app', 'masonry'], function (app, Masonry) {
                                     ;
                                 });
                             },
-                            getPros : function () {
-                                $scope.page = $scope.page + 1;
-                                $scope.filtering = {
-                                    difficulty: $scope.difficulty,
-                                    tags: $scope.tagSelected,
-                                    search: $scope.videoSelected,
-                                    page: $scope.page
-                                };
-                                var newVideos = filterVideoCollection.get($scope.filtering, function () {
-                                    $scope.videos = $scope.videos.concat(newVideos.results);
-                                    $scope.next = newVideos.next;
-                                });
-                                //$scope.videos = ;
-                            },
                             getTrustedURL: function (url) {
                                 return $sce.trustAsResourceUrl(url);
                             },
@@ -90,11 +77,13 @@ define(['app', 'masonry'], function (app, Masonry) {
                                         transitionDuration: '0.2s'
                                     });
                                 }, 3);
+                                console.log('masonry run');
                             },
                             refreshMasonry: function () {
                                 setTimeout(function () {
                                     $scope.msnry.layout();
-                                });
+                                    console.log('masonry refreshed');
+                                }, 3);
                             },
                             entryYouTubeChange: function () {
                                 $scope.refreshMasonry();
@@ -501,6 +490,28 @@ define(['app', 'masonry'], function (app, Masonry) {
                                         }
                                     }
                                 });
+                            },
+                            getPros : function () {
+                                $scope.page = $scope.page + 1;
+                                $scope.filtering = {
+                                    page: $scope.page
+                                };
+                                var newEntries = $scope.feedCollection.get($scope.filtering, function () {
+                                    //$scope.msnry.appended(newEntries.results);
+                                    $scope.feedList = $scope.feedList.concat(newEntries.results);
+                                    $scope.next = newEntries.next;
+                                });
+                                if ($scope.msnry)$scope.msnry.destroy();
+                                setTimeout(function () {
+                                    $scope.msnry = new Masonry(".newsFeed .row", {
+                                        columnWidth: '.grid-sizer',
+                                        itemSelector: '.item',
+                                        transitionDuration: '0.2s'
+                                    });
+                                }, 1000);
+                                $('html,body').animate({ scrollTop: element.offset().top }, 'slow');
+
+                                //$scope.videos = ;
                             },
                             shareEntryInputText: "",
                             shareEntryInputPlaceHolder: $sce.trustAsHtml("Encourage, motivate, persevere, succeed..."),

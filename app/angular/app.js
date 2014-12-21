@@ -35,7 +35,8 @@ define(['angularAMD',
         'bootstrap-typeahead',
         'mm.foundation',
         'angular-sanitize',
-        'angular-social'
+        'angular-social',
+        'wu.masonry'
     ],
     function (angularAMD) {
         'use strict';
