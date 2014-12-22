@@ -77,12 +77,10 @@ define(['app', 'masonry'], function (app, Masonry) {
                                         transitionDuration: '0.2s'
                                     });
                                 }, 3);
-                                console.log('masonry run');
                             },
                             refreshMasonry: function () {
                                 setTimeout(function () {
                                     $scope.msnry.layout();
-                                    console.log('masonry refreshed');
                                 }, 3);
                             },
                             entryYouTubeChange: function () {
@@ -492,24 +490,33 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 });
                             },
                             getPros : function () {
+
                                 $scope.page = $scope.page + 1;
                                 $scope.filtering = {
                                     page: $scope.page
                                 };
+                                
+
                                 var newEntries = $scope.feedCollection.get($scope.filtering, function () {
-                                    //$scope.msnry.appended(newEntries.results);
+                                    
+                                    
                                     $scope.feedList = $scope.feedList.concat(newEntries.results);
                                     $scope.next = newEntries.next;
+
                                 });
-                                if ($scope.msnry)$scope.msnry.destroy();
+
+                                //$scope.msnry.append('test');
+                                
+                                //if ($scope.msnry)$scope.msnry.destroy();
                                 setTimeout(function () {
+                                    
                                     $scope.msnry = new Masonry(".newsFeed .row", {
                                         columnWidth: '.grid-sizer',
                                         itemSelector: '.item',
                                         transitionDuration: '0.2s'
                                     });
                                 }, 1000);
-                                //$scope.videos = ;
+                                
                             },
                             shareEntryInputText: "",
                             shareEntryInputPlaceHolder: $sce.trustAsHtml("Encourage, motivate, persevere, succeed..."),
