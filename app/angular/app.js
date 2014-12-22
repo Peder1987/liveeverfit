@@ -36,7 +36,6 @@ define(['angularAMD',
         'mm.foundation',
         'angular-sanitize',
         'angular-social',
-        'masonryLayout',
         'infinite-scroll'
     ],
     function (angularAMD) {
@@ -65,7 +64,6 @@ define(['angularAMD',
             'mm.foundation',
             'ngSanitize',
             'ngSocial',
-            'masonryLayout',
             'infinite-scroll'
         ]);
 

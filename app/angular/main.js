@@ -77,7 +77,6 @@ require.config({
         'mm.foundation' : 'common/mm-foundation/mm-foundation-0.2.2',
         'angular-sanitize' : 'common/angular-sanitize/angular-sanitize',
         'angular-social' : 'common/angular-social/angular-social',
-        'masonryLayout' : 'common/angular-masonry-fly/angular-masonry',
         'infinite-scroll' : 'common/infinite-scroll/ng-infinite-scroll.min'
     },
 
@@ -121,7 +120,6 @@ require.config({
         'mm.foundation' : ['angular'],
         'angular-sanitize' : ['angular'],
         'angular-social' : ['angular'],
-        'masonryLayout' : ['angular'],
         'infinite-scroll' : ['angular']
     },
     // Version the app to avoid cache issues
