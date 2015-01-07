@@ -493,7 +493,7 @@ define(['app', 'masonry'], function (app, Masonry) {
 
                                 $scope.page = $scope.page + 1;
                                 $scope.filtering = {
-                                    page: $scope.page
+                                    page: $scope.page,
                                 };
                                 
 
