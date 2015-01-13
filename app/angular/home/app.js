@@ -47,9 +47,6 @@ define(['app', 'feed'], function (app) {
                     image: 'home/img/slider/1.png'
                 },
                 {
-                    image: 'home/img/slider/2.png'
-                },
-                {
                     image: 'home/img/slider/3.png'
                 },
                 {

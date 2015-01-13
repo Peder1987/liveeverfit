@@ -208,7 +208,7 @@
                                      ng-src="{{serverProtocal}}://{{serverURL}}/media/{{professional.img}}"/>
                             </div>
 
-                        <a href class="pro-overlay" ui-sref="profile.view({view: $parent.professional.id})">
+                        <a style="position:relative;display:block;" href class="pro-overlay" ui-sref="profile.view({view: $parent.professional.id})">
 
                             <div class="clients">
                                 <i ng-class="{'fa fa-circle fa-2x red': (profile_user.is_accepting == false)}" title="Not acepting Clients"></i>
