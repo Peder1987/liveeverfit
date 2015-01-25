@@ -1,11 +1,11 @@
 #F.btn.toggle {
   color: #ffffff;
   border: 1px solid #ff0066;
-  background-color: #ff0066;
+  background-color: transparent;
 }
 
 #F.btn.toggle:focus {
-  background-color: #ff0066;
+  background-color: transparent;
 }
 
 #F.btn.toggle.selected {
@@ -15,8 +15,8 @@
 }
 
 #F.btn.toggle.selected:active {
-  -webkit-box-shadow: 0 0 5px #ff0066;
-  box-shadow: 0 0 5px #ff0066;
+  //-webkit-box-shadow: 0 0 5px #ff0066;
+  //box-shadow: 0 0 5px #ff0066;
 }
 
 #F.btn.toggle:hover {
@@ -27,11 +27,32 @@
   outline: none;
 }
 
+.btn-filterpros {
+  background-color:transparent;
+  border:solid 1px #fafafa;
+}
+.btn-filterpros:focus {
+  background-color:transparent;
+  border-color:#fafafa;
+}
+.btn-filterpros.selected {
+  background-color:#1a8cff;
+  border-color:#1a8cff;
+}
+
+.sidebar .form-control {
+  background-color: rgba(125, 135, 144, 0.4);
+}
+
 .form-control:focus {
   border-color: #1a8cff;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(26, 140, 255, 0.5);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(26, 140, 255, 0.5);
+}
+
+.tags {
+  background-color: rgba(125, 135, 144, 0.4);
 }
 
 .search-filters {

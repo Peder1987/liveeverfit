@@ -22,17 +22,23 @@
 </div>
 <div class="sidebar">
     <div class="container-fluid">
-        <div class="search-filters" style="padding-top:15px;">
-            <h2 class="ef-header">find a pro</h2>
-            <p style="font-size:1em;">The interactive map shows ONLY the filtered results below. Expand your results by clicking Show More at the bottom of the page.</p>
+    <div class="row">
+        <div class="col-sm-8 col-lg-8">
+        <h2 class="ef-header">find a pro</h2>
+        </div>
+        <div class="col-sm-4">
+        <button type="button" class="btn btn-default btn-filterpros pull-right" ng-click="isCollapsed = !isCollapsed" ng-class="{selected: isCollapsed == false}" style="display:block;margin-top:20px;">Filter Your Pros</button>
+        </div>
+        </div>
+        <div  collapse="isCollapsed" class="search-filters">
 
             <div class="form" role="form">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="form-group">
-                            <label>Type</label>
+                            <label></label>
 
-                            <div class="row">
+                            <div class="row" style="background-color:rgba(0, 0, 0, 0.2);padding:20px 0 20px 0;">
                                 <div class="col-sm-4 col-lg-4">
                                     <button id="Trainer" type="button"
                                             popover-trigger="mouseenter" popover-placement="top" popover="We prescreen all of our Professional members to insure up-to-date certifications so that we may confidently connect you with Certified Professionals!"
@@ -80,22 +86,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" style="padding:20px 0 20px 0;">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Location</label>
-
-                            <div class="row">
-                                <div class="col-sm-8 col-md-12 col-lg-8">
+                            <label></label>
                                     <div class="form-space">
                                         <input id="location" type="text" class="placeholder-light form-control"
-                                               placeholder="Example: Houston, TX" autocomplete="off"
+                                               placeholder="Enter your city" autocomplete="off"
                                                ng-model="location"
                                                typeahead="location for location in locations | filter:$viewValue | limitTo:8"
                                                typeahead-on-select="locationOnChange()"/>
                                     </div>
-                                </div>
-                                <div class="col-sm-4 col-md-12 col-lg-4">
+                                <!--<div class="col-sm-4 col-md-12 col-lg-4">
+                                
                                     <div class="form-space">
                                         <button id="findMe" ng-click="findMe()" type="button"
                                                 class="col-xs-12 btn btn-primary">
@@ -103,13 +106,14 @@
                                             <span class="fa" ng-class="{'fa-compass': !findMeLoading, 'fa-circle-o-notch fa-spin': findMeLoading}"></span>
                                         </button>
                                     </div>
-                                </div>
-                            </div>
+                                
+                                </div>-->
+                            
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Gender</label>
+                            <label></label>
 
                             <div class="row">
                                 <div class="col-xs-6 col-md-12 col-lg-6">
@@ -135,51 +139,45 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Specialties</label>
-
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="form-space">
+                    <div class="col-xs-12">
+                    <div class="row" style="background-color:rgba(0, 0, 0, 0.2);padding:20px 0 20px 0;">
+                    <div class="col-md-6" style="padding-left:15px;">
+                            <label></label>
+                                    <div>
                                         <tags-input id="specialties" type="text" class="tags-input placeholder-light"
-                                                    placeholder="Example: Crossfit, Nutrition"
+                                                    placeholder="Enter a Specialty"
                                                     ng-model="specialtySearch" display-property="name"
                                                     on-tag-removed="onDeleteTag($tag)"
                                                     on-tag-added="onTagAdd($tag)" add-from-autocomplete-only="true">
                                             <auto-complete source="loadSpecialty($query)"
                                                            min-length="1"></auto-complete>
                                         </tags-input>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Accepting Clients</label>
-
-                            <div class="row">
-                                <div class="col-xs-12">
+                            <label>Accepting Clients?</label>
                                     <div class="form-space">
                                         <span class="select-moz">
-                                            <select ng-model="accepting" ng-change="filter()" id="accepting"
+                                            <select ng-model="accepting" placeholder="Accepting Clients?" ng-change="filter()" id="accepting"
                                                     type="text" class="form-control placeholder-light">
-                                                <option value="Both">Both</option>
-                                                <option value="true">Yes</option>
-                                                <option value="false">No</option>
+                                                <option value="Both">All Pros</option>
+                                                <option value="true">Pros Accepting New Clients</option>
+                                                <option value="false">Pros Not Accepting New Clients</option>
                                             </select>
                                         </span>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
+                    </div>
+                    </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Popular Specialties</label>
+                            <label><h3>popular specialties</h3></label>
 
                             <div class="row">
                                 <div class="col-xs-12">

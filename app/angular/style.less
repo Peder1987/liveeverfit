@@ -684,7 +684,7 @@ width:305px;
 .btn.toggle {
   color: #ffffff;
   border: 1px solid #1a8cff;
-  background-color: #1a8cff;
+  background-color: transparent;
   text-align: left;
   font-size: 21px;
   line-height: 26px;
@@ -692,7 +692,7 @@ width:305px;
 }
 
 .btn.toggle:focus {
-  background-color: #1a8cff;
+  //background-color: #1a8cff;
 }
 
 .btn.toggle.selected {
@@ -702,8 +702,8 @@ width:305px;
 }
 
 .btn.toggle.selected:active {
-  -webkit-box-shadow: 0 0 5px rgba(26, 140, 255, 1);
-  box-shadow: 0 0 5px rgba(26, 140, 255, 1);
+  //-webkit-box-shadow: 0 0 5px rgba(26, 140, 255, 1);
+  //box-shadow: 0 0 5px rgba(26, 140, 255, 1);
 }
 
 .btn.toggle:hover {
@@ -1067,6 +1067,7 @@ p.empty {
   color: #818C96 !important;
   font-size: 14px;
   font-weight: 300;
+  font-style: italic;;
 }
 
 :-moz-placeholder {
@@ -1075,6 +1076,7 @@ p.empty {
   opacity: 1;
   font-size: 14px;
   font-weight: 300;
+  font-style: italic;
 }
 
 ::-moz-placeholder {
@@ -1083,6 +1085,7 @@ p.empty {
   opacity: 1;
   font-size: 14px;
   font-weight: 300;
+  font-style: italic;
 }
 
 :-ms-input-placeholder {
@@ -1090,28 +1093,33 @@ p.empty {
   color: #999 !important;
   font-size: 14px;
   font-weight: 300;
+  font-style: italic;
 }
 
 .placeholder-light::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #fff !important;
+  font-style:italic;
 }
 
 .placeholder-light:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #fff !important;
   opacity: 1;
+  font-style:italic;
 }
 
 .placeholder-light::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #fff !important;
   opacity: 1;
+  font-style:italic;
 }
 
 .placeholder-light:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #fff !important;
+  font-style:italic;
 }
 
 #registration {
@@ -1159,7 +1167,7 @@ tags-input .tags {
   overflow: hidden;
   word-wrap: break-word;
   cursor: text;
-  background-color: rgba(125, 135, 144, 0.1);
+  background-color: rgba(125, 135, 144, 0.4);
   border: 1px solid @input-border;
   .box-shadow(inset 0 1px 1px rgba(0, 0, 0, .075));
   .transition(~"border-color ease-in-out .15s, box-shadow ease-in-out .15s");
@@ -2543,7 +2551,7 @@ body.vjs-full-window {
   border-bottom-width: 0;
   bottom: -14px;
   bottom: none;
-  border-top-color:rgba(75, 81, 84, 1);
+  border-top-color:rgba(75, 81, 84, 1) !important;
 }
 
 .joyride-tip-guide span.joyride-nub.right {
@@ -2947,10 +2955,6 @@ a{
 
 /*   Workouts Page */
 /*   style.css - line 7748  */
-
-#page #workoutsBg{
-  background-image: url('workouts/img/workouts-bg2.jpg');
-}
 
 
 /*   style.css - line 3210  */

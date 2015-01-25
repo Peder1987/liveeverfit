@@ -28,6 +28,7 @@ define(['app'], function (app) {
             $scope.accepting = [];
             $scope.locations = [];
             $scope.page = 1;
+            $scope.isCollapsed = true;
             $scope.bigMarkerSize = new google.maps.Size(35, 58);
             $scope.locationsJson = locationlCollection.get(function () {
                 $scope.locationsJson.results.forEach(function (entry) {
