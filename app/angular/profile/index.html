@@ -34,11 +34,8 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="profile-picture">
-                                    <div ng-if="user_id == profile_user.id">
-                                        <a ng-click="photoChange()">
-                                    </div>
                                     <img ng-src="{{serverProtocal}}://{{serverURL}}/media/{{profile_user.img}}" class=""/>
-                                    <span ng-if="user_id == profile_user.id"><i class="fa fa-lg fa-camera upload"></i>
+                                    <span ng-if="user_id == profile_user.id"><a ng-click="photoChange()"><i class="fa fa-lg fa-camera upload"></i>
                                     </a></span>
                                 </div>
                                 <!-- /.profile-picture -->

@@ -11,7 +11,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                             user_id: localStorageService.get('user_id'),
                             user_email: localStorageService.get('user_email'),
                             usrImg: localStorageService.get('user_img'),
-                            entryInputPlaceHolder: $sce.trustAsHtml("Encourage, motivate, persevere, succeed..."),
+                            entryInputPlaceHolder: $sce.trustAsHtml("Post an update..."),
                             entryInputText: "",
                             entryVideoURL: "",
                             entryBlogBody: "",
@@ -297,7 +297,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 } else {
                                     $scope.entryInputPlaceHolder = $sce.trustAsHtml("<b>Type something here...</b>");
                                     setTimeout(function () {
-                                        $scope.entryInputPlaceHolder = $sce.trustAsHtml("Encourage, motivate, persevere, succeed...");
+                                        $scope.entryInputPlaceHolder = $sce.trustAsHtml("Post an update...");
                                     }, 300);
                                 }
                             },
@@ -368,7 +368,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                     $scope.entryInputText = '';
                                 }
                                 else {
-                                    $scope.entryInputPlaceHolder = $sce.trustAsHtml("Encourage, motivate, persevere, succeed...");
+                                    $scope.entryInputPlaceHolder = $sce.trustAsHtml("Post an update...");
                                 }
                             },
                             onFileSelect: function ($files) {
@@ -519,7 +519,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 
                             },
                             shareEntryInputText: "",
-                            shareEntryInputPlaceHolder: $sce.trustAsHtml("Encourage, motivate, persevere, succeed..."),
+                            shareEntryInputPlaceHolder: $sce.trustAsHtml("Post an update..."),
                             shareEntryTags: [],
                             init: function () {
                                 $scope.feed_id = ngModel.$viewValue.id;

@@ -23,13 +23,13 @@
             </button>
         </div>
         <div class="page-header">
-            <h2 class="entry-title">level of fitness</h2>
+            <h2 class="entry-title">sort by level of fitness</h2>
         </div>
         <div class="row">
             <div class="col-xs-12 col-md-6 col-lg-4">
                 <div class="form-space">
                     <button class="col-xs-12 btn toggle beginner difficulties"
-                            ng-class="{difficultySelected: difficultySelected['beginner']}" id='beginner'
+                            ng-class="{selected: isBeginner == false}" id='beginner'
                             ng-click="difficultyOnClick('beginner')">
                         <span class="difficulty beginner"></span>beginner
                     </button>
@@ -38,7 +38,7 @@
             <div class="col-xs-12 col-md-6 col-lg-4">
                 <div class="form-space">
                     <button class="col-xs-12 btn toggle intermediate difficulties"
-                            ng-class="{difficultySelected: difficultySelected['intermediate']}"
+                            ng-class="{selected: isIntermediate == false}"
                             id='intermediate'
                             ng-click="difficultyOnClick('intermediate')">
                         <span class="difficulty intermediate"></span>intermediate
@@ -48,7 +48,7 @@
             <div class="col-xs-12 col-md-6 col-lg-4">
                 <div class="form-space">
                     <button class="col-xs-12 btn toggle advanced difficulties"
-                            ng-class="{difficultySelected: difficultySelected['advanced']}" id='advanced'
+                            ng-class="{selected: isAdvanced == false}" id='advanced'
                             ng-click="difficultyOnClick('advanced')">
                         <span class="difficulty advanced"></span>advanced
                     </button>
@@ -72,7 +72,7 @@
     </div>
 </div>
 <div class="page-header">
-    <h2 class="entry-title">popular views</h2>
+    <h2 class="entry-title">workout videos</h2>
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-6">

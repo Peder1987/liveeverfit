@@ -110,7 +110,8 @@ angular.module('mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundati
         var defaultOptions = {
             placement: 'top',
             animation: true,
-            popupDelay: 0
+            popupDelay: 0,
+            modal: true
         };
 
         // Default hide triggers for each show trigger

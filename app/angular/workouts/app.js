@@ -22,6 +22,9 @@ define(['app', 'videojs'], function (app) {
             $scope.videoSearch = ''; // this is the search bar string
             $scope.videoTitles = [] // for typeahead
             $scope.next = true;
+            $scope.isBeginner = true;
+            $scope.isIntermediate = true;
+            $scope.isAdvanced = true;
             // make this into 
             $scope.comments = []
             $scope.commentPage = 1;
@@ -233,6 +236,16 @@ define(['app', 'videojs'], function (app) {
                     $scope.difficulty.splice(temp, 1);
                 }
                 $scope.filter();
+                
+                if (value == 'beginner') {
+                $scope.isBeginner = !$scope.isBeginner;
+                console.log('fired');
+                } else if (value == 'intermediate') {
+                $scope.isIntermediate = !$scope.isIntermediate;
+                } else if (value == 'advanced') {
+                $scope.isAdvanced = !$scope.isAdvanced;
+                }
+                //console.log(value);
             };
             $scope.filter = function () {
                 $scope.page = 1

@@ -189,7 +189,7 @@
                         <div class="form-space">
                         
                             <tags-input type="text" class="tags-input"
-                                        placeholder="Tags: Crossfit, Nutrition, etc."
+                                        placeholder="Tag your post here"
                                         ng-model="entryTags" display-property="name">
                         
                                 <auto-complete source="loadSpecialty($query)"
@@ -200,18 +200,20 @@
                         </div>
                         
                         <div class="clearfix entry-meta">
-                        
+                        <!--
                             <button step-text="Tag a friend or EverFit Pro with this button!"
                                     step-index="5"
                                     step-placement="right"
                                     ng-click="entryMention()" type="button" class="btn btn-primary btn-sm pull-left">mention</button>
-                           
+                           -->
+
                             <span  class="dropdown pull-left">
-                           
+                            <!--
                                 <button step-text="EverFit is so unique because of our reward structure for Professionals and Users! Share this affiliate link on your profile, as well as other social media platforms! The more Fanatics that are tied to your affiliate link the better your rewards!"
                                         step-index="6"
                                         step-placement="bottom"
                                         type="button" class="btn btn-primary btn-sm dropdown-toggle">affiliate</button>
+                                        -->
                                
                                 <div    style="position:absolute; top: 34px; left: 0px; z-index: 10000;"
                                         step-text="Want to share your link to your email contacts? Use “Setting” button on your banner image to copy and paste the link to your email!"
@@ -839,7 +841,7 @@
                                             
                                                 <input id="entryComment"
                                                        ng-model="entry.commentInput"
-                                                       placeholder="Encourage, motivate, inspire..."
+                                                       placeholder="Comment"
                                                        ng-enter="submitComment(entry)"
                                                        class="form-control col-xs-12 col-sm-12"/>
                                          
