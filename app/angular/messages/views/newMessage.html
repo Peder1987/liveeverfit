@@ -5,7 +5,7 @@
             <label for="id_recipient">Recipient:</label>
             <input id="id_recipient" class="form-control" name="recipient" type="text"
                    ng-model="newMessage.recipient.first_name"
-                   typeahead="obj.full_name for obj in getClientTypeAhead($viewValue)" typeahead-on-select="onSelect($item, $model, $label)" required>
+                   typeahead="obj.full_name for obj in getClientTypeAhead($viewValue)" typeahead-on-select="onSelect($item, $model, $label)" placeholder="Who are you going to message? Type that here…" required>
             <a ng-show="" ui-sref="profile.view({view: newMessage.recipient.id})" >
                 <!--<img class="media-object pull-left"
                      ng-src="{{serverProtocal}}://{{serverURL}}/media/{{newMessage.recipient.img}}"
@@ -29,11 +29,11 @@
         </div>
         <div class="form-group">
             <label for="id_subject">Subject:</label>
-            <input id="id_subject" class="form-control" maxlength="120" name="subject" type="text" ng-model="newMessage.subject" required>
+            <input id="id_subject" class="form-control" maxlength="120" name="subject" type="text" ng-model="newMessage.subject" placeholder="Type your subject here.." required>
         </div>
         <div class="form-group">
             <label for="id_body">Body:</label>
-            <textarea class="form-control" id="id_body" name="body" rows="13" ng-model="newMessage.body" required></textarea>
+            <textarea class="form-control" id="id_body" name="body" rows="13" ng-model="newMessage.body" placeholder="Type your message and all of its glory here..." required></textarea>
         </div>
         <button ng-hide="!newMessage.recipient" type="submit" class="btn btn-primary" ng-click="submitMessage()">Submit</button>
     </form>

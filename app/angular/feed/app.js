@@ -11,7 +11,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                             user_id: localStorageService.get('user_id'),
                             user_email: localStorageService.get('user_email'),
                             usrImg: localStorageService.get('user_img'),
-                            entryInputPlaceHolder: $sce.trustAsHtml("Post an update..."),
+                            entryInputPlaceHolder: $sce.trustAsHtml("Type what’s on your mind here..."),
                             entryInputText: "",
                             entryVideoURL: "",
                             entryBlogBody: "",
@@ -285,7 +285,7 @@ define(['app', 'masonry'], function (app, Masonry) {
                                                 });
                                             }
                                             else {
-                                                $scope.entryBlogBody = "<b>Write something here...</b>";
+                                                $scope.entryBlogBody = "<b>Type the title of greatness for your Blog here...</b>";
                                                 setTimeout(function () {
                                                     $scope.entryBlogBody = "";
                                                 }, 300);
@@ -363,12 +363,21 @@ define(['app', 'masonry'], function (app, Masonry) {
                                 $scope.entryInputType = type;
                                 $scope.refreshMasonry();
                                 $scope.entryImgSrc = '';
-                                if (type == 'event' || type == 'blog') {
-                                    $scope.entryInputPlaceHolder = $sce.trustAsHtml("Title or Description");
+                                if (type == 'event') {
+                                    $scope.entryInputPlaceHolder = $sce.trustAsHtml("Type your awesome event here...");
+                                    $scope.entryInputText = '';
+                                } else if (type == 'blog') {
+                                    $scope.entryInputPlaceHolder = $sce.trustAsHtml("Type the title of greatness for your Blog here...");
+                                    $scope.entryInputText = '';
+                                } else if (type == 'video') {
+                                    $scope.entryInputPlaceHolder = $sce.trustAsHtml("Type your video title here...");
+                                    $scope.entryInputText = '';
+                                } else if (type == 'photo') {
+                                    $scope.entryInputPlaceHolder = $sce.trustAsHtml("Type the title of your photo here...");
                                     $scope.entryInputText = '';
                                 }
                                 else {
-                                    $scope.entryInputPlaceHolder = $sce.trustAsHtml("Post an update...");
+                                    $scope.entryInputPlaceHolder = $sce.trustAsHtml("Type what’s on your mind here...");
                                 }
                             },
                             onFileSelect: function ($files) {

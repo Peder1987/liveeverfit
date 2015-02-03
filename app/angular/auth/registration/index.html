@@ -97,11 +97,13 @@
                                   ng-model="value" name="group-one" id="terms" />
                                   I accept the <a style="color:#fff;text-decoration:underline;" href="http://app.liveeverfit.com/#/terms">terms and conditions</a>
                                 </label>
-                                
+                                <!--
                                 <button type="submit" class="btn btn-primary pull-right down"
                                         ng-click="setCurrentStepFormPar('membershipSubmit', registrationForm.$valid)" ng-disabled="value==false">
                                         Next
-                                </button>
+                                </button>-->
+        
+        <button click-once type="submit" class="btn btn-primary col-xs-offset-9" ng-click="preSubmit()" ng-model='submitButton' ng-disabled="value==false" >Submit</button>
                             </form>
                         </div>
                     </div>

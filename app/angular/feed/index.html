@@ -189,7 +189,7 @@
                         <div class="form-space">
                         
                             <tags-input type="text" class="tags-input"
-                                        placeholder="Tag your post here"
+                                        placeholder="Type your favorite tags here..."
                                         ng-model="entryTags" display-property="name">
                         
                                 <auto-complete source="loadSpecialty($query)"
@@ -280,22 +280,24 @@
                         </div>
                     
                         <div class="col-xs-2">
-                    
+                            <span popover-trigger="mouseenter" popover-placement="bottom" popover="Health and fitness or guts and glory, write about it!">
                             <a href ng-click="selectEntryInputType('blog')">
-                    
-                                <i class="fa fa-edit fa-2x" popover-trigger="mouseenter" popover-placement="right" popover="We know you have a ton of knowledge about something, spaceships to basket weaving, let’s hear it!"></i><br>Blog
+            
+                                <i class="fa fa-edit fa-2x"></i><br>Blog
                     
                             </a>
+                            </span>
                     
                         </div>
                     
                         <div class="col-xs-2">
-                    
+                            <span popover-trigger="mouseenter" popover-placement="bottom" popover="Got something cool coming up? Post it here and get others to join you!">
                             <a href ng-click="selectEntryInputType('event')">
                     
-                                <i class="fa fa-calendar fa-2x" popover-trigger="mouseenter" popover-placement="right" popover="Got something cool coming up? Post it here to show your fellow Fanatics. Who knows? Maybe some will join you! "></i><br>Event
+                                <i class="fa fa-calendar fa-2x"></i><br>Event
                     
                             </a>
+                            </span>
                     
                         </div>
                         <!-- /.col-xs-2 -->
@@ -841,7 +843,7 @@
                                             
                                                 <input id="entryComment"
                                                        ng-model="entry.commentInput"
-                                                       placeholder="Comment"
+                                                       placeholder="Comment here..."
                                                        ng-enter="submitComment(entry)"
                                                        class="form-control col-xs-12 col-sm-12"/>
                                          

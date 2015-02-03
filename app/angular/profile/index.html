@@ -184,6 +184,7 @@
                     step-placement="left"></div>
         </div>
 
+        <span popover-trigger="mouseenter" popover-placement="bottom" popover="Use these buttons to filter your feed and navigate your awesome profile…click “feed” to view all of your posts in the order they were posted.">
         <tabset step-text="Filter your feed via text, photos videos, blogs and events!"
                 step-index="1"
                 step-placement="top"
@@ -210,9 +211,9 @@
                  ng-if="user_id == profile_user.id && profile_user.type == 'professional'"></tab>-->
             <tab heading="calendar" select="initCalendar()">
                 <div ng-if="profile_user.id && showCalendar" class="google-map-outer"
-                popover-trigger="mouseenter" popover-placement="top" popover="Hey there. Fanatic! We want to give you the tools to stay on track. What better way than a calendar. Schedule your weekly workouts, log your appointments, or showcase the awesome 5k you’re going to dominate this weekend! Team EverFit! 
-                
-                This calendar is public and visible to other users. ">
+                popover-trigger="mouseenter" popover-placement="top" popover="Hey there. Fanatic! We want to give you the tools to stay on track. What better way than a calendar. Schedule your weekly workouts, log your appointments, or showcase an awesome event you want others to know about.
+This calendar is public and visible to other users.
+ ">
                     <div profile-calendar ng-model="profile_user.id"></div>
                 </div>
             </tab><!--
@@ -263,6 +264,7 @@
                 </div>
             </tab>
         </tabset>
+        </span>
         <!-- /.filters -->
         <div ng-if="feed.show" entry-feed ng-model="$parent.$parent.feed"></div>
         </div><!-- /.container -->
