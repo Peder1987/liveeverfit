@@ -74,11 +74,14 @@ define(['angularAMD',
             $rootScope.startTour = function () {
                 $rootScope.fanaticsCollapsed = true;
                 $rootScope.dashCollapsed = false;
-                $tour.start();
+                if ($rootScope.tourFinished == false) {
+                    $tour.start();
+                }
             };
             $tour.finished = function () {
                 $rootScope.fanaticsCollapsed = false;
                 $rootScope.dashCollapsed = true;
+                $rootScope.tourFinished = localStorageService.set(true);
             };
             $rootScope.startTour();
             $rootScope.dashCollapsed = true;
