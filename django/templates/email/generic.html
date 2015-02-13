@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-    	<!-- NAME: 1:3 COLUMN -->
+    	<!-- NAME: 1 COLUMN -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>*|MC:SUBJECT|*</title>
@@ -70,7 +70,7 @@
 	@tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
 	*/
 		body,#bodyTable{
-			/*@editable*/background-color:#333333;
+			/*@editable*/background-color:#363636;
 		}
 	/*
 	@tab Page
@@ -166,7 +166,7 @@
 	@tip Set the background color and borders for your email's preheader area.
 	*/
 		#templatePreheader{
-			/*@editable*/background-color:#efefef;
+			/*@editable*/background-color:#363636;
 			/*@editable*/border-top:0;
 			/*@editable*/border-bottom:0;
 		}
@@ -176,9 +176,9 @@
 	@tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
 	*/
 		.preheaderContainer .mcnTextContent,.preheaderContainer .mcnTextContent p{
-			/*@editable*/color:#606060;
+			/*@editable*/color:#ffffff;
 			/*@editable*/font-family:Helvetica;
-			/*@editable*/font-size:11px;
+			/*@editable*/font-size:13px;
 			/*@editable*/line-height:125%;
 			/*@editable*/text-align:left;
 		}
@@ -188,7 +188,7 @@
 	@tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
 	*/
 		.preheaderContainer .mcnTextContent a{
-			/*@editable*/color:#606060;
+			/*@editable*/color:#ffffff;
 			/*@editable*/font-weight:normal;
 			/*@editable*/text-decoration:underline;
 		}
@@ -257,88 +257,12 @@
 			/*@editable*/text-decoration:underline;
 		}
 	/*
-	@tab Columns
-	@section column style
-	@tip Set the background color and borders for your email's columns area.
-	*/
-		#templateColumns{
-			/*@editable*/background-color:#efefef;
-			/*@editable*/border-top:0;
-			/*@editable*/border-bottom:0;
-		}
-	/*
-	@tab Columns
-	@section left column text
-	@tip Set the styling for your email's left column text. Choose a size and color that is easy to read.
-	*/
-		.leftColumnContainer .mcnTextContent,.leftColumnContainer .mcnTextContent p{
-			/*@editable*/color:#606060;
-			/*@editable*/font-family:Helvetica;
-			/*@editable*/font-size:15px;
-			/*@editable*/line-height:150%;
-			/*@editable*/text-align:left;
-		}
-	/*
-	@tab Columns
-	@section left column link
-	@tip Set the styling for your email's left column links. Choose a color that helps them stand out from your text.
-	*/
-		.leftColumnContainer .mcnTextContent a{
-			/*@editable*/color:#6DC6DD;
-			/*@editable*/font-weight:normal;
-			/*@editable*/text-decoration:underline;
-		}
-	/*
-	@tab Columns
-	@section center column text
-	@tip Set the styling for your email's center column text. Choose a size and color that is easy to read.
-	*/
-		.centerColumnContainer .mcnTextContent,.centerColumnContainer .mcnTextContent p{
-			/*@editable*/color:#606060;
-			/*@editable*/font-family:Helvetica;
-			/*@editable*/font-size:15px;
-			/*@editable*/line-height:150%;
-			/*@editable*/text-align:left;
-		}
-	/*
-	@tab Columns
-	@section center column link
-	@tip Set the styling for your email's center column links. Choose a color that helps them stand out from your text.
-	*/
-		.centerColumnContainer .mcnTextContent a{
-			/*@editable*/color:#6DC6DD;
-			/*@editable*/font-weight:normal;
-			/*@editable*/text-decoration:underline;
-		}
-	/*
-	@tab Columns
-	@section right column text
-	@tip Set the styling for your email's right column text. Choose a size and color that is easy to read.
-	*/
-		.rightColumnContainer .mcnTextContent,.rightColumnContainer .mcnTextContent p{
-			/*@editable*/color:#606060;
-			/*@editable*/font-family:Helvetica;
-			/*@editable*/font-size:15px;
-			/*@editable*/line-height:150%;
-			/*@editable*/text-align:left;
-		}
-	/*
-	@tab Columns
-	@section right column link
-	@tip Set the styling for your email's right column links. Choose a color that helps them stand out from your text.
-	*/
-		.rightColumnContainer .mcnTextContent a{
-			/*@editable*/color:#6DC6DD;
-			/*@editable*/font-weight:normal;
-			/*@editable*/text-decoration:underline;
-		}
-	/*
 	@tab Footer
 	@section footer style
 	@tip Set the background color and borders for your email's footer area.
 	*/
 		#templateFooter{
-			/*@editable*/background-color:#efefef;
+			/*@editable*/background-color:#000000;
 			/*@editable*/border-top:0;
 			/*@editable*/border-bottom:0;
 		}
@@ -348,7 +272,7 @@
 	@tip Set the styling for your email's footer text. Choose a size and color that is easy to read.
 	*/
 		.footerContainer .mcnTextContent,.footerContainer .mcnTextContent p{
-			/*@editable*/color:#606060;
+			/*@editable*/color:#7a7a7a;
 			/*@editable*/font-family:Helvetica;
 			/*@editable*/font-size:11px;
 			/*@editable*/line-height:125%;
@@ -451,6 +375,23 @@
 		}
 
 }	@media only screen and (max-width: 480px){
+		td[class=mcnImageCardLeftImageContent],td[class=mcnImageCardRightImageContent]{
+			padding-right:18px !important;
+			padding-left:18px !important;
+			padding-bottom:0 !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		td[class=mcnImageCardBottomImageContent]{
+			padding-bottom:9px !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		td[class=mcnImageCardTopImageContent]{
+			padding-top:18px !important;
+		}
+
+}	@media only screen and (max-width: 480px){
 		table[class=mcnCaptionLeftContentOuter] td[class=mcnTextContent],table[class=mcnCaptionRightContentOuter] td[class=mcnTextContent]{
 			padding-top:9px !important;
 		}
@@ -467,13 +408,6 @@
 		}
 
 }	@media only screen and (max-width: 480px){
-		td[class=columnsContainer]{
-			display:block !important;
-			max-width:600px !important;
-			width:100% !important;
-		}
-
-}	@media only screen and (max-width: 480px){
 		td[class=mcnTextContent]{
 			padding-right:18px !important;
 			padding-left:18px !important;
@@ -485,7 +419,7 @@
 	@section template width
 	@tip Make the template fluid for portrait or landscape view adaptability. If a fluid layout doesn't work for you, set the width to 300px instead.
 	*/
-		table[id=templateContainer],table[id=templatePreheader],table[id=templateHeader],table[id=templateColumns],table[class=templateColumn],table[id=templateBody],table[id=templateFooter]{
+		table[id=templateContainer],table[id=templatePreheader],table[id=templateHeader],table[id=templateBody],table[id=templateFooter]{
 			/*@tab Mobile Styles
 @section template width
 @tip Make the template fluid for portrait or landscape view adaptability. If a fluid layout doesn't work for you, set the width to 300px instead.*/max-width:600px !important;
@@ -593,39 +527,6 @@
 }	@media only screen and (max-width: 480px){
 	/*
 	@tab Mobile Styles
-	@section Left Column Text
-	@tip Make the left column text larger in size for better readability on small screens. We recommend a font size of at least 16px.
-	*/
-		td[class=leftColumnContainer] td[class=mcnTextContent],td[class=leftColumnContainer] td[class=mcnTextContent] p{
-			/*@editable*/font-size:18px !important;
-			/*@editable*/line-height:125% !important;
-		}
-
-}	@media only screen and (max-width: 480px){
-	/*
-	@tab Mobile Styles
-	@section Center Column Text
-	@tip Make the center column text larger in size for better readability on small screens. We recommend a font size of at least 16px.
-	*/
-		td[class=centerColumnContainer] td[class=mcnTextContent],td[class=centerColumnContainer] td[class=mcnTextContent] p{
-			/*@editable*/font-size:18px !important;
-			/*@editable*/line-height:125% !important;
-		}
-
-}	@media only screen and (max-width: 480px){
-	/*
-	@tab Mobile Styles
-	@section Right Column Text
-	@tip Make the right column text larger in size for better readability on small screens. We recommend a font size of at least 16px.
-	*/
-		td[class=rightColumnContainer] td[class=mcnTextContent],td[class=rightColumnContainer] td[class=mcnTextContent] p{
-			/*@editable*/font-size:18px !important;
-			/*@editable*/line-height:125% !important;
-		}
-
-}	@media only screen and (max-width: 480px){
-	/*
-	@tab Mobile Styles
 	@section footer text
 	@tip Make the body content text larger in size for better readability on small screens.
 	*/
@@ -672,7 +573,8 @@
                         
                         <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right:18px; padding-bottom:9px; padding-left:0;">
                         
-                            <a href="*|ARCHIVE|*" target="_blank"></a>
+                            <div style="text-align: left;"><span style="color:#ff6633"><a href="*|ARCHIVE|*" target="_blank">View this email in your browser</a>//</span></div>
+
                         </td>
                     </tr>
                 </tbody></table>
@@ -691,16 +593,16 @@
                                     <!-- BEGIN HEADER // -->
                                     <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader">
                                         <tr>
-                                            <td valign="top" class="headerContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock">
+                                            <td valign="top" class="headerContainer"><table class="mcnImageBlock" border="0" cellpadding="0" cellspacing="0" width="100%">
     <tbody class="mcnImageBlockOuter">
             <tr>
-                <td valign="top" style="padding:0px" class="mcnImageBlockInner">
-                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer">
+                <td style="padding:0px" class="mcnImageBlockInner" valign="top">
+                    <table class="mcnImageContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tbody><tr>
-                            <td class="mcnImageContent" valign="top" style="padding-right: 0px; padding-left: 0px; padding-top: 0; padding-bottom: 0;">
+                            <td class="mcnImageContent" style="padding-right: 0px; padding-left: 0px; padding-top: 0; padding-bottom: 0;" valign="top">
                                 
                                     
-                                        <img align="left" alt="" src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/c68128c8-0f3b-42a8-91f6-e1b64148690c.png" width="600" style="max-width:700px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
+                                        <img alt="" src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/7cb763f2-52b6-4088-9147-519e9c49fe95.png" style="max-width:700px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage" align="left" width="600">
                                     
                                 
                             </td>
@@ -720,19 +622,22 @@
                                     <!-- BEGIN BODY // -->
                                     <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody" style="background:#efefef;">
                                         <tr>
-                                            <td valign="top" class="bodyContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
+                                            <td valign="top" class="bodyContainer"><table class="mcnTextBlock" border="0" cellpadding="0" cellspacing="0" width="100%">
     <tbody class="mcnTextBlockOuter">
         <tr>
-            <td valign="top" class="mcnTextBlockInner">
+            <td class="mcnTextBlockInner" valign="top">
                 
-                <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
+                <table class="mcnTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="600">
                     <tbody><tr>
                         
-                        <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
+                        <td class="mcnTextContent" style="padding: 9px 18px; font-family: Arial,&quot;Helvetica Neue&quot;,Helvetica,sans-serif; line-height: 125%;" valign="top">
                         
-                            <h1><span style="font-size:22px">Welcome to the EverFit Community for Health &amp; Fitness</span></h1>
-
-<p><span style="color: #9C9A9A;font-family: open sans,arial,sans-serif;line-height: 26px;">Outstanding! You’re now offically a part of the EverFit Movement! As an Everfit User, we encourage you to post your photos &amp; videos, comments, and questions if you have them... we’d love to hear from you! Also as an Everfit User, you earn “Rewards” on all your purchases made in the&nbsp;</span><span class="orange" style="color: #E44D25;font-family: open sans,arial,sans-serif;line-height: 26px;">EverFit Shop</span><span style="color: #9C9A9A;font-family: open sans,arial,sans-serif;line-height: 26px;">, and for “Social Sharing” Everfit with friends and family! Now that’s pretty awesome! Now&nbsp;</span><span class="orange" style="color: #E44D25;font-family: open sans,arial,sans-serif;line-height: 26px;">Upload</span><span style="color: #9C9A9A;font-family: open sans,arial,sans-serif;line-height: 26px;">&nbsp;you’re awesome a profile image so we can see that beautiful mug of yours!</span></p>
+                            &nbsp;
+<div style="padding-left:9px; padding-right:5px"><strong style="font-family:arial,helvetica neue,helvetica,sans-serif; font-size:20px; font-weight:bold; line-height:24px"><span style="color:#696969">Welcome to the EverFit Network of</span> <span style="color:#e95933">Professionals!</span></strong><br>
+<span style="color:#696969"><span style="font-family:arial,helvetica neue,helvetica,sans-serif"><span style="font-size:14px; line-height:23px">Outstanding! You’re now offically a part of the EverFit Movement! As an Everfit User, we encourage you to post your photos &amp; videos, comments, and questions if you have them... we’d love to hear from you!&nbsp; Also as a User,&nbsp; you earn “Rewards” on all yourpurchases made in the EverFit Shop, and for “Social Sharing” Everfit with friends and family!&nbsp; Now that’s pretty awesome!&nbsp; Now Upload you’re awesome profile image so we can see that beautiful mug of yours!</span></span></span>
+<p><br>
+<span style="font-family:arial,helvetica neue,helvetica,sans-serif"><img src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/df5a658a-6a8f-4a1a-a551-21ce64dbd006.png" style="width: 264px; height: 219px; margin: 0px; float: left;" align="none" height="219" width="264"><span style="color:#696969"><span style="font-size:14px">Are you a Professional Trainer, Nutritionist, or Instructor?&nbsp; As a Certified Professional, EverFit will put you on the EverFit “Pro Map Search” for free&nbsp; to increase your exposure and help you grow your personal clientele&nbsp; Simply “click” the “Put Me On The Map” button under the Professional Icon you want to rep and we’ll put you on the map! Literally! Instructors can be Golf, Tennis, Football, Aerobic Instructors, etc... we love diversity! </span></span></span></p>
+<span style="font-family:arial,helvetica neue,helvetica,sans-serif"><strong style="font-size:23px; font-weight:bold; line-height:20px"> </strong></span></div>
 
                         </td>
                     </tr>
@@ -741,60 +646,136 @@
             </td>
         </tr>
     </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnCaptionBlock">
-    <tbody class="mcnCaptionBlockOuter">
+</table><table class="mcnTextBlock" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody class="mcnTextBlockOuter">
         <tr>
-            <td class="mcnCaptionBlockInner" valign="top" style="padding:9px;">
+            <td class="mcnTextBlockInner" valign="top">
                 
-
-
-
-<table border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightContentOuter" width="100%">
-    <tbody><tr>
-        <td valign="top" class="mcnCaptionRightContentInner" style="padding:0 9px ;">
-            <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightImageContentContainer">
-                <tbody><tr>
-                    <td class="mcnCaptionRightImageContent" valign="top">
-                    
-                        
-
-                        <img alt="" src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/a4bb0f5f-61c2-4b86-a159-1be954cbe60d.png" width="238" style="max-width:238px;" class="mcnImage">
-                        
-
-                    
-                    </td>
-                </tr>
-            </tbody></table>
-            <table class="mcnCaptionRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="264">
-                <tbody><tr>
-                    <td valign="top" class="mcnTextContent">
-                        <span class="orange" style="color: #E44D25;font-family: open sans,arial,sans-serif;line-height: 26px;">Are you a Professional Trainer, Nutritionist, or Instructor?</span><span style="color: #9C9A9A;font-family: open sans,arial,sans-serif;line-height: 26px;">&nbsp;As a Certified Professional, EverFit will put you on the EverFit “Pro Map Search” for free to increase your exposure and help you grow your personal clientel! Simply “click” the “Put Me On The Map” button under the Professional Icon you want to rep and we’ll put you on the map! Literally! Instructors can be Golf, Tennis, Football, Aerobic Instructors, etc... we love diversity!</span>
-                    </td>
-                </tr>
-            </tbody></table>
-        </td>
-    </tr>
-</tbody></table>
-
-
-
-
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnDividerBlock">
-    <tbody class="mcnDividerBlockOuter">
-        <tr>
-            <td class="mcnDividerBlockInner" style="padding: 18px;">
-                <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-top-width: 1px;border-top-style: none;border-top-color: #999999;">
+                <table class="mcnTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="600">
                     <tbody><tr>
-                        <td>
-                            <span></span>
+                        
+                        <td class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;" valign="top">
+                        
+                            <div style="text-align:center"><img src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/dcb8524a-5fbe-436f-b460-495dc4d52020.png" style="margin: 0px 1px;" align="none" height="240" width="180"><img src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/0ffb7f8e-8275-4510-bc18-3a04e9254a18.png" style="margin: 0px 1px;" align="none" height="239" width="179"><img src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/26d7ced8-2b09-49f8-b1d0-e47e4fee326b.png" style="margin: 0px 1px;" align="none" height="241" width="180"></div>
+
                         </td>
                     </tr>
                 </tbody></table>
+                
             </td>
         </tr>
+    </tbody>
+</table><table class="mcnImageBlock" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody class="mcnImageBlockOuter">
+            <tr>
+                <td style="padding:9px" class="mcnImageBlockInner" valign="top">
+                    <table class="mcnImageContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody><tr>
+                            <td class="mcnImageContent" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;" valign="top">
+                                
+                                    
+                                        <img alt="" src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/79340951-42eb-4916-8db9-042e41af4c46.png" style="max-width:399px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage" align="middle" width="399">
+                                    
+                                
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </td>
+            </tr>
+    </tbody>
+</table><table class="mcnImageBlock" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody class="mcnImageBlockOuter">
+            <tr>
+                <td style="padding:0px" class="mcnImageBlockInner" valign="top">
+                    <table class="mcnImageContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody><tr>
+                            <td class="mcnImageContent" style="padding-right: 0px; padding-left: 0px; padding-top: 0; padding-bottom: 0;" valign="top">
+                                
+                                    
+                                        <img alt="" src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/54e5bc8d-3a0f-46bd-aacf-7c494b8505d6.png" style="max-width:700px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage" align="left" width="600">
+                                    
+                                
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </td>
+            </tr>
+    </tbody>
+</table><table class="mcnImageBlock" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody class="mcnImageBlockOuter">
+            <tr>
+                <td style="padding:9px" class="mcnImageBlockInner" valign="top">
+                    <table class="mcnImageContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody><tr>
+                            <td class="mcnImageContent" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;" valign="top">
+                                
+                                    
+                                        <img alt="" src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/52338ead-1523-4b02-8463-2a5040fd770d.png" style="max-width:448px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage" align="middle" width="448">
+                                    
+                                
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </td>
+            </tr>
+    </tbody>
+</table><table class="mcnTextBlock" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody class="mcnTextBlockOuter">
+        <tr>
+            <td class="mcnTextBlockInner" valign="top">
+                
+                <table class="mcnTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="600">
+                    <tbody><tr>
+                        
+                        <td class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;" valign="top">
+                        
+                            <div style="padding-left:9px; padding-right:5px">
+<span style="color:#ff6633"><strong style="font-size:18px"><span style="font-size:17px"><img src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/c6be0798-c80c-4b56-8643-32d2ada9290f.png" style="margin: 0px; float: left;" align="none" height="127" width="135"></span></strong></span><span style="color:#696969"><strong style="font-size:18px"><span style="font-size:17px"><span style="font-family:arial,helvetica neue,helvetica,sans-serif">Are you a </span></span></strong></span><span style="color:#e95933"><strong style="font-size:18px"><span style="font-size:17px"><span style="font-family:arial,helvetica neue,helvetica,sans-serif">Social Sharing Junkie?</span></span></strong></span><br>
+<span style="font-family:arial,helvetica neue,helvetica,sans-serif"><span style="font-size:14px">I<span style="color: #696969;">f you’re not a Professional Trainer, Nutritionist or Instructor,<br>
+but rather the fitness enthusiasts who simply loves “Sharing” Health &amp; Wellness...&nbsp; add the “Promoter” Add-On to your account FREE for a limited time!</span></span></span><br>
+<br>
+<span style="color:#696969"><span style="font-family:arial,helvetica neue,helvetica,sans-serif"><span style="font-size:14px">All Users earn “Rewards” on all purchases in the EverFit Shop and for “Sharing” EverFit with your peeps, but as a “Promoter”, EverFit will increase your “Rewards Return” for helping us get the word out! We appreciate your passion for Health &amp; Wellness and your efforts letting others know about EverFit!&nbsp; Motivate, Encourage, Inspire!</span></span></span><br></div>
+&nbsp;
+                        </td>
+                    </tr>
+                </tbody></table>
+                
+            </td>
+        </tr>
+    </tbody>
+</table><table class="mcnButtonBlock" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody class="mcnButtonBlockOuter">
+        <tr>
+            <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" class="mcnButtonBlockInner" align="center" valign="top">
+                <table class="mcnButtonContentContainer" style="border-collapse: separate ! important;border-radius: 5px;background-color: #E95933;" border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td style="font-family: Arial; font-size: 16px; padding: 16px;" class="mcnButtonContent" align="center" valign="middle">
+                                <a class="mcnButton " title="Free Promoter Add-On" href="http://" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Free Promoter Add-On</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table><table class="mcnImageBlock" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody class="mcnImageBlockOuter">
+            <tr>
+                <td style="padding:0px" class="mcnImageBlockInner" valign="top">
+                    <table class="mcnImageContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody><tr>
+                            <td class="mcnImageContent" style="padding-right: 0px; padding-left: 0px; padding-top: 0; padding-bottom: 0;" valign="top">
+                                
+                                    
+                                        <img alt="" src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/15f824c0-4abc-4655-8296-672cd7d377e5.png" style="max-width:700px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage" align="left" width="600">
+                                    
+                                
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </td>
+            </tr>
     </tbody>
 </table></td>
                                         </tr>
@@ -804,470 +785,43 @@
                             </tr>
                             <tr>
                                 <td align="center" valign="top">
-                                    <!-- BEGIN COLUMNS // -->
-                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateColumns" style="background:#efefef;">
-                                        <tr>
-                                            <td align="left" valign="top" class="columnsContainer" width="33%">
-                                                <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateColumn">
-                                                    <tr>
-                                                        <td valign="top" class="leftColumnContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnCaptionBlock">
-    <tbody class="mcnCaptionBlockOuter">
-        <tr>
-            <td class="mcnCaptionBlockInner" valign="top" style="padding:9px;">
-                
-
-<table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionBottomContent" width="false">
-    <tbody><tr>
-        <td class="mcnCaptionBottomImageContent" align="center" valign="top" style="padding:0 9px 9px 9px;">
-        
-            
-
-            <img alt="" src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/ac99f6f6-318d-4e12-9487-598328d6a726.png" width="137" style="max-width:137px;" class="mcnImage">
-            
-        
-        </td>
-    </tr>
-    <tr>
-        <td class="mcnTextContent" valign="top" style="padding:0 9px 0 9px;" width="164">
-            <div style="text-align: center;">Free Trainer Add-On</div>
-
-        </td>
-    </tr>
-</tbody></table>
-
-
-
-
-
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock">
-    <tbody class="mcnButtonBlockOuter">
-        <tr>
-            <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
-                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border: 2px none #E44D25;border-radius: 5px;background-color: #E44D25;">
-                    <tbody>
-                        <tr>
-                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 14px; padding: 10px;">
-                                <a class="mcnButton " title="Put me on the map!" href="http://liveeverfit.com/" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Put me on the map!</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-    </tbody>
-</table></td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td align="left" valign="top" class="columnsContainer" width="33%">
-                                                <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateColumn">
-                                                    <tr>
-                                                        <td valign="top" class="centerColumnContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnCaptionBlock">
-    <tbody class="mcnCaptionBlockOuter">
-        <tr>
-            <td class="mcnCaptionBlockInner" valign="top" style="padding:9px;">
-                
-
-<table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionBottomContent" width="false">
-    <tbody><tr>
-        <td class="mcnCaptionBottomImageContent" align="center" valign="top" style="padding:0 9px 9px 9px;">
-        
-            
-
-            <img alt="" src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/4428a0ab-ad19-45d7-a3bc-7dbd2ed24305.png" width="137" style="max-width:137px;" class="mcnImage">
-            
-        
-        </td>
-    </tr>
-    <tr>
-        <td class="mcnTextContent" valign="top" style="padding:0 9px 0 9px;" width="164">
-            <div style="text-align: center;">Free Nutritionist Add-On</div>
-
-        </td>
-    </tr>
-</tbody></table>
-
-
-
-
-
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock">
-    <tbody class="mcnButtonBlockOuter">
-        <tr>
-            <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
-                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border: 2px none #E44D25;border-radius: 5px;background-color: #E44D25;">
-                    <tbody>
-                        <tr>
-                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 14px; padding: 10px;">
-                                <a class="mcnButton " title="Put me on the map!" href="http://liveeverfit.com/" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Put me on the map!</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-    </tbody>
-</table></td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td align="left" valign="top" class="columnsContainer" width="33%">
-                                                <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateColumn">
-                                                    <tr>
-                                                        <td valign="top" class="rightColumnContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnCaptionBlock">
-    <tbody class="mcnCaptionBlockOuter">
-        <tr>
-            <td class="mcnCaptionBlockInner" valign="top" style="padding:9px;">
-                
-
-<table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionBottomContent" width="false">
-    <tbody><tr>
-        <td class="mcnCaptionBottomImageContent" align="center" valign="top" style="padding:0 9px 9px 9px;">
-        
-            
-
-            <img alt="" src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/6bbbf1b2-1f20-4192-af40-c6dc818a6a52.png" width="137" style="max-width:137px;" class="mcnImage">
-            
-        
-        </td>
-    </tr>
-    <tr>
-        <td class="mcnTextContent" valign="top" style="padding:0 9px 0 9px;" width="164">
-            <div style="text-align: center;">Free Instructor Add-On</div>
-
-        </td>
-    </tr>
-</tbody></table>
-
-
-
-
-
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock">
-    <tbody class="mcnButtonBlockOuter">
-        <tr>
-            <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
-                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border: 2px none #E44D25;border-radius: 5px;background-color: #E44D25;">
-                    <tbody>
-                        <tr>
-                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 14px; padding: 10px;">
-                                <a class="mcnButton " title="Put me on the map!" href="http://liveeverfit.com/" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Put me on the map!</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-    </tbody>
-</table></td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <!-- // END COLUMNS -->
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" valign="top">
                                     <!-- BEGIN FOOTER // -->
-                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateFooter" style="background:#efefef;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateFooter">
                                         <tr>
-                                            <td valign="top" class="footerContainer" style="padding-bottom:9px;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
+                                            <td valign="top" class="footerContainer" style="padding-bottom:9px;"><table class="mcnTextBlock" border="0" cellpadding="0" cellspacing="0" width="100%">
     <tbody class="mcnTextBlockOuter">
         <tr>
-            <td valign="top" class="mcnTextBlockInner">
+            <td class="mcnTextBlockInner" valign="top">
                 
-                <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
+                <table class="mcnTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="282">
                     <tbody><tr>
                         
-                        <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
+                        <td class="mcnTextContent" style="padding: 9px 0px 9px 18px; text-align: left;" valign="top">
                         
-                            <h2 style="font-weight: 100;letter-spacing: -1px;font-family: 'Open Sans', arial, sans-serif;line-height: 13px;text-align: center;margin-bottom: 50px;font-size: 36px;color: #757D84 !important;"><span class="orange" style="color: #E44D25;">Pro Map Search.</span>&nbsp;Get seen in 2015!</h2>
+                            &nbsp;
+<div style="padding-left:9px; padding-right:5px"><span style="font-size:11px"><span style="color: #EFEFEF;"><em>Have A Question?</em></span></span><br>
+<a href="mailto:info@liveeverfit.com" target="_blank"><span style="color:#efefef">info</span><span style="color:#ff6633">@</span><span style="color:#efefef">liveeverfit.com</span></a><br>
+<br>
+<span style="color:#efefef"><span style="font-size:11px"><span style="font-family:arial,helvetica neue,helvetica,sans-serif"><em>Give Us A Follow!</em></span></span></span><br>
+<a href="https://www.facebook.com/LiveEverFit" target="_blank"><img src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/a4c6a4c5-4c44-4c64-929f-e56f2c5831af.png" style="width: 38px; height: 38px; margin: 0px;" align="none" height="38" width="38"></a><a href="https://twitter.com/LiveEverFIT" target="_blank"><img src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/ea2fea70-9318-49b4-9810-3b9c7503fabc.png" style="width: 37px; height: 38px; margin: 0px;" align="none" height="38" width="37"></a><a href="https://plus.google.com/u/0/102337651698679248767/about" target="_blank"><img src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/03f12200-522c-410d-8c6d-e70414ec6e6c.png" style="width: 38px; height: 38px; margin: 0px;" align="none" height="38" width="38"></a><a href="http://instagram.com/liveeverfit/ " target="_blank"><img src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/2ee524a1-cef8-41d2-bb0f-684a093efd6b.png" style="width: 38px; height: 38px; margin: 0px;" align="none" height="38" width="38"></a></div>
 
                         </td>
                     </tr>
                 </tbody></table>
                 
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnDividerBlock">
-    <tbody class="mcnDividerBlockOuter">
-        <tr>
-            <td class="mcnDividerBlockInner" style="padding: 18px;">
-                <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-top-width: 1px;border-top-style: none;border-top-color: #999999;">
-                    <tbody><tr>
-                        <td>
-                            <span></span>
-                        </td>
-                    </tr>
-                </tbody></table>
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock">
-    <tbody class="mcnImageBlockOuter">
-            <tr>
-                <td valign="top" style="padding:9px" class="mcnImageBlockInner">
-                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer">
-                        <tbody><tr>
-                            <td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0;">
-                                
-                                    
-                                        <img align="left" alt="" src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/4e84b6df-1fe0-47f2-8078-0dc086d8062b.png" width="564" style="max-width:605px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
-                                    
-                                
-                            </td>
-                        </tr>
-                    </tbody></table>
-                </td>
-            </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnDividerBlock">
-    <tbody class="mcnDividerBlockOuter">
-        <tr>
-            <td class="mcnDividerBlockInner" style="padding: 18px;">
-                <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-top-width: 1px;border-top-style: none;border-top-color: #999999;">
-                    <tbody><tr>
-                        <td>
-                            <span></span>
-                        </td>
-                    </tr>
-                </tbody></table>
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
-    <tbody class="mcnTextBlockOuter">
-        <tr>
-            <td valign="top" class="mcnTextBlockInner">
-                
-                <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
+                <table class="mcnTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="282">
                     <tbody><tr>
                         
-                        <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
+                        <td class="mcnTextContent" style="padding: 9px 18px 9px 0px; text-align: left;" valign="top">
                         
-                            <h2 style="font-weight: 100;letter-spacing: -1px;font-family: 'Open Sans', arial, sans-serif;line-height: 13px;text-align: center;font-size: 36px;color: #757D84 !important;"><span class="orange" style="color: #E44D25;">“Social Sharing”.</span>&nbsp;Promote and score!</h2>
-
-                        </td>
-                    </tr>
-                </tbody></table>
-                
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnDividerBlock">
-    <tbody class="mcnDividerBlockOuter">
-        <tr>
-            <td class="mcnDividerBlockInner" style="padding: 18px;">
-                <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-top-width: 1px;border-top-style: none;border-top-color: #999999;">
-                    <tbody><tr>
-                        <td>
-                            <span></span>
-                        </td>
-                    </tr>
-                </tbody></table>
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnCaptionBlock">
-    <tbody class="mcnCaptionBlockOuter">
-        <tr>
-            <td class="mcnCaptionBlockInner" valign="top" style="padding:9px;">
-                
-
-
-
-<table border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightContentOuter" width="100%">
-    <tbody><tr>
-        <td valign="top" class="mcnCaptionRightContentInner" style="padding:0 9px ;">
-            <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightImageContentContainer">
-                <tbody><tr>
-                    <td class="mcnCaptionRightImageContent" valign="top">
-                    
-                        
-
-                        <img alt="" src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/727675cc-cc1c-4c13-97d6-8f7748ad48ac.png" width="132" style="max-width:137px;" class="mcnImage">
-                        
-
-                    
-                    </td>
-                </tr>
-            </tbody></table>
-            <table class="mcnCaptionRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="396">
-                <tbody><tr>
-                    <td valign="top" class="mcnTextContent">
-                        <span style="font-size:12px"><span class="orange" style="color: #E44D25;font-family: open sans,arial,sans-serif;line-height: 26px;">Are you a “Social” Sharing Junkie?</span><span style="color: #9C9A9A;font-family: open sans,arial,sans-serif;line-height: 26px;">&nbsp;If you’re not a Professional Trainer, Nutritionist or Instructor, but rather the fitness enthusiasts who simply loves “Sharing” Health &amp; Wellness... add the “Promoter” Add-On to your account FREE for a limited time!</span></span>
-                    </td>
-                </tr>
-            </tbody></table>
-        </td>
-    </tr>
-</tbody></table>
-
-
-
-
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
-    <tbody class="mcnTextBlockOuter">
-        <tr>
-            <td valign="top" class="mcnTextBlockInner">
-                
-                <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
-                    <tbody><tr>
-                        
-                        <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                        
-                            <span style="font-size:12px"><span style="color: #9C9A9A;font-family: open sans,arial,sans-serif;line-height: 26px;">All EverFit Users earn “Rewards” on all purchases in the EverFit Shop and for “Sharing” EverFit with your peeps, but&nbsp;</span><span class="orange" style="color: #E44D25;font-family: open sans,arial,sans-serif;line-height: 26px;">as a “Promoter”</span><span style="color: #9C9A9A;font-family: open sans,arial,sans-serif;line-height: 26px;">, EverFit will increase your “Rewards Return” for helping us get the word out! We appreciate your passion for Health &amp; Wellness and your efforts letting others know about EverFit! Encourage. Motivate, Inspire!</span></span>
-                        </td>
-                    </tr>
-                </tbody></table>
-                
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock">
-    <tbody class="mcnButtonBlockOuter">
-        <tr>
-            <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
-                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border: 2px solid #E44D25;border-radius: 5px;background-color: #E44D25;">
-                    <tbody>
-                        <tr>
-                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 16px;">
-                                <a class="mcnButton " title="Free Promoter Add-On" href="http://liveeverfit.com/" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Free Promoter Add-On</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock">
-    <tbody class="mcnImageBlockOuter">
-            <tr>
-                <td valign="top" style="padding:0px" class="mcnImageBlockInner">
-                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer">
-                        <tbody><tr>
-                            <td class="mcnImageContent" valign="top" style="padding-right: 0px; padding-left: 0px; padding-top: 0; padding-bottom: 0;">
-                                
-                                    
-                                        <img align="left" alt="" src="https://gallery.mailchimp.com/33a436cbf69bb1a5b00ae0827/images/a9044f44-406c-49f1-ab98-64fca6c4febd.jpg" width="600" style="max-width:700px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
-                                    
-                                
-                            </td>
-                        </tr>
-                    </tbody></table>
-                </td>
-            </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock" style="background:#000000;">
-    <tbody class="mcnFollowBlockOuter">
-        <tr>
-            <td align="center" valign="top" style="padding:9px" class="mcnFollowBlockInner">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentContainer">
-    <tbody><tr>
-        <td align="right" style="padding-left:9px;padding-right:9px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContent" style="border: 10px none #000000;background-color: #000000;">
-                <tbody><tr>
-                    <td align="right" valign="top" style="padding-top:9px; padding-right:9px; padding-left:9px;">
-						<table border="0" cellpadding="0" cellspacing="0">
-							<tbody><tr>
-								<td valign="top">
-			                        
-			                            
-			                                <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnFollowStacked">
-			                                     
-			                                    <tbody><tr>
-			                                        <td align="center" valign="top" class="mcnFollowIconContent" style="padding-right:10px; padding-bottom:9px;">
-			                                            <a href="https://www.facebook.com/LiveEverFit" target="_blank"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/dark-facebook-96.png" alt="Facebook" class="mcnFollowBlockIcon" width="48" style="width:48px; max-width:48px; display:block;"></a>
-			                                        </td>
-			                                    </tr>
-			                                    
-			                                    
-			                                </tbody></table>
-			                            
-			                            
-								<!--[if gte mso 6]>
-								</td>
-						    	<td align="left" valign="top">
-								<![endif]-->
-			                        
-			                            
-			                                <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnFollowStacked">
-			                                     
-			                                    <tbody><tr>
-			                                        <td align="center" valign="top" class="mcnFollowIconContent" style="padding-right:10px; padding-bottom:9px;">
-			                                            <a href="http://www.twitter.com/liveeverfit" target="_blank"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/dark-twitter-96.png" alt="Twitter" class="mcnFollowBlockIcon" width="48" style="width:48px; max-width:48px; display:block;"></a>
-			                                        </td>
-			                                    </tr>
-			                                    
-			                                    
-			                                </tbody></table>
-			                            
-			                            
-								<!--[if gte mso 6]>
-								</td>
-						    	<td align="left" valign="top">
-								<![endif]-->
-			                        
-			                            
-			                                <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnFollowStacked">
-			                                     
-			                                    <tbody><tr>
-			                                        <td align="center" valign="top" class="mcnFollowIconContent" style="padding-right:0; padding-bottom:9px;">
-			                                            <a href="http://www.liveeverfit.com" target="_blank"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/dark-link-96.png" alt="Website" class="mcnFollowBlockIcon" width="48" style="width:48px; max-width:48px; display:block;"></a>
-			                                        </td>
-			                                    </tr>
-			                                    
-			                                    
-			                                </tbody></table>
-			                            
-			                            
-								<!--[if gte mso 6]>
-								</td>
-						    	<td align="left" valign="top">
-								<![endif]-->
-			                        
-								</td>
-							</tr>
-						</tbody></table>
-                    </td>
-                </tr>
-            </tbody></table>
-        </td>
-    </tr>
-</tbody></table>
-
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="background:#000000;">
-    <tbody class="mcnTextBlockOuter">
-        <tr>
-            <td valign="top" class="mcnTextBlockInner">
-                
-                <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
-                    <tbody><tr>
-                        
-                        <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                        
-                            <div style="font-family: 'Open Sans', arial, sans-serif;font-size: 11px;line-height: 13px;text-align: right;color: #1489FF;margin-top: 10px;"><a href="http://liveeverfit.com/" style="color: #FFFFFF !important;text-decoration: none;">Home</a>&nbsp;|&nbsp;<a href="http://app.liveeverfit.com/#/workouts" style="color: #FFFFFF !important;text-decoration: none;">Workouts</a>&nbsp;|&nbsp;<a href="http://app.liveeverfit.com/#/fitness-professionals" style="color: #FFFFFF !important;text-decoration: none;">Fitness Professionals</a>&nbsp;|&nbsp;<a href="http://app.liveeverfit.com/#/shop" style="color: #FFFFFF !important;text-decoration: none;">Shop</a>&nbsp;|&nbsp;<a href="http://app.liveeverfit.com/#/contact" style="color: #FFFFFF !important;text-decoration: none;">Contact</a>&nbsp;|&nbsp;<a href="http://app.liveeverfit.com/#/evergreen" style="color: #FFFFFF !important;text-decoration: none;">Ever Green</a></div>
-
-<div style="font-family: 'Open Sans', arial, sans-serif;font-size: 11px;line-height: 13px;text-align: right;margin: 5px 0px 60px;color: #FFFFFF !important;">Copyright © 2014 All Rights Reserved |&nbsp;<a href="http://liveeverfit.com/" style="color: #FFFFFF !important;text-decoration: none;">www.liveeverfit.com</a>&nbsp;| Houston, TX</div>
-
+                            <br>
+<span style="color:#efefef"><span style="font-family:arial,helvetica neue,helvetica,sans-serif"><em><span style="font-size:13px">Live EverFit Headquarters</span></em></span></span><br>
+<span style="color:#808080"><span style="font-family:arial,helvetica neue,helvetica,sans-serif"><span style="font-size:12px">12345 Kingsride Lane<br>
+Houston, TX&nbsp; 77024</span></span></span><br>
+<br>
+<br>
+<span style="color:#808080"><span style="font-size:11px"><em>Copyright © 2015 www.liveeverfit.com</em></span></span><br>
+&nbsp;
                         </td>
                     </tr>
                 </tbody></table>
