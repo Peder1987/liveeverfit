@@ -76,22 +76,16 @@
                                        placeholder="Confirm Password"
                                        ng-model="user.password2"
                                        required>
-                                <!--
+                                
                                 <label for="address">
-                                    <h4><i class="fa fa-arrows"></i> Primary Address</h4>
+                                    <h4></h4>
                                 </label>
                                 <input autocomplete="off" id="address" type="text" ng-model="tempAddress.formatted_address"
-                                       placeholder="Primary Address"
+                                       placeholder="Zipcode"
                                        typeahead="address for address in getLocation($viewValue)"
                                        typeahead-loading="loadingLocations"
                                        ng-change="setAddress()" typeahead-on-select="setAddress()" class="form-control"
                                        required>
-                                <input autocomplete="off" type="text" class="form-control" name="firstName" id="firstName"
-                                       placeholder="P.O. Box, Apartment, Suite, Unit, Building, Floor, Etc."
-                                       ng-change="setAddress()"
-                                       ng-model="tempAddress.street_line2">
-                                    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-                                    -->
                                 <label style="margin-top:10px;">
                                   <input type="checkbox" value="terms" 
                                   ng-model="value" name="group-one" id="terms" />
