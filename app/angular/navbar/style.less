@@ -33,7 +33,12 @@
 .navbar-nav > li > a {
     border-right:solid 1px #c3c3c3;
     border-left:solid 1px #f6f5f5;
-    color:#555 !important;
+    color: #7B8181 !important;
+    font-family: "Open Sans", sans-serif !important;
+}
+
+.navbar-nav > li:hover > a {
+    color: #555 !important;
 }
 
 .navbar-brand {
@@ -43,12 +48,8 @@
 }
 
 ul.navbar-nav {
-border-right: solid 1px #f6f5f5;
-}
-
-ul.navbar-nav {
-border-right: solid 1px #f6f5f5;
-border-left: solid 1px #c3c3c3;
+    border-left: solid 1px #c3c3c3;
+    border-right: solid 1px #f6f5f5;
 }
 
 .navbar-default {
@@ -106,6 +107,9 @@ border-left: solid 1px #c3c3c3;
     border: none;
     > li > a > i {
       margin-right: 5px;
+    }
+    > li > a:hover {
+        color: #262626;
     }
     &.bi-column {
       min-width: 250px;

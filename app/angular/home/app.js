@@ -47,13 +47,16 @@ define(['app', 'feed'], function (app) {
                     image: 'home/img/slider/1.png'
                 },
                 {
-                    image: 'home/img/slider/3.png'
+                    image: 'home/img/slider/3.png',
+                    url: 'http://store.liveeverfit.com/'
                 },
                 {
-                    image: 'home/img/slider/4.png'
+                    image: 'home/img/slider/4.png',
+                    url: 'http://store.liveeverfit.com/pages/greentree-foods'
                 },
                 {
-                    image: 'home/img/slider/5.png'
+                    image: 'home/img/slider/5.png',
+                    url: 'http://store.liveeverfit.com/collections/trx'
                 },
                 {
                     image: 'home/img/slider/7.png'

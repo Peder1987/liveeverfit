@@ -20,7 +20,7 @@
                     <div ng-controller="BannerCtrl" class="main-banners">
                         <carousel interval="3000" disable-ng-animate>
                             <slide ng-repeat="slide in slides" active="slide.active">
-                                <img ng-src="{{slide.image}}" style="margin:auto;">
+                                <a href="{{ slide.url }}"><img ng-src="{{slide.image}}" style="margin:auto;"></a>
                             </slide>
                         </carousel>
                     </div>

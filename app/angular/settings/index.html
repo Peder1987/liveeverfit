@@ -115,7 +115,9 @@
                                         </span>
                                         <br >
                                         <div ng-show="editable.$visible">
-                                            <tags-input class="tags-input placeholder-light" add-from-autocomplete-only="true" ng-model="profile_user.tags" on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)" display-property="name">
+                                            <tags-input class="tags-input placeholder-light" add-from-autocomplete-only="false"
+                                                        ng-model="profile_user.tags" on-tag-removed="onDeleteTag($tag)"
+                                                        on-tag-added="onTagAdd($tag)" display-property="name">
                                             <auto-complete source="loadSpecialty($query)" min-length="1"></auto-complete>
                                             </tags-input>
                                         </div>
@@ -149,7 +151,7 @@
                             </button>
                         </form>
                         <button class="btn btn-primary" ng-show="!editable.$visible" ng-click="editable.$show()">
-                            edit
+                            edit my information
                         </button>
                     </div>
                 </div>

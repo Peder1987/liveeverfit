@@ -3,9 +3,6 @@
            type="danger" close="closeAlert(error)">
         {{msg[0]}}
     </alert>
-    <label for="upload">
-        Profile Pic
-    </label>
     <div class="modal-body image-body-modal">
         <div ng-if="!imgSrc&&!percent" class="upload">
             <div class="well well-lg" ng-file-drop="onFileSelect($files)"
