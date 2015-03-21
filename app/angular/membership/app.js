@@ -38,9 +38,9 @@ define(['app'], function(app) {
 				certification_number2: '',
 				phone: '',
 				twitter: '',
-			    facebook: '', 
-			    instagram: '', 
-			    youtube: '', 
+			    facebook: '',
+			    instagram: '',
+			    youtube: '',
 			    linkedin: '',
 			    plus: ''
 			};
@@ -99,7 +99,7 @@ define(['app'], function(app) {
 
             $scope.getCurrentStep = function() {
 				return $scope.step;
-			};	
+			};
 			$scope.setCurrentStep = function(step){
 				$scope.step = step;
 			};
@@ -107,7 +107,7 @@ define(['app'], function(app) {
             	if(valid == true){
             		//AutoFill Fix
 	                angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
-		
+
 					$scope.authToken = AuthToken.save($scope.auth, function() {
 						if($scope.authToken.email == localStorageService.get('user_email')){
 
@@ -150,7 +150,7 @@ define(['app'], function(app) {
 				$scope.user.tier = tier;
 				$scope.step = step;
 			};
-			$scope.ifPromoter = function(){	
+			$scope.ifPromoter = function(){
 				if($scope.pro.profession == 'Promoter'){
 					return false;
 				}
@@ -195,7 +195,7 @@ define(['app'], function(app) {
 				});
 				$scope.proSubmit();
 			};
-		
+
 
 
 			$scope.submit = function(){
@@ -208,7 +208,7 @@ define(['app'], function(app) {
 					$scope.pro_user = localStorageService.get('profesional');
 					$scope.responsePayment = paymentResource.update({id:$scope.profile_user},{id:$scope.profile_user,stripeToken:$scope.stripeToken}, function(){
 						if($scope.pro_user != null){
-							$scope.connect = connectResource.update({id: $scope.profile_user, professional_id: $scope.pro_user}, 
+							$scope.connect = connectResource.update({id: $scope.profile_user, professional_id: $scope.pro_user},
 								function (data) {
 									localStorageService.remove('profesional');
 									window.location = "/";
@@ -290,7 +290,7 @@ define(['app'], function(app) {
 			$scope.addressesInputs = {};
 			$scope.getLocation = function(val) {
 				delete $http.defaults.headers.common['Authorization']
-				return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+				return $http.get('https://maps.googleapis.com/maps/api/geocode/json', {
 					params: {
 				    address: val,
 				    sensor: false,
@@ -322,7 +322,7 @@ define(['app'], function(app) {
 					return addresses;
 				});
 			};
-	
+
 
 	}]);
 
