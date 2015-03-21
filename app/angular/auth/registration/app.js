@@ -47,9 +47,9 @@ define(['app'], function(app) {
 				certification_number2: '',
 				phone: '',
 				twitter: '',
-			    facebook: '', 
-			    instagram: '', 
-			    youtube: '', 
+			    facebook: '',
+			    instagram: '',
+			    youtube: '',
 			    linkedin: '',
 			    plus: ''
 			};
@@ -137,7 +137,7 @@ define(['app'], function(app) {
             };
 			$scope.getCurrentStep = function() {
 				return $scope.step;
-			};	
+			};
 			$scope.setCurrentStep = function(step){
 				$scope.step = step;
 			};
@@ -175,7 +175,7 @@ define(['app'], function(app) {
 				$scope.user.tier = tier;
 				$scope.step = step;
 			};
-			$scope.ifPromoter = function(){	
+			$scope.ifPromoter = function(){
 				if($scope.pro.profession == 'Promoter'){
 					return false;
 				}
@@ -225,13 +225,13 @@ define(['app'], function(app) {
 				$scope.pro.primary_address = $scope.address;
 				$scope.proSubmit();
 			};
-		
+
 
 
 			$scope.submit = function(){
                 // AutoFill Fix
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
-				
+
 				$scope.authToken = AuthToken.save($scope.user, function(){
 					localStorageService.add('Authorization', 'Token ' + $scope.authToken.token);
 					localStorageService.add('rest_token', $scope.authToken.token);
@@ -259,7 +259,7 @@ define(['app'], function(app) {
 			$scope.proSubmit = function(){
                 // AutoFill Fix
                 angular.element(document.getElementsByTagName('input')).checkAndTriggerAutoFillEvent();
-				
+
 				$scope.authToken = AuthToken.save($scope.pro, function(){
 					localStorageService.add('Authorization', 'Token ' + $scope.authToken.token);
 					localStorageService.add('rest_token', $scope.authToken.token);
@@ -327,7 +327,7 @@ define(['app'], function(app) {
 			$scope.addressesInputs = {};
 			$scope.getLocation = function(val) {
 				delete $http.defaults.headers.common['Authorization']
-				return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+				return $http.get('https://maps.googleapis.com/maps/api/geocode/json', {
 					params: {
 				    address: val,
 				    sensor: false,
@@ -359,10 +359,10 @@ define(['app'], function(app) {
 					return addresses;
 				});
 			};
-	
+
 
 	}]);
-    
+
 
 
 });
