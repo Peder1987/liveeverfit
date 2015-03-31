@@ -19,14 +19,14 @@ class SpanForm(forms.ModelForm):
 class EventForm(SpanForm):
     def __init__(self, hour24=False, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
-    
+
     class Meta:
         model = Event
         exclude = ('creator', 'created_on', 'calendar')
-        
+
 
 class OccurrenceForm(SpanForm):
-    
+
     class Meta:
         model = Occurrence
         exclude = ('original_start', 'original_end', 'event', 'cancelled')

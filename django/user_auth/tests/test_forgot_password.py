@@ -10,7 +10,7 @@ from django.contrib.auth.models import check_password
 
 
 class ChangePassword(APITestCase):
-    
+
     def setUp(self):
         self.User = User
         self.user = User.objects.create_user('bob@gmail.com', 'password')
@@ -18,58 +18,52 @@ class ChangePassword(APITestCase):
 
 
     def test_no_email(self):
-        data = {'email':''} 
+        data = {'email':''}
         response = self.client.post('/accounts/forgot-password/', data, format='json')
         print '1.Response:' + str(response)
         print '2.Response Code:' + str(response.status_code)
 
-        self.assertEqual(response.data['email'][0],'This field is required.') 
+        self.assertEqual(response.data['email'][0],'This field is required.')
         self.assertEqual(response.status_code,400)
 
 
     def test_invalid_email(self):
-        data = {'email':'invalid'} 
+        data = {'email':'invalid'}
         response = self.client.post('/accounts/forgot-password/', data, format='json')
         print '1.Response:' + str(response)
         print '2.Response Code:' + str(response.status_code)
 
-        self.assertEqual(response.data['email'][0],'Enter a valid email address.') 
+        self.assertEqual(response.data['email'][0],'Enter a valid email address.')
         self.assertEqual(response.status_code,400)
 
 
     def test_user_does_not_exist(self):
-        data = {'email':'this_user_does_not_exist@yahoo.com'} 
+        data = {'email':'this_user_does_not_exist@yahoo.com'}
         response = self.client.post('/accounts/forgot-password/', data, format='json')
         print '1.Response:' + str(response)
         print '2.Response Code:' + str(response.status_code)
 
-        self.assertEqual(response.data['email'][0],'User does not exist') 
+        self.assertEqual(response.data['email'][0],'User does not exist')
         self.assertEqual(response.status_code,400)
 
 
     def test_user_does_not_exist(self):
-        data = {'email':'this_user_does_not_exist@yahoo.com'} 
+        data = {'email':'this_user_does_not_exist@yahoo.com'}
         response = self.client.post('/accounts/forgot-password/', data, format='json')
         print '1.Response:' + str(response)
         print '2.Response Code:' + str(response.status_code)
 
-        self.assertEqual(response.data['email'][0],'User does not exist') 
+        self.assertEqual(response.data['email'][0],'User does not exist')
         self.assertEqual(response.status_code,400)
 
 
-    def test_sucess_email_sent(self):
-        data = {'email':'bob@gmail.com'} 
+    def test_success_email_sent(self):
+        data = {'email':'bob@gmail.com'}
         response = self.client.post('/accounts/forgot-password/', data, format='json')
         print '1.Response:' + str(response)
         print '2.Response Code:' + str(response.status_code)
 
-        self.assertEqual(response.data['details'][0],'Email sent') 
+        self.assertEqual(response.data['details'][0],'Email sent')
         self.assertEqual(response.status_code,200)
 
 
-
-
-
-
-
-    

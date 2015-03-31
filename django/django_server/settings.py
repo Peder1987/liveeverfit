@@ -18,7 +18,7 @@ TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
-    
+
 )
 
 # Sends email to the console for debugging purposes, comment out for production
@@ -172,7 +172,7 @@ INSTALLED_APPS = (
     'contact',
     'membership',
     'stripe_payments',
-    
+
     #Imported Apps
     'south',
     'middleware',
@@ -209,7 +209,7 @@ else:
     token_class = 'user_auth.authentication.TokenAuthentication'
 
 # In Debug mode, djangos browsable api will be activated (up for discussion)
-#  allowing developer to log in easily with email and password 
+#  allowing developer to log in easily with email and password
 
 
 REST_FRAMEWORK = {
@@ -238,7 +238,7 @@ REST_FRAMEWORK = {
 if DEBUG:
     REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] += ('user_auth.authentication.DebugAuthentication',)
 
-# Registration App 
+# Registration App
 ACCOUNT_ACTIVATION_DAYS = 7
 
 # Testing

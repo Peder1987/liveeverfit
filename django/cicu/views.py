@@ -94,7 +94,7 @@ def upload_profile_picture(request):
             uploaded_file.file.delete(False)
             uploaded_file.delete()
             return HttpResponseBadRequest(json.dumps({'errors': ['Minimum resolution requirement 500x500 not met']}))
-       
+
         # get the image's width and height in pixels
         width, height = img.size
         data = {
@@ -161,7 +161,7 @@ def crop_profile_picture(request):
             f = open(pathToFile, mode='rb')
             user.img.save(uploaded_file.file.name, File(f))
             f.close()
-            
+
             file_img = pathToFile
             os.remove(file_img)
 

@@ -25,6 +25,6 @@ class TestEvent(TestCase):
         #        }
 
     def test_calendar(self):
-    	print 'dib'
-    	print self.user.calendar
-    	self.assertFalse(True)
+        print 'dib'
+        print self.user.calendar
+        self.assertFalse(True)

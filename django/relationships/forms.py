@@ -60,7 +60,7 @@ class UserEmailCreationForm(UserCreationForm):
 
     class Meta:
         model = User
-        
+
 
 class UserEmailChangeForm(UserChangeForm):
     """A form for updating users. Includes all the fields on

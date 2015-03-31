@@ -8,4 +8,4 @@ from taggit.models import Tag
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-      
+

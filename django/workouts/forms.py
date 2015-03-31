@@ -16,7 +16,6 @@ class VideoCommentForm(forms.ModelForm):
         fields = ('video_id', 'user', 'comment', 'pub_date')
 
 
-
 class VideoForm(forms.ModelForm):
 
     class Meta:
@@ -24,4 +23,4 @@ class VideoForm(forms.ModelForm):
         fields = ('user', 'title', 'description', 'difficulty')
 
     def __init__(self, *args, **kargs):
-    	super(VideoForm, self).__init__(*args, **kargs)
+        super(VideoForm, self).__init__(*args, **kargs)

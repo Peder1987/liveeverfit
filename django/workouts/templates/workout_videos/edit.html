@@ -6,14 +6,13 @@
 
 {% for video in videos %}
 <span class="thumbnail">
-	<h2><a href="/workouts/video-edit/{{video.id}}/">{{video.title}}</a></h2>
+    <h2><a href="/workouts/video-edit/{{video.id}}/">{{video.title}}</a></h2>
 </span>
 {% endfor %}
 
 {% else %}
 <h1>Get Out</h1>
 {% endif %}
-
 
 
 {% endblock %}

@@ -12,7 +12,7 @@ from user_auth.authentication import ExpiringTokenAuthentication
 from rest_framework import exceptions
 
 class TokenExpirationTest(APITestCase):
-    
+
     def setUp(self):
         self.expires_days = getattr(settings, 'TOKEN_EXPIRE_DAYS', 14)
         self.User = User
@@ -55,4 +55,4 @@ class TokenExpirationTest(APITestCase):
         # should fail test, outside of boundaries
         self.assertTrue(auth_failed)
 
-        
+

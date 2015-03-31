@@ -61,9 +61,9 @@ def register(request):
         user_data.pop('certification_number2', None)
         user_data.pop('phone', None)
         user_data.pop('twitter', None)
-        user_data.pop('facebook', None) 
-        user_data.pop('instagram', None) 
-        user_data.pop('youtube', None) 
+        user_data.pop('facebook', None)
+        user_data.pop('instagram', None)
+        user_data.pop('youtube', None)
         user_data.pop('linkedin', None)
         user_data.pop('plus', None)
 
@@ -80,12 +80,12 @@ def register(request):
             user.referred_by.save()
             user.relationships.add(pro_ref)
             notify.send(user, recipient=pro_ref, verb=u'is following you', target=user)
-        
+
         for pro in FeaturedProfessional.objects.all():
             pro_ref = pro.professional
             user.relationships.add(pro_ref)
             notify.send(user, recipient=pro_ref, verb=u'is following you', target=user)
-            
+
         try:
             city = temp_address['city']
             city = str(city)
@@ -177,7 +177,6 @@ def register_professional(request):
         pro.save()
 
 
-        
         response = ReturnUserSerializer(instance=user).data
         response['token'] = user.auth_token.key
         response['id'] = user.id
@@ -203,7 +202,7 @@ def logout(request):
         request.user.auth_token.delete()
         return Response({'details':'Logged out'}, status=status.HTTP_200_OK)
     except:
-        return Response({'details':'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)        
+        return Response({'details':'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class AuthTokenSerializer(serializers.Serializer):
@@ -244,7 +243,7 @@ class ObtainAuthToken(APIView):
             token, created = Token.objects.get_or_create(user=serializer.object['user'])
             return Response({'token': token.key, 'id': id})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+
 obtain_auth_token = ObtainAuthToken.as_view()
 
 
@@ -335,7 +334,6 @@ def reset_password(request):
             return Response({'change_password_token':['Invalid change password token']}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
-    
 
 
 

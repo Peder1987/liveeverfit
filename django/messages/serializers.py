@@ -16,7 +16,7 @@ class senderReceiverSerializer(serializers.ModelSerializer):
 class InboxSerializer(serializers.ModelSerializer):
     sender = senderReceiverSerializer(read_only=True)
     recipient = senderReceiverSerializer(read_only=True)
-    
+
     class Meta:
         model = Message
 
@@ -30,7 +30,7 @@ class TrashSerializer(InboxSerializer):
     pass
 
 class DeleteSerializer(serializers.ModelSerializer):
-    view = serializers.CharField(required=True)  
+    view = serializers.CharField(required=True)
     class Meta:
         model = Message
         fields = ('id', 'view',)
@@ -42,7 +42,7 @@ class DeleteSerializer(serializers.ModelSerializer):
         an existing model instance, or create a new model instance.
         """
         obj = super(DeleteSerializer, self).restore_object(attrs, instance)
-        
+
         if 'inbox' in attrs['view']:
             obj.recipient_deleted_at = now()
             obj.save()
@@ -70,7 +70,7 @@ class UnDeleteSerializer(serializers.ModelSerializer):
         obj.save()
         return obj
 
-        
+
 class ComposeSerializer(serializers.ModelSerializer):
     # recipient = serializers.SlugRelatedField(slug_field="email")
 
@@ -79,7 +79,7 @@ class ComposeSerializer(serializers.ModelSerializer):
         fields = ('recipient', 'subject', 'body', 'sender')
 
     def __init__(self, *args, **kwargs):
-        
+
         # Logged in user to be sender
         try:
             user = kwargs['context']['request'].user
@@ -119,7 +119,7 @@ class ConnectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'connection', 'user_id')
-        
+
 
     def to_native(self, value):
         #print value
@@ -140,4 +140,4 @@ class ConnectionSerializer(serializers.ModelSerializer):
                 obj['connection'] = AdminSerializer(instance=user).data
         return obj
 
-    
+

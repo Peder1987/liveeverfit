@@ -12,13 +12,12 @@ from notifications import notify
 from relationships.models import RelationshipStatus
 Block = RelationshipStatus.objects.get(name='Blocking')
 
-# This importation is implemented due to 
+# This importation is implemented due to
 # django and MTI (Multi Table inheritance)
 # not allowing to do a reverse table lookup for
 # a specific entry rather only the generic "Entry"
 from feed.models import SharedEntry
 from taggit.models import Tag
-
 
 
 class CertificationSerializer(serializers.ModelSerializer):
@@ -39,18 +38,18 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TagListSerializer(serializers.WritableField):
-     
+
     def from_native(self, data):
         if type(data) is not list:
-            raise ParseError("expected a list of data")     
+            raise ParseError("expected a list of data")
         return data
-     
+
     def to_native(self, obj):
         if type(obj) is not list:
             return [tag.name for tag in obj.all()]
-        return obj 
+        return obj
 
-      
+
 class SettingsProfessionalSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='email', required=False)
     img = serializers.ImageField(allow_empty_file=True, required=False)
@@ -60,16 +59,16 @@ class SettingsProfessionalSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Professional
-        fields = ('email', 'img', 'certifications','id', 'first_name', 'last_name', 'tier', 'gender', 
-                'location', 'lat', 'lng', 'twitter', 'facebook', 'instagram', 'youtube', 'linkedin', 'plus', 
-                'bio', 'referred_by', 'shopify_id', 'chargify_id', 'stripe_id', 'url', 'phone', 'primary_address', 
+        fields = ('email', 'img', 'certifications','id', 'first_name', 'last_name', 'tier', 'gender',
+                'location', 'lat', 'lng', 'twitter', 'facebook', 'instagram', 'youtube', 'linkedin', 'plus',
+                'bio', 'referred_by', 'shopify_id', 'chargify_id', 'stripe_id', 'url', 'phone', 'primary_address',
                 'profession', 'is_accepting', 'queue', 'fitness_sales_experience', 'education', 'date_joined', 'tags')
 
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', "customer_list")
-  
+
 
 class SettingsSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(source='id', required=True)  
+    id = serializers.IntegerField(source='id', required=True)
     first_name = serializers.CharField(source='first_name', required=False)
     last_name = serializers.CharField(source='last_name', required=False)
     email = serializers.EmailField(source='email', required=False)
@@ -121,20 +120,20 @@ class ProfileProfessionalSerializer(serializers.ModelSerializer):
                     'tier', 'referred_by', 'shopify_id', 'chargify_id', 'stripe_id', 'phone', 'is_professional',
                     'is_upgraded', 'is_superuser', 'primary_address', 'is_staff', 'queue', 'following', 'relationships')
 
-    
+
 class ProfileSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(source='id', required=True)  
+    id = serializers.IntegerField(source='id', required=True)
     first_name = serializers.CharField(source='first_name', required=False)
     last_name = serializers.CharField(source='last_name', required=False)
     last_login_on = serializers.DateTimeField(source='last_login',read_only=True)
     joined_on = serializers.DateTimeField(source='date_joined', read_only=True)
     img = serializers.ImageField(allow_empty_file=True, required=False)
     tags = TagListSerializer(required=False)
-    
+
     class Meta:
         model = User
         exclude = ('password', 'is_superuser', 'connection', 'groups', 'user_permissions', 'primary_address', 'following', 'relationships')
-        
+
     def to_native(self, value):
         obj = super(ProfileSerializer, self).to_native(value)
         tags =  obj.get('tags')
@@ -150,7 +149,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             obj['type'] = 'upgraded'
         else:
             obj['type'] = 'user'
-        #data about user logged in accessing this profile   
+        #data about user logged in accessing this profile
         user = self.context['request'].user
 
         obj['likes'] = value.entries_liked.count() + value.video_like.count()
@@ -160,7 +159,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         obj['inspiration'] = SharedEntry.objects.filter(entry__user=value).count() +  value.comments.count()
         # if the value of USER is the same as the logged in users
         # connection then they are connected
-        
+
         if user.connection and value.pk == user.connection.pk:
             obj['user_connected'] = True
         else:
@@ -170,7 +169,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             obj['user_can_connect'] = False
         else:
             obj['user_can_connect'] = True
-        
+
         # check if user is following this profile
         if value.relationships.followers().filter(pk=user.pk).exists():
             obj['user_follows'] = True
@@ -219,7 +218,7 @@ class FollowUserSerializer(serializers.ModelSerializer):
     def to_native(self, value):
         obj = super(FollowUserSerializer, self).to_native(value)
         user = User.objects.get(id=obj['user_id'])
-        
+
         if value.relationships.following().filter(pk=user.pk).exists():
             obj['user_follows'] = False
             value.relationships.remove(user)
@@ -239,7 +238,7 @@ class BlockUserSerializer(serializers.ModelSerializer):
     def to_native(self, value):
         obj = super(BlockUserSerializer, self).to_native(value)
         user = User.objects.get(id=obj['user_id'])
-        
+
         if value.relationships.blocking().filter(pk=user.pk).exists():
             obj['user_blocks'] = False
             value.relationships.remove(user, Block)
@@ -248,6 +247,7 @@ class BlockUserSerializer(serializers.ModelSerializer):
             value.relationships.add(user, Block)
 
         return obj
+
 
 class ConnectUserSerializer(serializers.ModelSerializer):
     professional_id = serializers.CharField(max_length=50)
@@ -343,7 +343,7 @@ class ClientListSerializer(serializers.ModelSerializer):
 
 class ModifyMembershipSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='email', required=False)
-    
+
     class Meta:
         model = User
 
@@ -353,7 +353,7 @@ class ModifyMembershipSerializer(serializers.ModelSerializer):
         value.stripe_cancel_subscription()
         value.cancel_professional()
 
-        
+
 class CreditcardSerializer(serializers.ModelSerializer):
     creditcard = serializers.Field(source='stripe_get_creditcard')
 
@@ -375,7 +375,8 @@ class PaymentSerializer(serializers.ModelSerializer):
         value.stripe_edit_creditcard(stripe_token)
         value.stripe_update_subscription()
 
-class GroupTagSerializer(serializers.ModelSerializer):    
+
+class GroupTagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User

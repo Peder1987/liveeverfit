@@ -9,9 +9,10 @@ from rest_framework.authentication import TokenAuthentication, BaseAuthenticatio
 from rest_framework import exceptions, HTTP_HEADER_ENCODING
 expiration = getattr(settings, 'TOKEN_EXPIRE_DAYS', 14)
 
+
 class ExpiringTokenAuthentication(TokenAuthentication):
     def authenticate_credentials(self, key):
-        
+
         try:
             token = self.model.objects.get(key=key)
         except self.model.DoesNotExist:
@@ -26,7 +27,6 @@ class ExpiringTokenAuthentication(TokenAuthentication):
             raise exceptions.AuthenticationFailed('Token has expired')
 
         return (token.user, token)
-
 
 
 def get_authorization_header(request):

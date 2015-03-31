@@ -15,12 +15,11 @@ from django.contrib.auth.decorators import user_passes_test
 #@user_passes_test(lambda u: u.is_superuser)
 def home(request):
     lef_users = CustomUser.objects.all()
-    
+
     individual_user = CustomUser.objects.get(email='isaax@utexas.edu')
     individual_user.shopify_create('')
     #individual_user.shopify_create('admin')
     #print individual_user.shopify_create('L00k$yFit')
-    
 
     return HttpResponse('test')
 

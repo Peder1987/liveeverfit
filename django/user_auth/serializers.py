@@ -11,9 +11,10 @@ User = get_user_model()
 
 
 
-class CreateUserSerializer(serializers.ModelSerializer):  
+class CreateUserSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only=True)
- 
+
+
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'password', 'password2', 'gender', 'tier')
@@ -31,7 +32,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
         if attrs['password'] != password2:
             raise serializers.ValidationError('Both passwords must match')
         return attrs
- 
+
     def to_native(self, obj):
         self.fields.pop('password2')
         return super(CreateUserSerializer, self).to_native(obj)
@@ -42,9 +43,9 @@ class CreateUserSerializer(serializers.ModelSerializer):
         return obj
 
 
-class CreateProSerializer(serializers.Serializer):  
+class CreateProSerializer(serializers.Serializer):
     email = serializers.EmailField()
- 
+
 
 class PasswordSerializer(serializers.Serializer):
     password = serializers.CharField(
@@ -57,13 +58,13 @@ class EmailSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
 
-class ReturnUserSerializer(serializers.ModelSerializer):  
+class ReturnUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'id')
 
 
-class LogoutSerializer(serializers.ModelSerializer):  
+class LogoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'email',)
@@ -73,7 +74,7 @@ class LogoutSerializer(serializers.ModelSerializer):
         #obj = super(LogoutSerializer, self).restore_object(attrs, instance)
         obj = User.objects.get(email=email)
         return obj
-    
+
 
 class ChangePasswordSerializer(serializers.Serializer):
     token = serializers.CharField()

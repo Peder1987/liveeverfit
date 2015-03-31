@@ -16,7 +16,6 @@ from schedule.models.rules import Rule
 from feed.models import Entry
 
 
-
 class EventManager(models.Manager):
 
     def get_for_object(self, content_object, distinction=None, inherit=True):
@@ -62,7 +61,7 @@ class Event(Entry):
         Creates a EventRelation between self and obj.
         """
         EventRelation.objects.create_relation(self, obj, distinction)
-    
+
     def get_rrule_object(self):
         if self.rule is not None:
             params = self.rule.get_params()
@@ -361,8 +360,6 @@ class Occurrence(models.Model):
             'minute': self.start.minute,
             'second': self.start.second,
         })
-
-
 
     def __unicode__(self):
         return ugettext("%(start)s to %(end)s") % {

@@ -18,7 +18,6 @@ reverse_tier_handle_choices = {
             }
 
 
-
 def get_or_create_customer(self):
 
     if not self.stripe_id:
@@ -119,7 +118,7 @@ def get_creditcard(self):
         card = customer.cards.retrieve(default_card)
         return card
     else:
-        return 
+        return
 
 
 def delete_creditcard(self):
@@ -159,7 +158,4 @@ def cancel_subscription(self):
     except:
         pass
 
-
-
-   
 

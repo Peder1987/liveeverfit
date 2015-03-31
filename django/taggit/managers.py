@@ -285,8 +285,8 @@ class TaggableManager(RelatedField, Field):
 
     def get_joining_columns(self, reverse_join=False):
 
-        #EASY FIX IF INHERITED CLASS THEN RATHER THAN
-        # GIVE ID, YOU GIVE IT THE POINTER TO THE PARENT MODEL 
+        # EASY FIX IF INHERITED CLASS THEN RATHER THAN
+        # GIVE ID, YOU GIVE IT THE POINTER TO THE PARENT MODEL
         # IN THIS CASE PROFESSIONAL HAS customuser_ptr
 
         if self.model.__name__ == 'Professional':

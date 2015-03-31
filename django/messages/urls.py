@@ -10,8 +10,7 @@ from messages.views import ReplyMessageObjView, ConnectionView, MessageView
 
 # urlpatterns = patterns('',
 #     url(r'^$', RedirectView.as_view(url='inbox/'), name='messages_redirect'),
-                                            
-                                            
+
 #     url(r'^compose/$', compose, name='messages_compose'),
 #     url(r'^compose/(?P<recipient>[\w.@+-]+)/$', compose, name='messages_compose_to'),
 #     url(r'^reply/(?P<message_id>[\d]+)/$', reply, name='messages_reply'),
@@ -38,5 +37,5 @@ urlpatterns = patterns('',
     url(r'^delete/(?P<pk>[0-9]+)$', DeleteMessageObjView.as_view()),
     url(r'^undelete/(?P<pk>[0-9]+)$', UnDeleteMessageObjView.as_view()),
      url(r'^message/(?P<pk>[0-9]+)$', MessageView.as_view()),
-    
+
 )

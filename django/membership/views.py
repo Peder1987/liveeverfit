@@ -19,7 +19,6 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def upgrade(request):
@@ -62,7 +61,7 @@ def user_tier(request):
 
         if user.tier == 6 or user.tier == 7:
             return Response({'error': ['Already a profesional']}, status=status.HTTP_400_BAD_REQUEST)
-        
+
         user.__dict__.update(
             **user_data
         )
@@ -112,9 +111,9 @@ def upgrade_to_professional(request):
 
         email = 'payroll@liveeverfit.com'
         subject = 'New Professional'
-        message = 'New Professional in Live Ever Fit ' + pro.email + '\n' + 'phone: ' + pro.phone + '\n' + 'address: ' + pro.primary_address.street_line1 + ' ' + pro.primary_address.street_line2 + ' ' + pro.primary_address.city + ' ' + pro.primary_address.state + ' ' + pro.primary_address.zipcode   
+        message = 'New Professional in Live Ever Fit ' + pro.email + '\n' + 'phone: ' + pro.phone + '\n' + 'address: ' + pro.primary_address.street_line1 + ' ' + pro.primary_address.street_line2 + ' ' + pro.primary_address.city + ' ' + pro.primary_address.state + ' ' + pro.primary_address.zipcode
         send_mail(subject, message, 'info@liveeverfit.com', [email])
-        
+
         return Response({'details': 'professional'}, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
@@ -128,7 +127,7 @@ def cancel(request):
         user_data = {field: data for (field, data) in request.DATA.items()}
         user_id = user_data.get('id')
         message = user_data.get('message')
-    
+
         if User.objects.filter(id = user_id).exists():
             user = User.objects.get(id = user_id)
             if(user.tier == 1):

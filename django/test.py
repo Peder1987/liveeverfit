@@ -15,12 +15,12 @@ from feed.models import Entry, TextEntry, PhotoEntry
 #Entry.objects.filter(tags__name__in=["delicious"])
 # user = User.objects.get(email='admin@test.com')
 # for entry in PhotoEntry.objects.all():
-# 	print entry
-#  	entry.tags.add('fitness')
+#     print entry
+#      entry.tags.add('fitness')
 
 # for entry in TextEntry.objects.all():
-# 	print entry
-#  	entry.tags.add('fitness')
+#     print entry
+#      entry.tags.add('fitness')
 
 # print Entry.objects.filter(tags__name__in=['fitness'])
 
@@ -31,10 +31,10 @@ from shopify_app import shopify_call
 users = User.objects.all()
 
 for user in users:
-	try:
-		print user.email
-		user.shopify_id = shopify_call.requests_search(user.email)['id']
-		user.save()
-		print user.shopify_id
-	except:
-		print 'doesnt exists'
+    try:
+        print user.email
+        user.shopify_id = shopify_call.requests_search(user.email)['id']
+        user.save()
+        print user.shopify_id
+    except:
+        print 'doesnt exists'

@@ -13,7 +13,6 @@ from .permissions import IsAdminOrSelf
 from .serializers import AllNotificationSerializer
 
 
-
 class AllNotificationViewSet(viewsets.ModelViewSet):
     model = Notification
     serializer_class = AllNotificationSerializer
@@ -30,4 +29,4 @@ class AllNotificationViewSet(viewsets.ModelViewSet):
         else:
             pass
         return Response({'details':['success']}, status=status.HTTP_200_OK)
-        
+

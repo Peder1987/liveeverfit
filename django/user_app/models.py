@@ -16,7 +16,6 @@ from shopify_app import shopify_call
 from stripe_payments.views import*
 
 
-
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         now = timezone.now()
@@ -209,16 +208,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         self.is_professional = False
         self.is_upgraded = False
         self.save()
-            
+
     def delete_professional(self):
         # this function is called to delete a professional
         # who was not accepted
-        # so it returns them back to the tier they were at    
+        # so it returns them back to the tier they were at
         if self.tier == 6 or self.tier == 7:
             self.tier = 1
-            
+
         self.save()
-    
+
     def add_to_locations(self):
         try:
             UniqueLocation.objects.get(location= self.location)
@@ -258,8 +257,6 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 @receiver(pre_delete, sender=CustomUser)
 def delete_customuser(sender, instance, **kwargs):
     instance.shopify_delete()
-    
-
 
 
 class AddressManager(models.Manager):
@@ -274,7 +271,7 @@ class AddressManager(models.Manager):
 
 class Address(models.Model):
     """
-    Standard Address Model:    
+    Standard Address Model:
     If needing in a specific format such as street_line1 should billing_street_line1
     write a custom function to deliver your data specified
     Typically custom functions used for using a 3rd party API such as Stripe or Shopify
@@ -283,7 +280,7 @@ class Address(models.Model):
         ('HOME', 'Home'),
         ('WORK', 'Work'),
         ('OTHER', 'Other'),
-    ) 
+    )
     type = models.CharField(_('Type'), max_length=20, choices = TYPES_CHOICES, blank=True,)
     firstname = models.CharField(_('Firstname'), max_length = 50, blank = True)
     lastname = models.CharField(_('Lastname'), max_length = 50, blank = True)
@@ -317,14 +314,13 @@ class Address(models.Model):
         }
 
     def custom_format(self):
-        """A consistant dictionary that matches custom needs 
+        """A consistant dictionary that matches custom needs
         """
         return {
             'state': self.state, 'city': self.city, 'first_name': self.owner.first_name, 'last_name': self.owner.last_name,
             'zip': self.zipcode, 'default': True, 'billing_address1': self.street_line1,
             'billing_address2': self.street_line2, 'phone': self.owner.phone, 'country': self.country, 'company': self.corporation
         }
-
 
 
 class UniqueLocation(models.Model):
@@ -355,7 +351,7 @@ class Certification(models.Model):
 
     def __unicode__(self):
         return self.certification_name
-        
+
 
 class ProfessionalManager(models.Manager):
     def create_prof(self, user):
@@ -372,7 +368,7 @@ class Professional(CustomUser):
         ('Promoter', 'Promoter'),
         ('Instructor', 'Instructor'),
     )
-    
+
     profession = models.CharField(_('profession'), max_length=30, blank=True, choices=PROFESSIONAL_CHOICES)
     is_accepting = models.BooleanField(_('accepting'), default=False)
 
@@ -393,7 +389,6 @@ class Professional(CustomUser):
 
     shopify_sales = shopify_call.customer_sales_to_date
 
-    
 
     #Metadata
     def __unicode__(self):
@@ -441,5 +436,4 @@ class StaticTags(models.Model):
     class Meta:
         verbose_name = _('StaticTags')
         verbose_name_plural = _('StaticTags')
-
 

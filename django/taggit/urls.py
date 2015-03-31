@@ -7,6 +7,6 @@ router = routers.SimpleRouter(trailing_slash=False)
 
 
 urlpatterns = patterns('',
-	url(r'^$', TagViewSet.as_view()),
-	
+    url(r'^$', TagViewSet.as_view()),
+
 )

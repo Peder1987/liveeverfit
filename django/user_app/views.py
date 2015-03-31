@@ -16,7 +16,7 @@ from .serializers import FollowUserSerializer, BlockUserSerializer, ConnectUserS
 from .permissions import IsAdminOrSelf, IsOwnerOrReadOnly, AuthenticatedReadOnly
 from .models import Professional, UniqueLocation, StaticTags
 
-#
+
 class UserListView(generics.ListAPIView):
     paginate_by = 50
     model = User
@@ -31,7 +31,7 @@ class UserViewSet(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAdminOrSelf,)
     serializer_class = SettingsSerializer
     filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
-    
+
 
     def post_save(self, obj, created=False):
         if type(obj.tags) is list:
@@ -82,11 +82,13 @@ class ProfessionalObjView(generics.RetrieveUpdateDestroyAPIView):
             user = User.objects.get(pk=obj.pk)
             user.tags.set(*obj.tags)
 
+
 class CreditcardView(generics.RetrieveAPIView):
     model = User
     permission_classes= (IsAdminOrSelf,)
     serializer_class = CreditcardSerializer
     #filter_backends =
+
 
 class ClientListView(generics.ListAPIView):
     paginate_by = 50
@@ -101,32 +103,37 @@ class ModifyMembershipView(generics.RetrieveAPIView):
     model = User
     permission_classes = (IsAuthenticated,)
     serializer_class = ModifyMembershipSerializer
-    
+
 
 class PaymentView(generics.RetrieveUpdateDestroyAPIView):
     model = User
     permission_classes = (IsAdminOrSelf,)
     serializer_class = PaymentSerializer
-    
+
+
 class UserLikeView(generics.UpdateAPIView, generics.DestroyAPIView):
     model = User
     permission_classes = (IsAdminOrSelf,)
     serializer_class = UserLikeSerializer
+
 
 class FollowUserView(generics.UpdateAPIView):
     model = User
     permission_classes = (IsAuthenticated,)
     serializer_class = FollowUserSerializer
 
+
 class BlockUserView(generics.UpdateAPIView):
     model = User
     permission_classes = (IsAuthenticated,)
     serializer_class = BlockUserSerializer
 
+
 class ConnectUserView(generics.UpdateAPIView):
     model = User
     permission_classes = (IsAuthenticated,)
     serializer_class = ConnectUserSerializer
+
 
 class FanaticsListView(generics.ListAPIView):
     paginate_by = 500
@@ -150,13 +157,15 @@ class GroupTagView(generics.ListAPIView):
     # and unify/standardize this serializer
     serializer_class = GroupTagSerializer
     filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
-    
+
     def get_queryset(self):
         type = self.kwargs.get('type', None)
         if type:
             return User.objects.filter(tags__name=type).order_by('?')
         else:
             return []
+
+
 class StaticTagViewSet(generics.ListAPIView):
     paginate_by = 50
     model = StaticTags

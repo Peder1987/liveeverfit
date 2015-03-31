@@ -92,7 +92,7 @@ define(['angularAMD',
             $rootScope.token = localStorageService.get('Authorization');
             $rootScope.user_type = localStorageService.get('user_type');
             $http.defaults.headers.common['Authorization'] = localStorageService.get('Authorization');
-            
+
             var mentionCollection = $resource("https://:url/feed/typeahead", {
                 url: 'api.liveeverfit.com'
             });
@@ -100,9 +100,9 @@ define(['angularAMD',
                 $rootScope.mentions = mentions.results;
             });
             if(navigator.splashscreen) {
-            	setTimeout(function() {
-            		navigator.splashscreen.hide();
-            	}, 1000);
+                setTimeout(function() {
+                    navigator.splashscreen.hide();
+                }, 1000);
             }
         });
 
@@ -200,7 +200,7 @@ define(['angularAMD',
 
         app.controller('NavCtrl', ['$rootScope', 'localStorageService', '$resource', '$state', '$timeout', '$scope', 'toaster', 'rest', 'restricted',
             function ($rootScope, localStorageService, $resource, $state, $timeout, $scope, toaster) {
-                
+
                 $scope.isCollapsed = true;
                 var notificationsResource = $resource(":protocol://:url/notifications/", {
                     protocol: $scope.restProtocol,
@@ -261,7 +261,7 @@ define(['angularAMD',
                                 $state.go('profile', {}, { reload: true});
                             }
                             var notificationsCallback = notificationsIdResource.update({id: value.id}, function () {
-                                $rootScope.$$childHead.tick(); 
+                                $rootScope.$$childHead.tick();
                             });
                         }
                     });

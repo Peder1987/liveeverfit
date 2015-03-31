@@ -3,7 +3,7 @@ var url = require("url");
 describe('angular', function() {
     var ptor = protractor.getInstance();
     ptor.ignoreSynchronization = true;
-    
+
     //This function  replaces "ptor.get", because "prot.get" will not wait for manual bootstrapping.
     //This function adds 0.5 sec wait before checking that the url has been set correctly.
     function ptor_get(rel_path, pause_by) {
@@ -182,8 +182,4 @@ describe('angular', function() {
 
     });
 
-
-
-
-    
 });

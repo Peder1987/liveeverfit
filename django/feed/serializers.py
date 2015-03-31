@@ -73,14 +73,14 @@ class TagListSerializer(serializers.WritableField):
             pass
         if type(data) is not list:
             raise serializers.ValidationError("Expected a list for tags")
-        
+
         return [tag["name"] for tag in data]
-     
+
     def to_native(self, obj):
         """Format to return to user"""
         if type(obj) is not list:
             return [tag.name for tag in obj.all()]
-        return obj 
+        return obj
 
 
 class AbstractEntrySerializer(serializers.ModelSerializer):

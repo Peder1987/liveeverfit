@@ -22,9 +22,9 @@ class TaggedEntry(TaggedItemBase):
 
 class Entry(TimeStampedModel):
     """
-	Entry class will be abstracted in order to 
-	define the types of entries
-	"""
+    Entry class will be abstracted in order to
+    define the types of entries
+    """
     type = "text"
     user = models.ForeignKey(User, related_name="%(app_label)s_%(class)s")
     text = models.TextField(_('text'), max_length=500000, blank=True)
@@ -36,7 +36,7 @@ class Entry(TimeStampedModel):
 
 class TextEntry(Entry):
     type = 'text'
-    
+
 class PhotoEntry(Entry):
     type = 'photo'
     img = models.ImageField(_('image'), upload_to=get_upload_path, blank=False)
@@ -47,7 +47,7 @@ class VideoEntry(Entry):
 
 class BlogEntry(Entry):
     type = 'blog'
-    # WARNING: When changing max_length refer to 
+    # WARNING: When changing max_length refer to
     # http://stackoverflow.com/questions/2108824/mysql-incorrect-string-value-error-when-save-unicode-string-in-django
     # This alters the text field in order to handle the correct format. Change the VARCHAR(255) to VARCHAR(max_length_value)
     body = models.TextField(_('Body'), max_length=1000000, default='')
@@ -55,7 +55,7 @@ class BlogEntry(Entry):
 class SharedEntry(Entry):
     type = 'shared'
     entry = models.ForeignKey(Entry, related_name="shared")
-    
+
 class Comment(TimeStampedModel):
     entry = models.ForeignKey(Entry, related_name='comments')
     user = models.ForeignKey(User, related_name='comments')

@@ -8,29 +8,26 @@ from django.utils.timezone import utc, now
 
 @receiver(post_save, sender=User)
 def create_user_calendar(sender, instance=None, created=False, **kwargs):
-	"""
-	Creates a calendar per user, and attaches an event saying when user
-	created profile
-	"""
-	if created:
-                
-                user = instance
-                title = 'Account created'
-                text = 'Account created'
-                description = 'Account was created!'
-                start = now()
-                end = now() + datetime.timedelta(hours=1)
-                data = {'creator' : user,
-                        'user' : user,
-                        'title' : title,
-                        'text' : text,
-                        'description' : description,
-                        'start' : start,
-                        'end' : end,
-                        }
-                create_event = Event(**data)
-                create_event.save()
-        
-
+    """
+    Creates a calendar per user, and attaches an event saying when user
+    created profile
+    """
+    if created:
+         user = instance
+         title = 'Account created'
+         text = 'Account created'
+         description = 'Account was created!'
+         start = now()
+         end = now() + datetime.timedelta(hours=1)
+         data = {'creator' : user,
+                 'user' : user,
+                 'title' : title,
+                 'text' : text,
+                 'description' : description,
+                 'start' : start,
+                 'end' : end,
+                 }
+         create_event = Event(**data)
+         create_event.save()
 
 

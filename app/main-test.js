@@ -37,7 +37,7 @@ require.config({
         "uiBootstrap": ['angular'],
         "autoFillEvent": ['angular']
     },
-    
+
     //kick start the application
     deps: tests,
     callback: window.__karma__.start

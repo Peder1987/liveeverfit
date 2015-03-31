@@ -10,8 +10,8 @@
   (Add a class to the holder and style elements for that extended class)
 */
 .jcrop-holder {
-  direction: ltr;
-  text-align: left;
+    direction: ltr;
+    text-align: left;
 }
 
 /* These styles define the border lines */
@@ -27,11 +27,11 @@
 /* This style is used for invisible click targets */
 .jcrop-tracker
 {
-  height: 100%; 
-  width: 100%;
-  -webkit-tap-highlight-color: transparent; /* "turn off" link highlight */
-  -webkit-touch-callout: none;              /* disable callout, image save panel */
-  -webkit-user-select: none;                /* disable cut copy paste */
+    height: 100%;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent; /* "turn off" link highlight */
+    -webkit-touch-callout: none;              /* disable callout, image save panel */
+    -webkit-user-select: none;                /* disable cut copy paste */
 }
 
 /* Positioning of handles and drag bars */
@@ -53,32 +53,32 @@
 /* The "jcrop-light" class/extension */
 .jcrop-light .jcrop-vline,.jcrop-light .jcrop-hline
 {
-	background:#FFF;
-	filter:Alpha(opacity=70)!important;
-	opacity:.70!important;
+    background:#FFF;
+    filter:Alpha(opacity=70)!important;
+    opacity:.70!important;
 }
 .jcrop-light .jcrop-handle
 {
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	background-color:#000;
-	border-color:#FFF;
-	border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    background-color:#000;
+    border-color:#FFF;
+    border-radius:3px;
 }
 
 /* The "jcrop-dark" class/extension */
 .jcrop-dark .jcrop-vline,.jcrop-dark .jcrop-hline
 {
-	background:#000;
-	filter:Alpha(opacity=70)!important;
-	opacity:.7!important;
+    background:#000;
+    filter:Alpha(opacity=70)!important;
+    opacity:.7!important;
 }
 .jcrop-dark .jcrop-handle
 {
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	background-color:#FFF;
-	border-color:#000;
-	border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    background-color:#FFF;
+    border-color:#000;
+    border-radius:3px;
 }
 

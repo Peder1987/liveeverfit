@@ -205,7 +205,7 @@
 
 
 # class TestOccurrencePool(TestCase):
-    
+
 #     def setUp(self):
 #         rule = Rule(frequency = "WEEKLY")
 #         rule.save()

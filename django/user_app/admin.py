@@ -57,13 +57,13 @@ def export_as_csv(modeladmin, request, queryset):
     """
     Generic csv export admin action.
     based on http://djangosnippets.org/snippets/1697/
-    HIGHLY MODIFIED, quick code to finish :p 
+    HIGHLY MODIFIED, quick code to finish :p
     """
     opts = modeladmin.model._meta
 
     field_names = set([field.name for field in opts.fields])
-    fields = ["email", "first_name", "last_name", "tier", "gender", "location", "lat", "lng", 
-            "twitter", "facebook", "instagram", "youtube", "linkedin", "plus", "img", "bio", "shopify_id", 
+    fields = ["email", "first_name", "last_name", "tier", "gender", "location", "lat", "lng",
+            "twitter", "facebook", "instagram", "youtube", "linkedin", "plus", "img", "bio", "shopify_id",
             "chargify_id", "stripe_id", "profession", "is_accepting", ]
     exclude = ['password']
 
@@ -106,7 +106,7 @@ def make_active(modeladmin, request, queryset):
     for obj in queryset:
         email = 'payroll@liveeverfit.com'
         subject = 'New Professional'
-        message = 'New Professional in Live Ever Fit \n' + 'Name: ' + obj.first_name + ' ' + obj.last_name + '\n' + 'Email: ' + obj.email + '\n' + 'phone: ' + obj.phone + '\n' + 'address: ' + obj.primary_address.street_line1 + ' ' + obj.primary_address.street_line2 + ' ' + obj.primary_address.city + ' ' + obj.primary_address.state + ' ' + obj.primary_address.zipcode   
+        message = 'New Professional in Live Ever Fit \n' + 'Name: ' + obj.first_name + ' ' + obj.last_name + '\n' + 'Email: ' + obj.email + '\n' + 'phone: ' + obj.phone + '\n' + 'address: ' + obj.primary_address.street_line1 + ' ' + obj.primary_address.street_line2 + ' ' + obj.primary_address.city + ' ' + obj.primary_address.state + ' ' + obj.primary_address.zipcode
         send_mail(subject, message, 'info@liveeverfit.com', [email])
         if obj.profession == 'Nutritionist':
             email = obj.email
@@ -142,7 +142,7 @@ def make_active(modeladmin, request, queryset):
             print 'No Email Template'
         obj.queue = False
         obj.save()
-        
+
 
 def make_inactive(modeladmin, request, queryset):
     # makes the professional not appear on list
@@ -151,7 +151,7 @@ def make_inactive(modeladmin, request, queryset):
         obj.save()
 
 def decline_professional_move_to_tier_1(modeladmin, request, queryset):
-    #makes a professional to a tier 1, no specifications on how they want it 
+    #makes a professional to a tier 1, no specifications on how they want it
     for obj in queryset:
         obj.delete_professional()
 
@@ -185,14 +185,13 @@ class ProfessionalAdmin(UserAdmin):
     list_display = ('email', 'first_name', 'last_name', 'queue')
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
-    actions = [make_active, make_inactive, decline_professional_move_to_tier_1, export_as_csv] 
+    actions = [make_active, make_inactive, decline_professional_move_to_tier_1, export_as_csv]
     inlines = [CertificationInline,]
 
 admin.site.register(Professional, ProfessionalAdmin)
 
 class FeaturedProfessionalAdmin(admin.ModelAdmin):
     list_display = ('professional',)
-
 
 
 admin.site.register(FeaturedProfessional ,FeaturedProfessionalAdmin)

@@ -16,7 +16,6 @@ from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 
 
-
 # fs = FileSystemStorage(location='/home/miguel/Desktop/')
 
 
@@ -62,9 +61,7 @@ class VideoComment(models.Model):
 
 
     #Metadata
-    
 
- 
 
 
 

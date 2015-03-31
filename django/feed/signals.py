@@ -8,11 +8,11 @@ from django.utils.timezone import utc, now
 
 # @receiver(post_save, sender=User)
 # def create_user_calendar(sender, instance=None, created=False, **kwargs):
-# 	"""
-# 	Creates a calendar per user, and attaches an event saying when user
-# 	created profile
-# 	"""
-# 	if created:
+#     """
+#     Creates a calendar per user, and attaches an event saying when user
+#     created profile
+#     """
+#     if created:
 #                 obj, created = Calendar.objects.get_or_create(user=instance)
 #                 user = instance
 #                 title = 'Account created'
@@ -27,11 +27,11 @@ from django.utils.timezone import utc, now
 #                         'calendar' : obj
 #                         }
 #                 create_event = Event(**data)
-                
+
 #                 create_event.save()
 
 #                 #print obj, created
-        
+
 
 
 

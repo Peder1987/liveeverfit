@@ -10,12 +10,11 @@ router = routers.SimpleRouter(trailing_slash=False)
 #router.register('comments', CommentViewSet)
 
 
-
 urlpatterns = patterns('',
     url(r'^video?$', VideoListView.as_view()),
     url(r'^video/(?P<pk>[0-9]+)$', VideoObjectView.as_view()),
     url(r'^video/comments/(?P<pk>[0-9]+)$', CommentListView.as_view()),
     url(r'^video/likes/(?P<pk>[0-9]+)$', VideoLikeView.as_view()),
-	url(r'^comments/(?P<pk>[0-9]+)$', CommentObjView.as_view()),
+    url(r'^comments/(?P<pk>[0-9]+)$', CommentObjView.as_view()),
     url(r'^titles?$', TitleViewSet.as_view()),
 )

@@ -133,8 +133,8 @@ module.exports = function (grunt) {
         'connect:e2e-www',
         'protractor:e2e-www'
     ]);
-    
-    //Web App 
+
+    //Web App
     grunt.registerTask('serve', [
         'less:development',
         'concurrent:server',

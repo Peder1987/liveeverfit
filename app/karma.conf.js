@@ -4,7 +4,7 @@ module.exports = function (config) {
         basePath: 'angular/', //start at angular module (directory up)
         //frameworks to use
         frameworks: ['jasmine', 'requirejs'],
-        
+
         //list of files / patterns to load in the browser
         files: [
             {
@@ -20,7 +20,7 @@ module.exports = function (config) {
         exclude: [
             'main.js'
         ],
-        
+
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
         reporters: ['progress'],

@@ -6,10 +6,9 @@ from django.http import HttpResponse
 from workouts.models import Video, VideoComment
 
 
-
 class VideoAdmin(admin.ModelAdmin):
     """Admin for invitation code"""
-    
+
     list_display = ('title', 'views', 'pub_date')
 
 #admin.site.register(Invitation, InvitationAdmin)
@@ -18,7 +17,7 @@ admin.site.register(Video, VideoAdmin)
 
 class VideoCommentAdmin(admin.ModelAdmin):
     """Admin for invitation code"""
-    
+
     list_display = ('user','video','comment',)
 
 

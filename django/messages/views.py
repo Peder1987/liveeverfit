@@ -60,20 +60,20 @@ def compose(request, recipient=None, form_class=ComposeForm,
 compose = login_required(compose)
 
 def reply(request, message_id, form_class=ComposeForm,
-        template_name='messages/compose.html', success_url=None, 
+        template_name='messages/compose.html', success_url=None,
         recipient_filter=None, quote_helper=format_quote):
     """
     Prepares the ``form_class`` form for writing a reply to a given message
     (specified via ``message_id``). Uses the ``format_quote`` helper from
     ``messages.utils`` to pre-format the quote. To change the quote format
     assign a different ``quote_helper`` kwarg in your url-conf.
-    
+
     """
     parent = get_object_or_404(Message, id=message_id)
-    
+
     if parent.sender != request.user and parent.recipient != request.user:
         raise Http404
-    
+
     if request.method == "POST":
         sender = request.user
         form = form_class(request.POST, recipient_filter=recipient_filter)
@@ -98,11 +98,11 @@ def delete(request, message_id, success_url=None):
     """
     Marks a message as deleted by sender or recipient. The message is not
     really removed from the database, because two users must delete a message
-    before it's save to remove it completely. 
-    A cron-job should prune the database and remove old messages which are 
+    before it's save to remove it completely.
+    A cron-job should prune the database and remove old messages which are
     deleted by both users.
     As a side effect, this makes it easy to implement a trash with undelete.
-    
+
     You can pass ?next=/foo/bar/ via the url to redirect the user to a different
     page (e.g. `/foo/bar/`) than ``success_url`` after deletion of the message.
     """
@@ -159,10 +159,10 @@ undelete = login_required(undelete)
 def view(request, message_id, template_name='messages/view.html'):
     """
     Shows a single message.``message_id`` argument is required.
-    The user is only allowed to see the message, if he is either 
+    The user is only allowed to see the message, if he is either
     the sender or the recipient. If the user is not allowed a 404
-    is raised. 
-    If the user is the recipient and the message is unread 
+    is raised.
+    If the user is the recipient and the message is unread
     ``read_at`` is set to the current datetime.
     """
     user = request.user
@@ -238,8 +238,8 @@ class UnDeleteMessageObjView(generics.UpdateAPIView):
     permission_classes = (IsAuthenticated,)
     model = Message
     serializer_class = UnDeleteSerializer
-    
-    
+
+
 class ComposeMessageObjView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
     model = Message

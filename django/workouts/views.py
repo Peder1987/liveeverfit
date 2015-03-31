@@ -23,16 +23,18 @@ class VideoListView(generics.ListAPIView):
     filter_backends = (DifficultyFilterBackend, WorkoutTagFilterBackend, SearchFilter,)
     search_fields = ('title', )
 
+
 class VideoObjectView(generics.RetrieveUpdateDestroyAPIView):
     model = Video
     permission_classes = (IsAuthenticated,)
     serializer_class = VideoSerializer
 
+
 class VideoLikeView(generics.UpdateAPIView):
     model = Video
     permission_classes = (IsAuthenticated,)
     serializer_class = VideoLikeSerializer
-    
+
 
 class CommentListView(generics.ListCreateAPIView):
     paginate_by = 5
@@ -42,21 +44,23 @@ class CommentListView(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
     ordering = ('-pub_date',)
     def get_queryset(self):
-        video_id = self.kwargs['pk']        
+        video_id = self.kwargs['pk']
         return VideoComment.objects.filter(video=video_id)
 
     # def post_save(self, obj, created=False):
     #     if User.objects.filter(id = obj.video.user_id).exists():
     #         notify.send(obj.user, recipient=obj.video.user, verb=u'commented on your video!')
 
+
 class CommentObjView(generics.RetrieveUpdateDestroyAPIView):
     model = VideoComment
     permission_classes = (IsAdminOrSelf,)
     filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
 
+
 class TitleViewSet(generics.ListAPIView):
-	paginate_by = None
-	serializer_class = TitleSerializer
-	model = Video
-	permission_classes = (IsAuthenticated,)
-	search_fields = ('title', )
+    paginate_by = None
+    serializer_class = TitleSerializer
+    model = Video
+    permission_classes = (IsAuthenticated,)
+    search_fields = ('title', )
