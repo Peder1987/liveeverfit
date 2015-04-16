@@ -6,8 +6,6 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 from schedule.models.events import Event
-from schedule.models.calendars import Calendar
-
 
 
 class FeedUserSerializer(serializers.ModelSerializer):
@@ -122,14 +120,6 @@ class EventEntrySerializer(AbstractEntrySerializer):
             return attrs
         else:
             return attrs
-
-    def validate_calendar(self, attrs, source):
-        creator = attrs.get('creator')
-        if creator:
-            attrs['calendar'] = Calendar.objects.get(user=creator)
-        else:
-            raise serializers.ValidationError("Creator doesnt exist or not")
-        return attrs
 
     def validate_title(self, attrs, source):
         title = attrs.get('title')

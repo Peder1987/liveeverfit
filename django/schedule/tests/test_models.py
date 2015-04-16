@@ -4,7 +4,8 @@ import os
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 User = get_user_model()
-from schedule.models import Event, Calendar
+#from schedule.models import Event, Calendar
+from schedule.models import Event
 
 class TestEvent(TestCase):
     def setUp(self):
@@ -24,7 +25,7 @@ class TestEvent(TestCase):
         #         #'calendar': cal
         #        }
 
-    def test_calendar(self):
-        print 'dib'
-        print self.user.calendar
-        self.assertFalse(True)
+#    def test_calendar(self):
+#        print 'dib'
+#        print self.user.calendar
+#        self.assertFalse(True)

@@ -25,7 +25,7 @@ from feed.models import Entry, TextEntry, PhotoEntry
 # print Entry.objects.filter(tags__name__in=['fitness'])
 
 
-from schedule.models import Calendar
+#from schedule.models import Calendar
 
 from shopify_app import shopify_call
 users = User.objects.all()
